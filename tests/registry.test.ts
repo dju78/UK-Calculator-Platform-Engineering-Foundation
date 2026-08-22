@@ -1,4 +1,4 @@
-import test from "node:test";
+﻿import test from "node:test";
 import assert from "node:assert/strict";
 import { wave1Registry, validateRegistry, getCalculatorDefinition } from "../packages/calculator-registry/src/index.js";
 
@@ -15,4 +15,20 @@ test("Compound Interest registry record is implemented", () => {
   assert.ok(item);
   assert.equal(item?.implementationStatus, "implemented");
   assert.equal(item?.slug, "compound-interest-calculator");
+});
+
+test("Registry engine implementation matches verified status", async () => {
+  const { implementedCalculatorIds } = await import("../packages/calculation-engine/src/engine.js");
+  const implemented = implementedCalculatorIds();
+  
+  for (const item of wave1Registry) {
+    const hasEngine = implemented.includes(item.id);
+    const isImpl = item.implementationStatus === "implemented";
+    const isVer = item.status === "verified";
+    
+    if (isVer) {
+      assert.ok(hasEngine, item.id + " is verified but missing engine handler");
+      assert.ok(isImpl, item.id + " is verified but implementationStatus is not implemented");
+    }
+  }
 });
