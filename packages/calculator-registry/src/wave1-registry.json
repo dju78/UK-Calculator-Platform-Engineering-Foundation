@@ -702,7 +702,7 @@
     "risk": "low",
     "benchmarkCount": 5,
     "specFile": "03_Calculator-Specifications/Wave-1/MAT-002_scientific_calculator.docx",
-    "implementationStatus": "specified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "MAT-003",
@@ -717,7 +717,7 @@
     "risk": "low",
     "benchmarkCount": 5,
     "specFile": "03_Calculator-Specifications/Wave-1/MAT-003_percentage_calculator.docx",
-    "implementationStatus": "specified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "MAT-005",
@@ -732,7 +732,7 @@
     "risk": "low",
     "benchmarkCount": 5,
     "specFile": "03_Calculator-Specifications/Wave-1/MAT-005_ratio_calculator.docx",
-    "implementationStatus": "specified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "MAT-006",
@@ -747,7 +747,7 @@
     "risk": "low",
     "benchmarkCount": 5,
     "specFile": "03_Calculator-Specifications/Wave-1/MAT-006_fraction_calculator.docx",
-    "implementationStatus": "specified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "HLT-001",

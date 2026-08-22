@@ -1,4 +1,4 @@
-﻿# Foundation engineering status
+# Foundation engineering status
 
 ## Current Status
 **Status:** âœ… Phase 1-25 Completed (Investment Mathematics Tranche)
@@ -7,9 +7,9 @@
 
 ### Execution Metrics
 - **Total Calculators Registered:** 55
-- **Calculators Implemented (Engine):** 20
-- **Calculators Implemented (UI):** 15 (FIN-001, FIN-002, PRO-001, PRO-003, PRO-004, INV-001, INV-002, INV-003, INV-006, INV-007, INV-008, INV-009, INV-011, INV-014, INV-015)
-- **Calculators Verified (Benchmarks):** 20 (Passing 100% of cases for implemented ones)
+- **Calculators Implemented (Engine):** 24
+- **Calculators Implemented (UI):** 19 (FIN-001, FIN-002, PRO-001, PRO-003, PRO-004, INV-001, INV-002, INV-003, INV-006, INV-007, INV-008, INV-009, INV-011, INV-014, INV-015, MAT-002, MAT-003, MAT-005, MAT-006)
+- **Calculators Verified (Benchmarks):** 24 (Passing 100% of cases for implemented ones)
 - **Unit & E2E Tests:** Configured and passing. No accessibility violations.
 
 ## Engine Component | Status | Notes |
@@ -28,8 +28,9 @@
 | 1 | Personal Loans & Mortgages | ðŸŸ© Verified | 5 |
 | 2 | Investments & Savings | ðŸŸ© Verified | 10 |
 | 3 | Statistics & Data | ðŸŸ© Verified | 5 |
-| 4 | UK Tax | â¬œ Pending | 0 |
-| 5 | UK Property & Mortgages | â¬œ Pending | 0 |
+| 4 | General Mathematics | ðŸŸ© Verified | 4 |
+| 5 | UK Tax | â¬œ Pending | 0 |
+| 6 | UK Property & Mortgages | â¬œ Pending | 0 |
 
 ## Verification Gates
 

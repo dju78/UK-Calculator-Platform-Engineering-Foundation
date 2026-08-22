@@ -164,3 +164,49 @@ test.describe('Business Calculators', () => {
     expect(blockingViolations).toEqual([]);
   });
 });
+
+test.describe('Mathematics Calculators', () => {
+  test('Scientific Calculator (MAT-002) renders and is accessible', async ({ page }) => {
+    await page.goto('/calculators/scientific-calculator');
+    await expect(page.getByRole('heading', { name: 'Scientific Calculator' })).toBeVisible();
+    
+    const accessibilityScanResults = await new AxeBuilder({ page }).analyze();
+    const blockingViolations = accessibilityScanResults.violations.filter(
+      (v) => v.impact === "serious" || v.impact === "critical"
+    );
+    expect(blockingViolations).toEqual([]);
+  });
+
+  test('Percentage Calculator (MAT-003) renders and is accessible', async ({ page }) => {
+    await page.goto('/calculators/percentage-calculator');
+    await expect(page.getByRole('heading', { name: 'Percentage Calculator' })).toBeVisible();
+    
+    const accessibilityScanResults = await new AxeBuilder({ page }).analyze();
+    const blockingViolations = accessibilityScanResults.violations.filter(
+      (v) => v.impact === "serious" || v.impact === "critical"
+    );
+    expect(blockingViolations).toEqual([]);
+  });
+
+  test('Ratio Calculator (MAT-005) renders and is accessible', async ({ page }) => {
+    await page.goto('/calculators/ratio-calculator');
+    await expect(page.getByRole('heading', { name: 'Ratio Calculator' })).toBeVisible();
+    
+    const accessibilityScanResults = await new AxeBuilder({ page }).analyze();
+    const blockingViolations = accessibilityScanResults.violations.filter(
+      (v) => v.impact === "serious" || v.impact === "critical"
+    );
+    expect(blockingViolations).toEqual([]);
+  });
+
+  test('Fraction Calculator (MAT-006) renders and is accessible', async ({ page }) => {
+    await page.goto('/calculators/fraction-calculator');
+    await expect(page.getByRole('heading', { name: 'Fraction Calculator' })).toBeVisible();
+    
+    const accessibilityScanResults = await new AxeBuilder({ page }).analyze();
+    const blockingViolations = accessibilityScanResults.violations.filter(
+      (v) => v.impact === "serious" || v.impact === "critical"
+    );
+    expect(blockingViolations).toEqual([]);
+  });
+});

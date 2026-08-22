@@ -7,6 +7,7 @@ import { inv001Handler, inv003Handler, inv006Handler, inv007Handler, inv008Handl
 import { tax001Handler, tax002Handler, tax003Handler, tax004Handler, tax015Handler, tax020Handler, pro023Handler, isa001Handler, isa002Handler } from "./finance/tax/handlers.js";
 import { sta001Handler, sta003Handler, sta006Handler, sta008Handler, sta014Handler } from "./statistics/handlers.js";
 import { bus001Handler, bus006Handler, bus008Handler } from "./business/handlers.js";
+import { mat002Handler, mat003Handler, mat005Handler, mat006Handler } from "./math/handlers.js";
 
 export const ENGINE_VERSION = "0.1.0";
 
@@ -42,7 +43,11 @@ const handlers: Record<string, CalculatorHandler> = {
   "TAX-020": tax020Handler,
   "PRO-023": pro023Handler,
   "ISA-001": isa001Handler,
-  "ISA-002": isa002Handler
+  "ISA-002": isa002Handler,
+  "MAT-002": mat002Handler,
+  "MAT-003": mat003Handler,
+  "MAT-005": mat005Handler,
+  "MAT-006": mat006Handler
 };
 
 export function implementedCalculatorIds(): string[] {

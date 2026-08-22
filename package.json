@@ -16,8 +16,13 @@
     "bench:reference": "npm run build && node dist/scripts/benchmark-runner.js",
     "serve:reference": "npm run build && node dist/apps/reference-server/src/server.js"
   },
-  "engines": {"node": ">=20"},
+  "engines": {
+    "node": ">=20"
+  },
   "devDependencies": {
     "typescript": "^5.8.3"
+  },
+  "dependencies": {
+    "mathjs": "^15.2.0"
   }
 }
