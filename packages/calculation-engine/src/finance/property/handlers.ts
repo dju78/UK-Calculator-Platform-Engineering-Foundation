@@ -4,7 +4,8 @@ import {
   calculatePropertyDeposit,
   calculateRentalYield,
   calculateBuyToLet,
-  calculatePropertyRoi
+  calculatePropertyRoi,
+  calculateMortgageAffordability
 } from "./core.js";
 
 export const handleLoanToValue: CalculatorHandler = (inputs, context) => {
@@ -86,6 +87,22 @@ export const handlePropertyRoi: CalculatorHandler = (inputs, context) => {
     costs,
     growth,
     holding_years
+  );
+
+  return {
+    outputs: result
+  };
+};
+
+export const handleMortgageAffordability: CalculatorHandler = (inputs, context) => {
+  const result = calculateMortgageAffordability(
+    inputs.income as number,
+    inputs.deposit as number,
+    inputs.stress_rate as number,
+    inputs.term as number,
+    inputs.multiple as number,
+    inputs.payment_ratio as number,
+    (inputs.monthly_debt as number) || 0
   );
 
   return {

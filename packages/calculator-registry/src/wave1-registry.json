@@ -111,13 +111,13 @@
     "category": "Mortgages & Property",
     "subcategory": "Mortgages",
     "version": "1.0",
-    "status": "specified",
+    "status": "verified",
     "launchWave": "Wave 1",
     "rulesSensitive": false,
     "risk": "medium",
     "benchmarkCount": 5,
     "specFile": "03_Calculator-Specifications/Wave-1/PRO-002_mortgage_affordability_calculator.docx",
-    "implementationStatus": "specified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "PRO-003",
@@ -516,13 +516,13 @@
     "category": "Pensions & Retirement",
     "subcategory": "Pension",
     "version": "1.0",
-    "status": "specified",
+    "status": "verified",
     "launchWave": "Wave 1",
     "rulesSensitive": true,
     "risk": "high",
     "benchmarkCount": 5,
     "specFile": "03_Calculator-Specifications/Wave-1/PEN-001_pension_growth_calculator.docx",
-    "implementationStatus": "specified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "PEN-002",
@@ -531,13 +531,13 @@
     "category": "Pensions & Retirement",
     "subcategory": "Pension",
     "version": "1.0",
-    "status": "specified",
+    "status": "verified",
     "launchWave": "Wave 1",
     "rulesSensitive": true,
     "risk": "high",
     "benchmarkCount": 5,
     "specFile": "03_Calculator-Specifications/Wave-1/PEN-002_sipp_growth_calculator.docx",
-    "implementationStatus": "specified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "PEN-003",
@@ -546,13 +546,13 @@
     "category": "Pensions & Retirement",
     "subcategory": "Pension",
     "version": "1.0",
-    "status": "specified",
+    "status": "verified",
     "launchWave": "Wave 1",
     "rulesSensitive": true,
     "risk": "high",
     "benchmarkCount": 5,
     "specFile": "03_Calculator-Specifications/Wave-1/PEN-003_workplace_pension_calculator.docx",
-    "implementationStatus": "specified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "PEN-006",
@@ -561,13 +561,13 @@
     "category": "Pensions & Retirement",
     "subcategory": "Retirement",
     "version": "1.0",
-    "status": "specified",
+    "status": "verified",
     "launchWave": "Wave 1",
     "rulesSensitive": false,
     "risk": "medium",
     "benchmarkCount": 5,
     "specFile": "03_Calculator-Specifications/Wave-1/PEN-006_retirement_calculator.docx",
-    "implementationStatus": "specified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "BUS-001",

@@ -122,3 +122,37 @@ export function calculatePropertyRoi(
     future_property_value
   };
 }
+
+export function calculateMortgageAffordability(
+  income: number,
+  deposit: number,
+  stress_rate: number,
+  term: number,
+  multiple: number,
+  payment_ratio: number,
+  monthly_debt: number
+) {
+  const monthly_payment_cap = (income / 12) * payment_ratio - monthly_debt;
+  
+  const max_by_multiple = income * multiple;
+  
+  let cap_mortgage = 0;
+  if (monthly_payment_cap > 0) {
+    if (stress_rate === 0) {
+      cap_mortgage = monthly_payment_cap * term * 12;
+    } else {
+      const r = stress_rate / 12;
+      const n = term * 12;
+      cap_mortgage = monthly_payment_cap * (1 - Math.pow(1 + r, -n)) / r;
+    }
+  }
+
+  const max_mortgage = Math.max(0, Math.min(max_by_multiple, cap_mortgage));
+  const max_price = max_mortgage + deposit;
+
+  return {
+    max_mortgage,
+    max_price,
+    monthly_payment_cap: Math.max(0, monthly_payment_cap)
+  };
+}

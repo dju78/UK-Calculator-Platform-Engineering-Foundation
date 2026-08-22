@@ -9,8 +9,9 @@ import { fin006Handler, fin009Handler, fin011Handler, fin013Handler } from "./fi
 import { sta001Handler, sta003Handler, sta006Handler, sta008Handler, sta014Handler } from "./statistics/handlers.js";
 import { bus001Handler, bus006Handler, bus008Handler } from "./business/handlers.js";
 import { mat002Handler, mat003Handler, mat005Handler, mat006Handler } from "./math/handlers.js";
-import { handleLoanToValue, handlePropertyDeposit, handleRentalYield, handleBuyToLet, handlePropertyRoi } from "./finance/property/handlers.js";
+import { handleLoanToValue, handlePropertyDeposit, handleRentalYield, handleBuyToLet, handlePropertyRoi, handleMortgageAffordability } from "./finance/property/handlers.js";
 import { utilitiesHandlers } from "./utilities/handlers.js";
+import { handlePensionGrowth, handleSippGrowth, handleWorkplacePension, handleRetirement } from "./finance/pension/handlers.js";
 import { hlt001Handler } from "./health/handlers.js";
 
 export const ENGINE_VERSION = "0.1.0";
@@ -41,6 +42,7 @@ const handlers: Record<string, CalculatorHandler> = {
   "FIN-011": fin011Handler,
   "FIN-013": fin013Handler,
   "PRO-001": pro001Handler,
+  "PRO-002": handleMortgageAffordability,
   "PRO-003": pro003Handler,
   "PRO-004": pro004Handler,
   "TAX-001": tax001Handler,
@@ -64,7 +66,11 @@ const handlers: Record<string, CalculatorHandler> = {
   "DAT-001": utilitiesHandlers["DAT-001"],
   "AUT-006": utilitiesHandlers["AUT-006"],
   "CON-001": utilitiesHandlers["CON-001"],
-  "HLT-001": hlt001Handler
+  "HLT-001": hlt001Handler,
+  "PEN-001": handlePensionGrowth,
+  "PEN-002": handleSippGrowth,
+  "PEN-003": handleWorkplacePension,
+  "PEN-006": handleRetirement
 };
 
 export function implementedCalculatorIds(): string[] {
