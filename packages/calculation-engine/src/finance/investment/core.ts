@@ -62,25 +62,85 @@ export function calculateCAGR(
 }
 
 export function calculateIRR(cashflows: number[], guess = 0.1, maxIter = 1000, tol = 1e-8): number {
-  let rate = guess;
-  for (let i = 0; i < maxIter; i++) {
+  if (!cashflows || cashflows.length === 0) throw new Error("No cash flows provided");
+  
+  let hasPositive = false;
+  let hasNegative = false;
+  for (const cf of cashflows) {
+    if (cf > 0) hasPositive = true;
+    if (cf < 0) hasNegative = true;
+  }
+  if (!hasPositive || !hasNegative) {
+    throw new Error("IRR requires at least one positive and one negative cash flow");
+  }
+
+  const getNPV = (rate: number): number => {
     let npv = 0;
-    let deriv = 0;
     for (let t = 0; t < cashflows.length; t++) {
       npv += cashflows[t] / Math.pow(1 + rate, t);
-      if (t > 0) {
-        deriv -= (t * cashflows[t]) / Math.pow(1 + rate, t + 1);
-      }
     }
+    return npv;
+  };
+
+  const getDeriv = (rate: number): number => {
+    let deriv = 0;
+    for (let t = 1; t < cashflows.length; t++) {
+      deriv -= (t * cashflows[t]) / Math.pow(1 + rate, t + 1);
+    }
+    return deriv;
+  };
+
+  // Try Newton-Raphson first
+  let rate = guess;
+  let converged = false;
+  
+  for (let i = 0; i < 100; i++) {
+    if (rate <= -1.0) {
+      break; // Out of bounds, switch to bisection
+    }
+    const npv = getNPV(rate);
     if (Math.abs(npv) < tol) {
       return rate;
     }
-    if (deriv === 0) break; // Avoid div by zero
+    const deriv = getDeriv(rate);
+    if (Math.abs(deriv) < 1e-12 || !Number.isFinite(deriv) || !Number.isFinite(npv)) {
+      break; // Derivative instability, switch to bisection
+    }
     const newRate = rate - npv / deriv;
-    if (Math.abs(newRate - rate) < tol) return newRate;
+    if (Math.abs(newRate - rate) < tol) {
+      return newRate;
+    }
     rate = newRate;
   }
-  throw new Error("IRR did not converge");
+
+  // Fallback to Bisection if Newton-Raphson fails
+  let low = -0.999999;
+  let high = 100.0;
+  let lowNPV = getNPV(low);
+  let highNPV = getNPV(high);
+
+  if (Math.sign(lowNPV) === Math.sign(highNPV)) {
+    throw new Error("IRR did not converge: could not bracket root");
+  }
+
+  for (let i = 0; i < maxIter; i++) {
+    const mid = (low + high) / 2;
+    const midNPV = getNPV(mid);
+
+    if (Math.abs(midNPV) < tol || (high - low) / 2 < tol) {
+      return mid;
+    }
+
+    if (Math.sign(midNPV) === Math.sign(lowNPV)) {
+      low = mid;
+      lowNPV = midNPV;
+    } else {
+      high = mid;
+      highNPV = midNPV;
+    }
+  }
+
+  throw new Error("IRR did not converge within max iterations");
 }
 
 export function calculateFeeDrag(

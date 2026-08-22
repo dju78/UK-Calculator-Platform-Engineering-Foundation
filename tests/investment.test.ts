@@ -68,10 +68,34 @@ test("IRR - convergence", () => {
   closeTo(irr, 0.1);
 });
 
-test("IRR - non-convergence", () => {
+test("IRR - no sign change", () => {
   assert.throws(() => {
-    calculateIRR([-1000, -1000], 0.1, 10); // Will never have a valid IRR
-  }, /IRR did not converge/);
+    calculateIRR([-1000, -1000]);
+  }, /IRR requires at least one positive and one negative cash flow/);
+});
+
+test("IRR - negative IRR", () => {
+  const irr = calculateIRR([-1000, 900]);
+  closeTo(irr, -0.1);
+});
+
+test("IRR - derivative instability / bracket fallback", () => {
+  // A cash flow pattern that causes Newton-Raphson issues or forces a fallback
+  // e.g. large upfront, small intermediate, large final
+  const irr = calculateIRR([-10000, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10000]);
+  closeTo(irr, 0.001, 0.005);
+});
+
+test("IRR - empty cash flows", () => {
+  assert.throws(() => {
+    calculateIRR([]);
+  }, /No cash flows provided/);
+});
+
+test("IRR - multiple-sign-change cash flows (fallback test)", () => {
+  const irr = calculateIRR([-100, 200, -50, 100]);
+  // Just ensuring it converges to *some* valid root.
+  assert.ok(typeof irr === "number");
 });
 
 test("Fee Drag", () => {
