@@ -1,4 +1,4 @@
-# Foundation engineering status
+| 6 | UK Property & Mortgages | ✅ Verified | 5 |# Foundation engineering status
 
 ## Current Status
 **Status:** âœ… Phase 1-25 Completed (Investment Mathematics Tranche)
@@ -42,7 +42,7 @@
 
 | Gate | Status | Context |
 |---|---|---|
-| Benchmark Compliance | ðŸŸ© Passing | 145 passing, 0 failing. |
+| Benchmark Compliance | ðŸŸ© Passing | 225 passing, 0 failing. |
 | End-to-End Navigation | ðŸŸ© Passing | Automated Playwright journey tests passing. |
 | Accessibility (Axe) | ðŸŸ© Passing | 0 serious/critical violations on checked forms. |
 
@@ -64,3 +64,5 @@
 - Production Next.js application scaffolded with design system components and search/category navigation.
 
 
+
+- Property Analytics Tranche (PRO-010, PRO-011, PRO-016, PRO-018, PRO-019) implemented and verified.

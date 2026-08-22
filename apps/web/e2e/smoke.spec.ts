@@ -256,3 +256,24 @@ test.describe('Personal Finance Calculators', () => {
     expect(blockingViolations).toEqual([]);
   });
 });
+test.describe('Property Analytics Calculators', () => {
+  const calculators = [
+    { id: 'PRO-010', url: '/calculators/loan-to-value-ltv-calculator', name: 'Loan-to-Value (LTV) Calculator' },
+    { id: 'PRO-011', url: '/calculators/property-deposit-calculator', name: 'Property Deposit Calculator' },
+    { id: 'PRO-016', url: '/calculators/rental-yield-calculator', name: 'Rental Yield Calculator' },
+    { id: 'PRO-018', url: '/calculators/buy-to-let-calculator', name: 'Buy-to-Let Calculator' },
+    { id: 'PRO-019', url: '/calculators/property-roi-calculator', name: 'Property ROI Calculator' }
+  ];
+
+  for (const calc of calculators) {
+    test(calc.name + ' renders and is accessible', async ({ page }) => {
+      await page.goto(calc.url);
+      await expect(page.getByRole('heading', { name: calc.name })).toBeVisible();
+      const accessibilityScanResults = await new AxeBuilder({ page }).analyze();
+      const blockingViolations = accessibilityScanResults.violations.filter(
+        (v) => v.impact === 'serious' || v.impact === 'critical'
+      );
+      expect(blockingViolations).toEqual([]);
+    });
+  }
+});
