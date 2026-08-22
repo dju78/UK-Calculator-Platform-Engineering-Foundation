@@ -13,7 +13,9 @@ export function validateRegistry(registry: CalculatorDefinition[] = wave1Registr
   const ids = new Set<string>();
   const slugs = new Set<string>();
   for (const item of registry) {
-    if (!item.id || !item.name || !item.slug) errors.push(`Missing required registry metadata: ${JSON.stringify(item)}`);
+    if (!item.id || !item.name || !item.slug) errors.push(`Missing required registry metadata: ${item.id}`);
+    if (!["specified", "planned", "verified"].includes(item.status)) errors.push(`Invalid status for ${item.id}: ${item.status}`);
+    if (!["specified", "implemented"].includes(item.implementationStatus)) errors.push(`Invalid implementationStatus for ${item.id}: ${item.implementationStatus}`);
     if (ids.has(item.id)) errors.push(`Duplicate calculator id: ${item.id}`);
     if (slugs.has(item.slug)) errors.push(`Duplicate calculator slug: ${item.slug}`);
     ids.add(item.id);

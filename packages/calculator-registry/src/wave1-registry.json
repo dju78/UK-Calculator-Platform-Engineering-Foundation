@@ -6,13 +6,13 @@
     "category": "Finance & Debt",
     "subcategory": "Loans",
     "version": "1.0",
-    "status": "specified",
+    "status": "verified",
     "launchWave": "Wave 1",
     "rulesSensitive": false,
     "risk": "low",
     "benchmarkCount": 5,
     "specFile": "03_Calculator-Specifications/Wave-1/FIN-001_loan_calculator.docx",
-    "implementationStatus": "specified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "FIN-002",
@@ -21,13 +21,13 @@
     "category": "Finance & Debt",
     "subcategory": "Loans",
     "version": "1.0",
-    "status": "specified",
+    "status": "verified",
     "launchWave": "Wave 1",
     "rulesSensitive": false,
     "risk": "low",
     "benchmarkCount": 5,
     "specFile": "03_Calculator-Specifications/Wave-1/FIN-002_personal_loan_calculator.docx",
-    "implementationStatus": "specified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "FIN-006",
@@ -42,7 +42,7 @@
     "risk": "low",
     "benchmarkCount": 5,
     "specFile": "03_Calculator-Specifications/Wave-1/FIN-006_apr_calculator.docx",
-    "implementationStatus": "verified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "FIN-009",
@@ -57,7 +57,7 @@
     "risk": "low",
     "benchmarkCount": 5,
     "specFile": "03_Calculator-Specifications/Wave-1/FIN-009_credit_card_calculator.docx",
-    "implementationStatus": "verified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "FIN-011",
@@ -72,7 +72,7 @@
     "risk": "low",
     "benchmarkCount": 5,
     "specFile": "03_Calculator-Specifications/Wave-1/FIN-011_debt_payoff_calculator.docx",
-    "implementationStatus": "verified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "FIN-013",
@@ -87,7 +87,7 @@
     "risk": "low",
     "benchmarkCount": 5,
     "specFile": "03_Calculator-Specifications/Wave-1/FIN-013_budget_calculator.docx",
-    "implementationStatus": "verified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "PRO-001",
@@ -96,13 +96,13 @@
     "category": "Mortgages & Property",
     "subcategory": "Mortgages",
     "version": "1.0",
-    "status": "specified",
+    "status": "verified",
     "launchWave": "Wave 1",
     "rulesSensitive": false,
     "risk": "medium",
     "benchmarkCount": 5,
     "specFile": "03_Calculator-Specifications/Wave-1/PRO-001_uk_mortgage_calculator.docx",
-    "implementationStatus": "specified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "PRO-002",
@@ -126,13 +126,13 @@
     "category": "Mortgages & Property",
     "subcategory": "Mortgages",
     "version": "1.0",
-    "status": "specified",
+    "status": "verified",
     "launchWave": "Wave 1",
     "rulesSensitive": false,
     "risk": "low",
     "benchmarkCount": 5,
     "specFile": "03_Calculator-Specifications/Wave-1/PRO-003_mortgage_amortisation_calculator.docx",
-    "implementationStatus": "specified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "PRO-004",
@@ -141,13 +141,13 @@
     "category": "Mortgages & Property",
     "subcategory": "Mortgages",
     "version": "1.0",
-    "status": "specified",
+    "status": "verified",
     "launchWave": "Wave 1",
     "rulesSensitive": false,
     "risk": "low",
     "benchmarkCount": 5,
     "specFile": "03_Calculator-Specifications/Wave-1/PRO-004_mortgage_overpayment_calculator.docx",
-    "implementationStatus": "specified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "PRO-010",
@@ -162,7 +162,7 @@
     "risk": "low",
     "benchmarkCount": 5,
     "specFile": "03_Calculator-Specifications/Wave-1/PRO-010_loan_to_value_ltv_calculator.docx",
-    "implementationStatus": "verified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "PRO-011",
@@ -177,7 +177,7 @@
     "risk": "low",
     "benchmarkCount": 5,
     "specFile": "03_Calculator-Specifications/Wave-1/PRO-011_property_deposit_calculator.docx",
-    "implementationStatus": "verified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "PRO-016",
@@ -192,7 +192,7 @@
     "risk": "low",
     "benchmarkCount": 5,
     "specFile": "03_Calculator-Specifications/Wave-1/PRO-016_rental_yield_calculator.docx",
-    "implementationStatus": "verified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "PRO-018",
@@ -207,7 +207,7 @@
     "risk": "medium",
     "benchmarkCount": 5,
     "specFile": "03_Calculator-Specifications/Wave-1/PRO-018_buy_to_let_calculator.docx",
-    "implementationStatus": "verified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "PRO-019",
@@ -222,7 +222,7 @@
     "risk": "medium",
     "benchmarkCount": 5,
     "specFile": "03_Calculator-Specifications/Wave-1/PRO-019_property_roi_calculator.docx",
-    "implementationStatus": "verified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "PRO-023",
@@ -252,7 +252,7 @@
     "risk": "medium",
     "benchmarkCount": 5,
     "specFile": "03_Calculator-Specifications/Wave-1/INV-001_investment_growth_calculator.docx",
-    "implementationStatus": "verified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "INV-002",
@@ -267,7 +267,7 @@
     "risk": "low",
     "benchmarkCount": 5,
     "specFile": "03_Calculator-Specifications/Wave-1/INV-002_compound_interest_calculator.docx",
-    "implementationStatus": "verified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "INV-003",
@@ -282,7 +282,7 @@
     "risk": "low",
     "benchmarkCount": 5,
     "specFile": "03_Calculator-Specifications/Wave-1/INV-003_simple_interest_calculator.docx",
-    "implementationStatus": "verified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "INV-006",
@@ -297,7 +297,7 @@
     "risk": "low",
     "benchmarkCount": 5,
     "specFile": "03_Calculator-Specifications/Wave-1/INV-006_future_value_calculator.docx",
-    "implementationStatus": "verified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "INV-007",
@@ -312,7 +312,7 @@
     "risk": "low",
     "benchmarkCount": 5,
     "specFile": "03_Calculator-Specifications/Wave-1/INV-007_present_value_calculator.docx",
-    "implementationStatus": "verified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "INV-008",
@@ -327,7 +327,7 @@
     "risk": "low",
     "benchmarkCount": 5,
     "specFile": "03_Calculator-Specifications/Wave-1/INV-008_roi_calculator.docx",
-    "implementationStatus": "verified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "INV-009",
@@ -342,7 +342,7 @@
     "risk": "low",
     "benchmarkCount": 5,
     "specFile": "03_Calculator-Specifications/Wave-1/INV-009_cagr_calculator.docx",
-    "implementationStatus": "verified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "INV-011",
@@ -357,7 +357,7 @@
     "risk": "low",
     "benchmarkCount": 5,
     "specFile": "03_Calculator-Specifications/Wave-1/INV-011_irr_calculator.docx",
-    "implementationStatus": "verified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "INV-014",
@@ -372,7 +372,7 @@
     "risk": "medium",
     "benchmarkCount": 5,
     "specFile": "03_Calculator-Specifications/Wave-1/INV-014_investment_fees_calculator.docx",
-    "implementationStatus": "verified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "INV-015",
@@ -387,7 +387,7 @@
     "risk": "low",
     "benchmarkCount": 5,
     "specFile": "03_Calculator-Specifications/Wave-1/INV-015_inflation_real_return_calculator.docx",
-    "implementationStatus": "verified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "ISA-001",
@@ -582,7 +582,7 @@
     "risk": "low",
     "benchmarkCount": 5,
     "specFile": "03_Calculator-Specifications/Wave-1/BUS-001_margin_calculator.docx",
-    "implementationStatus": "verified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "BUS-006",
@@ -597,7 +597,7 @@
     "risk": "low",
     "benchmarkCount": 5,
     "specFile": "03_Calculator-Specifications/Wave-1/BUS-006_break_even_calculator.docx",
-    "implementationStatus": "verified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "BUS-008",
@@ -612,7 +612,7 @@
     "risk": "low",
     "benchmarkCount": 5,
     "specFile": "03_Calculator-Specifications/Wave-1/BUS-008_discount_calculator.docx",
-    "implementationStatus": "verified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "STA-001",
@@ -627,7 +627,7 @@
     "risk": "low",
     "benchmarkCount": 5,
     "specFile": "03_Calculator-Specifications/Wave-1/STA-001_mean_median_mode_and_range_calculator.docx",
-    "implementationStatus": "verified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "STA-003",
@@ -642,7 +642,7 @@
     "risk": "low",
     "benchmarkCount": 5,
     "specFile": "03_Calculator-Specifications/Wave-1/STA-003_standard_deviation_calculator.docx",
-    "implementationStatus": "verified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "STA-006",
@@ -657,7 +657,7 @@
     "risk": "low",
     "benchmarkCount": 5,
     "specFile": "03_Calculator-Specifications/Wave-1/STA-006_confidence_interval_calculator.docx",
-    "implementationStatus": "verified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "STA-008",
@@ -672,7 +672,7 @@
     "risk": "low",
     "benchmarkCount": 5,
     "specFile": "03_Calculator-Specifications/Wave-1/STA-008_sample_size_calculator.docx",
-    "implementationStatus": "verified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "STA-014",
@@ -687,7 +687,7 @@
     "risk": "low",
     "benchmarkCount": 5,
     "specFile": "03_Calculator-Specifications/Wave-1/STA-014_linear_regression_calculator.docx",
-    "implementationStatus": "verified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "MAT-002",
@@ -702,7 +702,7 @@
     "risk": "low",
     "benchmarkCount": 5,
     "specFile": "03_Calculator-Specifications/Wave-1/MAT-002_scientific_calculator.docx",
-    "implementationStatus": "verified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "MAT-003",
@@ -717,7 +717,7 @@
     "risk": "low",
     "benchmarkCount": 5,
     "specFile": "03_Calculator-Specifications/Wave-1/MAT-003_percentage_calculator.docx",
-    "implementationStatus": "verified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "MAT-005",
@@ -732,7 +732,7 @@
     "risk": "low",
     "benchmarkCount": 5,
     "specFile": "03_Calculator-Specifications/Wave-1/MAT-005_ratio_calculator.docx",
-    "implementationStatus": "verified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "MAT-006",
@@ -747,7 +747,7 @@
     "risk": "low",
     "benchmarkCount": 5,
     "specFile": "03_Calculator-Specifications/Wave-1/MAT-006_fraction_calculator.docx",
-    "implementationStatus": "verified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "HLT-001",
@@ -762,7 +762,7 @@
     "risk": "medium",
     "benchmarkCount": 5,
     "specFile": "03_Calculator-Specifications/Wave-1/HLT-001_bmi_calculator.docx",
-    "implementationStatus": "verified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "DAT-001",
@@ -777,7 +777,7 @@
     "risk": "low",
     "benchmarkCount": 5,
     "specFile": "03_Calculator-Specifications/Wave-1/DAT-001_age_calculator.docx",
-    "implementationStatus": "verified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "AUT-006",
@@ -792,7 +792,7 @@
     "risk": "low",
     "benchmarkCount": 5,
     "specFile": "03_Calculator-Specifications/Wave-1/AUT-006_fuel_cost_calculator.docx",
-    "implementationStatus": "verified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "CON-001",
@@ -807,7 +807,7 @@
     "risk": "low",
     "benchmarkCount": 5,
     "specFile": "03_Calculator-Specifications/Wave-1/CON-001_unit_conversion_calculator.docx",
-    "implementationStatus": "verified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "CON-010",
