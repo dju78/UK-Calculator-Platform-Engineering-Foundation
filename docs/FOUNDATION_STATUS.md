@@ -1,7 +1,7 @@
-# Foundation engineering status
+﻿# Foundation engineering status
 
 ## Current Status
-**Status:** ✅ Phase 1-25 Completed (Investment Mathematics Tranche)
+**Status:** âœ… Phase 1-25 Completed (Investment Mathematics Tranche)
 **Implementation Tranches Completed:** Tranche 1 (Loan), Tranche 2 (Investment), Tranche 3 (Statistics)
 **Next.js Frontend:** UI integrations for Loan and Investment families completed. Playwright E2E configured and running. CI Actions Pipeline in place.
 
@@ -14,31 +14,31 @@
 
 ## Engine Component | Status | Notes |
 |---|---|---|
-| Core Types & Interfaces | 🟩 Stable | Shared `CalculationContext` and generic handlers. |
-| Time Value of Money | 🟩 Stable | Generic TVM implementation with arbitrary compounding. |
-| Loan & Mortgage | 🟩 Stable | Reusable amortisation schedules and APR calculations. |
-| Investment Mathematics | 🟩 Stable | Contributions, CAGRs, real-returns and safeguarded IRR logic. |
-| Statistics & Data | 🟩 Stable | Centralised distributions, regression, and inferences core. |
-| UK Tax Framework | 🟨 Partial | Awaiting implementation against approved rule configurations. |
+| Core Types & Interfaces | ðŸŸ© Stable | Shared `CalculationContext` and generic handlers. |
+| Time Value of Money | ðŸŸ© Stable | Generic TVM implementation with arbitrary compounding. |
+| Loan & Mortgage | ðŸŸ© Stable | Reusable amortisation schedules and APR calculations. |
+| Investment Mathematics | ðŸŸ© Stable | Contributions, CAGRs, real-returns and safeguarded IRR logic. |
+| Statistics & Data | ðŸŸ© Stable | Centralised distributions, regression, and inferences core. |
+| UK Tax Framework | ðŸŸ¨ Partial | Awaiting implementation against approved rule configurations. |
 
 ## Implementation Tranches
 
 | Tranche | Focus | Status | Calculator Count |
 |---|---|---|---|
-| 1 | Personal Loans & Mortgages | 🟩 Verified | 5 |
-| 2 | Investments & Savings | 🟩 Verified | 10 |
-| 3 | Statistics & Data | 🟩 Verified | 5 |
-| 4 | UK Tax | ⬜ Pending | 0 |
-| 5 | UK Property & Mortgages | ⬜ Pending | 0 |
+| 1 | Personal Loans & Mortgages | ðŸŸ© Verified | 5 |
+| 2 | Investments & Savings | ðŸŸ© Verified | 10 |
+| 3 | Statistics & Data | ðŸŸ© Verified | 5 |
+| 4 | UK Tax | â¬œ Pending | 0 |
+| 5 | UK Property & Mortgages | â¬œ Pending | 0 |
 
 ## Verification Gates
 
 | Gate | Status | Context |
 |---|---|---|
-| Unit Test Coverage | 🟩 Passing | 44 Core logic tests passing. |
-| Benchmark Compliance | 🟩 Passing | 145 passing, 0 failing. |
-| End-to-End Navigation | 🟩 Passing | Automated Playwright journey tests passing. |
-| Accessibility (Axe) | 🟩 Passing | 0 serious/critical violations on checked forms. |
+| Unit Test Coverage | ðŸŸ© Passing | 44 Core logic tests passing. |
+| Benchmark Compliance | ðŸŸ© Passing | 145 passing, 0 failing. |
+| End-to-End Navigation | ðŸŸ© Passing | Automated Playwright journey tests passing. |
+| Accessibility (Axe) | ðŸŸ© Passing | 0 serious/critical violations on checked forms. |
 
 ## Completed in this build
 - 55-calculator Wave 1 registry imported from the approved project manifest.
@@ -56,4 +56,5 @@
 - UK ruleset `uk-2026-27-v1` promoted to `approved` for production use.
 - ISA and UK tax-sensitive family (ISA-001, ISA-002, TAX-001, TAX-002, TAX-003, TAX-004, TAX-015, TAX-020, PRO-023) implemented.
 - Production Next.js application scaffolded with design system components and search/category navigation.
+
 

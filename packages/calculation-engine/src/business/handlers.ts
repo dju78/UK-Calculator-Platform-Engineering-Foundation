@@ -2,29 +2,37 @@
 import * as core from './core.js';
 
 export function bus001Handler(inputs: NumericInputs) {
-  const cost = Number(inputs.cost);
-  if ('price' in inputs) {
-    const price = Number(inputs.price);
-    const profit = core.grossProfit(cost, price);
-    const margin = core.margin(cost, price);
-    const markup = core.markup(cost, price);
+  try {
+    const cost = Number(inputs.cost);
+    if ('price' in inputs) {
+      const price = Number(inputs.price);
+      const profit = core.grossProfit(cost, price);
+      const margin = core.margin(cost, price);
+      const markup = core.markup(cost, price);
+      return {
+        outputs: {
+          profit,
+          margin,
+          markup
+        }
+      };
+    } else if ('target_margin' in inputs) {
+      const targetMargin = Number(inputs.target_margin);
+      const requiredPrice = core.requiredPriceForMargin(cost, targetMargin);
+      return {
+        outputs: {
+          required_price: requiredPrice
+        }
+      };
+    }
+    throw new Error('Invalid inputs for Margin Calculator');
+  } catch (e: any) {
     return {
       outputs: {
-        profit,
-        margin,
-        markup
-      }
-    };
-  } else if ('target_margin' in inputs) {
-    const targetMargin = Number(inputs.target_margin);
-    const requiredPrice = core.requiredPriceForMargin(cost, targetMargin);
-    return {
-      outputs: {
-        required_price: requiredPrice
+        validation: e.message
       }
     };
   }
-  throw new Error('Invalid inputs for Margin Calculator');
 }
 
 export function bus006Handler(inputs: NumericInputs) {
@@ -53,27 +61,34 @@ export function bus006Handler(inputs: NumericInputs) {
 }
 
 export function bus008Handler(inputs: NumericInputs) {
-  const original = Number(inputs.original);
-  
-  if ('discount' in inputs) {
-    const discount = Number(inputs.discount);
-    const result = core.applyDiscount(original, discount);
+  try {
+    const original = Number(inputs.original);
+    
+    if ('discount' in inputs) {
+      const discount = Number(inputs.discount);
+      const result = core.applyDiscount(original, discount);
+      return {
+        outputs: {
+          discount_amount: result.discountAmount,
+          sale_price: result.salePrice
+        }
+      };
+    } else if ('sale_price' in inputs) {
+      const salePrice = Number(inputs.sale_price);
+      const result = core.inferDiscount(original, salePrice);
+      return {
+        outputs: {
+          discount_rate: result.discountRate,
+          discount_amount: result.discountAmount
+        }
+      };
+    }
+    throw new Error('Invalid inputs for Discount Calculator');
+  } catch (e: any) {
     return {
       outputs: {
-        discount_amount: result.discountAmount,
-        sale_price: result.salePrice
-      }
-    };
-  } else if ('sale_price' in inputs) {
-    const salePrice = Number(inputs.sale_price);
-    const result = core.inferDiscount(original, salePrice);
-    return {
-      outputs: {
-        discount_rate: result.discountRate,
-        discount_amount: result.discountAmount
+        validation: e.message
       }
     };
   }
-  throw new Error('Invalid inputs for Discount Calculator');
 }
-
