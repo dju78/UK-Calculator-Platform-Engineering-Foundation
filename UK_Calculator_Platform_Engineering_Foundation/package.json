@@ -1,0 +1,17 @@
+{
+  "name": "uk-calculator-platform-engineering-foundation",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "clean": "rm -rf dist",
+    "build": "tsc -p tsconfig.json",
+    "test": "npm run build && node --test dist/tests/*.test.js",
+    "bench:reference": "npm run build && node dist/scripts/benchmark-runner.js",
+    "serve:reference": "npm run build && node dist/apps/reference-server/src/server.js"
+  },
+  "engines": {"node": ">=20"},
+  "devDependencies": {
+    "typescript": "^5.8.3"
+  }
+}

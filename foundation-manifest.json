@@ -1,0 +1,10 @@
+{
+  "generated_at": "2026-08-22T08:00:00Z",
+  "foundation_version": "0.1.0",
+  "wave1_registry_count": 55,
+  "wave1_benchmark_case_count": 275,
+  "implemented_calculators": [
+    "INV-002"
+  ],
+  "ruleset_status": "draft_second_review"
+}

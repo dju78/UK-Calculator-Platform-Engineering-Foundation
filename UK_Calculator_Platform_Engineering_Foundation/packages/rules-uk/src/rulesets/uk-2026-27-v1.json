@@ -1,0 +1,299 @@
+{
+  "ruleset_id": "uk-2026-27-v1",
+  "status": "draft_second_review",
+  "tax_year": "2026/27",
+  "effective_from": "2026-04-06",
+  "effective_to": "2027-04-05",
+  "checked_at": "2026-08-22",
+  "isa": {
+    "overall_subscription_limit_gbp": 20000,
+    "lifetime_isa_subscription_limit_gbp": 4000
+  },
+  "income_tax_england_wales_ni": {
+    "personal_allowance_gbp": 12570,
+    "bands_taxable_income_gbp": [
+      {
+        "to": 37700,
+        "rate": 0.2
+      },
+      {
+        "from": 37701,
+        "to": 125140,
+        "rate": 0.4
+      },
+      {
+        "from": 125141,
+        "rate": 0.45
+      }
+    ],
+    "personal_allowance_taper_start_gbp": 100000,
+    "personal_allowance_reduction_per_excess_gbp": 0.5,
+    "personal_allowance_zero_at_adjusted_net_income_gbp": 125140
+  },
+  "income_tax_scotland": {
+    "personal_allowance_gbp": 12570,
+    "bands_taxable_income_gbp": [
+      {
+        "to": 3967,
+        "rate": 0.19
+      },
+      {
+        "from": 3968,
+        "to": 16956,
+        "rate": 0.2
+      },
+      {
+        "from": 16957,
+        "to": 31092,
+        "rate": 0.21
+      },
+      {
+        "from": 31093,
+        "to": 62430,
+        "rate": 0.42
+      },
+      {
+        "from": 62431,
+        "to": 125140,
+        "rate": 0.45
+      },
+      {
+        "from": 125141,
+        "rate": 0.48
+      }
+    ],
+    "personal_allowance_taper_start_gbp": 100000,
+    "personal_allowance_reduction_per_excess_gbp": 0.5,
+    "personal_allowance_zero_at_adjusted_net_income_gbp": 125140
+  },
+  "dividends": {
+    "allowance_gbp": 500,
+    "rates": {
+      "basic": 0.1075,
+      "higher": 0.3575,
+      "additional": 0.3935
+    }
+  },
+  "capital_gains": {
+    "annual_exempt_amount_gbp": 3000,
+    "standard_rates": {
+      "basic_band": 0.18,
+      "higher_band": 0.24
+    }
+  },
+  "pension": {
+    "annual_allowance_gbp": 60000,
+    "money_purchase_annual_allowance_gbp": 10000,
+    "threshold_income_taper_gbp": 200000,
+    "adjusted_income_taper_gbp": 260000,
+    "minimum_tapered_annual_allowance_gbp": 10000,
+    "lump_sum_allowance_gbp": 268275,
+    "relief_at_source_basic_rate": 0.2
+  },
+  "property_transaction_tax": {
+    "england_northern_ireland": {
+      "standard_bands": [
+        {
+          "to": 125000,
+          "rate": 0
+        },
+        {
+          "from": 125001,
+          "to": 250000,
+          "rate": 0.02
+        },
+        {
+          "from": 250001,
+          "to": 925000,
+          "rate": 0.05
+        },
+        {
+          "from": 925001,
+          "to": 1500000,
+          "rate": 0.1
+        },
+        {
+          "from": 1500001,
+          "rate": 0.12
+        }
+      ],
+      "additional_property_surcharge_rate": 0.05,
+      "non_uk_resident_surcharge_rate": 0.02,
+      "first_time_buyer_relief": {
+        "maximum_qualifying_property_value_gbp": 500000,
+        "bands": [
+          {
+            "to": 300000,
+            "rate": 0.0
+          },
+          {
+            "from": 300001,
+            "to": 500000,
+            "rate": 0.05
+          }
+        ]
+      }
+    },
+    "scotland": {
+      "standard_bands": [
+        {
+          "to": 145000,
+          "rate": 0
+        },
+        {
+          "from": 145001,
+          "to": 250000,
+          "rate": 0.02
+        },
+        {
+          "from": 250001,
+          "to": 325000,
+          "rate": 0.05
+        },
+        {
+          "from": 325001,
+          "to": 750000,
+          "rate": 0.1
+        },
+        {
+          "from": 750001,
+          "rate": 0.12
+        }
+      ],
+      "additional_dwelling_supplement_rate": 0.08,
+      "first_time_buyer_nil_rate_ceiling_gbp": 175000
+    },
+    "wales": {
+      "main_bands": [
+        {
+          "to": 225000,
+          "rate": 0
+        },
+        {
+          "from": 225001,
+          "to": 400000,
+          "rate": 0.06
+        },
+        {
+          "from": 400001,
+          "to": 750000,
+          "rate": 0.075
+        },
+        {
+          "from": 750001,
+          "to": 1500000,
+          "rate": 0.1
+        },
+        {
+          "from": 1500001,
+          "rate": 0.12
+        }
+      ],
+      "higher_bands": [
+        {
+          "to": 180000,
+          "rate": 0.05
+        },
+        {
+          "from": 180001,
+          "to": 250000,
+          "rate": 0.085
+        },
+        {
+          "from": 250001,
+          "to": 400000,
+          "rate": 0.1
+        },
+        {
+          "from": 400001,
+          "to": 750000,
+          "rate": 0.125
+        },
+        {
+          "from": 750001,
+          "to": 1500000,
+          "rate": 0.15
+        },
+        {
+          "from": 1500001,
+          "rate": 0.17
+        }
+      ]
+    }
+  },
+  "reference_indicators": {
+    "bank_rate_pct": 3.75,
+    "bank_rate_as_of": "2026-07-30",
+    "cpi_12m_pct": 2.6,
+    "cpi_as_of": "2026-06"
+  },
+  "planned_changes": [
+    {
+      "effective_from": "2027-04-06",
+      "rule": "Cash ISA limit for under-65s",
+      "value_gbp": 12000,
+      "status": "announced/draft legislation - do not apply to 2026/27",
+      "overall_isa_limit_gbp": 20000
+    }
+  ],
+  "sources": [
+    "https://www.gov.uk/individual-savings-accounts",
+    "https://www.gov.uk/government/publications/rates-and-allowances-income-tax/income-tax-rates-and-allowances-current-and-past",
+    "https://www.gov.uk/tax-on-dividends",
+    "https://www.gov.uk/guidance/capital-gains-tax-rates-and-allowances",
+    "https://www.gov.uk/government/publications/rates-and-allowances-pension-schemes/pension-schemes-rates",
+    "https://www.gov.uk/stamp-duty-land-tax/residential-property-rates",
+    "https://www.gov.scot/publications/scottish-budget-2026-2027-scottish-tax-ready-reckoners/pages/4/",
+    "https://www.gov.wales/land-transaction-tax-rates-and-bands",
+    "https://www.bankofengland.co.uk/monetary-policy-report/2026/july-2026",
+    "https://www.ons.gov.uk/economy/inflationandpriceindices/bulletins/consumerpriceinflation/latest",
+    "https://www.gov.uk/income-tax-rates",
+    "https://www.gov.uk/guidance/rates-and-thresholds-for-employers-2026-to-2027",
+    "https://www.gov.uk/vat-rates",
+    "https://www.gov.uk/repaying-your-student-loan/what-you-pay",
+    "https://www.gov.uk/government/publications/review-of-the-automatic-enrolment-earnings-trigger-and-qualifying-earnings-band-for-202627/review-of-the-automatic-enrolment-earnings-trigger-and-qualifying-earnings-band-for-202627",
+    "https://www.gov.uk/tax-on-your-private-pension/pension-tax-relief",
+    "https://www.gov.uk/guidance/rates-of-stamp-duty-land-tax-for-non-uk-residents"
+  ],
+  "national_insurance_employee_class1_category_a": {
+    "primary_threshold_annual_gbp": 12570,
+    "upper_earnings_limit_annual_gbp": 50270,
+    "main_rate": 0.08,
+    "upper_rate": 0.02
+  },
+  "vat": {
+    "standard_rate": 0.2,
+    "reduced_rate": 0.05,
+    "zero_rate": 0.0
+  },
+  "student_loans": {
+    "Plan 1": {
+      "annual_threshold_gbp": 26900,
+      "rate": 0.09
+    },
+    "Plan 2": {
+      "annual_threshold_gbp": 29385,
+      "rate": 0.09
+    },
+    "Plan 4": {
+      "annual_threshold_gbp": 33795,
+      "rate": 0.09
+    },
+    "Plan 5": {
+      "annual_threshold_gbp": 25000,
+      "rate": 0.09
+    },
+    "Postgraduate": {
+      "annual_threshold_gbp": 21000,
+      "rate": 0.06
+    }
+  },
+  "workplace_pension_auto_enrolment": {
+    "earnings_trigger_annual_gbp": 10000,
+    "qualifying_earnings_lower_limit_annual_gbp": 6240,
+    "qualifying_earnings_upper_limit_annual_gbp": 50270,
+    "minimum_employer_contribution_rate": 0.03,
+    "minimum_employee_contribution_benchmark_rate": 0.05,
+    "minimum_total_contribution_rate": 0.08
+  }
+}

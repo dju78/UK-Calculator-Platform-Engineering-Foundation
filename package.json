@@ -1,0 +1,23 @@
+{
+  "name": "uk-calculator-platform-engineering-foundation",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "workspaces": [
+    "packages/*",
+    "apps/*"
+  ],
+  "scripts": {
+    "clean": "rm -rf dist",
+    "build": "tsc -p tsconfig.json",
+    "lint": "npm --workspace=web run lint",
+    "test": "npm run build && node --test dist/tests/*.test.js",
+    "test:e2e": "npm --workspace=web run test:e2e",
+    "bench:reference": "npm run build && node dist/scripts/benchmark-runner.js",
+    "serve:reference": "npm run build && node dist/apps/reference-server/src/server.js"
+  },
+  "engines": {"node": ">=20"},
+  "devDependencies": {
+    "typescript": "^5.8.3"
+  }
+}

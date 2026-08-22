@@ -1,0 +1,4753 @@
+{
+  "AUT-006": [
+    {
+      "scenario": "100 miles",
+      "inputs": {
+        "distance_miles": 100,
+        "mpg_uk": 40,
+        "price_p_per_litre": 150,
+        "trips": 1
+      },
+      "expected": {
+        "litres": 11.365225,
+        "cost_gbp": 17.05
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independent formula fixture"
+    },
+    {
+      "scenario": "Round trip",
+      "inputs": {
+        "distance_miles": 100,
+        "mpg_uk": 40,
+        "price_p_per_litre": 150,
+        "trips": 2
+      },
+      "expected": {
+        "litres": 22.73045,
+        "cost_gbp": 34.1
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independent formula fixture"
+    },
+    {
+      "scenario": "Efficient",
+      "inputs": {
+        "distance_miles": 250,
+        "mpg_uk": 60,
+        "price_p_per_litre": 145,
+        "trips": 1
+      },
+      "expected": {
+        "litres": 18.942042,
+        "cost_gbp": 27.47
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independent formula fixture"
+    },
+    {
+      "scenario": "Short",
+      "inputs": {
+        "distance_miles": 10,
+        "mpg_uk": 30,
+        "price_p_per_litre": 160,
+        "trips": 1
+      },
+      "expected": {
+        "litres": 1.515363,
+        "cost_gbp": 2.42
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independent formula fixture"
+    },
+    {
+      "scenario": "Zero distance",
+      "inputs": {
+        "distance_miles": 0,
+        "mpg_uk": 40,
+        "price_p_per_litre": 150,
+        "trips": 1
+      },
+      "expected": {
+        "litres": 0.0,
+        "cost_gbp": 0.0
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independent formula fixture"
+    }
+  ],
+  "BUS-001": [
+    {
+      "scenario": "Standard",
+      "inputs": {
+        "cost": 60,
+        "price": 100
+      },
+      "expected": {
+        "profit": 40,
+        "margin": 0.4,
+        "markup": 0.6666666666666666
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independent formula fixture"
+    },
+    {
+      "scenario": "50% margin",
+      "inputs": {
+        "cost": 50,
+        "target_margin": 0.5
+      },
+      "expected": {
+        "required_price": 100
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independent formula fixture"
+    },
+    {
+      "scenario": "Low margin",
+      "inputs": {
+        "cost": 90,
+        "price": 100
+      },
+      "expected": {
+        "profit": 10,
+        "margin": 0.1,
+        "markup": 0.1111111111111111
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independent formula fixture"
+    },
+    {
+      "scenario": "Zero cost",
+      "inputs": {
+        "cost": 0,
+        "price": 100
+      },
+      "expected": {
+        "profit": 100,
+        "margin": 1,
+        "markup": null
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independent formula fixture"
+    },
+    {
+      "scenario": "Loss",
+      "inputs": {
+        "cost": 120,
+        "price": 100
+      },
+      "expected": {
+        "profit": -20,
+        "margin": -0.2,
+        "markup": -0.16666666666666666
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independent formula fixture"
+    }
+  ],
+  "BUS-006": [
+    {
+      "scenario": "Standard",
+      "inputs": {
+        "fixed": 10000,
+        "price": 50,
+        "variable": 30
+      },
+      "expected": {
+        "contribution": 20,
+        "break_even_units": 500,
+        "break_even_revenue": 25000
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independent formula fixture"
+    },
+    {
+      "scenario": "No fixed",
+      "inputs": {
+        "fixed": 0,
+        "price": 50,
+        "variable": 30
+      },
+      "expected": {
+        "contribution": 20,
+        "break_even_units": 0,
+        "break_even_revenue": 0
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independent formula fixture"
+    },
+    {
+      "scenario": "Fraction",
+      "inputs": {
+        "fixed": 1000,
+        "price": 30,
+        "variable": 17
+      },
+      "expected": {
+        "contribution": 13,
+        "break_even_units": 77,
+        "break_even_revenue": 2310
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independent formula fixture"
+    },
+    {
+      "scenario": "High margin",
+      "inputs": {
+        "fixed": 5000,
+        "price": 100,
+        "variable": 20
+      },
+      "expected": {
+        "contribution": 80,
+        "break_even_units": 63,
+        "break_even_revenue": 6300
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independent formula fixture"
+    },
+    {
+      "scenario": "No finite",
+      "inputs": {
+        "fixed": 1000,
+        "price": 20,
+        "variable": 20
+      },
+      "expected": {
+        "validation": "No finite break-even"
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independent formula fixture"
+    }
+  ],
+  "BUS-008": [
+    {
+      "scenario": "20% off",
+      "inputs": {
+        "original": 100,
+        "discount": 0.2
+      },
+      "expected": {
+        "discount_amount": 20,
+        "sale_price": 80
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independent formula fixture"
+    },
+    {
+      "scenario": "50%",
+      "inputs": {
+        "original": 250,
+        "discount": 0.5
+      },
+      "expected": {
+        "discount_amount": 125,
+        "sale_price": 125
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independent formula fixture"
+    },
+    {
+      "scenario": "0%",
+      "inputs": {
+        "original": 99,
+        "discount": 0
+      },
+      "expected": {
+        "discount_amount": 0,
+        "sale_price": 99
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independent formula fixture"
+    },
+    {
+      "scenario": "100%",
+      "inputs": {
+        "original": 80,
+        "discount": 1
+      },
+      "expected": {
+        "discount_amount": 80,
+        "sale_price": 0
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independent formula fixture"
+    },
+    {
+      "scenario": "Infer",
+      "inputs": {
+        "original": 200,
+        "sale_price": 150
+      },
+      "expected": {
+        "discount_rate": 0.25,
+        "discount_amount": 50
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independent formula fixture"
+    }
+  ],
+  "CON-001": [
+    {
+      "scenario": "km to miles",
+      "inputs": {
+        "value": 10,
+        "from": "km",
+        "to": "miles"
+      },
+      "expected": {
+        "result": 6.21371192
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independent formula fixture"
+    },
+    {
+      "scenario": "kg to lb",
+      "inputs": {
+        "value": 1,
+        "from": "kg",
+        "to": "lb"
+      },
+      "expected": {
+        "result": 2.20462262
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independent formula fixture"
+    },
+    {
+      "scenario": "C to F",
+      "inputs": {
+        "value": 0,
+        "from": "C",
+        "to": "F"
+      },
+      "expected": {
+        "result": 32
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independent formula fixture"
+    },
+    {
+      "scenario": "litres to UK gallons",
+      "inputs": {
+        "value": 4.54609,
+        "from": "litres",
+        "to": "UK gallons"
+      },
+      "expected": {
+        "result": 1
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independent formula fixture"
+    },
+    {
+      "scenario": "m to ft",
+      "inputs": {
+        "value": 1,
+        "from": "m",
+        "to": "ft"
+      },
+      "expected": {
+        "result": 3.2808399
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independent formula fixture"
+    }
+  ],
+  "CON-010": [
+    {
+      "scenario": "GBP to USD manual",
+      "inputs": {
+        "amount": 100,
+        "rate": 1.25,
+        "from": "GBP",
+        "to": "USD"
+      },
+      "expected": {
+        "converted": 125
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "None",
+      "note": "Manual-rate benchmark"
+    },
+    {
+      "scenario": "USD to GBP manual",
+      "inputs": {
+        "amount": 125,
+        "rate": 0.8,
+        "from": "USD",
+        "to": "GBP"
+      },
+      "expected": {
+        "converted": 100
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "None",
+      "note": "Manual-rate benchmark"
+    },
+    {
+      "scenario": "EUR to GBP",
+      "inputs": {
+        "amount": 100,
+        "rate": 0.86,
+        "from": "EUR",
+        "to": "GBP"
+      },
+      "expected": {
+        "converted": 86
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "None",
+      "note": "Manual-rate benchmark"
+    },
+    {
+      "scenario": "Zero",
+      "inputs": {
+        "amount": 0,
+        "rate": 1.25,
+        "from": "GBP",
+        "to": "USD"
+      },
+      "expected": {
+        "converted": 0
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "None",
+      "note": "Manual-rate benchmark"
+    },
+    {
+      "scenario": "Same currency",
+      "inputs": {
+        "amount": 100,
+        "rate": 1,
+        "from": "GBP",
+        "to": "GBP"
+      },
+      "expected": {
+        "converted": 100
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "None",
+      "note": "Identity benchmark"
+    }
+  ],
+  "DAT-001": [
+    {
+      "scenario": "Standard",
+      "inputs": {
+        "dob": "1990-01-01",
+        "reference": "2026-08-22"
+      },
+      "expected": {
+        "years": 36,
+        "months": 7,
+        "days": 21,
+        "total_days": 13382
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independent formula fixture"
+    },
+    {
+      "scenario": "Birthday today",
+      "inputs": {
+        "dob": "2000-08-22",
+        "reference": "2026-08-22"
+      },
+      "expected": {
+        "years": 26,
+        "months": 0,
+        "days": 0,
+        "total_days": 9496
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independent formula fixture"
+    },
+    {
+      "scenario": "Birthday tomorrow",
+      "inputs": {
+        "dob": "2000-08-23",
+        "reference": "2026-08-22"
+      },
+      "expected": {
+        "years": 25,
+        "months": 11,
+        "days": 30,
+        "total_days": 9495
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independent formula fixture"
+    },
+    {
+      "scenario": "Leap day",
+      "inputs": {
+        "dob": "2000-02-29",
+        "reference": "2026-08-22"
+      },
+      "expected": {
+        "years": 26,
+        "months": 5,
+        "days": 25,
+        "total_days": 9671
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independent formula fixture"
+    },
+    {
+      "scenario": "Infant",
+      "inputs": {
+        "dob": "2026-08-01",
+        "reference": "2026-08-22"
+      },
+      "expected": {
+        "years": 0,
+        "months": 0,
+        "days": 21,
+        "total_days": 21
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independent formula fixture"
+    }
+  ],
+  "FIN-001": [
+    {
+      "scenario": "Standard",
+      "inputs": {
+        "principal": 10000,
+        "annual_rate": 0.06,
+        "years": 5
+      },
+      "expected": {
+        "monthly_payment": 193.33,
+        "total_repayment": 11599.68,
+        "total_interest": 1599.68
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independent formula fixture"
+    },
+    {
+      "scenario": "Zero rate",
+      "inputs": {
+        "principal": 12000,
+        "annual_rate": 0,
+        "years": 4
+      },
+      "expected": {
+        "monthly_payment": 250.0,
+        "total_repayment": 12000.0,
+        "total_interest": 0.0
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independent formula fixture"
+    },
+    {
+      "scenario": "Short term",
+      "inputs": {
+        "principal": 5000,
+        "annual_rate": 0.12,
+        "years": 1
+      },
+      "expected": {
+        "monthly_payment": 444.24,
+        "total_repayment": 5330.93,
+        "total_interest": 330.93
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independent formula fixture"
+    },
+    {
+      "scenario": "Low rate",
+      "inputs": {
+        "principal": 25000,
+        "annual_rate": 0.025,
+        "years": 7
+      },
+      "expected": {
+        "monthly_payment": 324.73,
+        "total_repayment": 27277.24,
+        "total_interest": 2277.24
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independent formula fixture"
+    },
+    {
+      "scenario": "Long term",
+      "inputs": {
+        "principal": 150000,
+        "annual_rate": 0.045,
+        "years": 20
+      },
+      "expected": {
+        "monthly_payment": 948.97,
+        "total_repayment": 227753.78,
+        "total_interest": 77753.78
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independent formula fixture"
+    }
+  ],
+  "FIN-002": [
+    {
+      "scenario": "No fee",
+      "inputs": {
+        "cash_received": 8000,
+        "rate": 0.075,
+        "years": 4,
+        "fee": 0,
+        "fee_financed": true
+      },
+      "expected": {
+        "monthly_payment": 193.43,
+        "total_borrower_outflow": 9284.7,
+        "total_borrowing_cost": 1284.7
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independent formula fixture"
+    },
+    {
+      "scenario": "Financed fee",
+      "inputs": {
+        "cash_received": 10000,
+        "rate": 0.08,
+        "years": 5,
+        "fee": 250,
+        "fee_financed": true
+      },
+      "expected": {
+        "monthly_payment": 207.83,
+        "total_borrower_outflow": 12469.98,
+        "total_borrowing_cost": 2469.98
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independent formula fixture"
+    },
+    {
+      "scenario": "Upfront fee",
+      "inputs": {
+        "cash_received": 10000,
+        "rate": 0.08,
+        "years": 5,
+        "fee": 250,
+        "fee_financed": false
+      },
+      "expected": {
+        "monthly_payment": 202.76,
+        "total_borrower_outflow": 12415.84,
+        "total_borrowing_cost": 2415.84
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independent formula fixture"
+    },
+    {
+      "scenario": "Zero rate fee",
+      "inputs": {
+        "cash_received": 5000,
+        "rate": 0,
+        "years": 2,
+        "fee": 100,
+        "fee_financed": true
+      },
+      "expected": {
+        "monthly_payment": 212.5,
+        "total_borrower_outflow": 5100.0,
+        "total_borrowing_cost": 100.0
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independent formula fixture"
+    },
+    {
+      "scenario": "Short",
+      "inputs": {
+        "cash_received": 3000,
+        "rate": 0.12,
+        "years": 1,
+        "fee": 0,
+        "fee_financed": true
+      },
+      "expected": {
+        "monthly_payment": 266.55,
+        "total_borrower_outflow": 3198.56,
+        "total_borrowing_cost": 198.56
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independent formula fixture"
+    }
+  ],
+  "FIN-006": [
+    {
+      "scenario": "Monthly 0.5%",
+      "inputs": {
+        "periodic_rate": 0.005,
+        "periods": 12
+      },
+      "expected": {
+        "effective_apr": 0.06167781
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independent formula fixture"
+    },
+    {
+      "scenario": "Monthly 1%",
+      "inputs": {
+        "periodic_rate": 0.01,
+        "periods": 12
+      },
+      "expected": {
+        "effective_apr": 0.12682503
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independent formula fixture"
+    },
+    {
+      "scenario": "Quarterly 2%",
+      "inputs": {
+        "periodic_rate": 0.02,
+        "periods": 4
+      },
+      "expected": {
+        "effective_apr": 0.08243216
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independent formula fixture"
+    },
+    {
+      "scenario": "Zero",
+      "inputs": {
+        "periodic_rate": 0,
+        "periods": 12
+      },
+      "expected": {
+        "effective_apr": 0
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independent formula fixture"
+    },
+    {
+      "scenario": "Weekly 0.1%",
+      "inputs": {
+        "periodic_rate": 0.001,
+        "periods": 52
+      },
+      "expected": {
+        "effective_apr": 0.05334837
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independent formula fixture"
+    }
+  ],
+  "FIN-009": [
+    {
+      "scenario": "Standard",
+      "inputs": {
+        "balance": 3000,
+        "apr": 0.249,
+        "monthly_payment": 150
+      },
+      "expected": {
+        "months": 27,
+        "total_interest": 915.95
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independent formula fixture"
+    },
+    {
+      "scenario": "Zero APR",
+      "inputs": {
+        "balance": 1200,
+        "apr": 0,
+        "monthly_payment": 100
+      },
+      "expected": {
+        "months": 12,
+        "total_interest": 0.0
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independent formula fixture"
+    },
+    {
+      "scenario": "High payment",
+      "inputs": {
+        "balance": 500,
+        "apr": 0.2,
+        "monthly_payment": 600
+      },
+      "expected": {
+        "months": 1,
+        "total_interest": 8.33
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independent formula fixture"
+    },
+    {
+      "scenario": "Slow",
+      "inputs": {
+        "balance": 5000,
+        "apr": 0.199,
+        "monthly_payment": 120
+      },
+      "expected": {
+        "months": 72,
+        "total_interest": 3568.12
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independent formula fixture"
+    },
+    {
+      "scenario": "Low APR",
+      "inputs": {
+        "balance": 2500,
+        "apr": 0.05,
+        "monthly_payment": 100
+      },
+      "expected": {
+        "months": 27,
+        "total_interest": 145.57
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independent formula fixture"
+    }
+  ],
+  "FIN-011": [
+    {
+      "scenario": "Avalanche two debts",
+      "inputs": {
+        "debts": [
+          {
+            "balance": 1000,
+            "apr": 0.2,
+            "min_payment": 50
+          },
+          {
+            "balance": 2000,
+            "apr": 0.1,
+            "min_payment": 60
+          }
+        ],
+        "extra": 100,
+        "strategy": "avalanche"
+      },
+      "expected": {
+        "months": 16,
+        "total_interest": 246.01
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independent formula fixture"
+    },
+    {
+      "scenario": "Snowball two debts",
+      "inputs": {
+        "debts": [
+          {
+            "balance": 1000,
+            "apr": 0.2,
+            "min_payment": 50
+          },
+          {
+            "balance": 2000,
+            "apr": 0.1,
+            "min_payment": 60
+          }
+        ],
+        "extra": 100,
+        "strategy": "snowball"
+      },
+      "expected": {
+        "months": 16,
+        "total_interest": 246.01
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independent formula fixture"
+    },
+    {
+      "scenario": "Zero interest",
+      "inputs": {
+        "debts": [
+          {
+            "balance": 600,
+            "apr": 0,
+            "min_payment": 50
+          }
+        ],
+        "extra": 50,
+        "strategy": "avalanche"
+      },
+      "expected": {
+        "months": 6,
+        "total_interest": 0.0
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independent formula fixture"
+    },
+    {
+      "scenario": "One debt",
+      "inputs": {
+        "debts": [
+          {
+            "balance": 3000,
+            "apr": 0.15,
+            "min_payment": 100
+          }
+        ],
+        "extra": 200,
+        "strategy": "avalanche"
+      },
+      "expected": {
+        "months": 11,
+        "total_interest": 225.09
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independent formula fixture"
+    },
+    {
+      "scenario": "No extra",
+      "inputs": {
+        "debts": [
+          {
+            "balance": 1000,
+            "apr": 0.12,
+            "min_payment": 100
+          },
+          {
+            "balance": 500,
+            "apr": 0.18,
+            "min_payment": 50
+          }
+        ],
+        "extra": 0,
+        "strategy": "avalanche"
+      },
+      "expected": {
+        "months": 11,
+        "total_interest": 104.8
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independent formula fixture"
+    }
+  ],
+  "FIN-013": [
+    {
+      "scenario": "Balanced",
+      "inputs": {
+        "income": 3000,
+        "fixed": 1500,
+        "variable": 800,
+        "savings": 300
+      },
+      "expected": {
+        "surplus": 400,
+        "savings_rate": 0.1
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independent formula fixture"
+    },
+    {
+      "scenario": "Deficit",
+      "inputs": {
+        "income": 2500,
+        "fixed": 1800,
+        "variable": 900,
+        "savings": 0
+      },
+      "expected": {
+        "surplus": -200,
+        "savings_rate": 0
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independent formula fixture"
+    },
+    {
+      "scenario": "High saving",
+      "inputs": {
+        "income": 4000,
+        "fixed": 1500,
+        "variable": 500,
+        "savings": 1200
+      },
+      "expected": {
+        "surplus": 800,
+        "savings_rate": 0.3
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independent formula fixture"
+    },
+    {
+      "scenario": "Zero income",
+      "inputs": {
+        "income": 0,
+        "fixed": 100,
+        "variable": 0,
+        "savings": 0
+      },
+      "expected": {
+        "surplus": -100,
+        "savings_rate": null
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independent formula fixture"
+    },
+    {
+      "scenario": "Minimal",
+      "inputs": {
+        "income": 1000,
+        "fixed": 0,
+        "variable": 0,
+        "savings": 100
+      },
+      "expected": {
+        "surplus": 900,
+        "savings_rate": 0.1
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independent formula fixture"
+    }
+  ],
+  "HLT-001": [
+    {
+      "scenario": "Healthy",
+      "inputs": {
+        "weight_kg": 70,
+        "height_m": 1.75
+      },
+      "expected": {
+        "bmi": 22.86,
+        "category": "Healthy weight"
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independent formula fixture"
+    },
+    {
+      "scenario": "Underweight",
+      "inputs": {
+        "weight_kg": 50,
+        "height_m": 1.75
+      },
+      "expected": {
+        "bmi": 16.33,
+        "category": "Underweight"
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independent formula fixture"
+    },
+    {
+      "scenario": "Overweight",
+      "inputs": {
+        "weight_kg": 85,
+        "height_m": 1.75
+      },
+      "expected": {
+        "bmi": 27.76,
+        "category": "Overweight"
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independent formula fixture"
+    },
+    {
+      "scenario": "Obesity",
+      "inputs": {
+        "weight_kg": 100,
+        "height_m": 1.75
+      },
+      "expected": {
+        "bmi": 32.65,
+        "category": "Obesity"
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independent formula fixture"
+    },
+    {
+      "scenario": "Severe",
+      "inputs": {
+        "weight_kg": 125,
+        "height_m": 1.7
+      },
+      "expected": {
+        "bmi": 43.25,
+        "category": "Severe obesity"
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independent formula fixture"
+    }
+  ],
+  "INV-001": [
+    {
+      "scenario": "Standard",
+      "inputs": {
+        "start": 10000,
+        "monthly": 500,
+        "return": 0.06,
+        "fee": 0.0025,
+        "years": 20
+      },
+      "expected": {
+        "projected_value": 250615.54
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independent formula fixture"
+    },
+    {
+      "scenario": "No fee",
+      "inputs": {
+        "start": 10000,
+        "monthly": 500,
+        "return": 0.06,
+        "fee": 0,
+        "years": 20
+      },
+      "expected": {
+        "projected_value": 258790.67
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independent formula fixture"
+    },
+    {
+      "scenario": "No contributions",
+      "inputs": {
+        "start": 50000,
+        "monthly": 0,
+        "return": 0.05,
+        "fee": 0.005,
+        "years": 10
+      },
+      "expected": {
+        "projected_value": 77462.91
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independent formula fixture"
+    },
+    {
+      "scenario": "Zero return/fee",
+      "inputs": {
+        "start": 1000,
+        "monthly": 100,
+        "return": 0,
+        "fee": 0,
+        "years": 5
+      },
+      "expected": {
+        "projected_value": 7000
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independent formula fixture"
+    },
+    {
+      "scenario": "Negative return",
+      "inputs": {
+        "start": 10000,
+        "monthly": 100,
+        "return": -0.05,
+        "fee": 0,
+        "years": 3
+      },
+      "expected": {
+        "projected_value": 11917.58
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independent formula fixture"
+    }
+  ],
+  "INV-002": [
+    {
+      "scenario": "Monthly",
+      "inputs": {
+        "P": 10000,
+        "nominal_rate": 0.05,
+        "m": 12,
+        "years": 10
+      },
+      "expected": {
+        "fv": 16470.09
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independent formula fixture"
+    },
+    {
+      "scenario": "Annual",
+      "inputs": {
+        "P": 10000,
+        "nominal_rate": 0.05,
+        "m": 1,
+        "years": 10
+      },
+      "expected": {
+        "fv": 16288.95
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independent formula fixture"
+    },
+    {
+      "scenario": "Quarterly",
+      "inputs": {
+        "P": 5000,
+        "nominal_rate": 0.08,
+        "m": 4,
+        "years": 5
+      },
+      "expected": {
+        "fv": 7429.74
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independent formula fixture"
+    },
+    {
+      "scenario": "Zero rate",
+      "inputs": {
+        "P": 12000,
+        "nominal_rate": 0,
+        "m": 12,
+        "years": 4
+      },
+      "expected": {
+        "fv": 12000
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independent formula fixture"
+    },
+    {
+      "scenario": "One year daily",
+      "inputs": {
+        "P": 1000,
+        "nominal_rate": 0.1,
+        "m": 365,
+        "years": 1
+      },
+      "expected": {
+        "fv": 1105.16
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independent formula fixture"
+    }
+  ],
+  "INV-003": [
+    {
+      "scenario": "Standard",
+      "inputs": {
+        "P": 10000,
+        "r": 0.05,
+        "t": 3
+      },
+      "expected": {
+        "interest": 1500,
+        "fv": 11500
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independent formula fixture"
+    },
+    {
+      "scenario": "Zero",
+      "inputs": {
+        "P": 10000,
+        "r": 0,
+        "t": 3
+      },
+      "expected": {
+        "interest": 0,
+        "fv": 10000
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independent formula fixture"
+    },
+    {
+      "scenario": "One year",
+      "inputs": {
+        "P": 5000,
+        "r": 0.08,
+        "t": 1
+      },
+      "expected": {
+        "interest": 400,
+        "fv": 5400
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independent formula fixture"
+    },
+    {
+      "scenario": "Half year",
+      "inputs": {
+        "P": 1200,
+        "r": 0.1,
+        "t": 0.5
+      },
+      "expected": {
+        "interest": 60,
+        "fv": 1260
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independent formula fixture"
+    },
+    {
+      "scenario": "Negative",
+      "inputs": {
+        "P": 1000,
+        "r": -0.02,
+        "t": 2
+      },
+      "expected": {
+        "interest": -40,
+        "fv": 960
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independent formula fixture"
+    }
+  ],
+  "INV-006": [
+    {
+      "scenario": "5% 10y",
+      "inputs": {
+        "pv": 10000,
+        "r": 0.05,
+        "n": 10
+      },
+      "expected": {
+        "fv": 16288.95
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independent formula fixture"
+    },
+    {
+      "scenario": "0%",
+      "inputs": {
+        "pv": 10000,
+        "r": 0,
+        "n": 10
+      },
+      "expected": {
+        "fv": 10000
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independent formula fixture"
+    },
+    {
+      "scenario": "1y",
+      "inputs": {
+        "pv": 5000,
+        "r": 0.08,
+        "n": 1
+      },
+      "expected": {
+        "fv": 5400
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independent formula fixture"
+    },
+    {
+      "scenario": "Negative",
+      "inputs": {
+        "pv": 1000,
+        "r": -0.1,
+        "n": 2
+      },
+      "expected": {
+        "fv": 810
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independent formula fixture"
+    },
+    {
+      "scenario": "0y",
+      "inputs": {
+        "pv": 2500,
+        "r": 0.2,
+        "n": 0
+      },
+      "expected": {
+        "fv": 2500
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independent formula fixture"
+    }
+  ],
+  "INV-007": [
+    {
+      "scenario": "5% 10y",
+      "inputs": {
+        "fv": 20000,
+        "r": 0.05,
+        "n": 10
+      },
+      "expected": {
+        "pv": 12278.27
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independent formula fixture"
+    },
+    {
+      "scenario": "0%",
+      "inputs": {
+        "fv": 20000,
+        "r": 0,
+        "n": 10
+      },
+      "expected": {
+        "pv": 20000
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independent formula fixture"
+    },
+    {
+      "scenario": "1y",
+      "inputs": {
+        "fv": 5400,
+        "r": 0.08,
+        "n": 1
+      },
+      "expected": {
+        "pv": 5000
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independent formula fixture"
+    },
+    {
+      "scenario": "Negative",
+      "inputs": {
+        "fv": 810,
+        "r": -0.1,
+        "n": 2
+      },
+      "expected": {
+        "pv": 1000
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independent formula fixture"
+    },
+    {
+      "scenario": "0y",
+      "inputs": {
+        "fv": 2500,
+        "r": 0.2,
+        "n": 0
+      },
+      "expected": {
+        "pv": 2500
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independent formula fixture"
+    }
+  ],
+  "INV-008": [
+    {
+      "scenario": "20% gain",
+      "inputs": {
+        "cost": 10000,
+        "end": 12000,
+        "income": 0
+      },
+      "expected": {
+        "gain": 2000,
+        "roi": 0.2
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independent formula fixture"
+    },
+    {
+      "scenario": "Loss",
+      "inputs": {
+        "cost": 10000,
+        "end": 8000,
+        "income": 0
+      },
+      "expected": {
+        "gain": -2000,
+        "roi": -0.2
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independent formula fixture"
+    },
+    {
+      "scenario": "Income",
+      "inputs": {
+        "cost": 10000,
+        "end": 10500,
+        "income": 500
+      },
+      "expected": {
+        "gain": 1000,
+        "roi": 0.1
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independent formula fixture"
+    },
+    {
+      "scenario": "Flat",
+      "inputs": {
+        "cost": 5000,
+        "end": 5000,
+        "income": 0
+      },
+      "expected": {
+        "gain": 0,
+        "roi": 0
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independent formula fixture"
+    },
+    {
+      "scenario": "Double",
+      "inputs": {
+        "cost": 1000,
+        "end": 2000,
+        "income": 0
+      },
+      "expected": {
+        "gain": 1000,
+        "roi": 1
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independent formula fixture"
+    }
+  ],
+  "INV-009": [
+    {
+      "scenario": "10k to 15k 5y",
+      "inputs": {
+        "start": 10000,
+        "end": 15000,
+        "years": 5
+      },
+      "expected": {
+        "cagr": 0.08447177
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independent formula fixture"
+    },
+    {
+      "scenario": "Double 10y",
+      "inputs": {
+        "start": 10000,
+        "end": 20000,
+        "years": 10
+      },
+      "expected": {
+        "cagr": 0.07177346
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independent formula fixture"
+    },
+    {
+      "scenario": "Flat",
+      "inputs": {
+        "start": 10000,
+        "end": 10000,
+        "years": 5
+      },
+      "expected": {
+        "cagr": 0
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independent formula fixture"
+    },
+    {
+      "scenario": "Halve",
+      "inputs": {
+        "start": 10000,
+        "end": 5000,
+        "years": 5
+      },
+      "expected": {
+        "cagr": -0.12944944
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independent formula fixture"
+    },
+    {
+      "scenario": "One year",
+      "inputs": {
+        "start": 100,
+        "end": 110,
+        "years": 1
+      },
+      "expected": {
+        "cagr": 0.1
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independent formula fixture"
+    }
+  ],
+  "INV-011": [
+    {
+      "scenario": "Cash flow 1",
+      "inputs": {
+        "cashflows": [
+          -10000,
+          3000,
+          4000,
+          5000
+        ]
+      },
+      "expected": {
+        "irr": 0.08896339
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independent formula fixture"
+    },
+    {
+      "scenario": "Cash flow 2",
+      "inputs": {
+        "cashflows": [
+          -1000,
+          1100
+        ]
+      },
+      "expected": {
+        "irr": 0.1
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independent formula fixture"
+    },
+    {
+      "scenario": "Cash flow 3",
+      "inputs": {
+        "cashflows": [
+          -1000,
+          0,
+          1210
+        ]
+      },
+      "expected": {
+        "irr": 0.1
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independent formula fixture"
+    },
+    {
+      "scenario": "Cash flow 4",
+      "inputs": {
+        "cashflows": [
+          -5000,
+          1000,
+          1500,
+          2000,
+          2500
+        ]
+      },
+      "expected": {
+        "irr": 0.12825727
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independent formula fixture"
+    },
+    {
+      "scenario": "Cash flow 5",
+      "inputs": {
+        "cashflows": [
+          -100,
+          20,
+          20,
+          20,
+          20,
+          20,
+          20
+        ]
+      },
+      "expected": {
+        "irr": 0.05471793
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independent formula fixture"
+    }
+  ],
+  "INV-014": [
+    {
+      "scenario": "1% fee",
+      "inputs": {
+        "start": 100000,
+        "monthly": 0,
+        "gross_return": 0.07,
+        "fee": 0.01,
+        "years": 25
+      },
+      "expected": {
+        "gross_value": 542743.26,
+        "net_value": 422157.3,
+        "fee_drag": 120585.96
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independent formula fixture"
+    },
+    {
+      "scenario": "0.2% fee",
+      "inputs": {
+        "start": 100000,
+        "monthly": 0,
+        "gross_return": 0.07,
+        "fee": 0.002,
+        "years": 25
+      },
+      "expected": {
+        "gross_value": 542743.26,
+        "net_value": 516247.52,
+        "fee_drag": 26495.75
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independent formula fixture"
+    },
+    {
+      "scenario": "With contributions",
+      "inputs": {
+        "start": 10000,
+        "monthly": 500,
+        "gross_return": 0.06,
+        "fee": 0.005,
+        "years": 20
+      },
+      "expected": {
+        "gross_value": 258790.67,
+        "net_value": 242732.19,
+        "fee_drag": 16058.49
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independent formula fixture"
+    },
+    {
+      "scenario": "No fee",
+      "inputs": {
+        "start": 50000,
+        "monthly": 100,
+        "gross_return": 0.05,
+        "fee": 0,
+        "years": 10
+      },
+      "expected": {
+        "gross_value": 96881.05,
+        "net_value": 96881.05,
+        "fee_drag": 0.0
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independent formula fixture"
+    },
+    {
+      "scenario": "Fee exceeds return",
+      "inputs": {
+        "start": 10000,
+        "monthly": 0,
+        "gross_return": 0.02,
+        "fee": 0.03,
+        "years": 10
+      },
+      "expected": {
+        "gross_value": 12189.94,
+        "net_value": 8989.16,
+        "fee_drag": 3200.79
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independent formula fixture"
+    }
+  ],
+  "INV-015": [
+    {
+      "scenario": "6% vs 2.5%",
+      "inputs": {
+        "nominal": 0.06,
+        "inflation": 0.025,
+        "years": 10,
+        "future_amount": 100000
+      },
+      "expected": {
+        "real_return": 0.03414634,
+        "real_value": 78119.84
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independent formula fixture"
+    },
+    {
+      "scenario": "Equal",
+      "inputs": {
+        "nominal": 0.03,
+        "inflation": 0.03,
+        "years": 10,
+        "future_amount": 100000
+      },
+      "expected": {
+        "real_return": 0,
+        "real_value": 74409.39
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independent formula fixture"
+    },
+    {
+      "scenario": "Negative real",
+      "inputs": {
+        "nominal": 0.02,
+        "inflation": 0.05,
+        "years": 5,
+        "future_amount": 50000
+      },
+      "expected": {
+        "real_return": -0.02857143,
+        "real_value": 39176.31
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independent formula fixture"
+    },
+    {
+      "scenario": "Deflation",
+      "inputs": {
+        "nominal": 0.02,
+        "inflation": -0.01,
+        "years": 5,
+        "future_amount": 50000
+      },
+      "expected": {
+        "real_return": 0.03030303,
+        "real_value": 52576.79
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independent formula fixture"
+    },
+    {
+      "scenario": "Zero inflation",
+      "inputs": {
+        "nominal": 0.04,
+        "inflation": 0,
+        "years": 2,
+        "future_amount": 10000
+      },
+      "expected": {
+        "real_return": 0.04,
+        "real_value": 10000
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independent formula fixture"
+    }
+  ],
+  "ISA-001": [
+    {
+      "scenario": "Standard",
+      "inputs": {
+        "start": 10000,
+        "annual_subscription": 12000,
+        "return": 0.06,
+        "fee": 0.0025,
+        "years": 20
+      },
+      "expected": {
+        "projected_value": 470725.78,
+        "allowance_used": 0.6,
+        "remaining_allowance": 8000
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "uk-2026-27-v1",
+      "note": "Independent formula fixture"
+    },
+    {
+      "scenario": "Full allowance",
+      "inputs": {
+        "start": 0,
+        "annual_subscription": 20000,
+        "return": 0.05,
+        "fee": 0,
+        "years": 5
+      },
+      "expected": {
+        "projected_value": 113022.9,
+        "allowance_used": 1.0,
+        "remaining_allowance": 0
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "uk-2026-27-v1",
+      "note": "Independent formula fixture"
+    },
+    {
+      "scenario": "Zero contribution",
+      "inputs": {
+        "start": 5000,
+        "annual_subscription": 0,
+        "return": 0.05,
+        "fee": 0,
+        "years": 10
+      },
+      "expected": {
+        "projected_value": 8144.47,
+        "allowance_used": 0.0,
+        "remaining_allowance": 20000
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "uk-2026-27-v1",
+      "note": "Independent formula fixture"
+    },
+    {
+      "scenario": "Zero return",
+      "inputs": {
+        "start": 1000,
+        "annual_subscription": 12000,
+        "return": 0,
+        "fee": 0,
+        "years": 2
+      },
+      "expected": {
+        "projected_value": 25000.0,
+        "allowance_used": 0.6,
+        "remaining_allowance": 8000
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "uk-2026-27-v1",
+      "note": "Independent formula fixture"
+    },
+    {
+      "scenario": "Negative return",
+      "inputs": {
+        "start": 10000,
+        "annual_subscription": 6000,
+        "return": -0.05,
+        "fee": 0,
+        "years": 3
+      },
+      "expected": {
+        "projected_value": 25292.9,
+        "allowance_used": 0.3,
+        "remaining_allowance": 14000
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "uk-2026-27-v1",
+      "note": "Independent formula fixture"
+    }
+  ],
+  "ISA-002": [
+    {
+      "scenario": "All in S&S",
+      "inputs": {
+        "cash": 0,
+        "stocks": 15000,
+        "innovative": 0,
+        "lisa": 0
+      },
+      "expected": {
+        "total": 15000,
+        "remaining": 5000
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "uk-2026-27-v1",
+      "note": "Independent formula fixture"
+    },
+    {
+      "scenario": "Full allowance",
+      "inputs": {
+        "cash": 5000,
+        "stocks": 11000,
+        "innovative": 0,
+        "lisa": 4000
+      },
+      "expected": {
+        "total": 20000,
+        "remaining": 0
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "uk-2026-27-v1",
+      "note": "Independent formula fixture"
+    },
+    {
+      "scenario": "LISA max",
+      "inputs": {
+        "cash": 0,
+        "stocks": 0,
+        "innovative": 0,
+        "lisa": 4000
+      },
+      "expected": {
+        "total": 4000,
+        "remaining": 16000
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "uk-2026-27-v1",
+      "note": "Independent formula fixture"
+    },
+    {
+      "scenario": "Over LISA",
+      "inputs": {
+        "cash": 0,
+        "stocks": 0,
+        "innovative": 0,
+        "lisa": 5000
+      },
+      "expected": {
+        "total": 5000,
+        "remaining": 15000,
+        "validation": "LISA limit exceeded"
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "uk-2026-27-v1",
+      "note": "Independent formula fixture"
+    },
+    {
+      "scenario": "Over overall",
+      "inputs": {
+        "cash": 10000,
+        "stocks": 10000,
+        "innovative": 1000,
+        "lisa": 0
+      },
+      "expected": {
+        "total": 21000,
+        "remaining": 0,
+        "validation": "Overall ISA limit exceeded"
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "uk-2026-27-v1",
+      "note": "Independent formula fixture"
+    }
+  ],
+  "MAT-002": [
+    {
+      "scenario": "Basic",
+      "inputs": {
+        "expression": "2+3*4"
+      },
+      "expected": {
+        "result": 14
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independent formula fixture"
+    },
+    {
+      "scenario": "Sqrt",
+      "inputs": {
+        "expression": "sqrt(16)"
+      },
+      "expected": {
+        "result": 4
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independent formula fixture"
+    },
+    {
+      "scenario": "Trig",
+      "inputs": {
+        "expression": "sin(pi/2)",
+        "angle": "radians"
+      },
+      "expected": {
+        "result": 1
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independent formula fixture"
+    },
+    {
+      "scenario": "Power",
+      "inputs": {
+        "expression": "2^10"
+      },
+      "expected": {
+        "result": 1024
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independent formula fixture"
+    },
+    {
+      "scenario": "Log",
+      "inputs": {
+        "expression": "ln(e)"
+      },
+      "expected": {
+        "result": 1
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independent formula fixture"
+    }
+  ],
+  "MAT-003": [
+    {
+      "scenario": "20% of 50",
+      "inputs": {
+        "mode": "percent_of",
+        "pct": 20,
+        "value": 50
+      },
+      "expected": {
+        "result": 10
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independent formula fixture"
+    },
+    {
+      "scenario": "20 is % of 80",
+      "inputs": {
+        "mode": "is_what_percent",
+        "a": 20,
+        "b": 80
+      },
+      "expected": {
+        "result_percent": 25
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independent formula fixture"
+    },
+    {
+      "scenario": "20 is 10% of what",
+      "inputs": {
+        "mode": "is_percent_of_what",
+        "a": 20,
+        "pct": 10
+      },
+      "expected": {
+        "result": 200
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independent formula fixture"
+    },
+    {
+      "scenario": "Increase",
+      "inputs": {
+        "mode": "percent_change",
+        "old": 100,
+        "new": 125
+      },
+      "expected": {
+        "result_percent": 25
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independent formula fixture"
+    },
+    {
+      "scenario": "Decrease",
+      "inputs": {
+        "mode": "percent_change",
+        "old": 200,
+        "new": 150
+      },
+      "expected": {
+        "result_percent": -25
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independent formula fixture"
+    }
+  ],
+  "MAT-005": [
+    {
+      "scenario": "12:18",
+      "inputs": {
+        "a": 12,
+        "b": 18
+      },
+      "expected": {
+        "simplified": "2:3"
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independent formula fixture"
+    },
+    {
+      "scenario": "100:25",
+      "inputs": {
+        "a": 100,
+        "b": 25
+      },
+      "expected": {
+        "simplified": "4:1"
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independent formula fixture"
+    },
+    {
+      "scenario": "7:7",
+      "inputs": {
+        "a": 7,
+        "b": 7
+      },
+      "expected": {
+        "simplified": "1:1"
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independent formula fixture"
+    },
+    {
+      "scenario": "Proportion",
+      "inputs": {
+        "a": 2,
+        "b": 3,
+        "c": 8,
+        "d": null
+      },
+      "expected": {
+        "d": 12
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independent formula fixture"
+    },
+    {
+      "scenario": "Scale",
+      "inputs": {
+        "a": 3,
+        "b": 5,
+        "scale": 4
+      },
+      "expected": {
+        "equivalent": "12:20"
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independent formula fixture"
+    }
+  ],
+  "MAT-006": [
+    {
+      "scenario": "Add",
+      "inputs": {
+        "a": "1/2",
+        "b": "1/3",
+        "op": "+"
+      },
+      "expected": {
+        "fraction": "5/6",
+        "decimal": 0.83333333
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independent formula fixture"
+    },
+    {
+      "scenario": "Subtract",
+      "inputs": {
+        "a": "3/4",
+        "b": "1/8",
+        "op": "-"
+      },
+      "expected": {
+        "fraction": "5/8",
+        "decimal": 0.625
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independent formula fixture"
+    },
+    {
+      "scenario": "Multiply",
+      "inputs": {
+        "a": "2/3",
+        "b": "3/5",
+        "op": "*"
+      },
+      "expected": {
+        "fraction": "2/5",
+        "decimal": 0.4
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independent formula fixture"
+    },
+    {
+      "scenario": "Divide",
+      "inputs": {
+        "a": "3/4",
+        "b": "2/5",
+        "op": "/"
+      },
+      "expected": {
+        "fraction": "15/8",
+        "decimal": 1.875
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independent formula fixture"
+    },
+    {
+      "scenario": "Negative",
+      "inputs": {
+        "a": "-1/2",
+        "b": "1/4",
+        "op": "+"
+      },
+      "expected": {
+        "fraction": "-1/4",
+        "decimal": -0.25
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independent formula fixture"
+    }
+  ],
+  "PEN-001": [
+    {
+      "scenario": "Standard",
+      "inputs": {
+        "current_pot": 50000,
+        "member_monthly": 300,
+        "employer_monthly": 200,
+        "return": 0.05,
+        "fee": 0.005,
+        "years": 20
+      },
+      "expected": {
+        "projected_pot": 311566.6,
+        "annual_contributions": 6000,
+        "standard_allowance_warning": false
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "uk-2026-27-v1",
+      "note": "Independent formula fixture"
+    },
+    {
+      "scenario": "No current pot",
+      "inputs": {
+        "current_pot": 0,
+        "member_monthly": 200,
+        "employer_monthly": 100,
+        "return": 0.05,
+        "fee": 0,
+        "years": 30
+      },
+      "expected": {
+        "projected_pot": 244612.77,
+        "annual_contributions": 3600,
+        "standard_allowance_warning": false
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "uk-2026-27-v1",
+      "note": "Independent formula fixture"
+    },
+    {
+      "scenario": "Zero return",
+      "inputs": {
+        "current_pot": 10000,
+        "member_monthly": 100,
+        "employer_monthly": 100,
+        "return": 0,
+        "fee": 0,
+        "years": 10
+      },
+      "expected": {
+        "projected_pot": 34000.0,
+        "annual_contributions": 2400,
+        "standard_allowance_warning": false
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "uk-2026-27-v1",
+      "note": "Independent formula fixture"
+    },
+    {
+      "scenario": "High contrib",
+      "inputs": {
+        "current_pot": 100000,
+        "member_monthly": 3000,
+        "employer_monthly": 2500,
+        "return": 0.04,
+        "fee": 0.005,
+        "years": 10
+      },
+      "expected": {
+        "projected_pot": 926606.23,
+        "annual_contributions": 66000,
+        "standard_allowance_warning": true
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "uk-2026-27-v1",
+      "note": "Independent formula fixture"
+    },
+    {
+      "scenario": "Negative",
+      "inputs": {
+        "current_pot": 50000,
+        "member_monthly": 300,
+        "employer_monthly": 200,
+        "return": -0.03,
+        "fee": 0,
+        "years": 5
+      },
+      "expected": {
+        "projected_pot": 70799.28,
+        "annual_contributions": 6000,
+        "standard_allowance_warning": false
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "uk-2026-27-v1",
+      "note": "Independent formula fixture"
+    }
+  ],
+  "PEN-002": [
+    {
+      "scenario": "Standard",
+      "inputs": {
+        "pot": 20000,
+        "net_monthly": 400,
+        "marginal_rate": 0.4,
+        "return": 0.05,
+        "fee": 0.005,
+        "years": 20
+      },
+      "expected": {
+        "gross_monthly": 500.0,
+        "provider_relief_monthly": 100.0,
+        "potential_extra_relief_monthly": 100.0,
+        "projected_value": 239560.57,
+        "allowance_warning": false
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "uk-2026-27-v1",
+      "note": "Independent formula fixture"
+    },
+    {
+      "scenario": "Basic rate",
+      "inputs": {
+        "pot": 0,
+        "net_monthly": 80,
+        "marginal_rate": 0.2,
+        "return": 0.05,
+        "fee": 0,
+        "years": 1
+      },
+      "expected": {
+        "gross_monthly": 100.0,
+        "provider_relief_monthly": 20.0,
+        "potential_extra_relief_monthly": 0.0,
+        "projected_value": 1227.26,
+        "allowance_warning": false
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "uk-2026-27-v1",
+      "note": "Independent formula fixture"
+    },
+    {
+      "scenario": "Additional",
+      "inputs": {
+        "pot": 50000,
+        "net_monthly": 800,
+        "marginal_rate": 0.45,
+        "return": 0.04,
+        "fee": 0.005,
+        "years": 10
+      },
+      "expected": {
+        "gross_monthly": 1000.0,
+        "provider_relief_monthly": 200.0,
+        "potential_extra_relief_monthly": 250.0,
+        "projected_value": 213269.89,
+        "allowance_warning": false
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "uk-2026-27-v1",
+      "note": "Independent formula fixture"
+    },
+    {
+      "scenario": "Zero return",
+      "inputs": {
+        "pot": 1000,
+        "net_monthly": 80,
+        "marginal_rate": 0.2,
+        "return": 0,
+        "fee": 0,
+        "years": 2
+      },
+      "expected": {
+        "gross_monthly": 100.0,
+        "provider_relief_monthly": 20.0,
+        "potential_extra_relief_monthly": 0.0,
+        "projected_value": 3400.0,
+        "allowance_warning": false
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "uk-2026-27-v1",
+      "note": "Independent formula fixture"
+    },
+    {
+      "scenario": "High contribution",
+      "inputs": {
+        "pot": 100000,
+        "net_monthly": 5000,
+        "marginal_rate": 0.4,
+        "return": 0.05,
+        "fee": 0,
+        "years": 1
+      },
+      "expected": {
+        "gross_monthly": 6250.0,
+        "provider_relief_monthly": 1250.0,
+        "potential_extra_relief_monthly": 1250.0,
+        "projected_value": 181703.61,
+        "allowance_warning": true
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "uk-2026-27-v1",
+      "note": "Independent formula fixture"
+    }
+  ],
+  "PEN-003": [
+    {
+      "scenario": "Standard",
+      "inputs": {
+        "annual_pay": 35000,
+        "employer_rate": 0.03,
+        "employee_rate": 0.05,
+        "current_pot": 0,
+        "return": 0.05,
+        "years": 25
+      },
+      "expected": {
+        "qualifying_earnings": 28760.0,
+        "employer_annual": 862.8,
+        "employee_annual": 1438.0,
+        "projected_pot": 112304.83
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "uk-2026-27-v1",
+      "note": "Independent formula fixture"
+    },
+    {
+      "scenario": "Below lower",
+      "inputs": {
+        "annual_pay": 5000,
+        "employer_rate": 0.03,
+        "employee_rate": 0.05,
+        "current_pot": 0,
+        "return": 0.05,
+        "years": 10
+      },
+      "expected": {
+        "qualifying_earnings": 0.0,
+        "employer_annual": 0.0,
+        "employee_annual": 0.0,
+        "projected_pot": 0.0
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "uk-2026-27-v1",
+      "note": "Independent formula fixture"
+    },
+    {
+      "scenario": "Above upper",
+      "inputs": {
+        "annual_pay": 80000,
+        "employer_rate": 0.03,
+        "employee_rate": 0.05,
+        "current_pot": 10000,
+        "return": 0.05,
+        "years": 20
+      },
+      "expected": {
+        "qualifying_earnings": 44030.0,
+        "employer_annual": 1320.9,
+        "employee_annual": 2201.5,
+        "projected_pot": 145650.12
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "uk-2026-27-v1",
+      "note": "Independent formula fixture"
+    },
+    {
+      "scenario": "Higher rates",
+      "inputs": {
+        "annual_pay": 40000,
+        "employer_rate": 0.05,
+        "employee_rate": 0.08,
+        "current_pot": 20000,
+        "return": 0.04,
+        "years": 15
+      },
+      "expected": {
+        "qualifying_earnings": 33760.0,
+        "employer_annual": 1688.0,
+        "employee_annual": 2700.8,
+        "projected_pot": 125498.11
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "uk-2026-27-v1",
+      "note": "Independent formula fixture"
+    },
+    {
+      "scenario": "Zero return",
+      "inputs": {
+        "annual_pay": 20000,
+        "employer_rate": 0.03,
+        "employee_rate": 0.05,
+        "current_pot": 0,
+        "return": 0,
+        "years": 5
+      },
+      "expected": {
+        "qualifying_earnings": 13760.0,
+        "employer_annual": 412.8,
+        "employee_annual": 688.0,
+        "projected_pot": 5504.0
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "uk-2026-27-v1",
+      "note": "Independent formula fixture"
+    }
+  ],
+  "PEN-006": [
+    {
+      "scenario": "Standard",
+      "inputs": {
+        "age": 40,
+        "retirement_age": 67,
+        "pot": 80000,
+        "monthly_contribution": 500,
+        "return": 0.05,
+        "inflation": 0.025,
+        "target_today": 30000,
+        "withdrawal_rate": 0.04
+      },
+      "expected": {
+        "projected_pot": 634142.05,
+        "future_target_income": 58434.0,
+        "required_pot": 1460850.01,
+        "gap": -826707.96,
+        "funding_ratio": 0.434091
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "None",
+      "note": "Deterministic illustrative fixture"
+    },
+    {
+      "scenario": "No contrib",
+      "inputs": {
+        "age": 50,
+        "retirement_age": 67,
+        "pot": 100000,
+        "monthly_contribution": 0,
+        "return": 0.04,
+        "inflation": 0.02,
+        "target_today": 25000,
+        "withdrawal_rate": 0.04
+      },
+      "expected": {
+        "projected_pot": 194790.05,
+        "future_target_income": 35006.04,
+        "required_pot": 875150.89,
+        "gap": -680360.84,
+        "funding_ratio": 0.222579
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "None",
+      "note": "Deterministic illustrative fixture"
+    },
+    {
+      "scenario": "Near retirement",
+      "inputs": {
+        "age": 65,
+        "retirement_age": 67,
+        "pot": 200000,
+        "monthly_contribution": 500,
+        "return": 0.03,
+        "inflation": 0.02,
+        "target_today": 20000,
+        "withdrawal_rate": 0.04
+      },
+      "expected": {
+        "projected_pot": 224526.58,
+        "future_target_income": 20808.0,
+        "required_pot": 520200.0,
+        "gap": -295673.42,
+        "funding_ratio": 0.431616
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "None",
+      "note": "Deterministic illustrative fixture"
+    },
+    {
+      "scenario": "High target",
+      "inputs": {
+        "age": 35,
+        "retirement_age": 67,
+        "pot": 50000,
+        "monthly_contribution": 300,
+        "return": 0.05,
+        "inflation": 0.025,
+        "target_today": 50000,
+        "withdrawal_rate": 0.035
+      },
+      "expected": {
+        "projected_pot": 515480.29,
+        "future_target_income": 110187.85,
+        "required_pot": 3148224.2,
+        "gap": -2632743.91,
+        "funding_ratio": 0.163737
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "None",
+      "note": "Deterministic illustrative fixture"
+    },
+    {
+      "scenario": "Zero growth",
+      "inputs": {
+        "age": 40,
+        "retirement_age": 60,
+        "pot": 50000,
+        "monthly_contribution": 500,
+        "return": 0,
+        "inflation": 0.02,
+        "target_today": 20000,
+        "withdrawal_rate": 0.04
+      },
+      "expected": {
+        "projected_pot": 170000.0,
+        "future_target_income": 29718.95,
+        "required_pot": 742973.7,
+        "gap": -572973.7,
+        "funding_ratio": 0.22881
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "None",
+      "note": "Deterministic illustrative fixture"
+    }
+  ],
+  "PRO-001": [
+    {
+      "scenario": "Repayment",
+      "inputs": {
+        "price": 300000,
+        "deposit": 60000,
+        "rate": 0.045,
+        "years": 25,
+        "type": "repayment"
+      },
+      "expected": {
+        "loan": 240000.0,
+        "monthly_payment": 1334.0,
+        "ltv": 0.8,
+        "total_interest": 160199.38
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independent formula fixture"
+    },
+    {
+      "scenario": "Interest only",
+      "inputs": {
+        "price": 300000,
+        "deposit": 60000,
+        "rate": 0.045,
+        "years": 25,
+        "type": "interest-only"
+      },
+      "expected": {
+        "loan": 240000.0,
+        "monthly_payment": 900.0,
+        "ltv": 0.8,
+        "total_interest": 270000.0
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independent formula fixture"
+    },
+    {
+      "scenario": "Zero rate",
+      "inputs": {
+        "price": 200000,
+        "deposit": 40000,
+        "rate": 0,
+        "years": 20,
+        "type": "repayment"
+      },
+      "expected": {
+        "loan": 160000.0,
+        "monthly_payment": 666.67,
+        "ltv": 0.8,
+        "total_interest": 0.0
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independent formula fixture"
+    },
+    {
+      "scenario": "High deposit",
+      "inputs": {
+        "price": 250000,
+        "deposit": 150000,
+        "rate": 0.04,
+        "years": 15,
+        "type": "repayment"
+      },
+      "expected": {
+        "loan": 100000.0,
+        "monthly_payment": 739.69,
+        "ltv": 0.4,
+        "total_interest": 33143.83
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independent formula fixture"
+    },
+    {
+      "scenario": "Low deposit",
+      "inputs": {
+        "price": 180000,
+        "deposit": 18000,
+        "rate": 0.055,
+        "years": 30,
+        "type": "repayment"
+      },
+      "expected": {
+        "loan": 162000.0,
+        "monthly_payment": 919.82,
+        "ltv": 0.9,
+        "total_interest": 169134.55
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independent formula fixture"
+    }
+  ],
+  "PRO-002": [
+    {
+      "scenario": "Standard",
+      "inputs": {
+        "income": 60000,
+        "deposit": 50000,
+        "stress_rate": 0.06,
+        "term": 25,
+        "multiple": 4.5,
+        "payment_ratio": 0.35,
+        "monthly_debt": 0
+      },
+      "expected": {
+        "max_mortgage": 270000.0,
+        "max_price": 320000.0,
+        "monthly_payment_cap": 1750.0
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independent formula fixture"
+    },
+    {
+      "scenario": "Debt commitments",
+      "inputs": {
+        "income": 60000,
+        "deposit": 50000,
+        "stress_rate": 0.06,
+        "term": 25,
+        "multiple": 4.5,
+        "payment_ratio": 0.35,
+        "monthly_debt": 500
+      },
+      "expected": {
+        "max_mortgage": 194008.58,
+        "max_price": 244008.58,
+        "monthly_payment_cap": 1250.0
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independent formula fixture"
+    },
+    {
+      "scenario": "High income",
+      "inputs": {
+        "income": 100000,
+        "deposit": 100000,
+        "stress_rate": 0.05,
+        "term": 30,
+        "multiple": 4.5,
+        "payment_ratio": 0.35,
+        "monthly_debt": 0
+      },
+      "expected": {
+        "max_mortgage": 450000.0,
+        "max_price": 550000.0,
+        "monthly_payment_cap": 2916.67
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independent formula fixture"
+    },
+    {
+      "scenario": "Conservative multiple",
+      "inputs": {
+        "income": 50000,
+        "deposit": 30000,
+        "stress_rate": 0.06,
+        "term": 25,
+        "multiple": 3.5,
+        "payment_ratio": 0.3,
+        "monthly_debt": 0
+      },
+      "expected": {
+        "max_mortgage": 175000.0,
+        "max_price": 205000.0,
+        "monthly_payment_cap": 1250.0
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independent formula fixture"
+    },
+    {
+      "scenario": "Zero rate",
+      "inputs": {
+        "income": 40000,
+        "deposit": 20000,
+        "stress_rate": 0,
+        "term": 20,
+        "multiple": 4,
+        "payment_ratio": 0.3,
+        "monthly_debt": 0
+      },
+      "expected": {
+        "max_mortgage": 160000.0,
+        "max_price": 180000.0,
+        "monthly_payment_cap": 1000.0
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independent formula fixture"
+    }
+  ],
+  "PRO-003": [
+    {
+      "scenario": "Start",
+      "inputs": {
+        "balance": 240000,
+        "rate": 0.045,
+        "years": 25,
+        "months_elapsed": 12
+      },
+      "expected": {
+        "monthly_payment": 1334.0,
+        "remaining_balance": 234683.26
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independent formula fixture"
+    },
+    {
+      "scenario": "Five years",
+      "inputs": {
+        "balance": 240000,
+        "rate": 0.045,
+        "years": 25,
+        "months_elapsed": 60
+      },
+      "expected": {
+        "monthly_payment": 1334.0,
+        "remaining_balance": 210858.97
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independent formula fixture"
+    },
+    {
+      "scenario": "Zero rate",
+      "inputs": {
+        "balance": 120000,
+        "rate": 0,
+        "years": 10,
+        "months_elapsed": 60
+      },
+      "expected": {
+        "monthly_payment": 1000.0,
+        "remaining_balance": 60000.0
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independent formula fixture"
+    },
+    {
+      "scenario": "Near end",
+      "inputs": {
+        "balance": 100000,
+        "rate": 0.03,
+        "years": 10,
+        "months_elapsed": 119
+      },
+      "expected": {
+        "monthly_payment": 965.61,
+        "remaining_balance": 963.2
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independent formula fixture"
+    },
+    {
+      "scenario": "High rate",
+      "inputs": {
+        "balance": 150000,
+        "rate": 0.08,
+        "years": 20,
+        "months_elapsed": 24
+      },
+      "expected": {
+        "monthly_payment": 1254.66,
+        "remaining_balance": 143395.85
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independent formula fixture"
+    }
+  ],
+  "PRO-004": [
+    {
+      "scenario": "\u00a3200 monthly",
+      "inputs": {
+        "balance": 200000,
+        "rate": 0.045,
+        "years": 20,
+        "monthly_overpayment": 200,
+        "lump_sum": 0,
+        "lump_month": 1
+      },
+      "expected": {
+        "payoff_months": 192,
+        "interest_saved": 22936.25,
+        "months_saved": 48,
+        "new_interest": 80735.45
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independent formula fixture"
+    },
+    {
+      "scenario": "\u00a3500 monthly",
+      "inputs": {
+        "balance": 200000,
+        "rate": 0.045,
+        "years": 20,
+        "monthly_overpayment": 500,
+        "lump_sum": 0,
+        "lump_month": 1
+      },
+      "expected": {
+        "payoff_months": 148,
+        "interest_saved": 42795.98,
+        "months_saved": 92,
+        "new_interest": 60875.72
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independent formula fixture"
+    },
+    {
+      "scenario": "Lump sum",
+      "inputs": {
+        "balance": 200000,
+        "rate": 0.045,
+        "years": 20,
+        "monthly_overpayment": 0,
+        "lump_sum": 10000,
+        "lump_month": 12
+      },
+      "expected": {
+        "payoff_months": 223,
+        "interest_saved": 0.0,
+        "months_saved": 0,
+        "new_interest": 90933.76
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independent formula fixture"
+    },
+    {
+      "scenario": "Zero rate",
+      "inputs": {
+        "balance": 120000,
+        "rate": 0,
+        "years": 20,
+        "monthly_overpayment": 100,
+        "lump_sum": 0,
+        "lump_month": 1
+      },
+      "expected": {
+        "payoff_months": 200,
+        "interest_saved": 0.0,
+        "months_saved": 40,
+        "new_interest": 0.0
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independent formula fixture"
+    },
+    {
+      "scenario": "Small extra",
+      "inputs": {
+        "balance": 100000,
+        "rate": 0.03,
+        "years": 15,
+        "monthly_overpayment": 50,
+        "lump_sum": 0,
+        "lump_month": 1
+      },
+      "expected": {
+        "payoff_months": 165,
+        "interest_saved": 2150.52,
+        "months_saved": 15,
+        "new_interest": 22154.18
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independent formula fixture"
+    }
+  ],
+  "PRO-010": [
+    {
+      "scenario": "75% LTV",
+      "inputs": {
+        "value": 300000,
+        "loan": 225000
+      },
+      "expected": {
+        "ltv": 0.75,
+        "equity": 75000
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independent formula fixture"
+    },
+    {
+      "scenario": "80% LTV",
+      "inputs": {
+        "value": 250000,
+        "loan": 200000
+      },
+      "expected": {
+        "ltv": 0.8,
+        "equity": 50000
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independent formula fixture"
+    },
+    {
+      "scenario": "No mortgage",
+      "inputs": {
+        "value": 400000,
+        "loan": 0
+      },
+      "expected": {
+        "ltv": 0,
+        "equity": 400000
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independent formula fixture"
+    },
+    {
+      "scenario": "Negative equity",
+      "inputs": {
+        "value": 200000,
+        "loan": 220000
+      },
+      "expected": {
+        "ltv": 1.1,
+        "equity": -20000
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independent formula fixture"
+    },
+    {
+      "scenario": "50%",
+      "inputs": {
+        "value": 180000,
+        "loan": 90000
+      },
+      "expected": {
+        "ltv": 0.5,
+        "equity": 90000
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independent formula fixture"
+    }
+  ],
+  "PRO-011": [
+    {
+      "scenario": "80% target",
+      "inputs": {
+        "price": 300000,
+        "target_ltv": 0.8
+      },
+      "expected": {
+        "mortgage": 240000,
+        "deposit": 60000
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independent formula fixture"
+    },
+    {
+      "scenario": "90% target",
+      "inputs": {
+        "price": 250000,
+        "target_ltv": 0.9
+      },
+      "expected": {
+        "mortgage": 225000,
+        "deposit": 25000
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independent formula fixture"
+    },
+    {
+      "scenario": "Mortgage mode",
+      "inputs": {
+        "price": 300000,
+        "mortgage": 210000
+      },
+      "expected": {
+        "ltv": 0.7,
+        "deposit": 90000
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independent formula fixture"
+    },
+    {
+      "scenario": "100%",
+      "inputs": {
+        "price": 200000,
+        "target_ltv": 1
+      },
+      "expected": {
+        "mortgage": 200000,
+        "deposit": 0
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independent formula fixture"
+    },
+    {
+      "scenario": "60%",
+      "inputs": {
+        "price": 500000,
+        "target_ltv": 0.6
+      },
+      "expected": {
+        "mortgage": 300000,
+        "deposit": 200000
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independent formula fixture"
+    }
+  ],
+  "PRO-016": [
+    {
+      "scenario": "Standard",
+      "inputs": {
+        "price": 250000,
+        "monthly_rent": 1300,
+        "vacancy": 0.05,
+        "annual_costs": 2500,
+        "extra_basis": 0
+      },
+      "expected": {
+        "gross_yield": 0.0624,
+        "net_yield": 0.04928,
+        "net_operating_income": 12320.0
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independent formula fixture"
+    },
+    {
+      "scenario": "No vacancy",
+      "inputs": {
+        "price": 200000,
+        "monthly_rent": 1000,
+        "vacancy": 0,
+        "annual_costs": 2000,
+        "extra_basis": 0
+      },
+      "expected": {
+        "gross_yield": 0.06,
+        "net_yield": 0.05,
+        "net_operating_income": 10000.0
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independent formula fixture"
+    },
+    {
+      "scenario": "High vacancy",
+      "inputs": {
+        "price": 300000,
+        "monthly_rent": 1500,
+        "vacancy": 0.2,
+        "annual_costs": 4000,
+        "extra_basis": 0
+      },
+      "expected": {
+        "gross_yield": 0.06,
+        "net_yield": 0.034667,
+        "net_operating_income": 10400.0
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independent formula fixture"
+    },
+    {
+      "scenario": "With refurb",
+      "inputs": {
+        "price": 150000,
+        "monthly_rent": 900,
+        "vacancy": 0.05,
+        "annual_costs": 1500,
+        "extra_basis": 20000
+      },
+      "expected": {
+        "gross_yield": 0.072,
+        "net_yield": 0.051529,
+        "net_operating_income": 8760.0
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independent formula fixture"
+    },
+    {
+      "scenario": "Costs exceed",
+      "inputs": {
+        "price": 100000,
+        "monthly_rent": 500,
+        "vacancy": 0.1,
+        "annual_costs": 7000,
+        "extra_basis": 0
+      },
+      "expected": {
+        "gross_yield": 0.06,
+        "net_yield": -0.016,
+        "net_operating_income": -1600.0
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independent formula fixture"
+    }
+  ],
+  "PRO-018": [
+    {
+      "scenario": "Interest-only",
+      "inputs": {
+        "price": 250000,
+        "deposit": 75000,
+        "rate": 0.045,
+        "term": 25,
+        "rent": 1300,
+        "vacancy": 0.05,
+        "costs": 3000,
+        "repayment": false,
+        "additional_property": true
+      },
+      "expected": {
+        "effective_rent": 14820.0,
+        "pre_tax_cashflow": 3945.0,
+        "icr": 1.500952,
+        "sdlt": 15000.0
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "uk-2026-27-v1",
+      "note": "Independent formula fixture"
+    },
+    {
+      "scenario": "Repayment",
+      "inputs": {
+        "price": 250000,
+        "deposit": 75000,
+        "rate": 0.045,
+        "term": 25,
+        "rent": 1300,
+        "vacancy": 0.05,
+        "costs": 3000,
+        "repayment": true,
+        "additional_property": true
+      },
+      "expected": {
+        "effective_rent": 14820.0,
+        "pre_tax_cashflow": 147.52,
+        "icr": 1.500952,
+        "sdlt": 15000.0
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "uk-2026-27-v1",
+      "note": "Independent formula fixture"
+    },
+    {
+      "scenario": "High rent",
+      "inputs": {
+        "price": 200000,
+        "deposit": 60000,
+        "rate": 0.04,
+        "term": 25,
+        "rent": 1500,
+        "vacancy": 0.02,
+        "costs": 2500,
+        "repayment": false,
+        "additional_property": true
+      },
+      "expected": {
+        "effective_rent": 17640.0,
+        "pre_tax_cashflow": 9540.0,
+        "icr": 2.703571,
+        "sdlt": 11500.0
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "uk-2026-27-v1",
+      "note": "Independent formula fixture"
+    },
+    {
+      "scenario": "Vacancy",
+      "inputs": {
+        "price": 300000,
+        "deposit": 90000,
+        "rate": 0.05,
+        "term": 25,
+        "rent": 1500,
+        "vacancy": 0.2,
+        "costs": 3500,
+        "repayment": false,
+        "additional_property": true
+      },
+      "expected": {
+        "effective_rent": 14400.0,
+        "pre_tax_cashflow": 400.0,
+        "icr": 1.038095,
+        "sdlt": 20000.0
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "uk-2026-27-v1",
+      "note": "Independent formula fixture"
+    },
+    {
+      "scenario": "Zero rate",
+      "inputs": {
+        "price": 180000,
+        "deposit": 60000,
+        "rate": 0,
+        "term": 20,
+        "rent": 1000,
+        "vacancy": 0.05,
+        "costs": 2000,
+        "repayment": false,
+        "additional_property": true
+      },
+      "expected": {
+        "effective_rent": 11400.0,
+        "pre_tax_cashflow": 9400.0,
+        "icr": null,
+        "sdlt": 10100.0
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "uk-2026-27-v1",
+      "note": "Independent formula fixture"
+    }
+  ],
+  "PRO-019": [
+    {
+      "scenario": "Standard",
+      "inputs": {
+        "price": 250000,
+        "deposit": 75000,
+        "rate": 0.045,
+        "term": 25,
+        "rent": 1300,
+        "vacancy": 0.05,
+        "costs": 3000,
+        "growth": 0.03,
+        "holding_years": 10
+      },
+      "expected": {
+        "ending_wealth": 210301.94,
+        "total_return": 1.804026,
+        "annualised_return": 0.108608,
+        "ending_mortgage": 127152.34,
+        "future_property_value": 335979.09
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independent formula fixture"
+    },
+    {
+      "scenario": "No growth",
+      "inputs": {
+        "price": 250000,
+        "deposit": 75000,
+        "rate": 0.045,
+        "term": 25,
+        "rent": 1300,
+        "vacancy": 0.05,
+        "costs": 3000,
+        "growth": 0,
+        "holding_years": 10
+      },
+      "expected": {
+        "ending_wealth": 124322.84,
+        "total_return": 0.657638,
+        "annualised_return": 0.051838,
+        "ending_mortgage": 127152.34,
+        "future_property_value": 250000.0
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independent formula fixture"
+    },
+    {
+      "scenario": "Falling",
+      "inputs": {
+        "price": 250000,
+        "deposit": 75000,
+        "rate": 0.045,
+        "term": 25,
+        "rent": 1300,
+        "vacancy": 0.05,
+        "costs": 3000,
+        "growth": -0.02,
+        "holding_years": 5
+      },
+      "expected": {
+        "ending_wealth": 72966.46,
+        "total_return": -0.027114,
+        "annualised_return": -0.005483,
+        "ending_mortgage": 153751.33,
+        "future_property_value": 225980.2
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independent formula fixture"
+    },
+    {
+      "scenario": "High rent",
+      "inputs": {
+        "price": 200000,
+        "deposit": 60000,
+        "rate": 0.04,
+        "term": 25,
+        "rent": 1500,
+        "vacancy": 0.02,
+        "costs": 2500,
+        "growth": 0.02,
+        "holding_years": 10
+      },
+      "expected": {
+        "ending_wealth": 206619.14,
+        "total_return": 2.443652,
+        "annualised_return": 0.131623,
+        "ending_mortgage": 99903.16,
+        "future_property_value": 243798.88
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independent formula fixture"
+    },
+    {
+      "scenario": "Short hold",
+      "inputs": {
+        "price": 300000,
+        "deposit": 90000,
+        "rate": 0.05,
+        "term": 25,
+        "rent": 1600,
+        "vacancy": 0.05,
+        "costs": 3500,
+        "growth": 0.03,
+        "holding_years": 3
+      },
+      "expected": {
+        "ending_wealth": 131509.03,
+        "total_return": 0.461211,
+        "annualised_return": 0.134761,
+        "ending_mortgage": 196334.06,
+        "future_property_value": 327818.1
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independent formula fixture"
+    }
+  ],
+  "PRO-023": [
+    {
+      "scenario": "Standard \u00a3300k",
+      "inputs": {
+        "price": 300000,
+        "first_time": false,
+        "additional": false,
+        "nonresident": false
+      },
+      "expected": {
+        "sdlt": 5000
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "uk-2026-27-v1",
+      "note": "Independent formula fixture"
+    },
+    {
+      "scenario": "First-time \u00a3300k",
+      "inputs": {
+        "price": 300000,
+        "first_time": true,
+        "additional": false,
+        "nonresident": false
+      },
+      "expected": {
+        "sdlt": 0
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "uk-2026-27-v1",
+      "note": "Independent formula fixture"
+    },
+    {
+      "scenario": "First-time \u00a3500k",
+      "inputs": {
+        "price": 500000,
+        "first_time": true,
+        "additional": false,
+        "nonresident": false
+      },
+      "expected": {
+        "sdlt": 10000
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "uk-2026-27-v1",
+      "note": "Independent formula fixture"
+    },
+    {
+      "scenario": "Additional \u00a3300k",
+      "inputs": {
+        "price": 300000,
+        "first_time": false,
+        "additional": true,
+        "nonresident": false
+      },
+      "expected": {
+        "sdlt": 20000
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "uk-2026-27-v1",
+      "note": "Independent formula fixture"
+    },
+    {
+      "scenario": "Standard nonresident \u00a3300k",
+      "inputs": {
+        "price": 300000,
+        "first_time": false,
+        "additional": false,
+        "nonresident": true
+      },
+      "expected": {
+        "sdlt": 11000
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "uk-2026-27-v1",
+      "note": "Independent formula fixture"
+    }
+  ],
+  "STA-001": [
+    {
+      "scenario": "Odd",
+      "inputs": {
+        "values": [
+          1,
+          2,
+          2,
+          4,
+          6
+        ]
+      },
+      "expected": {
+        "mean": 3,
+        "median": 2,
+        "modes": [
+          2
+        ],
+        "range": 5
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independent formula fixture"
+    },
+    {
+      "scenario": "Even",
+      "inputs": {
+        "values": [
+          1,
+          2,
+          3,
+          4
+        ]
+      },
+      "expected": {
+        "mean": 2.5,
+        "median": 2.5,
+        "modes": [
+          1,
+          2,
+          3,
+          4
+        ],
+        "range": 3
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independent formula fixture"
+    },
+    {
+      "scenario": "Negative",
+      "inputs": {
+        "values": [
+          -5,
+          -1,
+          0,
+          2
+        ]
+      },
+      "expected": {
+        "mean": -1,
+        "median": -0.5,
+        "modes": [
+          -5,
+          -1,
+          0,
+          2
+        ],
+        "range": 7
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independent formula fixture"
+    },
+    {
+      "scenario": "One",
+      "inputs": {
+        "values": [
+          7
+        ]
+      },
+      "expected": {
+        "mean": 7,
+        "median": 7,
+        "modes": [
+          7
+        ],
+        "range": 0
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independent formula fixture"
+    },
+    {
+      "scenario": "Multimode",
+      "inputs": {
+        "values": [
+          1,
+          1,
+          2,
+          2,
+          3
+        ]
+      },
+      "expected": {
+        "mean": 1.8,
+        "median": 2,
+        "modes": [
+          1,
+          2
+        ],
+        "range": 2
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independent formula fixture"
+    }
+  ],
+  "STA-003": [
+    {
+      "scenario": "Population classic",
+      "inputs": {
+        "values": [
+          2,
+          4,
+          4,
+          4,
+          5,
+          5,
+          7,
+          9
+        ],
+        "definition": "population"
+      },
+      "expected": {
+        "sd": 2,
+        "variance": 4
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independent formula fixture"
+    },
+    {
+      "scenario": "Sample classic",
+      "inputs": {
+        "values": [
+          2,
+          4,
+          4,
+          4,
+          5,
+          5,
+          7,
+          9
+        ],
+        "definition": "sample"
+      },
+      "expected": {
+        "sd": 2.13808994,
+        "variance": 4.57142857
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independent formula fixture"
+    },
+    {
+      "scenario": "Identical",
+      "inputs": {
+        "values": [
+          3,
+          3,
+          3
+        ],
+        "definition": "population"
+      },
+      "expected": {
+        "sd": 0,
+        "variance": 0
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independent formula fixture"
+    },
+    {
+      "scenario": "Two sample",
+      "inputs": {
+        "values": [
+          1,
+          3
+        ],
+        "definition": "sample"
+      },
+      "expected": {
+        "sd": 1.41421356,
+        "variance": 2
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independent formula fixture"
+    },
+    {
+      "scenario": "Negative",
+      "inputs": {
+        "values": [
+          -2,
+          0,
+          2
+        ],
+        "definition": "population"
+      },
+      "expected": {
+        "sd": 1.63299316,
+        "variance": 2.66666667
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independent formula fixture"
+    }
+  ],
+  "STA-006": [
+    {
+      "scenario": "95%",
+      "inputs": {
+        "mean": 100,
+        "sd": 15,
+        "n": 100,
+        "confidence": 0.95
+      },
+      "expected": {
+        "lower": 97.060054,
+        "upper": 102.939946,
+        "margin": 2.939946
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independent formula fixture"
+    },
+    {
+      "scenario": "90%",
+      "inputs": {
+        "mean": 50,
+        "sd": 10,
+        "n": 25,
+        "confidence": 0.9
+      },
+      "expected": {
+        "lower": 46.710293,
+        "upper": 53.289707,
+        "margin": 3.289707
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independent formula fixture"
+    },
+    {
+      "scenario": "99%",
+      "inputs": {
+        "mean": 10,
+        "sd": 2,
+        "n": 64,
+        "confidence": 0.99
+      },
+      "expected": {
+        "lower": 9.356043,
+        "upper": 10.643957,
+        "margin": 0.643957
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independent formula fixture"
+    },
+    {
+      "scenario": "Zero SD",
+      "inputs": {
+        "mean": 20,
+        "sd": 0,
+        "n": 30,
+        "confidence": 0.95
+      },
+      "expected": {
+        "lower": 20.0,
+        "upper": 20.0,
+        "margin": 0.0
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independent formula fixture"
+    },
+    {
+      "scenario": "Large n",
+      "inputs": {
+        "mean": 5,
+        "sd": 1,
+        "n": 1000,
+        "confidence": 0.95
+      },
+      "expected": {
+        "lower": 4.93802,
+        "upper": 5.06198,
+        "margin": 0.06198
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independent formula fixture"
+    }
+  ],
+  "STA-008": [
+    {
+      "scenario": "95% 5%",
+      "inputs": {
+        "confidence": 0.95,
+        "margin": 0.05,
+        "p": 0.5
+      },
+      "expected": {
+        "n": 385
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independent formula fixture"
+    },
+    {
+      "scenario": "95% 3%",
+      "inputs": {
+        "confidence": 0.95,
+        "margin": 0.03,
+        "p": 0.5
+      },
+      "expected": {
+        "n": 1068
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independent formula fixture"
+    },
+    {
+      "scenario": "99% 5%",
+      "inputs": {
+        "confidence": 0.99,
+        "margin": 0.05,
+        "p": 0.5
+      },
+      "expected": {
+        "n": 664
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independent formula fixture"
+    },
+    {
+      "scenario": "Expected 20%",
+      "inputs": {
+        "confidence": 0.95,
+        "margin": 0.05,
+        "p": 0.2
+      },
+      "expected": {
+        "n": 246
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independent formula fixture"
+    },
+    {
+      "scenario": "Finite 1000",
+      "inputs": {
+        "confidence": 0.95,
+        "margin": 0.05,
+        "p": 0.5,
+        "population": 1000
+      },
+      "expected": {
+        "n": 278
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independent formula fixture"
+    }
+  ],
+  "STA-014": [
+    {
+      "scenario": "Regression 1",
+      "inputs": {
+        "x": [
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "y": [
+          2,
+          4,
+          5,
+          4,
+          5
+        ]
+      },
+      "expected": {
+        "slope": 0.6,
+        "intercept": 2.2,
+        "r2": 0.6,
+        "residual_se": 0.89442719
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independent formula fixture"
+    },
+    {
+      "scenario": "Regression 2",
+      "inputs": {
+        "x": [
+          1,
+          2,
+          3
+        ],
+        "y": [
+          2,
+          4,
+          6
+        ]
+      },
+      "expected": {
+        "slope": 2.0,
+        "intercept": 0.0,
+        "r2": 1.0,
+        "residual_se": 0.0
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independent formula fixture"
+    },
+    {
+      "scenario": "Regression 3",
+      "inputs": {
+        "x": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "y": [
+          10,
+          9,
+          8,
+          7
+        ]
+      },
+      "expected": {
+        "slope": -1.0,
+        "intercept": 10.0,
+        "r2": 1.0,
+        "residual_se": 0.0
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independent formula fixture"
+    },
+    {
+      "scenario": "Regression 4",
+      "inputs": {
+        "x": [
+          -2,
+          -1,
+          0,
+          1,
+          2
+        ],
+        "y": [
+          4,
+          1,
+          0,
+          1,
+          4
+        ]
+      },
+      "expected": {
+        "slope": 0.0,
+        "intercept": 2.0,
+        "r2": 0.0,
+        "residual_se": 2.1602469
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independent formula fixture"
+    },
+    {
+      "scenario": "Regression 5",
+      "inputs": {
+        "x": [
+          10,
+          20,
+          30,
+          40
+        ],
+        "y": [
+          5,
+          7,
+          9,
+          11
+        ]
+      },
+      "expected": {
+        "slope": 0.2,
+        "intercept": 3.0,
+        "r2": 1.0,
+        "residual_se": 0.0
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independent formula fixture"
+    }
+  ],
+  "TAX-001": [
+    {
+      "scenario": "Below allowance",
+      "inputs": {
+        "income": 10000,
+        "jurisdiction": "England/Wales/NI"
+      },
+      "expected": {
+        "tax": 0.0,
+        "personal_allowance": 12570.0,
+        "taxable_income": 0.0
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "uk-2026-27-v1",
+      "note": "Independent formula fixture"
+    },
+    {
+      "scenario": "Basic",
+      "inputs": {
+        "income": 30000,
+        "jurisdiction": "England/Wales/NI"
+      },
+      "expected": {
+        "tax": 3486.0,
+        "personal_allowance": 12570.0,
+        "taxable_income": 17430.0
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "uk-2026-27-v1",
+      "note": "Independent formula fixture"
+    },
+    {
+      "scenario": "Higher",
+      "inputs": {
+        "income": 60000,
+        "jurisdiction": "England/Wales/NI"
+      },
+      "expected": {
+        "tax": 11432.0,
+        "personal_allowance": 12570.0,
+        "taxable_income": 47430.0
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "uk-2026-27-v1",
+      "note": "Independent formula fixture"
+    },
+    {
+      "scenario": "Taper",
+      "inputs": {
+        "income": 110000,
+        "jurisdiction": "England/Wales/NI"
+      },
+      "expected": {
+        "tax": 33432.0,
+        "personal_allowance": 7570.0,
+        "taxable_income": 102430.0
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "uk-2026-27-v1",
+      "note": "Independent formula fixture"
+    },
+    {
+      "scenario": "Scotland",
+      "inputs": {
+        "income": 60000,
+        "jurisdiction": "Scotland"
+      },
+      "expected": {
+        "tax": 13182.05,
+        "personal_allowance": 12570.0,
+        "taxable_income": 47430.0
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "uk-2026-27-v1",
+      "note": "Independent formula fixture"
+    }
+  ],
+  "TAX-002": [
+    {
+      "scenario": "40k",
+      "inputs": {
+        "salary": 40000,
+        "jurisdiction": "England/Wales/NI",
+        "hours_week": 37.5,
+        "weeks": 52
+      },
+      "expected": {
+        "gross_monthly": 3333.33,
+        "gross_weekly": 769.23,
+        "gross_hourly": 20.51,
+        "income_tax": 5486.0,
+        "ni": 2194.4,
+        "net_annual": 32319.6
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "uk-2026-27-v1",
+      "note": "Independent formula fixture"
+    },
+    {
+      "scenario": "Below tax",
+      "inputs": {
+        "salary": 12000,
+        "jurisdiction": "England/Wales/NI",
+        "hours_week": 40,
+        "weeks": 52
+      },
+      "expected": {
+        "gross_monthly": 1000.0,
+        "gross_weekly": 230.77,
+        "gross_hourly": 5.77,
+        "income_tax": 0.0,
+        "ni": 0.0,
+        "net_annual": 12000.0
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "uk-2026-27-v1",
+      "note": "Independent formula fixture"
+    },
+    {
+      "scenario": "60k Scotland",
+      "inputs": {
+        "salary": 60000,
+        "jurisdiction": "Scotland",
+        "hours_week": 37.5,
+        "weeks": 52
+      },
+      "expected": {
+        "gross_monthly": 5000.0,
+        "gross_weekly": 1153.85,
+        "gross_hourly": 30.77,
+        "income_tax": 13182.05,
+        "ni": 3210.6,
+        "net_annual": 43607.35
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "uk-2026-27-v1",
+      "note": "Independent formula fixture"
+    },
+    {
+      "scenario": "100k",
+      "inputs": {
+        "salary": 100000,
+        "jurisdiction": "England/Wales/NI",
+        "hours_week": 40,
+        "weeks": 52
+      },
+      "expected": {
+        "gross_monthly": 8333.33,
+        "gross_weekly": 1923.08,
+        "gross_hourly": 48.08,
+        "income_tax": 27432.0,
+        "ni": 4010.6,
+        "net_annual": 68557.4
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "uk-2026-27-v1",
+      "note": "Independent formula fixture"
+    },
+    {
+      "scenario": "Part-time",
+      "inputs": {
+        "salary": 25000,
+        "jurisdiction": "England/Wales/NI",
+        "hours_week": 25,
+        "weeks": 52
+      },
+      "expected": {
+        "gross_monthly": 2083.33,
+        "gross_weekly": 480.77,
+        "gross_hourly": 19.23,
+        "income_tax": 2486.0,
+        "ni": 994.4,
+        "net_annual": 21519.6
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "uk-2026-27-v1",
+      "note": "Independent formula fixture"
+    }
+  ],
+  "TAX-003": [
+    {
+      "scenario": "50k",
+      "inputs": {
+        "gross": 50000,
+        "jurisdiction": "England/Wales/NI",
+        "salary_sacrifice_pct": 0.05,
+        "student_plan": "None",
+        "postgraduate": false
+      },
+      "expected": {
+        "tax": 6986.0,
+        "ni": 2794.4,
+        "student_loan": 0.0,
+        "postgraduate_loan": 0.0,
+        "net_annual": 37719.6,
+        "net_monthly": 3143.3
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "uk-2026-27-v1",
+      "note": "Independent formula fixture"
+    },
+    {
+      "scenario": "Plan2",
+      "inputs": {
+        "gross": 50000,
+        "jurisdiction": "England/Wales/NI",
+        "salary_sacrifice_pct": 0,
+        "student_plan": "Plan 2",
+        "postgraduate": false
+      },
+      "expected": {
+        "tax": 7486.0,
+        "ni": 2994.4,
+        "student_loan": 1855.35,
+        "postgraduate_loan": 0.0,
+        "net_annual": 37664.25,
+        "net_monthly": 3138.69
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "uk-2026-27-v1",
+      "note": "Independent formula fixture"
+    },
+    {
+      "scenario": "Plan5+PG",
+      "inputs": {
+        "gross": 40000,
+        "jurisdiction": "England/Wales/NI",
+        "salary_sacrifice_pct": 0,
+        "student_plan": "Plan 5",
+        "postgraduate": true
+      },
+      "expected": {
+        "tax": 5486.0,
+        "ni": 2194.4,
+        "student_loan": 1350.0,
+        "postgraduate_loan": 1140.0,
+        "net_annual": 29829.6,
+        "net_monthly": 2485.8
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "uk-2026-27-v1",
+      "note": "Independent formula fixture"
+    },
+    {
+      "scenario": "Scotland pension",
+      "inputs": {
+        "gross": 60000,
+        "jurisdiction": "Scotland",
+        "salary_sacrifice_pct": 0.05,
+        "student_plan": "None",
+        "postgraduate": false
+      },
+      "expected": {
+        "tax": 11922.05,
+        "ni": 3150.6,
+        "student_loan": 0.0,
+        "postgraduate_loan": 0.0,
+        "net_annual": 41927.35,
+        "net_monthly": 3493.95
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "uk-2026-27-v1",
+      "note": "Independent formula fixture"
+    },
+    {
+      "scenario": "Low income",
+      "inputs": {
+        "gross": 20000,
+        "jurisdiction": "England/Wales/NI",
+        "salary_sacrifice_pct": 0,
+        "student_plan": "Plan 1",
+        "postgraduate": false
+      },
+      "expected": {
+        "tax": 1486.0,
+        "ni": 594.4,
+        "student_loan": 0.0,
+        "postgraduate_loan": 0.0,
+        "net_annual": 17919.6,
+        "net_monthly": 1493.3
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "uk-2026-27-v1",
+      "note": "Independent formula fixture"
+    }
+  ],
+  "TAX-004": [
+    {
+      "scenario": "Below PT",
+      "inputs": {
+        "earnings": 12000
+      },
+      "expected": {
+        "ni": 0
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "uk-2026-27-v1",
+      "note": "Independent formula fixture"
+    },
+    {
+      "scenario": "At PT",
+      "inputs": {
+        "earnings": 12570
+      },
+      "expected": {
+        "ni": 0
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "uk-2026-27-v1",
+      "note": "Independent formula fixture"
+    },
+    {
+      "scenario": "30k",
+      "inputs": {
+        "earnings": 30000
+      },
+      "expected": {
+        "ni": 1394.4
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "uk-2026-27-v1",
+      "note": "Independent formula fixture"
+    },
+    {
+      "scenario": "At UEL",
+      "inputs": {
+        "earnings": 50270
+      },
+      "expected": {
+        "ni": 3016.0
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "uk-2026-27-v1",
+      "note": "Independent formula fixture"
+    },
+    {
+      "scenario": "80k",
+      "inputs": {
+        "earnings": 80000
+      },
+      "expected": {
+        "ni": 3610.6
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "uk-2026-27-v1",
+      "note": "Independent formula fixture"
+    }
+  ],
+  "TAX-015": [
+    {
+      "scenario": "Add 20%",
+      "inputs": {
+        "amount": 100,
+        "direction": "add",
+        "rate": 0.2
+      },
+      "expected": {
+        "net": 100,
+        "vat": 20,
+        "gross": 120
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "uk-2026-27-v1",
+      "note": "Independent formula fixture"
+    },
+    {
+      "scenario": "Remove 20%",
+      "inputs": {
+        "amount": 120,
+        "direction": "remove",
+        "rate": 0.2
+      },
+      "expected": {
+        "net": 100,
+        "vat": 20,
+        "gross": 120
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "uk-2026-27-v1",
+      "note": "Independent formula fixture"
+    },
+    {
+      "scenario": "Add 5%",
+      "inputs": {
+        "amount": 200,
+        "direction": "add",
+        "rate": 0.05
+      },
+      "expected": {
+        "net": 200,
+        "vat": 10,
+        "gross": 210
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "uk-2026-27-v1",
+      "note": "Independent formula fixture"
+    },
+    {
+      "scenario": "Remove 5%",
+      "inputs": {
+        "amount": 105,
+        "direction": "remove",
+        "rate": 0.05
+      },
+      "expected": {
+        "net": 100,
+        "vat": 5,
+        "gross": 105
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "uk-2026-27-v1",
+      "note": "Independent formula fixture"
+    },
+    {
+      "scenario": "Zero rate",
+      "inputs": {
+        "amount": 100,
+        "direction": "add",
+        "rate": 0
+      },
+      "expected": {
+        "net": 100,
+        "vat": 0,
+        "gross": 100
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "uk-2026-27-v1",
+      "note": "Independent formula fixture"
+    }
+  ],
+  "TAX-020": [
+    {
+      "scenario": "Plan 1",
+      "inputs": {
+        "income": 33000,
+        "plan": "Plan 1"
+      },
+      "expected": {
+        "annual_repayment": 549.0
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "uk-2026-27-v1",
+      "note": "Independent formula fixture"
+    },
+    {
+      "scenario": "Plan 2",
+      "inputs": {
+        "income": 40000,
+        "plan": "Plan 2"
+      },
+      "expected": {
+        "annual_repayment": 955.35
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "uk-2026-27-v1",
+      "note": "Independent formula fixture"
+    },
+    {
+      "scenario": "Plan 4",
+      "inputs": {
+        "income": 36000,
+        "plan": "Plan 4"
+      },
+      "expected": {
+        "annual_repayment": 198.45
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "uk-2026-27-v1",
+      "note": "Independent formula fixture"
+    },
+    {
+      "scenario": "Plan 5",
+      "inputs": {
+        "income": 30000,
+        "plan": "Plan 5"
+      },
+      "expected": {
+        "annual_repayment": 450.0
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "uk-2026-27-v1",
+      "note": "Independent formula fixture"
+    },
+    {
+      "scenario": "Postgraduate",
+      "inputs": {
+        "income": 30000,
+        "plan": "Postgraduate"
+      },
+      "expected": {
+        "annual_repayment": 540.0
+      },
+      "tolerance": "\u00b1\u00a30.01 / \u00b10.0001 as applicable",
+      "ruleset": "uk-2026-27-v1",
+      "note": "Independent formula fixture"
+    }
+  ]
+}
