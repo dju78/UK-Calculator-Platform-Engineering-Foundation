@@ -13,6 +13,7 @@ import { handleLoanToValue, handlePropertyDeposit, handleRentalYield, handleBuyT
 import { utilitiesHandlers } from "./utilities/handlers.js";
 import { handlePensionGrowth, handleSippGrowth, handleWorkplacePension, handleRetirement } from "./finance/pension/handlers.js";
 import { hlt001Handler } from "./health/handlers.js";
+import { con010Handler } from "./conversion/handlers.js";
 
 export const ENGINE_VERSION = "0.1.0";
 
@@ -66,6 +67,7 @@ const handlers: Record<string, CalculatorHandler> = {
   "DAT-001": utilitiesHandlers["DAT-001"],
   "AUT-006": utilitiesHandlers["AUT-006"],
   "CON-001": utilitiesHandlers["CON-001"],
+  "CON-010": con010Handler,
   "HLT-001": hlt001Handler,
   "PEN-001": handlePensionGrowth,
   "PEN-002": handleSippGrowth,
@@ -77,12 +79,12 @@ export function implementedCalculatorIds(): string[] {
   return Object.keys(handlers).sort();
 }
 
-export function calculate(calculatorId: string, inputs: NumericInputs, context: CalculationContext = {}): CalculationResult {
+export async function calculate(calculatorId: string, inputs: NumericInputs, context: CalculationContext = {}): Promise<CalculationResult> {
   const definition = getCalculatorDefinition(calculatorId);
   if (!definition) throw new Error(`Unknown calculator: ${calculatorId}`);
   const handler = handlers[definition.id];
   if (!handler) throw new CalculatorNotImplementedError(definition.id);
-  const payload = handler(inputs, context);
+  const payload = await handler(inputs, context);
   return {
     calculatorId: definition.id,
     calculatorVersion: definition.version,

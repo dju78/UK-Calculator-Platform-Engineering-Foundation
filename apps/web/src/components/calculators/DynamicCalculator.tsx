@@ -30,11 +30,11 @@ export function DynamicCalculator({
   const [result, setResult] = useState<any>(null);
   const [error, setError] = useState<string | null>(null);
 
-  const handleCalculate = (e: React.FormEvent) => {
+  const handleCalculate = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
       setError(null);
-      const res = calculate(calculatorId, inputs);
+      const res = await calculate(calculatorId, inputs);
       setResult(res);
     } catch (err: any) {
       setError(err.message || "Calculation failed");

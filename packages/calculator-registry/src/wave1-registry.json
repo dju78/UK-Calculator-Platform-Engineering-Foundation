@@ -816,12 +816,12 @@
     "category": "Conversions",
     "subcategory": "Financial Conversion",
     "version": "1.0",
-    "status": "specified",
+    "status": "verified",
     "launchWave": "Wave 1",
     "rulesSensitive": false,
     "risk": "medium",
     "benchmarkCount": 5,
     "specFile": "03_Calculator-Specifications/Wave-1/CON-010_currency_converter.docx",
-    "implementationStatus": "specified"
+    "implementationStatus": "implemented"
   }
 ]

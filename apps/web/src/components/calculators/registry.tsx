@@ -114,6 +114,15 @@ const mappings: Record<string, FieldDef[]> = {
   "STA-014": [
     { name: "x", label: "X Values (comma separated)", type: "text", defaultValue: "1, 2, 3, 4, 5" },
     { name: "y", label: "Y Values (comma separated)", type: "text", defaultValue: "2, 4, 5, 4, 5" }
+  ],
+  "CON-010": [
+    { name: "amount", label: "Amount", type: "number", defaultValue: 100 },
+    { name: "from", label: "From Currency", type: "select", options: [
+      {label: "GBP", value: "GBP"}, {label: "USD", value: "USD"}, {label: "EUR", value: "EUR"}, {label: "JPY", value: "JPY"}, {label: "AUD", value: "AUD"}
+    ], defaultValue: "GBP" },
+    { name: "to", label: "To Currency", type: "select", options: [
+      {label: "GBP", value: "GBP"}, {label: "USD", value: "USD"}, {label: "EUR", value: "EUR"}, {label: "JPY", value: "JPY"}, {label: "AUD", value: "AUD"}
+    ], defaultValue: "USD" }
   ]
 };
 

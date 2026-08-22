@@ -10,7 +10,7 @@ for (const [calculatorId, fixtures] of Object.entries(wave1Benchmarks)) {
   }
   for (const fixture of fixtures) {
     try {
-      const result = calculate(calculatorId, fixture.inputs, {now:new Date("2026-08-22T08:00:00Z")});
+      const result = await calculate(calculatorId, fixture.inputs, {now:new Date("2026-08-22T08:00:00Z")});
       const differences = Object.entries(fixture.expected).filter(([key, expected]) => {
         if (typeof expected !== "number") return false;
         const actual = Number(result.outputs[key]);

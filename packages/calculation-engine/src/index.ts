@@ -3,3 +3,4 @@ export { CalculationValidationError, CalculatorNotImplementedError } from "./err
 export type { CalculationContext, CalculationResult, NumericInputs } from "./types.js";
 export * as business from './business/index.js';
 export * as utilities from './utilities/index.js';
+export * as conversion from './conversion/index.js';

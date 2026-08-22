@@ -6,7 +6,8 @@ test.describe('Everyday Utilities Calculators', () => {
   const calculators = [
     { id: 'DAT-001', url: '/calculators/age-calculator', name: 'Age Calculator' },
     { id: 'AUT-006', url: '/calculators/fuel-cost-calculator', name: 'Fuel Cost Calculator' },
-    { id: 'CON-001', url: '/calculators/unit-conversion-calculator', name: 'Unit Conversion Calculator' }
+    { id: 'CON-001', url: '/calculators/unit-conversion-calculator', name: 'Unit Conversion Calculator' },
+    { id: 'CON-010', url: '/calculators/currency-converter', name: 'Currency Converter' }
   ];
 
   for (const calc of calculators) {

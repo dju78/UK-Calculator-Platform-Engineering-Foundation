@@ -38,7 +38,7 @@ const server = http.createServer(async (req: any, res: any) => {
       if (!payload.calculatorId || !payload.inputs) return send(res, 400, JSON.stringify({error:"calculatorId and inputs are required"}));
       const definition = getCalculatorDefinition(payload.calculatorId);
       if (!definition) return send(res, 404, JSON.stringify({error:"Unknown calculator"}));
-      const result = calculate(definition.id, payload.inputs);
+      const result = await calculate(definition.id, payload.inputs);
       return send(res, 200, JSON.stringify(result));
     }
     if (req.method === "GET") {

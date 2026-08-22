@@ -19,9 +19,11 @@ export interface CalculationResult<TOutputs extends Record<string, unknown> = Re
   calculatedAt: string;
 }
 
-export type CalculatorHandler = (inputs: NumericInputs, context: CalculationContext) => {
+type HandlerResult = {
   outputs: Record<string, unknown>;
   schedule?: unknown[];
   warnings?: string[];
   assumptions?: string[];
 };
+
+export type CalculatorHandler = (inputs: NumericInputs, context: CalculationContext) => HandlerResult | Promise<HandlerResult>;
