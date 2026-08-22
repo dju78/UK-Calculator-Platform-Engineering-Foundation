@@ -114,6 +114,15 @@ export function DynamicCalculator({
             <p className="text-slate-500 italic">Enter values and calculate to see results.</p>
           ) : (
             <div className="flex flex-col gap-4">
+              {result.rulesetId && (
+                <div className="bg-blue-50 text-blue-900 border border-blue-200 p-3 rounded text-sm mb-4">
+                  <strong>Regulatory Context:</strong> Calculation executed under UK Ruleset <code>{result.rulesetId}</code>. 
+                  (Tax Year 2026/27).
+                  <br />
+                  <em className="text-xs text-blue-700 block mt-1">Disclaimer: Results are estimates for illustration only and do not constitute financial advice. Source provenance checked and active.</em>
+                </div>
+              )}
+              
               <div className="grid grid-cols-1 gap-3">
                 {Object.entries(result.outputs || {}).map(([k, v]) => (
                   <div key={k} className="flex justify-between items-center py-2 border-b border-slate-100 last:border-0">

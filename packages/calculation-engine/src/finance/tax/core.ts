@@ -1,4 +1,5 @@
 import type { UKRuleset } from "../../../../rules-uk/src/types.js";
+import { calculateProgressiveTax } from "../../../../rules-uk/src/progressive-bands.js";
 
 export function calculateIncomeTax(
   grossIncome: number,
@@ -19,27 +20,7 @@ export function calculateIncomeTax(
   }
 
   const taxableIncome = Math.max(0, grossIncome - personalAllowance);
-  
-  let tax = 0;
-  let remainingTaxable = taxableIncome;
-  let previousBandEnd = 0;
-
-  for (const band of taxRules.bands_taxable_income_gbp) {
-    // If the band defines 'to', the size of this band is (to - previousBandEnd).
-    // Actually, looking at the rules:
-    // { "to": 37700, "rate": 0.2 } -> size = 37700
-    // { "from": 37701, "to": 125140, "rate": 0.4 } -> size = 125140 - 37700
-    // { "from": 125141, "rate": 0.45 } -> infinite size
-    const to = band.to !== undefined ? band.to : Infinity;
-    const bandSize = to - previousBandEnd;
-    
-    if (remainingTaxable > 0) {
-      const taxableInBand = Math.min(remainingTaxable, bandSize);
-      tax += taxableInBand * band.rate;
-      remainingTaxable -= taxableInBand;
-    }
-    previousBandEnd = to;
-  }
+  const tax = calculateProgressiveTax(taxableIncome, taxRules.bands_taxable_income_gbp);
 
   return { tax, personalAllowance, taxableIncome };
 }
@@ -103,38 +84,12 @@ export function calculateSDLT(price: number, firstTime: boolean, additional: boo
   let tax = 0;
   
   if (firstTime && price <= sdltRules.first_time_buyer_relief.maximum_qualifying_property_value_gbp && !additional) {
-    // First time buyer rules
-    let remainingPrice = price;
-    let previousEnd = 0;
-    for (const band of sdltRules.first_time_buyer_relief.bands) {
-      const to = band.to !== undefined ? band.to : Infinity;
-      const bandSize = to - previousEnd;
-      if (remainingPrice > 0) {
-        const taxableInBand = Math.min(price - previousEnd, bandSize);
-        if (taxableInBand > 0) {
-            tax += taxableInBand * band.rate;
-        }
-      }
-      previousEnd = to;
-    }
+    tax = calculateProgressiveTax(price, sdltRules.first_time_buyer_relief.bands);
   } else {
-    // Standard rules
-    let previousEnd = 0;
-    for (const band of sdltRules.standard_bands) {
-      const to = band.to !== undefined ? band.to : Infinity;
-      const bandSize = to - previousEnd;
-      const taxableInBand = Math.max(0, Math.min(price - previousEnd, bandSize));
-      if (taxableInBand > 0) {
-          tax += taxableInBand * band.rate;
-      }
-      previousEnd = to;
-    }
+    tax = calculateProgressiveTax(price, sdltRules.standard_bands);
   }
 
   // Surcharges are calculated on the ENTIRE property price if applicable
-  // Wait, standard SDLT surcharge is on the full purchase price?
-  // Let's check how it's calculated. Usually it's an additional X% on each band.
-  // Actually, additional property is a flat 5% on the entire property price? No, it's usually an extra 3% (or 5% now) on each band. But practically, it's 5% of the total price.
   if (additional) {
     tax += price * sdltRules.additional_property_surcharge_rate;
   }

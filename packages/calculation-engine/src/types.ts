@@ -2,6 +2,7 @@ export type NumericInputs = Record<string, unknown>;
 
 export interface CalculationContext {
   rulesetId?: string;
+  taxYear?: string;
   now?: Date;
 }
 

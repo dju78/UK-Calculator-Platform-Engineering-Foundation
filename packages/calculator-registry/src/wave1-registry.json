@@ -231,13 +231,13 @@
     "category": "Mortgages & Property",
     "subcategory": "Property Tax",
     "version": "1.0",
-    "status": "specified",
+    "status": "verified",
     "launchWave": "Wave 1",
     "rulesSensitive": true,
     "risk": "high",
     "benchmarkCount": 5,
     "specFile": "03_Calculator-Specifications/Wave-1/PRO-023_stamp_duty_land_tax_calculator.docx",
-    "implementationStatus": "specified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "INV-001",
@@ -396,13 +396,13 @@
     "category": "ISA & Tax Wrappers",
     "subcategory": "ISA",
     "version": "1.0",
-    "status": "specified",
+    "status": "verified",
     "launchWave": "Wave 1",
     "rulesSensitive": true,
     "risk": "medium",
     "benchmarkCount": 5,
     "specFile": "03_Calculator-Specifications/Wave-1/ISA-001_stocks_and_shares_isa_growth_calculator.docx",
-    "implementationStatus": "specified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "ISA-002",
@@ -411,13 +411,13 @@
     "category": "ISA & Tax Wrappers",
     "subcategory": "ISA",
     "version": "1.0",
-    "status": "specified",
+    "status": "verified",
     "launchWave": "Wave 1",
     "rulesSensitive": true,
     "risk": "medium",
     "benchmarkCount": 5,
     "specFile": "03_Calculator-Specifications/Wave-1/ISA-002_isa_allowance_calculator.docx",
-    "implementationStatus": "specified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "TAX-001",
@@ -426,13 +426,13 @@
     "category": "UK Tax & Salary",
     "subcategory": "Income Tax",
     "version": "1.0",
-    "status": "specified",
+    "status": "verified",
     "launchWave": "Wave 1",
     "rulesSensitive": true,
     "risk": "high",
     "benchmarkCount": 5,
     "specFile": "03_Calculator-Specifications/Wave-1/TAX-001_uk_income_tax_calculator.docx",
-    "implementationStatus": "specified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "TAX-002",
@@ -441,13 +441,13 @@
     "category": "UK Tax & Salary",
     "subcategory": "Salary",
     "version": "1.0",
-    "status": "specified",
+    "status": "verified",
     "launchWave": "Wave 1",
     "rulesSensitive": true,
     "risk": "high",
     "benchmarkCount": 5,
     "specFile": "03_Calculator-Specifications/Wave-1/TAX-002_uk_salary_calculator.docx",
-    "implementationStatus": "specified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "TAX-003",
@@ -456,13 +456,13 @@
     "category": "UK Tax & Salary",
     "subcategory": "Salary",
     "version": "1.0",
-    "status": "specified",
+    "status": "verified",
     "launchWave": "Wave 1",
     "rulesSensitive": true,
     "risk": "high",
     "benchmarkCount": 5,
     "specFile": "03_Calculator-Specifications/Wave-1/TAX-003_take_home_pay_calculator.docx",
-    "implementationStatus": "specified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "TAX-004",
@@ -471,13 +471,13 @@
     "category": "UK Tax & Salary",
     "subcategory": "Salary",
     "version": "1.0",
-    "status": "specified",
+    "status": "verified",
     "launchWave": "Wave 1",
     "rulesSensitive": true,
     "risk": "high",
     "benchmarkCount": 5,
     "specFile": "03_Calculator-Specifications/Wave-1/TAX-004_national_insurance_calculator.docx",
-    "implementationStatus": "specified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "TAX-015",
@@ -486,13 +486,13 @@
     "category": "UK Tax & Salary",
     "subcategory": "Consumption Tax",
     "version": "1.0",
-    "status": "specified",
+    "status": "verified",
     "launchWave": "Wave 1",
     "rulesSensitive": true,
     "risk": "high",
     "benchmarkCount": 5,
     "specFile": "03_Calculator-Specifications/Wave-1/TAX-015_vat_calculator.docx",
-    "implementationStatus": "specified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "TAX-020",
@@ -501,13 +501,13 @@
     "category": "UK Tax & Salary",
     "subcategory": "Student Finance",
     "version": "1.0",
-    "status": "specified",
+    "status": "verified",
     "launchWave": "Wave 1",
     "rulesSensitive": true,
     "risk": "high",
     "benchmarkCount": 5,
     "specFile": "03_Calculator-Specifications/Wave-1/TAX-020_student_loan_repayment_calculator.docx",
-    "implementationStatus": "specified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "PEN-001",

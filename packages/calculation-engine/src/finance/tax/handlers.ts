@@ -6,7 +6,7 @@ import {
   calculateSDLT
 } from "./core.js";
 import { investmentGrowth } from "../investment/core.js";
-import { getUKRuleset } from "../../../../rules-uk/src/index.js";
+import { resolveRules } from "../../../../rules-uk/src/index.js";
 import type { NumericInputs, CalculationContext, CalculatorHandler } from "../../types.js";
 
 function round2(num: number): number {
@@ -16,7 +16,7 @@ function round2(num: number): number {
 export const tax001Handler: CalculatorHandler = (inputs: NumericInputs, context: CalculationContext) => {
   const income = Number(inputs.income);
   const jurisdiction = String(inputs.jurisdiction);
-  const rules = getUKRuleset(context.rulesetId || "uk-2026-27-v1");
+  const rules = resolveRules({ taxYear: context.taxYear || "2026/27" });
 
   const { tax, personalAllowance, taxableIncome } = calculateIncomeTax(income, jurisdiction, rules);
 
@@ -34,7 +34,7 @@ export const tax002Handler: CalculatorHandler = (inputs: NumericInputs, context:
   const jurisdiction = String(inputs.jurisdiction);
   const hoursWeek = Number(inputs.hours_week);
   const weeks = Number(inputs.weeks || 52);
-  const rules = getUKRuleset(context.rulesetId || "uk-2026-27-v1");
+  const rules = resolveRules({ taxYear: context.taxYear || "2026/27" });
 
   const gross_monthly = salary / 12;
   const gross_weekly = salary / weeks;
@@ -64,7 +64,7 @@ export const tax003Handler: CalculatorHandler = (inputs: NumericInputs, context:
   const studentPlan = String(inputs.student_plan || "None");
   const postgraduate = Boolean(inputs.postgraduate);
 
-  const rules = getUKRuleset(context.rulesetId || "uk-2026-27-v1");
+  const rules = resolveRules({ taxYear: context.taxYear || "2026/27" });
 
   const taxableSalary = gross * (1 - salarySacrificePct);
 
@@ -93,7 +93,7 @@ export const tax003Handler: CalculatorHandler = (inputs: NumericInputs, context:
 
 export const tax004Handler: CalculatorHandler = (inputs: NumericInputs, context: CalculationContext) => {
   const earnings = Number(inputs.earnings);
-  const rules = getUKRuleset(context.rulesetId || "uk-2026-27-v1");
+  const rules = resolveRules({ taxYear: context.taxYear || "2026/27" });
   const ni = calculateNationalInsurance(earnings, rules);
 
   return {
@@ -122,7 +122,7 @@ export const tax015Handler: CalculatorHandler = (inputs: NumericInputs) => {
 export const tax020Handler: CalculatorHandler = (inputs: NumericInputs, context: CalculationContext) => {
   const income = Number(inputs.income);
   const plan = String(inputs.plan);
-  const rules = getUKRuleset(context.rulesetId || "uk-2026-27-v1");
+  const rules = resolveRules({ taxYear: context.taxYear || "2026/27" });
 
   // In this fixture, it calculates either student loan OR pg loan based on the single input.
   const isPg = plan === "Postgraduate";
@@ -140,7 +140,7 @@ export const pro023Handler: CalculatorHandler = (inputs: NumericInputs, context:
   const firstTime = Boolean(inputs.first_time);
   const additional = Boolean(inputs.additional);
   const nonresident = Boolean(inputs.nonresident);
-  const rules = getUKRuleset(context.rulesetId || "uk-2026-27-v1");
+  const rules = resolveRules({ taxYear: context.taxYear || "2026/27" });
 
   const sdlt = calculateSDLT(price, firstTime, additional, nonresident, rules);
 
@@ -158,7 +158,7 @@ export const isa001Handler: CalculatorHandler = (inputs: NumericInputs, context:
   const fee = Number(inputs.fee || 0);
   const years = Number(inputs.years);
   
-  const rules = getUKRuleset(context.rulesetId || "uk-2026-27-v1") as any;
+  const rules = resolveRules({ taxYear: context.taxYear || "2026/27" }) as any;
   const overallLimit = rules.isa.overall_subscription_limit_gbp;
 
   const monthly = annualSub / 12;
@@ -182,7 +182,7 @@ export const isa002Handler: CalculatorHandler = (inputs: NumericInputs, context:
   const innovative = Number(inputs.innovative || 0);
   const lisa = Number(inputs.lisa || 0);
 
-  const rules = getUKRuleset(context.rulesetId || "uk-2026-27-v1") as any;
+  const rules = resolveRules({ taxYear: context.taxYear || "2026/27" }) as any;
   const overallLimit = rules.isa.overall_subscription_limit_gbp;
   const lisaLimit = rules.isa.lifetime_isa_subscription_limit_gbp;
 
