@@ -777,7 +777,7 @@
     "risk": "low",
     "benchmarkCount": 5,
     "specFile": "03_Calculator-Specifications/Wave-1/DAT-001_age_calculator.docx",
-    "implementationStatus": "specified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "AUT-006",
@@ -792,7 +792,7 @@
     "risk": "low",
     "benchmarkCount": 5,
     "specFile": "03_Calculator-Specifications/Wave-1/AUT-006_fuel_cost_calculator.docx",
-    "implementationStatus": "specified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "CON-001",
@@ -807,7 +807,7 @@
     "risk": "low",
     "benchmarkCount": 5,
     "specFile": "03_Calculator-Specifications/Wave-1/CON-001_unit_conversion_calculator.docx",
-    "implementationStatus": "specified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "CON-010",
