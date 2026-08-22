@@ -72,6 +72,7 @@ export function convertUnits(value: number, fromUnit: string, toUnit: string) {
         'm': { baseUnit: 'm', factor: 1 },
         'miles': { baseUnit: 'm', factor: 1609.344 },
         'ft': { baseUnit: 'm', factor: 0.3048 },
+        'in': { baseUnit: 'm', factor: 0.0254 },
         'kg': { baseUnit: 'kg', factor: 1 },
         'lb': { baseUnit: 'kg', factor: 0.45359237 },
         'litres': { baseUnit: 'l', factor: 1 },

@@ -11,6 +11,7 @@ import { bus001Handler, bus006Handler, bus008Handler } from "./business/handlers
 import { mat002Handler, mat003Handler, mat005Handler, mat006Handler } from "./math/handlers.js";
 import { handleLoanToValue, handlePropertyDeposit, handleRentalYield, handleBuyToLet, handlePropertyRoi } from "./finance/property/handlers.js";
 import { utilitiesHandlers } from "./utilities/handlers.js";
+import { hlt001Handler } from "./health/handlers.js";
 
 export const ENGINE_VERSION = "0.1.0";
 
@@ -62,7 +63,8 @@ const handlers: Record<string, CalculatorHandler> = {
   "PRO-019": handlePropertyRoi,
   "DAT-001": utilitiesHandlers["DAT-001"],
   "AUT-006": utilitiesHandlers["AUT-006"],
-  "CON-001": utilitiesHandlers["CON-001"]
+  "CON-001": utilitiesHandlers["CON-001"],
+  "HLT-001": hlt001Handler
 };
 
 export function implementedCalculatorIds(): string[] {

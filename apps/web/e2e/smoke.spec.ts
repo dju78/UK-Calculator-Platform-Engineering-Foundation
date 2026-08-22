@@ -277,3 +277,17 @@ test.describe('Property Analytics Calculators', () => {
     });
   }
 });
+
+test.describe('Health Information Calculators', () => {
+  test('BMI Calculator (HLT-001) renders and is accessible', async ({ page }) => {
+    await page.goto('/calculators/bmi-calculator');
+    await expect(page.getByRole('heading', { name: 'BMI Calculator' })).toBeVisible();
+    
+    const accessibilityScanResults = await new AxeBuilder({ page }).analyze();
+    const blockingViolations = accessibilityScanResults.violations.filter(
+      (v) => v.impact === "serious" || v.impact === "critical"
+    );
+    expect(blockingViolations).toEqual([]);
+  });
+});
+

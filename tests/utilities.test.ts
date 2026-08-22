@@ -3,7 +3,7 @@ import assert from "node:assert/strict";
 import { utilities } from "../packages/calculation-engine/src/index.js";
 const { calculateAge, calculateFuelCost, convertUnits } = utilities;
 
-test("calculateAge", async (t) => {
+test("calculateAge", async (t: any) => {
     await t.test("Standard age calculation", () => {
         const res = calculateAge("1990-01-01", "2026-08-22");
         assert.equal(res.years, 36);
@@ -29,7 +29,7 @@ test("calculateAge", async (t) => {
     });
 });
 
-test("calculateFuelCost", async (t) => {
+test("calculateFuelCost", async (t: any) => {
     await t.test("100 miles", () => {
         const res = calculateFuelCost(100, 40, 150, 1);
         // distance: 100, mpg: 40 -> 2.5 gal -> 11.365225 L -> 17.05 GBP
@@ -50,7 +50,7 @@ test("calculateFuelCost", async (t) => {
     });
 });
 
-test("convertUnits", async (t) => {
+test("convertUnits", async (t: any) => {
     await t.test("km to miles", () => {
         const res = convertUnits(10, "km", "miles");
         assert.ok(Math.abs(res.result - 6.21371192) < 0.0001);

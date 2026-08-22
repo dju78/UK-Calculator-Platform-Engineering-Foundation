@@ -1,8 +1,8 @@
-﻿import test from 'node:test';
+import test from 'node:test';
 import assert from 'node:assert';
 import { business } from '../packages/calculation-engine/src/index.js';
 
-test('Margin Calculator (BUS-001)', async (t) => {
+test('Margin Calculator (BUS-001)', async (t: any) => {
   await t.test('normal profit', () => {
     assert.strictEqual(business.grossProfit(60, 100), 40);
   });
@@ -39,7 +39,7 @@ test('Margin Calculator (BUS-001)', async (t) => {
   });
 });
 
-test('Break-Even Calculator (BUS-006)', async (t) => {
+test('Break-Even Calculator (BUS-006)', async (t: any) => {
   await t.test('normal break-even', () => {
     assert.strictEqual(business.breakEvenUnits(10000, 50, 30), 500);
   });
@@ -64,7 +64,7 @@ test('Break-Even Calculator (BUS-006)', async (t) => {
   });
 });
 
-test('Discount Calculator (BUS-008)', async (t) => {
+test('Discount Calculator (BUS-008)', async (t: any) => {
   await t.test('normal discount', () => {
     const res = business.applyDiscount(100, 0.2);
     assert.strictEqual(res.discountAmount, 20);

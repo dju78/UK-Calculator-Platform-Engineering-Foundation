@@ -762,7 +762,7 @@
     "risk": "medium",
     "benchmarkCount": 5,
     "specFile": "03_Calculator-Specifications/Wave-1/HLT-001_bmi_calculator.docx",
-    "implementationStatus": "specified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "DAT-001",
