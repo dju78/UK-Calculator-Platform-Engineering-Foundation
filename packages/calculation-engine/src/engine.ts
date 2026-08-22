@@ -5,10 +5,16 @@ import { compoundInterestHandler } from "./finance/tvm/compoundInterest.js";
 import { fin001Handler, fin002Handler, pro001Handler, pro003Handler, pro004Handler } from "./finance/loan/handlers.js";
 import { inv001Handler, inv003Handler, inv006Handler, inv007Handler, inv008Handler, inv009Handler, inv011Handler, inv014Handler, inv015Handler } from "./finance/investment/handlers.js";
 import { tax001Handler, tax002Handler, tax003Handler, tax004Handler, tax015Handler, tax020Handler, pro023Handler, isa001Handler, isa002Handler } from "./finance/tax/handlers.js";
+import { sta001Handler, sta003Handler, sta006Handler, sta008Handler, sta014Handler } from "./statistics/handlers.js";
 
 export const ENGINE_VERSION = "0.1.0";
 
 const handlers: Record<string, CalculatorHandler> = {
+  "STA-001": sta001Handler,
+  "STA-003": sta003Handler,
+  "STA-006": sta006Handler,
+  "STA-008": sta008Handler,
+  "STA-014": sta014Handler,
   "INV-001": inv001Handler,
   "INV-002": compoundInterestHandler,
   "INV-003": inv003Handler,

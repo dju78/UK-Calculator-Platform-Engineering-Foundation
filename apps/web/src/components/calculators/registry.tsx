@@ -88,6 +88,32 @@ const mappings: Record<string, FieldDef[]> = {
     { name: "inflation", label: "Inflation Rate (e.g. 0.025)", type: "number", defaultValue: 0.025 },
     { name: "years", label: "Years", type: "number", defaultValue: 10 },
     { name: "future_amount", label: "Future Amount (£)", type: "number", defaultValue: 100000 }
+  ],
+  "STA-001": [
+    { name: "values", label: "Dataset Values (comma separated)", type: "text", defaultValue: "1, 2, 3, 4, 5" }
+  ],
+  "STA-003": [
+    { name: "values", label: "Dataset Values (comma separated)", type: "text", defaultValue: "2, 4, 4, 4, 5, 5, 7, 9" },
+    { name: "definition", label: "Definition", type: "select", options: [
+      {label: "Sample", value: "sample"},
+      {label: "Population", value: "population"}
+    ], defaultValue: "sample" }
+  ],
+  "STA-006": [
+    { name: "mean", label: "Sample Mean", type: "number", defaultValue: 100 },
+    { name: "sd", label: "Standard Deviation", type: "number", defaultValue: 15 },
+    { name: "n", label: "Sample Size (n)", type: "number", defaultValue: 100 },
+    { name: "confidence", label: "Confidence Level (e.g. 0.95)", type: "number", defaultValue: 0.95 }
+  ],
+  "STA-008": [
+    { name: "confidence", label: "Confidence Level (e.g. 0.95)", type: "number", defaultValue: 0.95 },
+    { name: "margin", label: "Margin of Error (e.g. 0.05)", type: "number", defaultValue: 0.05 },
+    { name: "p", label: "Expected Proportion (0-1)", type: "number", defaultValue: 0.5 },
+    { name: "population", label: "Population Size (optional)", type: "number" }
+  ],
+  "STA-014": [
+    { name: "x", label: "X Values (comma separated)", type: "text", defaultValue: "1, 2, 3, 4, 5" },
+    { name: "y", label: "Y Values (comma separated)", type: "text", defaultValue: "2, 4, 5, 4, 5" }
   ]
 };
 

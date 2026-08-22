@@ -66,3 +66,67 @@ test.describe('Navigation', () => {
     await expect(page).toHaveURL(/.*\/calculators\/loan-calculator/);
   });
 });
+
+test.describe('Statistics Calculators', () => {
+  test('Descriptive Statistics (STA-001) renders and is accessible', async ({ page }) => {
+    await page.goto('/calculators/mean-median-mode-and-range-calculator');
+    await expect(page.getByRole('heading', { name: 'Mean, Median, Mode & Range Calculator' })).toBeVisible();
+    
+    // Dataset can be entered
+    const input = page.locator('input[name="values"]');
+    await input.fill("1, 2, 3");
+    
+    const accessibilityScanResults = await new AxeBuilder({ page }).analyze();
+    const blockingViolations = accessibilityScanResults.violations.filter(
+      (v) => v.impact === "serious" || v.impact === "critical"
+    );
+    expect(blockingViolations).toEqual([]);
+  });
+
+  test('Standard Deviation (STA-003) renders and is accessible', async ({ page }) => {
+    await page.goto('/calculators/standard-deviation-calculator');
+    await expect(page.getByRole('heading', { name: 'Standard Deviation Calculator' })).toBeVisible();
+    
+    const select = page.locator('select[name="definition"]');
+    await expect(select).toBeVisible();
+    
+    const accessibilityScanResults = await new AxeBuilder({ page }).analyze();
+    const blockingViolations = accessibilityScanResults.violations.filter(
+      (v) => v.impact === "serious" || v.impact === "critical"
+    );
+    expect(blockingViolations).toEqual([]);
+  });
+  
+  test('Confidence Interval (STA-006) renders and is accessible', async ({ page }) => {
+    await page.goto('/calculators/confidence-interval-calculator');
+    await expect(page.getByRole('heading', { name: 'Confidence Interval Calculator' })).toBeVisible();
+    
+    const accessibilityScanResults = await new AxeBuilder({ page }).analyze();
+    const blockingViolations = accessibilityScanResults.violations.filter(
+      (v) => v.impact === "serious" || v.impact === "critical"
+    );
+    expect(blockingViolations).toEqual([]);
+  });
+
+  test('Sample Size (STA-008) renders and is accessible', async ({ page }) => {
+    await page.goto('/calculators/sample-size-calculator');
+    await expect(page.getByRole('heading', { name: 'Sample Size Calculator' })).toBeVisible();
+    
+    const accessibilityScanResults = await new AxeBuilder({ page }).analyze();
+    const blockingViolations = accessibilityScanResults.violations.filter(
+      (v) => v.impact === "serious" || v.impact === "critical"
+    );
+    expect(blockingViolations).toEqual([]);
+  });
+
+  test('Linear Regression (STA-014) renders and is accessible', async ({ page }) => {
+    await page.goto('/calculators/linear-regression-calculator');
+    await expect(page.getByRole('heading', { name: 'Linear Regression Calculator' })).toBeVisible();
+    
+    const accessibilityScanResults = await new AxeBuilder({ page }).analyze();
+    const blockingViolations = accessibilityScanResults.violations.filter(
+      (v) => v.impact === "serious" || v.impact === "critical"
+    );
+    expect(blockingViolations).toEqual([]);
+  });
+});

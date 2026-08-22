@@ -621,13 +621,13 @@
     "category": "Statistics & Data",
     "subcategory": "Descriptive Statistics",
     "version": "1.0",
-    "status": "specified",
+    "status": "verified",
     "launchWave": "Wave 1",
     "rulesSensitive": false,
     "risk": "low",
     "benchmarkCount": 5,
     "specFile": "03_Calculator-Specifications/Wave-1/STA-001_mean_median_mode_and_range_calculator.docx",
-    "implementationStatus": "specified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "STA-003",
@@ -636,13 +636,13 @@
     "category": "Statistics & Data",
     "subcategory": "Descriptive Statistics",
     "version": "1.0",
-    "status": "specified",
+    "status": "verified",
     "launchWave": "Wave 1",
     "rulesSensitive": false,
     "risk": "low",
     "benchmarkCount": 5,
     "specFile": "03_Calculator-Specifications/Wave-1/STA-003_standard_deviation_calculator.docx",
-    "implementationStatus": "specified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "STA-006",
@@ -651,13 +651,13 @@
     "category": "Statistics & Data",
     "subcategory": "Inference",
     "version": "1.0",
-    "status": "specified",
+    "status": "verified",
     "launchWave": "Wave 1",
     "rulesSensitive": false,
     "risk": "low",
     "benchmarkCount": 5,
     "specFile": "03_Calculator-Specifications/Wave-1/STA-006_confidence_interval_calculator.docx",
-    "implementationStatus": "specified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "STA-008",
@@ -666,13 +666,13 @@
     "category": "Statistics & Data",
     "subcategory": "Research",
     "version": "1.0",
-    "status": "specified",
+    "status": "verified",
     "launchWave": "Wave 1",
     "rulesSensitive": false,
     "risk": "low",
     "benchmarkCount": 5,
     "specFile": "03_Calculator-Specifications/Wave-1/STA-008_sample_size_calculator.docx",
-    "implementationStatus": "specified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "STA-014",
@@ -681,13 +681,13 @@
     "category": "Statistics & Data",
     "subcategory": "Regression",
     "version": "1.0",
-    "status": "specified",
+    "status": "verified",
     "launchWave": "Wave 1",
     "rulesSensitive": false,
     "risk": "low",
     "benchmarkCount": 5,
     "specFile": "03_Calculator-Specifications/Wave-1/STA-014_linear_regression_calculator.docx",
-    "implementationStatus": "specified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "MAT-002",

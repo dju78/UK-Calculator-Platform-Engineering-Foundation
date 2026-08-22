@@ -67,6 +67,7 @@ export function DynamicCalculator({
                     <label htmlFor={`field-${field.name}`} className="text-sm font-medium text-slate-700">{field.label}</label>
                     <select
                       id={`field-${field.name}`}
+                      name={field.name}
                       className="flex h-10 w-full rounded-md border border-slate-300 bg-white px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-slate-900"
                       value={inputs[field.name] || ""}
                       onChange={(e) => setInputs({ ...inputs, [field.name]: e.target.value })}
@@ -78,6 +79,7 @@ export function DynamicCalculator({
                   </div>
                 ) : (
                   <Input
+                    name={field.name}
                     label={field.label}
                     type={field.type || "number"}
                     step={field.type === "text" ? undefined : "any"}
