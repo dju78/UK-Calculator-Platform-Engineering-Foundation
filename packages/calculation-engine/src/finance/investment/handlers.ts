@@ -4,7 +4,10 @@ import {
   futureValue,
   presentValue,
   calculateROI,
-  calculateCAGR
+  calculateCAGR,
+  calculateIRR,
+  calculateFeeDrag,
+  calculateRealReturn
 } from "./core.js";
 import type { NumericInputs, CalculatorHandler } from "../../types.js";
 
@@ -103,3 +106,60 @@ export const inv009Handler: CalculatorHandler = (inputs: NumericInputs) => {
     }
   };
 };
+
+export const inv011Handler: CalculatorHandler = (inputs: NumericInputs) => {
+  // Try to parse array if inputs.cashflows is string or object
+  let cashflows: number[] = [];
+  if (Array.isArray(inputs.cashflows)) {
+    cashflows = inputs.cashflows.map(Number);
+  } else if (typeof inputs.cashflows === "string") {
+    try {
+      cashflows = JSON.parse(inputs.cashflows).map(Number);
+    } catch {
+      cashflows = [];
+    }
+  }
+
+  const irr = calculateIRR(cashflows);
+
+  return {
+    outputs: {
+      irr: round8(irr)
+    }
+  };
+};
+
+export const inv014Handler: CalculatorHandler = (inputs: NumericInputs) => {
+  const start = Number(inputs.start);
+  const monthly = Number(inputs.monthly || 0);
+  const gross_return = Number(inputs.gross_return);
+  const fee = Number(inputs.fee);
+  const years = Number(inputs.years);
+
+  const { gross_value, net_value, fee_drag } = calculateFeeDrag(start, monthly, gross_return, fee, years);
+
+  return {
+    outputs: {
+      gross_value: round2(gross_value),
+      net_value: round2(net_value),
+      fee_drag: round2(fee_drag)
+    }
+  };
+};
+
+export const inv015Handler: CalculatorHandler = (inputs: NumericInputs) => {
+  const nominal = Number(inputs.nominal);
+  const inflation = Number(inputs.inflation);
+  const years = Number(inputs.years);
+  const future_amount = Number(inputs.future_amount);
+
+  const { real_return, real_value } = calculateRealReturn(nominal, inflation, years, future_amount);
+
+  return {
+    outputs: {
+      real_return: round8(real_return),
+      real_value: round2(real_value)
+    }
+  };
+};
+

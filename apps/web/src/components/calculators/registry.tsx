@@ -31,15 +31,63 @@ const mappings: Record<string, FieldDef[]> = {
     { name: "overpayment_monthly", label: "Monthly Overpayment (£)", type: "number", defaultValue: 200 },
     { name: "overpayment_lump_sum", label: "Lump Sum Overpayment (£)", type: "number", defaultValue: 0 }
   ],
+  "INV-001": [
+    { name: "start", label: "Initial Investment (£)", type: "number", defaultValue: 10000 },
+    { name: "monthly", label: "Monthly Contribution (£)", type: "number", defaultValue: 500 },
+    { name: "return", label: "Expected Annual Return (e.g. 0.06)", type: "number", defaultValue: 0.06 },
+    { name: "fee", label: "Annual Platform/Fund Fee (e.g. 0.0025)", type: "number", defaultValue: 0 },
+    { name: "years", label: "Investment Term (Years)", type: "number", defaultValue: 20 }
+  ],
   "INV-002": [
-    { name: "principal", label: "Initial Investment (£)", type: "number", defaultValue: 1000 },
-    { name: "rate", label: "Annual Interest Rate (%)", type: "number", defaultValue: 5 },
+    { name: "P", label: "Initial Investment (£)", type: "number", defaultValue: 1000 },
+    { name: "nominal_rate", label: "Annual Interest Rate (e.g. 0.05)", type: "number", defaultValue: 0.05 },
     { name: "years", label: "Investment Term (Years)", type: "number", defaultValue: 10 },
-    { name: "compounding_frequency", label: "Compounding Frequency", type: "select", options: [
+    { name: "m", label: "Compounding Frequency", type: "select", options: [
       {label: "Annually", value: "1"},
       {label: "Quarterly", value: "4"},
       {label: "Monthly", value: "12"}
     ], defaultValue: "1" }
+  ],
+  "INV-003": [
+    { name: "P", label: "Principal Amount (£)", type: "number", defaultValue: 1000 },
+    { name: "r", label: "Interest Rate (e.g. 0.05)", type: "number", defaultValue: 0.05 },
+    { name: "t", label: "Time (Years)", type: "number", defaultValue: 5 }
+  ],
+  "INV-006": [
+    { name: "pv", label: "Present Value (£)", type: "number", defaultValue: 1000 },
+    { name: "r", label: "Interest Rate (e.g. 0.05)", type: "number", defaultValue: 0.05 },
+    { name: "n", label: "Number of Periods", type: "number", defaultValue: 10 }
+  ],
+  "INV-007": [
+    { name: "fv", label: "Future Value (£)", type: "number", defaultValue: 10000 },
+    { name: "r", label: "Discount Rate (e.g. 0.05)", type: "number", defaultValue: 0.05 },
+    { name: "n", label: "Number of Periods", type: "number", defaultValue: 10 }
+  ],
+  "INV-008": [
+    { name: "cost", label: "Initial Cost (£)", type: "number", defaultValue: 10000 },
+    { name: "end", label: "Final Value (£)", type: "number", defaultValue: 12000 },
+    { name: "income", label: "Additional Income/Dividends (£)", type: "number", defaultValue: 0 }
+  ],
+  "INV-009": [
+    { name: "start", label: "Beginning Value (£)", type: "number", defaultValue: 10000 },
+    { name: "end", label: "Ending Value (£)", type: "number", defaultValue: 20000 },
+    { name: "years", label: "Number of Years", type: "number", defaultValue: 10 }
+  ],
+  "INV-011": [
+    { name: "cashflows", label: "Cash Flows (JSON array)", type: "text", defaultValue: "[-1000, 1100]" }
+  ],
+  "INV-014": [
+    { name: "start", label: "Initial Investment (£)", type: "number", defaultValue: 100000 },
+    { name: "monthly", label: "Monthly Contribution (£)", type: "number", defaultValue: 0 },
+    { name: "gross_return", label: "Gross Return (e.g. 0.07)", type: "number", defaultValue: 0.07 },
+    { name: "fee", label: "Total Annual Fees (e.g. 0.01)", type: "number", defaultValue: 0.01 },
+    { name: "years", label: "Investment Term (Years)", type: "number", defaultValue: 25 }
+  ],
+  "INV-015": [
+    { name: "nominal", label: "Nominal Return (e.g. 0.06)", type: "number", defaultValue: 0.06 },
+    { name: "inflation", label: "Inflation Rate (e.g. 0.025)", type: "number", defaultValue: 0.025 },
+    { name: "years", label: "Years", type: "number", defaultValue: 10 },
+    { name: "future_amount", label: "Future Amount (£)", type: "number", defaultValue: 100000 }
   ]
 };
 

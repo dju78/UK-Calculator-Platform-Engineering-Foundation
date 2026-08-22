@@ -1,14 +1,14 @@
 # Foundation engineering status
 
 ## Current Status
-**Status:** ✅ Phase 1-10 Completed
+**Status:** ✅ Phase 1-25 Completed (Investment Mathematics Tranche)
 **Implementation Tranches Completed:** Tranche 1 (Loan), Tranche 2 (Investment), Tranche 3 (Tax/ISA)
-**Next.js Frontend:** UI integrations for Loan family completed. Playwright E2E configured and running. CI Actions Pipeline in place.
+**Next.js Frontend:** UI integrations for Loan and Investment families completed. Playwright E2E configured and running. CI Actions Pipeline in place.
 
 ### Execution Metrics
 - **Total Calculators Registered:** 55
 - **Calculators Implemented (Engine):** 20
-- **Calculators Implemented (UI):** 5 (FIN-001, FIN-002, PRO-001, PRO-003, PRO-004)
+- **Calculators Implemented (UI):** 15 (FIN-001, FIN-002, PRO-001, PRO-003, PRO-004, INV-001, INV-002, INV-003, INV-006, INV-007, INV-008, INV-009, INV-011, INV-014, INV-015)
 - **Calculators Verified (Benchmarks):** 20 (Passing 100% of cases for implemented ones)
 - **Unit & E2E Tests:** Configured and passing. No accessibility violations.
 

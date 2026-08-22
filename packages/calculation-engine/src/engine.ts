@@ -3,7 +3,7 @@ import { CalculatorNotImplementedError } from "./errors.js";
 import type { CalculationContext, CalculationResult, CalculatorHandler, NumericInputs } from "./types.js";
 import { compoundInterestHandler } from "./finance/tvm/compoundInterest.js";
 import { fin001Handler, fin002Handler, pro001Handler, pro003Handler, pro004Handler } from "./finance/loan/handlers.js";
-import { inv001Handler, inv003Handler, inv006Handler, inv007Handler, inv008Handler, inv009Handler } from "./finance/investment/handlers.js";
+import { inv001Handler, inv003Handler, inv006Handler, inv007Handler, inv008Handler, inv009Handler, inv011Handler, inv014Handler, inv015Handler } from "./finance/investment/handlers.js";
 import { tax001Handler, tax002Handler, tax003Handler, tax004Handler, tax015Handler, tax020Handler, pro023Handler, isa001Handler, isa002Handler } from "./finance/tax/handlers.js";
 
 export const ENGINE_VERSION = "0.1.0";
@@ -16,6 +16,9 @@ const handlers: Record<string, CalculatorHandler> = {
   "INV-007": inv007Handler,
   "INV-008": inv008Handler,
   "INV-009": inv009Handler,
+  "INV-011": inv011Handler,
+  "INV-014": inv014Handler,
+  "INV-015": inv015Handler,
   "FIN-001": fin001Handler,
   "FIN-002": fin002Handler,
   "PRO-001": pro001Handler,

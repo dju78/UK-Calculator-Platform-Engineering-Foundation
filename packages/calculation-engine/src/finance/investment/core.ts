@@ -60,3 +60,56 @@ export function calculateCAGR(
   }
   return Math.pow(end / start, 1 / years) - 1;
 }
+
+export function calculateIRR(cashflows: number[], guess = 0.1, maxIter = 1000, tol = 1e-8): number {
+  let rate = guess;
+  for (let i = 0; i < maxIter; i++) {
+    let npv = 0;
+    let deriv = 0;
+    for (let t = 0; t < cashflows.length; t++) {
+      npv += cashflows[t] / Math.pow(1 + rate, t);
+      if (t > 0) {
+        deriv -= (t * cashflows[t]) / Math.pow(1 + rate, t + 1);
+      }
+    }
+    if (Math.abs(npv) < tol) {
+      return rate;
+    }
+    if (deriv === 0) break; // Avoid div by zero
+    const newRate = rate - npv / deriv;
+    if (Math.abs(newRate - rate) < tol) return newRate;
+    rate = newRate;
+  }
+  throw new Error("IRR did not converge");
+}
+
+export function calculateFeeDrag(
+  start: number,
+  monthly: number,
+  gross_return: number,
+  fee: number,
+  years: number
+): { gross_value: number; net_value: number; fee_drag: number } {
+  const gross_value = investmentGrowth(start, monthly, gross_return, 0, years);
+  const net_value = investmentGrowth(start, monthly, gross_return, fee, years);
+  return {
+    gross_value,
+    net_value,
+    fee_drag: gross_value - net_value
+  };
+}
+
+export function calculateRealReturn(
+  nominal: number,
+  inflation: number,
+  years: number,
+  future_amount: number
+): { real_return: number; real_value: number } {
+  const real_return = (1 + nominal) / (1 + inflation) - 1;
+  const real_value = future_amount / Math.pow(1 + inflation, years);
+  return {
+    real_return,
+    real_value
+  };
+}
+

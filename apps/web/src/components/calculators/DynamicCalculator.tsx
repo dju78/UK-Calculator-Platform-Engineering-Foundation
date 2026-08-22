@@ -79,8 +79,8 @@ export function DynamicCalculator({
                 ) : (
                   <Input
                     label={field.label}
-                    type="number"
-                    step="any"
+                    type={field.type || "number"}
+                    step={field.type === "text" ? undefined : "any"}
                     value={inputs[field.name] || ""}
                     onChange={(e) => setInputs({ ...inputs, [field.name]: e.target.value })}
                     required
