@@ -5,6 +5,7 @@ import { compoundInterestHandler } from "./finance/tvm/compoundInterest.js";
 import { fin001Handler, fin002Handler, pro001Handler, pro003Handler, pro004Handler } from "./finance/loan/handlers.js";
 import { inv001Handler, inv003Handler, inv006Handler, inv007Handler, inv008Handler, inv009Handler, inv011Handler, inv014Handler, inv015Handler } from "./finance/investment/handlers.js";
 import { tax001Handler, tax002Handler, tax003Handler, tax004Handler, tax015Handler, tax020Handler, pro023Handler, isa001Handler, isa002Handler } from "./finance/tax/handlers.js";
+import { fin006Handler, fin009Handler, fin011Handler, fin013Handler } from "./finance/personal/handlers.js";
 import { sta001Handler, sta003Handler, sta006Handler, sta008Handler, sta014Handler } from "./statistics/handlers.js";
 import { bus001Handler, bus006Handler, bus008Handler } from "./business/handlers.js";
 import { mat002Handler, mat003Handler, mat005Handler, mat006Handler } from "./math/handlers.js";
@@ -32,6 +33,10 @@ const handlers: Record<string, CalculatorHandler> = {
   "INV-015": inv015Handler,
   "FIN-001": fin001Handler,
   "FIN-002": fin002Handler,
+  "FIN-006": fin006Handler,
+  "FIN-009": fin009Handler,
+  "FIN-011": fin011Handler,
+  "FIN-013": fin013Handler,
   "PRO-001": pro001Handler,
   "PRO-003": pro003Handler,
   "PRO-004": pro004Handler,

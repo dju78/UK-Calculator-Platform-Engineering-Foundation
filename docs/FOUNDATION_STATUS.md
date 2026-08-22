@@ -19,24 +19,29 @@
 | Loan & Mortgage | ðŸŸ© Stable | Reusable amortisation schedules and APR calculations. |
 | Investment Mathematics | ðŸŸ© Stable | Contributions, CAGRs, real-returns and safeguarded IRR logic. |
 | Statistics & Data | ðŸŸ© Stable | Centralised distributions, regression, and inferences core. |
-| UK Tax Framework | ðŸŸ¨ Partial | Awaiting implementation against approved rule configurations. |
+| Core Types & Interfaces | 🟩 Stable | Shared `CalculationContext` and generic handlers. |
+| Time Value of Money | 🟩 Stable | Generic TVM implementation with arbitrary compounding. |
+| Loan & Mortgage | 🟩 Stable | Reusable amortisation schedules and APR calculations. |
+| Investment Mathematics | 🟩 Stable | Contributions, CAGRs, real-returns and safeguarded IRR logic. |
+| Statistics & Data | 🟩 Stable | Centralised distributions, regression, and inferences core. |
+| UK Tax Framework | 🟨 Partial | Awaiting implementation against approved rule configurations. |
 
 ## Implementation Tranches
 
 | Tranche | Focus | Status | Calculator Count |
 |---|---|---|---|
-| 1 | Personal Loans & Mortgages | ðŸŸ© Verified | 5 |
-| 2 | Investments & Savings | ðŸŸ© Verified | 10 |
-| 3 | Statistics & Data | ðŸŸ© Verified | 5 |
-| 4 | General Mathematics | ðŸŸ© Verified | 4 |
-| 5 | UK Tax | â¬œ Pending | 0 |
-| 6 | UK Property & Mortgages | â¬œ Pending | 0 |
+| 1 | Personal Loans & Mortgages | ✅ Verified | 5 |
+| 2 | Investments & Savings | ✅ Verified | 10 |
+| 3 | Statistics & Data | ✅ Verified | 5 |
+| 4 | General Mathematics | ✅ Verified | 4 |
+| 5 | UK Tax | ⏳ Pending | 0 |
+| 6 | UK Property & Mortgages | ⏳ Pending | 0 |
+| 7 | Personal Finance & Debt | ✅ Verified | 4 |
 
 ## Verification Gates
 
 | Gate | Status | Context |
 |---|---|---|
-| Unit Test Coverage | ðŸŸ© Passing | 44 Core logic tests passing. |
 | Benchmark Compliance | ðŸŸ© Passing | 145 passing, 0 failing. |
 | End-to-End Navigation | ðŸŸ© Passing | Automated Playwright journey tests passing. |
 | Accessibility (Axe) | ðŸŸ© Passing | 0 serious/critical violations on checked forms. |

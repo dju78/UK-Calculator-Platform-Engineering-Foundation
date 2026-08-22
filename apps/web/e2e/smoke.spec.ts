@@ -210,3 +210,49 @@ test.describe('Mathematics Calculators', () => {
     expect(blockingViolations).toEqual([]);
   });
 });
+
+test.describe('Personal Finance Calculators', () => {
+  test('APR Calculator (FIN-006) renders and is accessible', async ({ page }) => {
+    await page.goto('/calculators/apr-calculator');
+    await expect(page.getByRole('heading', { name: 'APR Calculator' })).toBeVisible();
+    
+    const accessibilityScanResults = await new AxeBuilder({ page }).analyze();
+    const blockingViolations = accessibilityScanResults.violations.filter(
+      (v) => v.impact === "serious" || v.impact === "critical"
+    );
+    expect(blockingViolations).toEqual([]);
+  });
+
+  test('Credit Card Calculator (FIN-009) renders and is accessible', async ({ page }) => {
+    await page.goto('/calculators/credit-card-calculator');
+    await expect(page.getByRole('heading', { name: 'Credit Card Calculator' })).toBeVisible();
+    
+    const accessibilityScanResults = await new AxeBuilder({ page }).analyze();
+    const blockingViolations = accessibilityScanResults.violations.filter(
+      (v) => v.impact === "serious" || v.impact === "critical"
+    );
+    expect(blockingViolations).toEqual([]);
+  });
+
+  test('Debt Payoff Calculator (FIN-011) renders and is accessible', async ({ page }) => {
+    await page.goto('/calculators/debt-payoff-calculator');
+    await expect(page.getByRole('heading', { name: 'Debt Payoff Calculator' })).toBeVisible();
+    
+    const accessibilityScanResults = await new AxeBuilder({ page }).analyze();
+    const blockingViolations = accessibilityScanResults.violations.filter(
+      (v) => v.impact === "serious" || v.impact === "critical"
+    );
+    expect(blockingViolations).toEqual([]);
+  });
+
+  test('Budget Calculator (FIN-013) renders and is accessible', async ({ page }) => {
+    await page.goto('/calculators/budget-calculator');
+    await expect(page.getByRole('heading', { name: 'Budget Calculator' })).toBeVisible();
+    
+    const accessibilityScanResults = await new AxeBuilder({ page }).analyze();
+    const blockingViolations = accessibilityScanResults.violations.filter(
+      (v) => v.impact === "serious" || v.impact === "critical"
+    );
+    expect(blockingViolations).toEqual([]);
+  });
+});
