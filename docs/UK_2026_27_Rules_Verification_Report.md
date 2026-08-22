@@ -21,3 +21,8 @@ The following rulesets were reviewed and cross-referenced with officially announ
 
 ## Approvals
 The ruleset `uk-2026-27-v1.json` is certified as correct and remains the canonical truth source for the `calculation-engine` tax computations for Wave 1.
+
+## Provenance
+- **PEN-002 (SIPP Growth Calculator)**: Sourced from UK 2026/27 Pension Relief at Source and Annual Allowance rules.
+- **PEN-003 (Workplace Pension Calculator)**: Sourced from UK 2026/27 Workplace Pension Auto-Enrolment Qualifying Earnings thresholds.
+- **PEN-006 (Retirement Calculator)**: Standard TVM and draw-down rules, correctly aligned with standard UK guidelines.
