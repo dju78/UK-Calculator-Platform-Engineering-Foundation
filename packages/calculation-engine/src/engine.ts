@@ -6,10 +6,14 @@ import { fin001Handler, fin002Handler, pro001Handler, pro003Handler, pro004Handl
 import { inv001Handler, inv003Handler, inv006Handler, inv007Handler, inv008Handler, inv009Handler, inv011Handler, inv014Handler, inv015Handler } from "./finance/investment/handlers.js";
 import { tax001Handler, tax002Handler, tax003Handler, tax004Handler, tax015Handler, tax020Handler, pro023Handler, isa001Handler, isa002Handler } from "./finance/tax/handlers.js";
 import { sta001Handler, sta003Handler, sta006Handler, sta008Handler, sta014Handler } from "./statistics/handlers.js";
+import { bus001Handler, bus006Handler, bus008Handler } from "./business/handlers.js";
 
 export const ENGINE_VERSION = "0.1.0";
 
 const handlers: Record<string, CalculatorHandler> = {
+  "BUS-001": bus001Handler,
+  "BUS-006": bus006Handler,
+  "BUS-008": bus008Handler,
   "STA-001": sta001Handler,
   "STA-003": sta003Handler,
   "STA-006": sta006Handler,

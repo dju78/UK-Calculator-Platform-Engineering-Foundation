@@ -130,3 +130,37 @@ test.describe('Statistics Calculators', () => {
     expect(blockingViolations).toEqual([]);
   });
 });
+test.describe('Business Calculators', () => {
+  test('Margin Calculator (BUS-001) renders and is accessible', async ({ page }) => {
+    await page.goto('/calculators/margin-calculator');
+    await expect(page.getByRole('heading', { name: 'Margin Calculator' })).toBeVisible();
+    
+    const accessibilityScanResults = await new AxeBuilder({ page }).analyze();
+    const blockingViolations = accessibilityScanResults.violations.filter(
+      (v) => v.impact === "serious" || v.impact === "critical"
+    );
+    expect(blockingViolations).toEqual([]);
+  });
+
+  test('Break-Even Calculator (BUS-006) renders and is accessible', async ({ page }) => {
+    await page.goto('/calculators/break-even-calculator');
+    await expect(page.getByRole('heading', { name: 'Break-Even Calculator' })).toBeVisible();
+    
+    const accessibilityScanResults = await new AxeBuilder({ page }).analyze();
+    const blockingViolations = accessibilityScanResults.violations.filter(
+      (v) => v.impact === "serious" || v.impact === "critical"
+    );
+    expect(blockingViolations).toEqual([]);
+  });
+
+  test('Discount Calculator (BUS-008) renders and is accessible', async ({ page }) => {
+    await page.goto('/calculators/discount-calculator');
+    await expect(page.getByRole('heading', { name: 'Discount Calculator' })).toBeVisible();
+    
+    const accessibilityScanResults = await new AxeBuilder({ page }).analyze();
+    const blockingViolations = accessibilityScanResults.violations.filter(
+      (v) => v.impact === "serious" || v.impact === "critical"
+    );
+    expect(blockingViolations).toEqual([]);
+  });
+});

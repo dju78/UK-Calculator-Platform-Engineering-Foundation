@@ -582,7 +582,7 @@
     "risk": "low",
     "benchmarkCount": 5,
     "specFile": "03_Calculator-Specifications/Wave-1/BUS-001_margin_calculator.docx",
-    "implementationStatus": "specified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "BUS-006",
@@ -597,7 +597,7 @@
     "risk": "low",
     "benchmarkCount": 5,
     "specFile": "03_Calculator-Specifications/Wave-1/BUS-006_break_even_calculator.docx",
-    "implementationStatus": "specified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "BUS-008",
@@ -612,7 +612,7 @@
     "risk": "low",
     "benchmarkCount": 5,
     "specFile": "03_Calculator-Specifications/Wave-1/BUS-008_discount_calculator.docx",
-    "implementationStatus": "specified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "STA-001",
