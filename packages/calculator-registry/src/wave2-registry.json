@@ -1663,7 +1663,7 @@
     "category": "Investing & Wealth",
     "subcategory": "Investment Basics",
     "version": "1.0",
-    "status": "planned",
+    "status": "verified",
     "launchWave": "Wave 2",
     "rulesSensitive": false,
     "risk": "low",
@@ -1671,9 +1671,9 @@
     "aliases": [
       "interest growth"
     ],
-    "benchmarkCount": 0,
+    "benchmarkCount": 5,
     "specFile": "docs/specs/wave2/INV-004.md",
-    "implementationStatus": "specified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "INV-005",
@@ -1682,7 +1682,7 @@
     "category": "Investing & Wealth",
     "subcategory": "Investment Basics",
     "version": "1.0",
-    "status": "planned",
+    "status": "verified",
     "launchWave": "Wave 2",
     "rulesSensitive": false,
     "risk": "low",
@@ -1690,9 +1690,9 @@
     "aliases": [
       "solve interest rate"
     ],
-    "benchmarkCount": 0,
+    "benchmarkCount": 5,
     "specFile": "docs/specs/wave2/INV-005.md",
-    "implementationStatus": "specified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "INV-010",
@@ -1701,7 +1701,7 @@
     "category": "Investing & Wealth",
     "subcategory": "Returns",
     "version": "1.0",
-    "status": "planned",
+    "status": "verified",
     "launchWave": "Wave 2",
     "rulesSensitive": false,
     "risk": "low",
@@ -1709,9 +1709,9 @@
     "aliases": [
       "mean return"
     ],
-    "benchmarkCount": 0,
+    "benchmarkCount": 5,
     "specFile": "docs/specs/wave2/INV-010.md",
-    "implementationStatus": "specified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "INV-012",
@@ -1720,7 +1720,7 @@
     "category": "Investing & Wealth",
     "subcategory": "Returns",
     "version": "1.0",
-    "status": "planned",
+    "status": "verified",
     "launchWave": "Wave 2",
     "rulesSensitive": false,
     "risk": "low",
@@ -1728,9 +1728,9 @@
     "aliases": [
       "irregular cash flow return"
     ],
-    "benchmarkCount": 0,
+    "benchmarkCount": 5,
     "specFile": "docs/specs/wave2/INV-012.md",
-    "implementationStatus": "specified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "INV-013",
@@ -1739,7 +1739,7 @@
     "category": "Investing & Wealth",
     "subcategory": "Returns",
     "version": "1.0",
-    "status": "planned",
+    "status": "verified",
     "launchWave": "Wave 2",
     "rulesSensitive": false,
     "risk": "low",
@@ -1747,9 +1747,9 @@
     "aliases": [
       "investment payback"
     ],
-    "benchmarkCount": 0,
+    "benchmarkCount": 5,
     "specFile": "docs/specs/wave2/INV-013.md",
-    "implementationStatus": "specified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "INV-016",
@@ -1758,7 +1758,7 @@
     "category": "Investing & Wealth",
     "subcategory": "Planning",
     "version": "1.0",
-    "status": "planned",
+    "status": "verified",
     "launchWave": "Wave 2",
     "rulesSensitive": false,
     "risk": "medium",
@@ -1766,9 +1766,9 @@
     "aliases": [
       "delay investing"
     ],
-    "benchmarkCount": 0,
+    "benchmarkCount": 5,
     "specFile": "docs/specs/wave2/INV-016.md",
-    "implementationStatus": "specified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "INV-017",
@@ -1777,7 +1777,7 @@
     "category": "Investing & Wealth",
     "subcategory": "Planning",
     "version": "1.0",
-    "status": "planned",
+    "status": "verified",
     "launchWave": "Wave 2",
     "rulesSensitive": false,
     "risk": "low",
@@ -1785,9 +1785,9 @@
     "aliases": [
       "monthly contribution"
     ],
-    "benchmarkCount": 0,
+    "benchmarkCount": 5,
     "specFile": "docs/specs/wave2/INV-017.md",
-    "implementationStatus": "specified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "INV-018",
@@ -1796,7 +1796,7 @@
     "category": "Investing & Wealth",
     "subcategory": "Savings",
     "version": "1.0",
-    "status": "planned",
+    "status": "verified",
     "launchWave": "Wave 2",
     "rulesSensitive": false,
     "risk": "low",
@@ -1804,9 +1804,9 @@
     "aliases": [
       "savings growth"
     ],
-    "benchmarkCount": 0,
+    "benchmarkCount": 5,
     "specFile": "docs/specs/wave2/INV-018.md",
-    "implementationStatus": "specified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "INV-019",
@@ -1815,7 +1815,7 @@
     "category": "Investing & Wealth",
     "subcategory": "Savings",
     "version": "1.0",
-    "status": "planned",
+    "status": "verified",
     "launchWave": "Wave 2",
     "rulesSensitive": false,
     "risk": "low",
@@ -1824,9 +1824,9 @@
       "CD calculator",
       "certificate of deposit concept"
     ],
-    "benchmarkCount": 0,
+    "benchmarkCount": 5,
     "specFile": "docs/specs/wave2/INV-019.md",
-    "implementationStatus": "specified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "INV-020",
@@ -1835,7 +1835,7 @@
     "category": "Investing & Wealth",
     "subcategory": "Savings",
     "version": "1.0",
-    "status": "planned",
+    "status": "verified",
     "launchWave": "Wave 2",
     "rulesSensitive": false,
     "risk": "low",
@@ -1843,9 +1843,9 @@
     "aliases": [
       "savings bond"
     ],
-    "benchmarkCount": 0,
+    "benchmarkCount": 5,
     "specFile": "docs/specs/wave2/INV-020.md",
-    "implementationStatus": "specified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "INV-021",
@@ -1854,7 +1854,7 @@
     "category": "Investing & Wealth",
     "subcategory": "Fixed Income",
     "version": "1.0",
-    "status": "planned",
+    "status": "verified",
     "launchWave": "Wave 2",
     "rulesSensitive": false,
     "risk": "medium",
@@ -1863,9 +1863,9 @@
       "bond price",
       "yield"
     ],
-    "benchmarkCount": 0,
+    "benchmarkCount": 5,
     "specFile": "docs/specs/wave2/INV-021.md",
-    "implementationStatus": "specified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "INV-022",
@@ -1874,7 +1874,7 @@
     "category": "Investing & Wealth",
     "subcategory": "Income Investing",
     "version": "1.0",
-    "status": "planned",
+    "status": "verified",
     "launchWave": "Wave 2",
     "rulesSensitive": false,
     "risk": "medium",
@@ -1882,9 +1882,9 @@
     "aliases": [
       "dividend reinvestment"
     ],
-    "benchmarkCount": 0,
+    "benchmarkCount": 5,
     "specFile": "docs/specs/wave2/INV-022.md",
-    "implementationStatus": "specified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "INV-023",
@@ -1893,7 +1893,7 @@
     "category": "Investing & Wealth",
     "subcategory": "Income Investing",
     "version": "1.0",
-    "status": "planned",
+    "status": "verified",
     "launchWave": "Wave 2",
     "rulesSensitive": false,
     "risk": "medium",
@@ -1901,9 +1901,9 @@
     "aliases": [
       "DRIP"
     ],
-    "benchmarkCount": 0,
+    "benchmarkCount": 5,
     "specFile": "docs/specs/wave2/INV-023.md",
-    "implementationStatus": "specified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "INV-024",
@@ -1912,7 +1912,7 @@
     "category": "Investing & Wealth",
     "subcategory": "Funds",
     "version": "1.0",
-    "status": "planned",
+    "status": "verified",
     "launchWave": "Wave 2",
     "rulesSensitive": false,
     "risk": "medium",
@@ -1921,9 +1921,9 @@
       "mutual fund calculator",
       "fund growth"
     ],
-    "benchmarkCount": 0,
+    "benchmarkCount": 5,
     "specFile": "docs/specs/wave2/INV-024.md",
-    "implementationStatus": "specified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "ISA-003",

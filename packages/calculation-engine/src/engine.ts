@@ -24,6 +24,11 @@ import {
   pro014Handler, pro015Handler, pro017Handler, pro020Handler, pro021Handler,
   pro022Handler, pro024Handler, pro025Handler, pro026Handler, pro027Handler
 } from "./finance/wave2/property-handlers.js";
+import {
+  inv004Handler, inv005Handler, inv010Handler, inv012Handler, inv013Handler,
+  inv016Handler, inv017Handler, inv018Handler, inv019Handler, inv020Handler,
+  inv021Handler, inv022Handler, inv023Handler, inv024Handler
+} from "./finance/wave2/investment-handlers.js";
 
 export const ENGINE_VERSION = "0.1.0";
 
@@ -83,6 +88,22 @@ const handlers: Record<string, CalculatorHandler> = {
   "PRO-025": pro025Handler,
   "PRO-026": pro026Handler,
   "PRO-027": pro027Handler,
+
+  // --- Wave 2: Investing & Wealth ---
+  "INV-004": inv004Handler,
+  "INV-005": inv005Handler,
+  "INV-010": inv010Handler,
+  "INV-012": inv012Handler,
+  "INV-013": inv013Handler,
+  "INV-016": inv016Handler,
+  "INV-017": inv017Handler,
+  "INV-018": inv018Handler,
+  "INV-019": inv019Handler,
+  "INV-020": inv020Handler,
+  "INV-021": inv021Handler,
+  "INV-022": inv022Handler,
+  "INV-023": inv023Handler,
+  "INV-024": inv024Handler,
   "TAX-001": tax001Handler,
   "TAX-002": tax002Handler,
   "TAX-003": tax003Handler,

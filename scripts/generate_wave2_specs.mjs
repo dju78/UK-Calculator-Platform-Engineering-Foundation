@@ -24,18 +24,31 @@ const notes = fs.existsSync(notesPath) ? JSON.parse(fs.readFileSync(notesPath, '
 // each calculator's field block. This keeps the generator dependency-free.
 const fieldSource = fs.readFileSync(path.join(ROOT, 'apps/web/src/components/calculators/wave2FieldMappings.ts'), 'utf8');
 function fieldsFor(id) {
-  const start = fieldSource.indexOf(`"${id}": [`);
-  if (start === -1) return [];
-  const open = fieldSource.indexOf('[', start);
-  let depth = 0, end = open;
+  const keyAt = fieldSource.indexOf(`"${id}": [`);
+  if (keyAt === -1) return [];
+  const open = fieldSource.indexOf('[', keyAt);
+  let arrayDepth = 0, end = open;
   for (let i = open; i < fieldSource.length; i++) {
-    if (fieldSource[i] === '[') depth++;
-    else if (fieldSource[i] === ']') { depth--; if (depth === 0) { end = i; break; } }
+    if (fieldSource[i] === '[') arrayDepth++;
+    else if (fieldSource[i] === ']') { arrayDepth--; if (arrayDepth === 0) { end = i; break; } }
   }
   const block = fieldSource.slice(open + 1, end);
-  return [...block.matchAll(/\{[^{}]*\}/g)].map(m => {
-    const t = m[0];
-    const get = (k) => (t.match(new RegExp(`${k}:\\s*"([^"]*)"`)) || [])[1];
+  // Split into field objects by brace depth while ignoring braces that appear
+  // inside string literals - several defaults are JSON payloads containing {}.
+  const objects = [];
+  let depth = 0, objStart = -1, quote = null;
+  for (let i = 0; i < block.length; i++) {
+    const ch = block[i];
+    if (quote) { if (ch === quote && block[i - 1] !== '\\') quote = null; continue; }
+    if (ch === '"' || ch === "'" || ch === '`') { quote = ch; continue; }
+    if (ch === '{') { if (depth === 0) objStart = i; depth++; }
+    else if (ch === '}') { depth--; if (depth === 0 && objStart !== -1) { objects.push(block.slice(objStart, i + 1)); objStart = -1; } }
+  }
+  return objects.map(t => {
+    const get = (k) => {
+      const m = t.match(new RegExp(`${k}:\\s*"([^"]*)"`)) || t.match(new RegExp(`${k}:\\s*'([^']*)'`));
+      return m ? m[1] : undefined;
+    };
     const getRaw = (k) => (t.match(new RegExp(`${k}:\\s*([^,}]+)`)) || [])[1];
     return {
       name: get('name'),

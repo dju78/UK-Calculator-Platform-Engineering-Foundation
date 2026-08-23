@@ -2281,5 +2281,1293 @@
       "ruleset": "uk-2026-27-v1",
       "note": "Independently derived: simulation/bisection and band tables re-typed from primary sources."
     }
+  ],
+  "INV-004": [
+    {
+      "scenario": "Annual compounding",
+      "inputs": {
+        "principal": 10000,
+        "annual_rate": 5,
+        "years": 10,
+        "compounds_per_year": 1
+      },
+      "expected": {
+        "simple_interest": 5000,
+        "simple_total": 15000,
+        "compound_interest": 6288.95,
+        "compound_total": 16288.95,
+        "difference": 1288.95
+      },
+      "tolerance": "±£0.01 / ±0.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independently derived; no engine code used."
+    },
+    {
+      "scenario": "Monthly compounding",
+      "inputs": {
+        "principal": 10000,
+        "annual_rate": 5,
+        "years": 10,
+        "compounds_per_year": 12
+      },
+      "expected": {
+        "simple_interest": 5000,
+        "simple_total": 15000,
+        "compound_interest": 6470.09,
+        "compound_total": 16470.09,
+        "difference": 1470.09
+      },
+      "tolerance": "±£0.01 / ±0.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independently derived; no engine code used."
+    },
+    {
+      "scenario": "Zero rate",
+      "inputs": {
+        "principal": 5000,
+        "annual_rate": 0,
+        "years": 5,
+        "compounds_per_year": 1
+      },
+      "expected": {
+        "simple_interest": 0,
+        "simple_total": 5000,
+        "compound_interest": 0,
+        "compound_total": 5000,
+        "difference": 0
+      },
+      "tolerance": "±£0.01 / ±0.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independently derived; no engine code used."
+    },
+    {
+      "scenario": "Short term",
+      "inputs": {
+        "principal": 2000,
+        "annual_rate": 8,
+        "years": 1,
+        "compounds_per_year": 4
+      },
+      "expected": {
+        "simple_interest": 160,
+        "simple_total": 2160,
+        "compound_interest": 164.86,
+        "compound_total": 2164.86,
+        "difference": 4.86
+      },
+      "tolerance": "±£0.01 / ±0.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independently derived; no engine code used."
+    },
+    {
+      "scenario": "Long term",
+      "inputs": {
+        "principal": 25000,
+        "annual_rate": 6,
+        "years": 30,
+        "compounds_per_year": 12
+      },
+      "expected": {
+        "simple_interest": 45000,
+        "simple_total": 70000,
+        "compound_interest": 125564.38,
+        "compound_total": 150564.38,
+        "difference": 80564.38
+      },
+      "tolerance": "±£0.01 / ±0.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independently derived; no engine code used."
+    }
+  ],
+  "INV-005": [
+    {
+      "scenario": "Double in 10 years",
+      "inputs": {
+        "present_value": 10000,
+        "future_value": 20000,
+        "years": 10,
+        "compounds_per_year": 1
+      },
+      "expected": {
+        "required_annual_rate": 0.07177346
+      },
+      "tolerance": "±£0.01 / ±0.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independently derived; no engine code used."
+    },
+    {
+      "scenario": "Monthly compounding",
+      "inputs": {
+        "present_value": 5000,
+        "future_value": 8000,
+        "years": 7,
+        "compounds_per_year": 12
+      },
+      "expected": {
+        "required_annual_rate": 0.06733157
+      },
+      "tolerance": "±£0.01 / ±0.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independently derived; no engine code used."
+    },
+    {
+      "scenario": "Small growth",
+      "inputs": {
+        "present_value": 10000,
+        "future_value": 10500,
+        "years": 1,
+        "compounds_per_year": 1
+      },
+      "expected": {
+        "required_annual_rate": 0.05
+      },
+      "tolerance": "±£0.01 / ±0.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independently derived; no engine code used."
+    },
+    {
+      "scenario": "Large growth",
+      "inputs": {
+        "present_value": 1000,
+        "future_value": 10000,
+        "years": 20,
+        "compounds_per_year": 1
+      },
+      "expected": {
+        "required_annual_rate": 0.12201845
+      },
+      "tolerance": "±£0.01 / ±0.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independently derived; no engine code used."
+    },
+    {
+      "scenario": "Quarterly",
+      "inputs": {
+        "present_value": 15000,
+        "future_value": 25000,
+        "years": 8,
+        "compounds_per_year": 4
+      },
+      "expected": {
+        "required_annual_rate": 0.06436558
+      },
+      "tolerance": "±£0.01 / ±0.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independently derived; no engine code used."
+    }
+  ],
+  "INV-010": [
+    {
+      "scenario": "Steady returns",
+      "inputs": {
+        "returns": "[5,5,5,5,5]"
+      },
+      "expected": {
+        "arithmetic_mean": 0.05,
+        "geometric_mean": 0.05,
+        "cumulative_return": 0.27628156,
+        "difference": 0,
+        "years": 5
+      },
+      "tolerance": "±£0.01 / ±0.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independently derived; no engine code used."
+    },
+    {
+      "scenario": "Volatile returns",
+      "inputs": {
+        "returns": "[20,-10,15,-5,10]"
+      },
+      "expected": {
+        "arithmetic_mean": 0.06,
+        "geometric_mean": 0.05353163,
+        "cumulative_return": 0.29789,
+        "difference": 0.00646837,
+        "years": 5
+      },
+      "tolerance": "±£0.01 / ±0.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independently derived; no engine code used."
+    },
+    {
+      "scenario": "A loss year",
+      "inputs": {
+        "returns": "[10,-20,10]"
+      },
+      "expected": {
+        "arithmetic_mean": 0,
+        "geometric_mean": -0.01078251,
+        "cumulative_return": -0.032,
+        "difference": 0.01078251,
+        "years": 3
+      },
+      "tolerance": "±£0.01 / ±0.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independently derived; no engine code used."
+    },
+    {
+      "scenario": "Two years",
+      "inputs": {
+        "returns": "[10,10]"
+      },
+      "expected": {
+        "arithmetic_mean": 0.1,
+        "geometric_mean": 0.1,
+        "cumulative_return": 0.21,
+        "difference": 0,
+        "years": 2
+      },
+      "tolerance": "±£0.01 / ±0.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independently derived; no engine code used."
+    },
+    {
+      "scenario": "Mixed decade",
+      "inputs": {
+        "returns": "[8,-3,12,5,-7,15,2,9,-1,6]"
+      },
+      "expected": {
+        "arithmetic_mean": 0.046,
+        "geometric_mean": 0.04393903,
+        "cumulative_return": 0.53727417,
+        "difference": 0.00206097,
+        "years": 10
+      },
+      "tolerance": "±£0.01 / ±0.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independently derived; no engine code used."
+    }
+  ],
+  "INV-012": [
+    {
+      "scenario": "Simple two flows",
+      "inputs": {
+        "cashflows": "[{\"date\":\"2024-01-01\",\"amount\":-10000},{\"date\":\"2025-01-01\",\"amount\":11000}]"
+      },
+      "expected": {
+        "xirr": 0.09971359
+      },
+      "tolerance": "±£0.01 / ±0.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independently solved by bisection on NPV; NPV at the root is 1.82e-12, confirming it is a genuine root."
+    },
+    {
+      "scenario": "Irregular contributions",
+      "inputs": {
+        "cashflows": "[{\"date\":\"2023-01-15\",\"amount\":-5000},{\"date\":\"2023-07-20\",\"amount\":-3000},{\"date\":\"2025-03-10\",\"amount\":9500}]"
+      },
+      "expected": {
+        "xirr": 0.09152787
+      },
+      "tolerance": "±£0.01 / ±0.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independently solved by bisection on NPV; NPV at the root is -9.09e-13, confirming it is a genuine root."
+    },
+    {
+      "scenario": "Loss",
+      "inputs": {
+        "cashflows": "[{\"date\":\"2022-06-01\",\"amount\":-20000},{\"date\":\"2025-06-01\",\"amount\":15000}]"
+      },
+      "expected": {
+        "xirr": -0.09136021
+      },
+      "tolerance": "±£0.01 / ±0.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independently solved by bisection on NPV; NPV at the root is 7.28e-12, confirming it is a genuine root."
+    },
+    {
+      "scenario": "Multiple inflows",
+      "inputs": {
+        "cashflows": "[{\"date\":\"2021-01-01\",\"amount\":-50000},{\"date\":\"2022-01-01\",\"amount\":10000},{\"date\":\"2023-01-01\",\"amount\":15000},{\"date\":\"2024-01-01\",\"amount\":35000}]"
+      },
+      "expected": {
+        "xirr": 0.07912028
+      },
+      "tolerance": "±£0.01 / ±0.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independently solved by bisection on NPV; NPV at the root is -7.28e-12, confirming it is a genuine root."
+    },
+    {
+      "scenario": "Long horizon",
+      "inputs": {
+        "cashflows": "[{\"date\":\"2010-01-01\",\"amount\":-1000},{\"date\":\"2026-01-01\",\"amount\":4000}]"
+      },
+      "expected": {
+        "xirr": 0.09044306
+      },
+      "tolerance": "±£0.01 / ±0.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independently solved by bisection on NPV; NPV at the root is 7.96e-13, confirming it is a genuine root."
+    }
+  ],
+  "INV-013": [
+    {
+      "scenario": "Even cash flows",
+      "inputs": {
+        "initial_investment": 10000,
+        "annual_cashflows": "[3000,3000,3000,3000,3000]",
+        "discount_rate": 0
+      },
+      "expected": {
+        "payback_years": 3.33333333,
+        "discounted_payback_years": 3.33333333,
+        "total_cash_returned": 15000,
+        "net_gain": 5000
+      },
+      "tolerance": "±£0.01 / ±0.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independently derived; no engine code used."
+    },
+    {
+      "scenario": "With discounting",
+      "inputs": {
+        "initial_investment": 10000,
+        "annual_cashflows": "[3000,3000,3000,3000,3000]",
+        "discount_rate": 8
+      },
+      "expected": {
+        "payback_years": 3.33333333,
+        "discounted_payback_years": 4.0311593,
+        "total_cash_returned": 15000,
+        "net_gain": 5000
+      },
+      "tolerance": "±£0.01 / ±0.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independently derived; no engine code used."
+    },
+    {
+      "scenario": "Never pays back",
+      "inputs": {
+        "initial_investment": 50000,
+        "annual_cashflows": "[5000,5000,5000]",
+        "discount_rate": 0
+      },
+      "expected": {
+        "payback_years": null,
+        "discounted_payback_years": null,
+        "total_cash_returned": 15000,
+        "net_gain": -35000
+      },
+      "tolerance": "±£0.01 / ±0.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independently derived; no engine code used."
+    },
+    {
+      "scenario": "Fast payback",
+      "inputs": {
+        "initial_investment": 5000,
+        "annual_cashflows": "[4000,4000]",
+        "discount_rate": 0
+      },
+      "expected": {
+        "payback_years": 1.25,
+        "discounted_payback_years": 1.25,
+        "total_cash_returned": 8000,
+        "net_gain": 3000
+      },
+      "tolerance": "±£0.01 / ±0.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independently derived; no engine code used."
+    },
+    {
+      "scenario": "Uneven flows",
+      "inputs": {
+        "initial_investment": 20000,
+        "annual_cashflows": "[2000,5000,8000,10000]",
+        "discount_rate": 5
+      },
+      "expected": {
+        "payback_years": 3.5,
+        "discounted_payback_years": 3.8082375,
+        "total_cash_returned": 25000,
+        "net_gain": 5000
+      },
+      "tolerance": "±£0.01 / ±0.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independently derived; no engine code used."
+    }
+  ],
+  "INV-016": [
+    {
+      "scenario": "Five year delay",
+      "inputs": {
+        "monthly_contribution": 300,
+        "annual_return": 7,
+        "years_to_goal": 30,
+        "years_delayed": 5,
+        "starting_amount": 0
+      },
+      "expected": {
+        "value_if_starting_now": 365991.3,
+        "value_if_delayed": 243021.51,
+        "cost_of_waiting": 122969.79,
+        "contributions_if_starting_now": 108000,
+        "contributions_if_delayed": 90000
+      },
+      "tolerance": "±£0.01 / ±0.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independently derived; no engine code used."
+    },
+    {
+      "scenario": "No delay",
+      "inputs": {
+        "monthly_contribution": 300,
+        "annual_return": 7,
+        "years_to_goal": 30,
+        "years_delayed": 0,
+        "starting_amount": 0
+      },
+      "expected": {
+        "value_if_starting_now": 365991.3,
+        "value_if_delayed": 365991.3,
+        "cost_of_waiting": 0,
+        "contributions_if_starting_now": 108000,
+        "contributions_if_delayed": 108000
+      },
+      "tolerance": "±£0.01 / ±0.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independently derived; no engine code used."
+    },
+    {
+      "scenario": "With starting pot",
+      "inputs": {
+        "monthly_contribution": 250,
+        "annual_return": 6,
+        "years_to_goal": 25,
+        "years_delayed": 5,
+        "starting_amount": 10000
+      },
+      "expected": {
+        "value_if_starting_now": 217898.19,
+        "value_if_delayed": 160159.92,
+        "cost_of_waiting": 57738.27,
+        "contributions_if_starting_now": 75000,
+        "contributions_if_delayed": 60000
+      },
+      "tolerance": "±£0.01 / ±0.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independently derived; no engine code used."
+    },
+    {
+      "scenario": "Short goal",
+      "inputs": {
+        "monthly_contribution": 500,
+        "annual_return": 5,
+        "years_to_goal": 10,
+        "years_delayed": 2,
+        "starting_amount": 0
+      },
+      "expected": {
+        "value_if_starting_now": 77641.14,
+        "value_if_delayed": 58870.26,
+        "cost_of_waiting": 18770.88,
+        "contributions_if_starting_now": 60000,
+        "contributions_if_delayed": 48000
+      },
+      "tolerance": "±£0.01 / ±0.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independently derived; no engine code used."
+    },
+    {
+      "scenario": "Zero return",
+      "inputs": {
+        "monthly_contribution": 200,
+        "annual_return": 0,
+        "years_to_goal": 20,
+        "years_delayed": 5,
+        "starting_amount": 0
+      },
+      "expected": {
+        "value_if_starting_now": 48000,
+        "value_if_delayed": 36000,
+        "cost_of_waiting": 12000,
+        "contributions_if_starting_now": 48000,
+        "contributions_if_delayed": 36000
+      },
+      "tolerance": "±£0.01 / ±0.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independently derived; no engine code used."
+    }
+  ],
+  "INV-017": [
+    {
+      "scenario": "End of month",
+      "inputs": {
+        "starting_amount": 5000,
+        "monthly_contribution": 300,
+        "annual_rate": 6,
+        "years": 20,
+        "contribution_timing": "end"
+      },
+      "expected": {
+        "final_value": 155163.29,
+        "total_contributions": 72000,
+        "growth": 78163.29,
+        "effective_annual_rate": 0.06167781
+      },
+      "tolerance": "±£0.01 / ±0.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independently derived; no engine code used."
+    },
+    {
+      "scenario": "Start of month",
+      "inputs": {
+        "starting_amount": 5000,
+        "monthly_contribution": 300,
+        "annual_rate": 6,
+        "years": 20,
+        "contribution_timing": "start"
+      },
+      "expected": {
+        "final_value": 155856.35,
+        "total_contributions": 72000,
+        "growth": 78856.35,
+        "effective_annual_rate": 0.06167781
+      },
+      "tolerance": "±£0.01 / ±0.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independently derived; no engine code used."
+    },
+    {
+      "scenario": "No starting amount",
+      "inputs": {
+        "starting_amount": 0,
+        "monthly_contribution": 500,
+        "annual_rate": 5,
+        "years": 10,
+        "contribution_timing": "end"
+      },
+      "expected": {
+        "final_value": 77641.14,
+        "total_contributions": 60000,
+        "growth": 17641.14,
+        "effective_annual_rate": 0.0511619
+      },
+      "tolerance": "±£0.01 / ±0.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independently derived; no engine code used."
+    },
+    {
+      "scenario": "Zero rate",
+      "inputs": {
+        "starting_amount": 1000,
+        "monthly_contribution": 100,
+        "annual_rate": 0,
+        "years": 5,
+        "contribution_timing": "end"
+      },
+      "expected": {
+        "final_value": 7000,
+        "total_contributions": 6000,
+        "growth": 0,
+        "effective_annual_rate": 0
+      },
+      "tolerance": "±£0.01 / ±0.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independently derived; no engine code used."
+    },
+    {
+      "scenario": "Long horizon",
+      "inputs": {
+        "starting_amount": 10000,
+        "monthly_contribution": 250,
+        "annual_rate": 7,
+        "years": 30,
+        "contribution_timing": "end"
+      },
+      "expected": {
+        "final_value": 386157.72,
+        "total_contributions": 90000,
+        "growth": 286157.72,
+        "effective_annual_rate": 0.07229008
+      },
+      "tolerance": "±£0.01 / ±0.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independently derived; no engine code used."
+    }
+  ],
+  "INV-018": [
+    {
+      "scenario": "Regular saving",
+      "inputs": {
+        "starting_amount": 1000,
+        "monthly_contribution": 200,
+        "annual_rate": 4,
+        "years": 10
+      },
+      "expected": {
+        "final_value": 30940.79,
+        "total_contributions": 24000,
+        "interest_earned": 5940.79,
+        "effective_annual_rate": 0.04074154
+      },
+      "tolerance": "±£0.01 / ±0.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independently derived; no engine code used."
+    },
+    {
+      "scenario": "No starting balance",
+      "inputs": {
+        "starting_amount": 0,
+        "monthly_contribution": 150,
+        "annual_rate": 3.5,
+        "years": 5
+      },
+      "expected": {
+        "final_value": 9819.92,
+        "total_contributions": 9000,
+        "interest_earned": 819.92,
+        "effective_annual_rate": 0.03556695
+      },
+      "tolerance": "±£0.01 / ±0.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independently derived; no engine code used."
+    },
+    {
+      "scenario": "Zero rate",
+      "inputs": {
+        "starting_amount": 500,
+        "monthly_contribution": 100,
+        "annual_rate": 0,
+        "years": 3
+      },
+      "expected": {
+        "final_value": 4100,
+        "total_contributions": 3600,
+        "interest_earned": 0,
+        "effective_annual_rate": 0
+      },
+      "tolerance": "±£0.01 / ±0.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independently derived; no engine code used."
+    },
+    {
+      "scenario": "High rate",
+      "inputs": {
+        "starting_amount": 2000,
+        "monthly_contribution": 300,
+        "annual_rate": 6,
+        "years": 15
+      },
+      "expected": {
+        "final_value": 92153.8,
+        "total_contributions": 54000,
+        "interest_earned": 36153.8,
+        "effective_annual_rate": 0.06167781
+      },
+      "tolerance": "±£0.01 / ±0.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independently derived; no engine code used."
+    },
+    {
+      "scenario": "Small amounts",
+      "inputs": {
+        "starting_amount": 100,
+        "monthly_contribution": 25,
+        "annual_rate": 2,
+        "years": 2
+      },
+      "expected": {
+        "final_value": 715.72,
+        "total_contributions": 600,
+        "interest_earned": 15.72,
+        "effective_annual_rate": 0.02018436
+      },
+      "tolerance": "±£0.01 / ±0.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independently derived; no engine code used."
+    }
+  ],
+  "INV-019": [
+    {
+      "scenario": "One year bond",
+      "inputs": {
+        "principal": 10000,
+        "annual_rate": 4.5,
+        "years": 1,
+        "compounds_per_year": 1
+      },
+      "expected": {
+        "final_value": 10450,
+        "interest_earned": 450,
+        "effective_annual_rate": 0.045,
+        "gross_annual_interest": 450
+      },
+      "tolerance": "±£0.01 / ±0.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independently derived; no engine code used."
+    },
+    {
+      "scenario": "Three year bond",
+      "inputs": {
+        "principal": 20000,
+        "annual_rate": 4.75,
+        "years": 3,
+        "compounds_per_year": 1
+      },
+      "expected": {
+        "final_value": 22987.52,
+        "interest_earned": 2987.52,
+        "effective_annual_rate": 0.0475,
+        "gross_annual_interest": 950
+      },
+      "tolerance": "±£0.01 / ±0.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independently derived; no engine code used."
+    },
+    {
+      "scenario": "Monthly interest",
+      "inputs": {
+        "principal": 15000,
+        "annual_rate": 4.2,
+        "years": 2,
+        "compounds_per_year": 12
+      },
+      "expected": {
+        "final_value": 16312.04,
+        "interest_earned": 1312.04,
+        "effective_annual_rate": 0.04281801,
+        "gross_annual_interest": 630
+      },
+      "tolerance": "±£0.01 / ±0.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independently derived; no engine code used."
+    },
+    {
+      "scenario": "Zero rate",
+      "inputs": {
+        "principal": 5000,
+        "annual_rate": 0,
+        "years": 2,
+        "compounds_per_year": 1
+      },
+      "expected": {
+        "final_value": 5000,
+        "interest_earned": 0,
+        "effective_annual_rate": 0,
+        "gross_annual_interest": 0
+      },
+      "tolerance": "±£0.01 / ±0.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independently derived; no engine code used."
+    },
+    {
+      "scenario": "Five year bond",
+      "inputs": {
+        "principal": 50000,
+        "annual_rate": 5,
+        "years": 5,
+        "compounds_per_year": 1
+      },
+      "expected": {
+        "final_value": 63814.08,
+        "interest_earned": 13814.08,
+        "effective_annual_rate": 0.05,
+        "gross_annual_interest": 2500
+      },
+      "tolerance": "±£0.01 / ±0.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independently derived; no engine code used."
+    }
+  ],
+  "INV-020": [
+    {
+      "scenario": "One year bond",
+      "inputs": {
+        "principal": 10000,
+        "annual_rate": 4.5,
+        "years": 1,
+        "compounds_per_year": 1
+      },
+      "expected": {
+        "final_value": 10450,
+        "interest_earned": 450,
+        "effective_annual_rate": 0.045,
+        "gross_annual_interest": 450
+      },
+      "tolerance": "±£0.01 / ±0.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independently derived; no engine code used."
+    },
+    {
+      "scenario": "Three year bond",
+      "inputs": {
+        "principal": 20000,
+        "annual_rate": 4.75,
+        "years": 3,
+        "compounds_per_year": 1
+      },
+      "expected": {
+        "final_value": 22987.52,
+        "interest_earned": 2987.52,
+        "effective_annual_rate": 0.0475,
+        "gross_annual_interest": 950
+      },
+      "tolerance": "±£0.01 / ±0.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independently derived; no engine code used."
+    },
+    {
+      "scenario": "Monthly interest",
+      "inputs": {
+        "principal": 15000,
+        "annual_rate": 4.2,
+        "years": 2,
+        "compounds_per_year": 12
+      },
+      "expected": {
+        "final_value": 16312.04,
+        "interest_earned": 1312.04,
+        "effective_annual_rate": 0.04281801,
+        "gross_annual_interest": 630
+      },
+      "tolerance": "±£0.01 / ±0.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independently derived; no engine code used."
+    },
+    {
+      "scenario": "Zero rate",
+      "inputs": {
+        "principal": 5000,
+        "annual_rate": 0,
+        "years": 2,
+        "compounds_per_year": 1
+      },
+      "expected": {
+        "final_value": 5000,
+        "interest_earned": 0,
+        "effective_annual_rate": 0,
+        "gross_annual_interest": 0
+      },
+      "tolerance": "±£0.01 / ±0.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independently derived; no engine code used."
+    },
+    {
+      "scenario": "Five year bond",
+      "inputs": {
+        "principal": 50000,
+        "annual_rate": 5,
+        "years": 5,
+        "compounds_per_year": 1
+      },
+      "expected": {
+        "final_value": 63814.08,
+        "interest_earned": 13814.08,
+        "effective_annual_rate": 0.05,
+        "gross_annual_interest": 2500
+      },
+      "tolerance": "±£0.01 / ±0.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independently derived; no engine code used."
+    }
+  ],
+  "INV-021": [
+    {
+      "scenario": "Par bond",
+      "inputs": {
+        "face_value": 1000,
+        "coupon_rate": 5,
+        "yield_rate": 5,
+        "years": 10,
+        "coupons_per_year": 2
+      },
+      "expected": {
+        "price": 1000,
+        "total_coupons": 500,
+        "current_yield": 0.05,
+        "premium_or_discount": 0
+      },
+      "tolerance": "±£0.01 / ±0.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independently derived; no engine code used."
+    },
+    {
+      "scenario": "Premium bond",
+      "inputs": {
+        "face_value": 1000,
+        "coupon_rate": 6,
+        "yield_rate": 4,
+        "years": 10,
+        "coupons_per_year": 2
+      },
+      "expected": {
+        "price": 1163.51,
+        "total_coupons": 600,
+        "current_yield": 0.05156791,
+        "premium_or_discount": 163.51
+      },
+      "tolerance": "±£0.01 / ±0.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independently derived; no engine code used."
+    },
+    {
+      "scenario": "Discount bond",
+      "inputs": {
+        "face_value": 1000,
+        "coupon_rate": 3,
+        "yield_rate": 5,
+        "years": 10,
+        "coupons_per_year": 2
+      },
+      "expected": {
+        "price": 844.11,
+        "total_coupons": 300,
+        "current_yield": 0.03554046,
+        "premium_or_discount": -155.89
+      },
+      "tolerance": "±£0.01 / ±0.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independently derived; no engine code used."
+    },
+    {
+      "scenario": "Zero yield",
+      "inputs": {
+        "face_value": 1000,
+        "coupon_rate": 4,
+        "yield_rate": 0,
+        "years": 5,
+        "coupons_per_year": 2
+      },
+      "expected": {
+        "price": 1200,
+        "total_coupons": 200,
+        "current_yield": 0.03333333,
+        "premium_or_discount": 200
+      },
+      "tolerance": "±£0.01 / ±0.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independently derived; no engine code used."
+    },
+    {
+      "scenario": "Annual coupons",
+      "inputs": {
+        "face_value": 1000,
+        "coupon_rate": 5,
+        "yield_rate": 6,
+        "years": 8,
+        "coupons_per_year": 1
+      },
+      "expected": {
+        "price": 937.9,
+        "total_coupons": 400,
+        "current_yield": 0.05331047,
+        "premium_or_discount": -62.1
+      },
+      "tolerance": "±£0.01 / ±0.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independently derived; no engine code used."
+    }
+  ],
+  "INV-022": [
+    {
+      "scenario": "Growing dividend",
+      "inputs": {
+        "investment": 50000,
+        "starting_yield": 4,
+        "dividend_growth": 5,
+        "years": 10
+      },
+      "expected": {
+        "first_year_income": 2000,
+        "final_year_income": 3102.66,
+        "total_income": 25155.79,
+        "yield_on_cost": 0.04,
+        "final_yield_on_cost": 0.06205313
+      },
+      "tolerance": "±£0.01 / ±0.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independently derived; no engine code used."
+    },
+    {
+      "scenario": "No growth",
+      "inputs": {
+        "investment": 50000,
+        "starting_yield": 4,
+        "dividend_growth": 0,
+        "years": 10
+      },
+      "expected": {
+        "first_year_income": 2000,
+        "final_year_income": 2000,
+        "total_income": 20000,
+        "yield_on_cost": 0.04,
+        "final_yield_on_cost": 0.04
+      },
+      "tolerance": "±£0.01 / ±0.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independently derived; no engine code used."
+    },
+    {
+      "scenario": "High yield",
+      "inputs": {
+        "investment": 25000,
+        "starting_yield": 6,
+        "dividend_growth": 3,
+        "years": 5
+      },
+      "expected": {
+        "first_year_income": 1500,
+        "final_year_income": 1688.26,
+        "total_income": 7963.7,
+        "yield_on_cost": 0.06,
+        "final_yield_on_cost": 0.06753053
+      },
+      "tolerance": "±£0.01 / ±0.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independently derived; no engine code used."
+    },
+    {
+      "scenario": "One year",
+      "inputs": {
+        "investment": 10000,
+        "starting_yield": 5,
+        "dividend_growth": 5,
+        "years": 1
+      },
+      "expected": {
+        "first_year_income": 500,
+        "final_year_income": 500,
+        "total_income": 500,
+        "yield_on_cost": 0.05,
+        "final_yield_on_cost": 0.05
+      },
+      "tolerance": "±£0.01 / ±0.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independently derived; no engine code used."
+    },
+    {
+      "scenario": "Long horizon",
+      "inputs": {
+        "investment": 100000,
+        "starting_yield": 3.5,
+        "dividend_growth": 6,
+        "years": 20
+      },
+      "expected": {
+        "first_year_income": 3500,
+        "final_year_income": 10589.6,
+        "total_income": 128749.57,
+        "yield_on_cost": 0.035,
+        "final_yield_on_cost": 0.10589598
+      },
+      "tolerance": "±£0.01 / ±0.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independently derived; no engine code used."
+    }
+  ],
+  "INV-023": [
+    {
+      "scenario": "Reinvested ten years",
+      "inputs": {
+        "initial_investment": 20000,
+        "starting_yield": 4,
+        "price_growth": 5,
+        "dividend_growth": 4,
+        "years": 10
+      },
+      "expected": {
+        "final_value": 46626,
+        "final_value_without_reinvestment": 32577.89,
+        "reinvestment_benefit": 14048.1,
+        "total_dividends": 11510.57,
+        "final_shares": 286.24316758
+      },
+      "tolerance": "±£0.01 / ±0.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independently derived; no engine code used."
+    },
+    {
+      "scenario": "No price growth",
+      "inputs": {
+        "initial_investment": 20000,
+        "starting_yield": 4,
+        "price_growth": 0,
+        "dividend_growth": 0,
+        "years": 10
+      },
+      "expected": {
+        "final_value": 29604.89,
+        "final_value_without_reinvestment": 20000,
+        "reinvestment_benefit": 9604.89,
+        "total_dividends": 9604.89,
+        "final_shares": 296.04885698
+      },
+      "tolerance": "±£0.01 / ±0.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independently derived; no engine code used."
+    },
+    {
+      "scenario": "High yield short",
+      "inputs": {
+        "initial_investment": 10000,
+        "starting_yield": 6,
+        "price_growth": 3,
+        "dividend_growth": 2,
+        "years": 5
+      },
+      "expected": {
+        "final_value": 15304.96,
+        "final_value_without_reinvestment": 11592.74,
+        "reinvestment_benefit": 3712.22,
+        "total_dividends": 3511.7,
+        "final_shares": 132.02190266
+      },
+      "tolerance": "±£0.01 / ±0.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independently derived; no engine code used."
+    },
+    {
+      "scenario": "One year",
+      "inputs": {
+        "initial_investment": 5000,
+        "starting_yield": 5,
+        "price_growth": 5,
+        "dividend_growth": 5,
+        "years": 1
+      },
+      "expected": {
+        "final_value": 5500,
+        "final_value_without_reinvestment": 5250,
+        "reinvestment_benefit": 250,
+        "total_dividends": 250,
+        "final_shares": 52.38095238
+      },
+      "tolerance": "±£0.01 / ±0.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independently derived; no engine code used."
+    },
+    {
+      "scenario": "Twenty years",
+      "inputs": {
+        "initial_investment": 50000,
+        "starting_yield": 3.5,
+        "price_growth": 6,
+        "dividend_growth": 5,
+        "years": 20
+      },
+      "expected": {
+        "final_value": 290857.91,
+        "final_value_without_reinvestment": 160356.77,
+        "reinvestment_benefit": 130501.14,
+        "total_dividends": 82389.26,
+        "final_shares": 906.90871442
+      },
+      "tolerance": "±£0.01 / ±0.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independently derived; no engine code used."
+    }
+  ],
+  "INV-024": [
+    {
+      "scenario": "Typical fund",
+      "inputs": {
+        "initial_investment": 10000,
+        "monthly_contribution": 200,
+        "gross_return": 7,
+        "ongoing_charge": 0.22,
+        "platform_fee": 0.25,
+        "years": 20
+      },
+      "expected": {
+        "gross_value": 140204.12,
+        "net_value": 131129.96,
+        "total_fees": 5475.87,
+        "total_contributions": 58000,
+        "fee_drag_percentage": 0.0647211,
+        "net_annualised_return": 0.04163052
+      },
+      "tolerance": "±£0.01 / ±0.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independently derived; no engine code used."
+    },
+    {
+      "scenario": "No contributions",
+      "inputs": {
+        "initial_investment": 50000,
+        "monthly_contribution": 0,
+        "gross_return": 6,
+        "ongoing_charge": 0.75,
+        "platform_fee": 0.35,
+        "years": 15
+      },
+      "expected": {
+        "gross_value": 119827.91,
+        "net_value": 101593.64,
+        "total_fees": 12042.4,
+        "total_contributions": 50000,
+        "fee_drag_percentage": 0.15217045,
+        "net_annualised_return": 0.04839861
+      },
+      "tolerance": "±£0.01 / ±0.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independently derived; no engine code used."
+    },
+    {
+      "scenario": "Zero charges",
+      "inputs": {
+        "initial_investment": 10000,
+        "monthly_contribution": 200,
+        "gross_return": 7,
+        "ongoing_charge": 0,
+        "platform_fee": 0,
+        "years": 20
+      },
+      "expected": {
+        "gross_value": 140204.12,
+        "net_value": 140204.12,
+        "total_fees": 0,
+        "total_contributions": 58000,
+        "fee_drag_percentage": 0,
+        "net_annualised_return": 0.04512116
+      },
+      "tolerance": "±£0.01 / ±0.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independently derived; no engine code used."
+    },
+    {
+      "scenario": "High charges",
+      "inputs": {
+        "initial_investment": 10000,
+        "monthly_contribution": 200,
+        "gross_return": 7,
+        "ongoing_charge": 1.5,
+        "platform_fee": 0.45,
+        "years": 20
+      },
+      "expected": {
+        "gross_value": 140204.12,
+        "net_value": 106748.01,
+        "total_fees": 19816.98,
+        "total_contributions": 58000,
+        "fee_drag_percentage": 0.23862433,
+        "net_annualised_return": 0.03097133
+      },
+      "tolerance": "±£0.01 / ±0.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independently derived; no engine code used."
+    },
+    {
+      "scenario": "Short horizon",
+      "inputs": {
+        "initial_investment": 5000,
+        "monthly_contribution": 100,
+        "gross_return": 5,
+        "ongoing_charge": 0.3,
+        "platform_fee": 0.25,
+        "years": 5
+      },
+      "expected": {
+        "gross_value": 13162.78,
+        "net_value": 12895.03,
+        "total_fees": 241.31,
+        "total_contributions": 11000,
+        "fee_drag_percentage": 0.02034186,
+        "net_annualised_return": 0.03229995
+      },
+      "tolerance": "±£0.01 / ±0.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independently derived; no engine code used."
+    }
   ]
 }

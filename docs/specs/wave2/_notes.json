@@ -363,5 +363,207 @@
    "PRO-023 Stamp Duty Land Tax Calculator",
    "PRO-026 Scotland LBTT Calculator"
   ]
+ },
+ "INV-004": {
+  "purpose": "Compare simple and compound interest on a lump sum.",
+  "scope": "A single deposit with no further contributions.",
+  "assumptions": [
+   "A constant rate.",
+   "Compounding at the chosen frequency."
+  ],
+  "formula": "Simple: P x r x n. Compound: P(1 + r/m)^(mn).",
+  "boundary": "Gross figures. Interest above your Personal Savings Allowance may be taxable.",
+  "methodology": "Independently derived in the oracle by explicit simulation or summation rather than the closed forms the engine uses.",
+  "related": [
+   "INV-002 Compound Interest Calculator",
+   "INV-018 Savings Calculator"
+  ]
+ },
+ "INV-005": {
+  "purpose": "Find the annual rate needed to grow an amount into a target.",
+  "scope": "A lump sum with no further contributions.",
+  "assumptions": [
+   "A constant rate."
+  ],
+  "formula": "r = m((FV/PV)^(1/(mn)) - 1).",
+  "validation": [
+   "A present value of zero or a term of zero is rejected."
+  ],
+  "boundary": "Tells you the rate required, not a rate available in the market.",
+  "methodology": "Independently derived in the oracle by explicit simulation or summation rather than the closed forms the engine uses.",
+  "related": [
+   "INV-004 Interest Calculator"
+  ]
+ },
+ "INV-010": {
+  "purpose": "Report arithmetic and geometric average returns from a series of annual returns.",
+  "scope": "A list of yearly percentage returns.",
+  "assumptions": [
+   "Returns are annual and in order."
+  ],
+  "formula": "Arithmetic is the simple mean. Geometric is (product of (1+r))^(1/n) - 1.",
+  "validation": [
+   "A return of -100% or lower is rejected because it destroys the compounding chain."
+  ],
+  "boundary": "The geometric mean is what an investor actually earned; the arithmetic mean always overstates it when returns vary. Both are shown so neither can mislead alone.",
+  "methodology": "Independently derived in the oracle by explicit simulation or summation rather than the closed forms the engine uses.",
+  "related": [
+   "INV-009 CAGR Calculator"
+  ]
+ },
+ "INV-012": {
+  "purpose": "Work out the annualised money-weighted return on irregularly dated cash flows.",
+  "scope": "Any series of dated cash flows with at least one negative and one positive value.",
+  "assumptions": [
+   "Actual/365 day count, matching the common spreadsheet definition."
+  ],
+  "formula": "The rate r where sum(amount_i / (1+r)^(days_i/365)) = 0.",
+  "validation": [
+   "Cash flows that never change sign are rejected.",
+   "Where no root exists in the searched range, a validation message is returned rather than a plausible-looking number."
+  ],
+  "boundary": "A money-weighted return. It is affected by the timing of your contributions and so is not comparable with a fund's published time-weighted return.",
+  "methodology": "The engine uses a bracketed root search; the oracle solves the same NPV by pure bisection AND asserts that NPV at the root is essentially zero, so the answer is confirmed to be a genuine root rather than a converged guess.",
+  "related": [
+   "INV-011 IRR Calculator"
+  ]
+ },
+ "INV-013": {
+  "purpose": "Work out how long an investment takes to repay its initial outlay.",
+  "scope": "An initial outlay followed by annual cash flows.",
+  "assumptions": [
+   "Cash flows arrive at the end of each year.",
+   "Recovery within a year is interpolated evenly."
+  ],
+  "formula": "Cumulative cash flow crossing zero, with linear interpolation inside the crossing year. The discounted version divides each flow by (1+d)^t first.",
+  "boundary": "Payback ignores everything after the outlay is recovered, so it measures liquidity rather than profitability. Cash flows that never recover the outlay report no payback rather than a misleading number.",
+  "methodology": "Independently derived in the oracle by explicit simulation or summation rather than the closed forms the engine uses.",
+  "related": [
+   "INV-011 IRR Calculator",
+   "INV-008 ROI Calculator"
+  ]
+ },
+ "INV-016": {
+  "purpose": "Show what delaying the start of regular investing costs by a target date.",
+  "scope": "Level monthly contributions to a fixed goal date.",
+  "assumptions": [
+   "Contributions at the end of each month.",
+   "A constant return."
+  ],
+  "formula": "Future value of an ordinary annuity over the full period against the shortened period, with the starting amount compounded over the full period in both cases.",
+  "boundary": "Returns are not guaranteed. Not investment advice.",
+  "methodology": "Independently derived in the oracle by explicit simulation or summation rather than the closed forms the engine uses.",
+  "related": [
+   "INV-017 Investment Contribution Calculator"
+  ]
+ },
+ "INV-017": {
+  "purpose": "Project the value of regular investment contributions.",
+  "scope": "A starting amount plus level monthly contributions.",
+  "assumptions": [
+   "Contribution timing is an explicit choice, because paying at the start of the month earns an extra month of growth."
+  ],
+  "formula": "Compounded starting amount plus an annuity; the annuity is multiplied by (1+r) for start-of-month timing.",
+  "boundary": "Returns are not guaranteed. Charges and tax are not deducted.",
+  "methodology": "The oracle simulates every month explicitly rather than using the annuity formula.",
+  "related": [
+   "INV-018 Savings Calculator",
+   "INV-024 Fund Investment Calculator"
+  ]
+ },
+ "INV-018": {
+  "purpose": "Project a savings balance from regular monthly saving.",
+  "scope": "Cash savings with a constant rate.",
+  "assumptions": [
+   "Contributions at the end of each month."
+  ],
+  "formula": "Compounded starting balance plus an ordinary annuity.",
+  "boundary": "Gross of tax. Rates on easy-access savings change frequently.",
+  "methodology": "Month-by-month simulation in the oracle.",
+  "related": [
+   "FIN-015 Savings Goal Calculator"
+  ]
+ },
+ "INV-019": {
+  "purpose": "Work out the maturity value of a fixed-term savings deposit.",
+  "scope": "A single deposit held to maturity.",
+  "assumptions": [
+   "A fixed rate for the whole term."
+  ],
+  "formula": "P(1 + r/m)^(mn).",
+  "boundary": "Gross of tax. Early withdrawal is usually not permitted or carries a penalty.",
+  "methodology": "Independently derived in the oracle by explicit simulation or summation rather than the closed forms the engine uses.",
+  "related": [
+   "INV-020 Fixed-Rate Bond Calculator"
+  ]
+ },
+ "INV-020": {
+  "purpose": "Work out the maturity value of a fixed-rate savings bond.",
+  "scope": "A single deposit held to maturity.",
+  "assumptions": [
+   "A fixed rate for the whole term."
+  ],
+  "formula": "P(1 + r/m)^(mn).",
+  "boundary": "This is a SAVINGS bond (a deposit product), not a tradable fixed-income security - see INV-021 for that. Gross of tax.",
+  "methodology": "Independently derived in the oracle by explicit simulation or summation rather than the closed forms the engine uses.",
+  "related": [
+   "INV-019 Fixed-Term Savings Calculator",
+   "INV-021 Bond Calculator"
+  ]
+ },
+ "INV-021": {
+  "purpose": "Price a fixed-income bond from its required yield.",
+  "scope": "Plain vanilla bonds with level coupons and whole coupon periods.",
+  "assumptions": [
+   "Clean price.",
+   "Whole coupon periods remaining."
+  ],
+  "formula": "Present value of the coupon stream plus the discounted redemption amount.",
+  "boundary": "Accrued interest between coupon dates, day-count conventions, embedded options and credit risk are NOT modelled.",
+  "methodology": "The oracle discounts every coupon individually rather than using the annuity shortcut.",
+  "related": [
+   "INV-020 Fixed-Rate Bond Calculator"
+  ]
+ },
+ "INV-022": {
+  "purpose": "Project income from a holding whose dividend grows.",
+  "scope": "A single holding with a constant dividend growth rate.",
+  "assumptions": [
+   "The dividend is never cut.",
+   "Income is taken as cash, not reinvested."
+  ],
+  "formula": "First-year income is investment x starting yield; each subsequent year grows by the dividend growth rate.",
+  "boundary": "Dividends are not guaranteed and can be reduced or stopped entirely. Not investment advice.",
+  "methodology": "Independently derived in the oracle by explicit simulation or summation rather than the closed forms the engine uses.",
+  "related": [
+   "INV-023 Dividend Reinvestment Calculator"
+  ]
+ },
+ "INV-023": {
+  "purpose": "Compare reinvesting dividends against taking them as cash.",
+  "scope": "A single holding over a period of years.",
+  "assumptions": [
+   "Dividends are reinvested at the prevailing share price each year.",
+   "Both sides experience the same price growth, so the difference is purely compounding of income."
+  ],
+  "formula": "Modelled in SHARES: each year's income buys additional shares at the grown price.",
+  "boundary": "Dealing charges and tax are not modelled. Dividends are not guaranteed.",
+  "methodology": "Independently derived in the oracle by explicit simulation or summation rather than the closed forms the engine uses.",
+  "related": [
+   "INV-022 Dividend Growth Calculator"
+  ]
+ },
+ "INV-024": {
+  "purpose": "Show the effect of fund and platform charges on a long-term investment.",
+  "scope": "A fund holding with an ongoing charge and an optional platform fee.",
+  "assumptions": [
+   "Charges accrue monthly on the running balance, which is how ongoing charges actually work."
+  ],
+  "formula": "Two parallel monthly simulations - gross and net of charges - differenced to give the fee drag.",
+  "boundary": "Returns are not guaranteed. Transaction costs within the fund and dealing charges are not modelled.",
+  "methodology": "The oracle runs both simulations independently.",
+  "related": [
+   "INV-014 Investment Fee Calculator"
+  ]
  }
 }

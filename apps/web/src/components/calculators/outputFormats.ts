@@ -62,7 +62,17 @@ const PERCENT_OUTPUTS: Record<string, string[]> = {
   "PRO-024": ["effective_rate"],
   "PRO-025": ["effective_rate"],
   "PRO-026": ["effective_rate"],
-  "PRO-027": ["effective_rate"]
+  "PRO-027": ["effective_rate"],
+  "INV-005": ["required_annual_rate"],
+  "INV-010": ["arithmetic_mean", "geometric_mean", "cumulative_return", "difference"],
+  "INV-012": ["xirr"],
+  "INV-017": ["effective_annual_rate"],
+  "INV-018": ["effective_annual_rate"],
+  "INV-019": ["effective_annual_rate"],
+  "INV-020": ["effective_annual_rate"],
+  "INV-021": ["current_yield"],
+  "INV-022": ["yield_on_cost", "final_yield_on_cost"],
+  "INV-024": ["fee_drag_percentage", "net_annualised_return"]
 };
 
 /** Values already carried in percentage units. */
@@ -103,7 +113,10 @@ const NON_MONEY_OUTPUTS: Record<string, string[]> = {
   "TAX-002": ["hours_per_week_used", "paid_weeks_per_year_used"],
   "TAX-003": ["hours_per_week_used", "paid_weeks_per_year_used"],
   // --- Wave 2 ---
-  "FIN-014": ["months_covered_now"]
+  "FIN-014": ["months_covered_now"],
+  "INV-010": ["years"],
+  "INV-013": ["payback_years", "discounted_payback_years"],
+  "INV-023": ["final_shares"]
 };
 
 /**

@@ -180,5 +180,90 @@ export const wave2Mappings: Record<string, FieldDef[]> = {
   "PRO-027": [
     { name: "price", label: "Property price (£)", type: "number", defaultValue: 300000, helperText: "Land Transaction Tax applies to property in Wales." },
     { name: "additional_property", label: "Additional property?", type: "select", defaultValue: "false", options: YES_NO }
+  ],
+
+  // ------------------------------------------------ Investing & Wealth -----
+  "INV-004": [
+    { name: "principal", label: "Amount invested (£)", type: "number", defaultValue: 10000 },
+    { name: "annual_rate", label: "Interest rate (%)", type: "number", defaultValue: 5 },
+    { name: "years", label: "Years", type: "number", defaultValue: 10 },
+    { name: "compounds_per_year", label: "Compounding periods a year", type: "number", defaultValue: 1, helperText: "1 for annual, 12 for monthly." }
+  ],
+  "INV-005": [
+    { name: "present_value", label: "Amount today (£)", type: "number", defaultValue: 10000 },
+    { name: "future_value", label: "Target amount (£)", type: "number", defaultValue: 20000 },
+    { name: "years", label: "Years", type: "number", defaultValue: 10 },
+    { name: "compounds_per_year", label: "Compounding periods a year", type: "number", defaultValue: 1 }
+  ],
+  "INV-010": [
+    { name: "returns", label: "Annual returns (%)", type: "text", defaultValue: "[20,-10,15,-5,10]", helperText: "A list of yearly percentage returns, e.g. [8,-3,12]." }
+  ],
+  "INV-012": [
+    { name: "cashflows", label: "Dated cash flows", type: "text", defaultValue: '[{"date":"2024-01-01","amount":-10000},{"date":"2025-01-01","amount":11000}]', helperText: "Money out is negative, money in is positive. Needs at least one of each." }
+  ],
+  "INV-013": [
+    { name: "initial_investment", label: "Initial investment (£)", type: "number", defaultValue: 10000 },
+    { name: "annual_cashflows", label: "Annual cash flows (£)", type: "text", defaultValue: "[3000,3000,3000,3000,3000]" },
+    { name: "discount_rate", label: "Discount rate (%)", type: "number", defaultValue: 0, helperText: "Used for the discounted payback period." }
+  ],
+  "INV-016": [
+    { name: "monthly_contribution", label: "Monthly contribution (£)", type: "number", defaultValue: 300 },
+    { name: "annual_return", label: "Annual return (%)", type: "number", defaultValue: 7 },
+    { name: "years_to_goal", label: "Years until your goal", type: "number", defaultValue: 30 },
+    { name: "years_delayed", label: "Years you delay starting", type: "number", defaultValue: 5 },
+    { name: "starting_amount", label: "Starting amount (£)", type: "number", defaultValue: 0 }
+  ],
+  "INV-017": [
+    { name: "starting_amount", label: "Starting amount (£)", type: "number", defaultValue: 5000 },
+    { name: "monthly_contribution", label: "Monthly contribution (£)", type: "number", defaultValue: 300 },
+    { name: "annual_rate", label: "Annual return (%)", type: "number", defaultValue: 6 },
+    { name: "years", label: "Years", type: "number", defaultValue: 20 },
+    { name: "contribution_timing", label: "Contributions paid", type: "select", defaultValue: "end", options: [{ label: "At the end of each month", value: "end" }, { label: "At the start of each month", value: "start" }], helperText: "Paying at the start earns one extra month of growth." }
+  ],
+  "INV-018": [
+    { name: "starting_amount", label: "Starting balance (£)", type: "number", defaultValue: 1000 },
+    { name: "monthly_contribution", label: "Monthly saving (£)", type: "number", defaultValue: 200 },
+    { name: "annual_rate", label: "Interest rate (%)", type: "number", defaultValue: 4 },
+    { name: "years", label: "Years", type: "number", defaultValue: 10 }
+  ],
+  "INV-019": [
+    { name: "principal", label: "Amount deposited (£)", type: "number", defaultValue: 10000 },
+    { name: "annual_rate", label: "Interest rate (%)", type: "number", defaultValue: 4.5 },
+    { name: "years", label: "Term (years)", type: "number", defaultValue: 1 },
+    { name: "compounds_per_year", label: "Interest paid times a year", type: "number", defaultValue: 1 }
+  ],
+  "INV-020": [
+    { name: "principal", label: "Amount deposited (£)", type: "number", defaultValue: 20000 },
+    { name: "annual_rate", label: "Fixed rate (%)", type: "number", defaultValue: 4.75 },
+    { name: "years", label: "Term (years)", type: "number", defaultValue: 3 },
+    { name: "compounds_per_year", label: "Interest paid times a year", type: "number", defaultValue: 1 }
+  ],
+  "INV-021": [
+    { name: "face_value", label: "Face value (£)", type: "number", defaultValue: 1000 },
+    { name: "coupon_rate", label: "Coupon rate (%)", type: "number", defaultValue: 5 },
+    { name: "yield_rate", label: "Required yield (%)", type: "number", defaultValue: 5 },
+    { name: "years", label: "Years to maturity", type: "number", defaultValue: 10 },
+    { name: "coupons_per_year", label: "Coupons a year", type: "number", defaultValue: 2 }
+  ],
+  "INV-022": [
+    { name: "investment", label: "Amount invested (£)", type: "number", defaultValue: 50000 },
+    { name: "starting_yield", label: "Starting dividend yield (%)", type: "number", defaultValue: 4 },
+    { name: "dividend_growth", label: "Annual dividend growth (%)", type: "number", defaultValue: 5 },
+    { name: "years", label: "Years", type: "number", defaultValue: 10 }
+  ],
+  "INV-023": [
+    { name: "initial_investment", label: "Initial investment (£)", type: "number", defaultValue: 20000 },
+    { name: "starting_yield", label: "Starting dividend yield (%)", type: "number", defaultValue: 4 },
+    { name: "price_growth", label: "Annual share price growth (%)", type: "number", defaultValue: 5 },
+    { name: "dividend_growth", label: "Annual dividend growth (%)", type: "number", defaultValue: 4 },
+    { name: "years", label: "Years", type: "number", defaultValue: 10 }
+  ],
+  "INV-024": [
+    { name: "initial_investment", label: "Initial investment (£)", type: "number", defaultValue: 10000 },
+    { name: "monthly_contribution", label: "Monthly contribution (£)", type: "number", defaultValue: 200 },
+    { name: "gross_return", label: "Gross annual return (%)", type: "number", defaultValue: 7 },
+    { name: "ongoing_charge", label: "Ongoing charge (%)", type: "number", defaultValue: 0.22, helperText: "The fund's OCF, e.g. 0.22 for 0.22%." },
+    { name: "platform_fee", label: "Platform fee (%)", type: "number", defaultValue: 0.25 },
+    { name: "years", label: "Years", type: "number", defaultValue: 20 }
   ]
 };
