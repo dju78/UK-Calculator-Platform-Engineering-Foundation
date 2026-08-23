@@ -11,6 +11,45 @@ test.describe('Everyday Utilities Calculators', () => {
   ];
 
   for (const calc of calculators) {
+    if (calc.id === 'CON-010') {
+      test(calc.name + ' E2E complete flow', async ({ page }) => {
+        // Mock the FX API to return deterministic data
+        await page.route('https://api.frankfurter.app/latest?from=GBP', async route => {
+          await route.fulfill({
+            status: 200,
+            contentType: 'application/json',
+            body: JSON.stringify({
+              amount: 1,
+              base: 'GBP',
+              date: '2026-08-22',
+              rates: { USD: 1.25, EUR: 1.15 }
+            })
+          });
+        });
+
+        await page.goto(calc.url);
+        await expect(page.getByRole('heading', { name: calc.name })).toBeVisible();
+
+        // Fill form fields
+        await page.getByLabel(/Amount/i).fill('100');
+        await page.getByLabel(/From/i).selectOption('GBP');
+        await page.getByLabel(/To/i).selectOption('USD');
+        
+        await page.getByRole('button', { name: /Calculate/i }).click();
+
+        // Check the deterministic result
+        // Typically output might be in a results section or displayed automatically
+        await expect(page.getByText('125.00')).toBeVisible();
+
+        const accessibilityScanResults = await new AxeBuilder({ page }).analyze();
+        const blockingViolations = accessibilityScanResults.violations.filter(
+          (v) => v.impact === 'serious' || v.impact === 'critical'
+        );
+        expect(blockingViolations).toEqual([]);
+      });
+      continue;
+    }
+
     test(calc.name + ' renders and is accessible', async ({ page }) => {
       await page.goto(calc.url);
       await expect(page.getByRole('heading', { name: calc.name })).toBeVisible();
