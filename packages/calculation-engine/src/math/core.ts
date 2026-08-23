@@ -59,7 +59,10 @@ export function ratioCalculator(inputs: any): any {
   if (inputs.scale !== undefined) {
     return { equivalent: `${inputs.a * inputs.scale}:${inputs.b * inputs.scale}` };
   }
-  if (inputs.d === null) {
+  // Proportion mode: c is supplied and d is not (either explicitly null, as
+  // sent by the benchmark fixtures, or simply absent, as sent by the web UI
+  // which omits blank fields entirely rather than sending literal null).
+  if (inputs.c !== undefined && inputs.c !== null && (inputs.d === null || inputs.d === undefined)) {
     // a / b = c / d  => d = (b * c) / a
     if (inputs.a === 0) throw new Error("Divide by zero");
     return { d: (inputs.b * inputs.c) / inputs.a };

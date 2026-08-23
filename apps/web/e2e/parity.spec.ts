@@ -15,15 +15,32 @@ test.describe('Calculator UI Parity', () => {
           
           const inputs = fixture.inputs;
           for (const [key, val] of Object.entries(inputs)) {
+            // A null fixture value means "leave this field blank so the
+            // engine infers it from the other inputs" (e.g. MAT-005
+            // Proportion's `d`). Don't fill it - the field's own default is
+            // blank for these inferable fields.
+            if (val === null) continue;
+
             // Check if it's a select or input
             const inputLoc = page.locator(`input[name="${key}"]`);
             const selectLoc = page.locator(`select[name="${key}"]`);
-            
+
             const isSelect = await selectLoc.count() > 0;
-            
-            const firstVal = (fixtures as any)[0].inputs[key];
+
+            // Determine whether this field is UI-scaled (entered as a
+            // percentage, e.g. 50 for 0.5) using a value drawn from
+            // whichever scenario for this calculator first defines the key.
+            // Using fixtures[0] directly is unsafe: a field may simply be
+            // absent from the first scenario (e.g. BUS-001's "Standard"
+            // scenario has no target_margin), which silently skipped
+            // scaling. Using this scenario's own value is also unsafe: a
+            // later "negative"/"deflation" scenario can hold a value
+            // outside [0,1] for a field that IS scaled in every scenario
+            // (e.g. INV-001 "Negative return"), which would inconsistently
+            // toggle scaling per-scenario for the same field.
+            const referenceVal = (fixtures as any).map((f: any) => f.inputs[key]).find((v: any) => v !== undefined);
             let finalVal = val;
-            const isRate = (key.includes('rate') || key.includes('margin') || key.includes('discount') || key.includes('inflation') || key.includes('return') || key.includes('apr')) && typeof firstVal === 'number' && firstVal >= 0 && firstVal <= 1;
+            const isRate = (key.includes('rate') || key.includes('margin') || key.includes('discount') || key.includes('inflation') || key.includes('return') || key.includes('apr')) && typeof referenceVal === 'number' && referenceVal >= 0 && referenceVal <= 1;
             if (isRate) {
               finalVal = (val as number) * 100;
             }

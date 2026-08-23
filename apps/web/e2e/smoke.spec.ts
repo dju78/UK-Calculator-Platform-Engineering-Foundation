@@ -87,8 +87,8 @@ test.describe('Statistics Calculators', () => {
     await page.goto('/calculators/standard-deviation-calculator');
     await expect(page.getByRole('heading', { name: 'Standard Deviation Calculator' })).toBeVisible();
     
-    const select = page.locator('select[name="definition"]');
-    await expect(select).toBeVisible();
+    const definitionInput = page.locator('input[name="definition"]');
+    await expect(definitionInput).toBeVisible();
     
     const accessibilityScanResults = await new AxeBuilder({ page }).analyze();
     const blockingViolations = accessibilityScanResults.violations.filter(

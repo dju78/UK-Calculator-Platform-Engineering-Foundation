@@ -30,10 +30,12 @@ test.describe('Everyday Utilities Calculators', () => {
         await page.goto(calc.url);
         await expect(page.getByRole('heading', { name: calc.name })).toBeVisible();
 
-        // Fill form fields
+        // Fill form fields. From/To are accessible text inputs (not <select>
+        // elements) in the production Currency Converter, so drive them with
+        // fill() rather than selectOption().
         await page.getByLabel(/Amount/i).fill('100');
-        await page.getByLabel(/From/i).selectOption('GBP');
-        await page.getByLabel(/To/i).selectOption('USD');
+        await page.getByLabel(/From/i).fill('GBP');
+        await page.getByLabel(/To/i).fill('USD');
         
         await page.getByRole('button', { name: /Calculate/i }).click();
 

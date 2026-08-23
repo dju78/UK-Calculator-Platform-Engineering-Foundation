@@ -112,7 +112,6 @@ export function DynamicCalculator({
                     step={field.type === "text" ? undefined : "any"}
                     value={inputs[field.name] || ""}
                     onChange={(e) => setInputs({ ...inputs, [field.name]: e.target.value })}
-                    required
                   />
                 )}
               </div>
