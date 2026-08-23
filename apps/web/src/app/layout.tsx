@@ -6,6 +6,7 @@ import { wave1Registry } from "../../../../dist/packages/calculator-registry/src
 import "./globals.css";
 
 export const metadata: Metadata = {
+  metadataBase: new URL(process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000"),
   title: "UK Calculator Platform",
   description: "Wave 1 Financial & Tax Calculators",
   openGraph: {
