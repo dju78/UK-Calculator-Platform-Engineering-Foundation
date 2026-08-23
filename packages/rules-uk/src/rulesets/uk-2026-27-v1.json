@@ -253,20 +253,90 @@
     "https://www.gov.uk/repaying-your-student-loan/what-you-pay",
     "https://www.gov.uk/government/publications/review-of-the-automatic-enrolment-earnings-trigger-and-qualifying-earnings-band-for-202627/review-of-the-automatic-enrolment-earnings-trigger-and-qualifying-earnings-band-for-202627",
     "https://www.gov.uk/tax-on-your-private-pension/pension-tax-relief",
-    "https://www.gov.uk/guidance/rates-of-stamp-duty-land-tax-for-non-uk-residents"
+    "https://www.gov.uk/guidance/rates-of-stamp-duty-land-tax-for-non-uk-residents",
+    "https://www.gov.uk/tax-codes/what-your-tax-code-means",
+    "https://www.gov.uk/employee-tax-codes/letters",
+    "https://assets.publishing.service.gov.uk/media/6996e9b3b33a4db7ff889e08/P9X_2026_Tax_codes_to_use_from_6_April_2026.pdf"
+  ],
+  "source_register_notes": [
+    {
+      "topic": "Class 1 employee NI weekly and monthly thresholds",
+      "verified_on": "2026-08-23",
+      "source": "https://www.gov.uk/guidance/rates-and-thresholds-for-employers-2026-to-2027",
+      "finding": "Primary Threshold 242 weekly / 1,048 monthly / 12,570 annual; Upper Earnings Limit 967 weekly / 4,189 monthly / 50,270 annual; employee rates 8% and 2%. Recorded under national_insurance_employee_class1_category_a.period_thresholds_gbp for disclosure; not applied as the calculation basis in this ruleset version."
+    },
+    {
+      "topic": "PAYE tax code semantics and 2026/27 default code",
+      "verified_on": "2026-08-23",
+      "source": "https://assets.publishing.service.gov.uk/media/6996e9b3b33a4db7ff889e08/P9X_2026_Tax_codes_to_use_from_6_April_2026.pdf",
+      "finding": "The emergency and standard code for 2026/27 is 1257L. S prefix denotes a Scottish taxpayer and C a Welsh taxpayer. BR/D0/D1 charge basic/higher/additional rates on all income from the employment; 0T applies no Personal Allowance; NT deducts no Income Tax; K codes represent a negative allowance; W1/M1/X denote non-cumulative operation."
+    }
   ],
   "national_insurance_employee_class1_category_a": {
     "primary_threshold_annual_gbp": 12570,
     "upper_earnings_limit_annual_gbp": 50270,
     "main_rate": 0.08,
-    "upper_rate": 0.02
+    "upper_rate": 0.02,
+    "period_thresholds_gbp": {
+      "primary_threshold": {
+        "weekly": 242,
+        "monthly": 1048,
+        "annual": 12570
+      },
+      "upper_earnings_limit": {
+        "weekly": 967,
+        "monthly": 4189,
+        "annual": 50270
+      }
+    },
+    "period_basis_applied": false,
+    "period_basis_note": "HMRC publishes weekly and monthly Class 1 thresholds that are NOT simple annual/52 or annual/12 divisions (242 x 52 = 12,584 and 1,048 x 12 = 12,576, against an annual threshold of 12,570). Real payroll assesses each pay period against these figures. This ruleset version records them for disclosure but the calculators apply the ANNUAL basis, so periodic NI figures shown in the UI are annual estimates divided into periods, not payslip replications. Any future ruleset that flips period_basis_applied to true must also re-approve the affected benchmark expectations."
   },
   "vat": {
     "standard_rate": 0.2,
     "reduced_rate": 0.05,
     "zero_rate": 0.0
   },
+  "tax_codes": {
+    "numeric_code_multiplier": 10,
+    "default_codes": {
+      "england_wales_ni": "1257L",
+      "wales": "C1257L",
+      "scotland": "S1257L"
+    },
+    "flat_rate_codes": {
+      "england_wales_ni": {
+        "BR": { "band_index": 0 },
+        "D0": { "band_index": 1 },
+        "D1": { "band_index": 2 }
+      },
+      "scotland": {
+        "SBR": { "band_index": 1 },
+        "SD0": { "band_index": 2 },
+        "SD1": { "band_index": 3 },
+        "SD2": { "band_index": 4 },
+        "SD3": { "band_index": 5 }
+      }
+    },
+    "unsupported_code_families": ["K", "W1", "M1", "X"],
+    "explanations": {
+      "1257L": "Standard tax code for most people with one job or pension.",
+      "BR": "All income from this employment is taxed at the basic rate.",
+      "D0": "All income from this employment is taxed at the higher rate.",
+      "D1": "All income from this employment is taxed at the additional rate.",
+      "SBR": "All income from this employment is taxed at the Scottish basic rate.",
+      "SD0": "All income from this employment is taxed at the Scottish intermediate rate.",
+      "SD1": "All income from this employment is taxed at the Scottish higher rate.",
+      "SD2": "All income from this employment is taxed at the Scottish advanced rate.",
+      "SD3": "All income from this employment is taxed at the Scottish top rate.",
+      "0T": "No Personal Allowance is applied.",
+      "NT": "No Income Tax is deducted."
+    },
+    "note": "Band indices refer to the bands_taxable_income_gbp array of the matching jurisdiction in this same ruleset, so statutory rates are defined once. K codes and Week 1/Month 1 markers are intentionally unsupported by the annual estimate model."
+  },
   "student_loans": {
+    "period_basis_applied": false,
+    "period_basis_note": "Repayments are assessed per pay period in real payroll. This ruleset defines annual thresholds only; the calculators therefore report an annual estimate divided into periods, not a payslip replication.",
     "Plan 1": {
       "annual_threshold_gbp": 26900,
       "rate": 0.09

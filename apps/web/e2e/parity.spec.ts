@@ -1,10 +1,32 @@
 import { test } from '@playwright/test';
 import fs from 'fs';
 import path from 'path';
+import { mappings } from '../src/components/calculators/fieldMappings';
+import type { FieldDef } from '../src/components/calculators/fieldTypes';
 
 // read benchmarks
 const benchmarksPath = path.resolve(process.cwd(), '../../packages/test-fixtures/fixtures/wave1-benchmarks.json');
 const benchmarks = JSON.parse(fs.readFileSync(benchmarksPath, 'utf8'));
+
+/**
+ * Some benchmark fixtures are written against the engine's input contract,
+ * which is deliberately allowed to differ from the field names the UI shows.
+ * These maps translate a fixture into the equivalent UI interaction; they
+ * never change what the fixture EXPECTS.
+ */
+const FIXTURE_INPUT_ALIASES: Record<string, Record<string, string>> = {
+  // The engine still accepts salary_sacrifice_pct; the UI now expresses the
+  // same thing as an explicit arrangement plus a human percentage.
+  'TAX-003': { salary_sacrifice_pct: 'pension_pct' }
+};
+
+const FIXTURE_EXTRA_INPUTS: Record<string, Record<string, string>> = {
+  'TAX-003': { pension_arrangement: 'salary_sacrifice' }
+};
+
+function fieldFor(calcId: string, name: string): FieldDef | undefined {
+  return (mappings[calcId] ?? []).find(f => f.name === name);
+}
 
 test.describe('Calculator UI Parity', () => {
   for (const [calcId, fixtures] of Object.entries(benchmarks)) {
@@ -13,8 +35,15 @@ test.describe('Calculator UI Parity', () => {
         test(`Scenario: ${fixture.scenario}`, async ({ page }) => {
           await page.goto(`http://localhost:3000/calculators/${calcId.toLowerCase()}`);
           
-          const inputs = fixture.inputs;
-          for (const [key, val] of Object.entries(inputs)) {
+          const aliases = FIXTURE_INPUT_ALIASES[calcId] ?? {};
+          const entries: Array<[string, unknown]> = [
+            ...Object.entries(FIXTURE_EXTRA_INPUTS[calcId] ?? {}),
+            ...Object.entries(fixture.inputs).map(
+              ([k, v]) => [aliases[k] ?? k, v] as [string, unknown]
+            )
+          ];
+
+          for (const [key, val] of entries) {
             // A null fixture value means "leave this field blank so the
             // engine infers it from the other inputs" (e.g. MAT-005
             // Proportion's `d`). Don't fill it - the field's own default is
@@ -27,24 +56,20 @@ test.describe('Calculator UI Parity', () => {
 
             const isSelect = await selectLoc.count() > 0;
 
-            // Determine whether this field is UI-scaled (entered as a
-            // percentage, e.g. 50 for 0.5) using a value drawn from
-            // whichever scenario for this calculator first defines the key.
-            // Using fixtures[0] directly is unsafe: a field may simply be
-            // absent from the first scenario (e.g. BUS-001's "Standard"
-            // scenario has no target_margin), which silently skipped
-            // scaling. Using this scenario's own value is also unsafe: a
-            // later "negative"/"deflation" scenario can hold a value
-            // outside [0,1] for a field that IS scaled in every scenario
-            // (e.g. INV-001 "Negative return"), which would inconsistently
-            // toggle scaling per-scenario for the same field.
-            const referenceVal = (fixtures as any).map((f: any) => f.inputs[key]).find((v: any) => v !== undefined);
-            let finalVal = val;
-            const isRate = (key.includes('rate') || key.includes('margin') || key.includes('discount') || key.includes('inflation') || key.includes('return') || key.includes('apr')) && typeof referenceVal === 'number' && referenceVal >= 0 && referenceVal <= 1;
-            if (isRate) {
-              finalVal = (val as number) * 100;
+            // Convert the engine-contract fixture value into what a human
+            // would type, using the field's OWN declared scale rather than a
+            // substring heuristic. The heuristic was unsafe in both
+            // directions: it missed fields absent from the first scenario,
+            // and it keyed off names like "rate" that are a scaled percentage
+            // in one calculator and a raw multiplier in another (CON-010's
+            // FX rate, PRO-001's 4.5% mortgage rate).
+            const field = fieldFor(calcId, key);
+            let finalVal: unknown = val;
+            if (field?.scale !== undefined && typeof val === 'number') {
+              // toPrecision keeps 0.05 / 0.01 from becoming 5.000000000000001.
+              finalVal = Number((val / field.scale).toPrecision(12));
             }
-            
+
             if (isSelect) {
               await selectLoc.selectOption(String(finalVal));
             } else {
@@ -53,7 +78,7 @@ test.describe('Calculator UI Parity', () => {
               await inputLoc.fill(typeof finalVal === 'object' ? JSON.stringify(finalVal) : String(finalVal));
             }
           }
-          
+
           await page.click('button:has-text("Calculate")');
           
           // Wait for results
@@ -63,14 +88,22 @@ test.describe('Calculator UI Parity', () => {
             
             const displayKey = key.replace(/_/g, " ");
             
-            // if not found exactly, try case insensitive
+            // Results carry a stable data-output-key, which is exact and works
+            // wherever the value is rendered (prominent periodic card or the
+            // detail list). The label xpath remains as a fallback.
             let foundText = "";
             try {
-              const valLoc = page.locator(`xpath=//span[translate(text(), 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz')="${displayKey.toLowerCase()}"]/following-sibling::span[1]`);
-              foundText = await valLoc.innerText({ timeout: 2000 });
+              foundText = await page
+                .locator(`[data-output-key="${key}"]`)
+                .first()
+                .innerText({ timeout: 2000 });
             } catch {
-              // sometimes it's not present or calculation failed?
-              throw new Error(`Could not find result for ${key}. UI Error possibly?`);
+              try {
+                const valLoc = page.locator(`xpath=//span[translate(text(), 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz')="${displayKey.toLowerCase()}"]/following-sibling::span[1]`);
+                foundText = await valLoc.innerText({ timeout: 2000 });
+              } catch {
+                throw new Error(`Could not find result for ${key}. UI Error possibly?`);
+              }
             }
             
             const isNegative = foundText.includes('-') || (foundText.includes('(') && foundText.includes(')'));

@@ -1,26 +1,56 @@
 import type { UKRuleset } from "../../../../rules-uk/src/types.js";
 import { calculateProgressiveTax } from "../../../../rules-uk/src/progressive-bands.js";
 
+import type { TaxCodeResolution } from "./tax-codes.js";
+
+/**
+ * Annual Income Tax estimate.
+ *
+ * When `taxCode` is omitted the standard tapered Personal Allowance applies,
+ * which is the historic behaviour every existing benchmark relies on. When a
+ * resolved tax code is supplied it governs the allowance and, for flat-rate
+ * codes, the rate charged.
+ */
 export function calculateIncomeTax(
   grossIncome: number,
   jurisdiction: string,
-  rules: any
+  rules: any,
+  taxCode?: TaxCodeResolution
 ) {
   let taxRules = rules.income_tax_england_wales_ni;
-  if (jurisdiction.toLowerCase() === "scotland") {
+  const scottish =
+    taxCode?.jurisdictionFromCode === "scotland" ||
+    (!taxCode?.jurisdictionFromCode && jurisdiction.toLowerCase() === "scotland");
+  if (scottish) {
     taxRules = rules.income_tax_scotland;
   }
-  
-  // Taper personal allowance
-  let personalAllowance = taxRules.personal_allowance_gbp;
-  if (grossIncome > taxRules.personal_allowance_taper_start_gbp) {
-    const excess = grossIncome - taxRules.personal_allowance_taper_start_gbp;
-    const reduction = excess * taxRules.personal_allowance_reduction_per_excess_gbp;
-    personalAllowance = Math.max(0, personalAllowance - reduction);
+
+  // A code that switches off tax entirely (NT).
+  if (taxCode?.noTax) {
+    return { tax: 0, personalAllowance: 0, taxableIncome: 0 };
+  }
+
+  let personalAllowance: number;
+  if (taxCode?.fixedAllowance) {
+    // HMRC has already worked the allowance into the code, so the
+    // income-based taper must not be applied a second time on top of it.
+    personalAllowance = taxCode.allowance;
+  } else {
+    personalAllowance = taxRules.personal_allowance_gbp;
+    if (grossIncome > taxRules.personal_allowance_taper_start_gbp) {
+      const excess = grossIncome - taxRules.personal_allowance_taper_start_gbp;
+      const reduction = excess * taxRules.personal_allowance_reduction_per_excess_gbp;
+      personalAllowance = Math.max(0, personalAllowance - reduction);
+    }
   }
 
   const taxableIncome = Math.max(0, grossIncome - personalAllowance);
-  const tax = calculateProgressiveTax(taxableIncome, taxRules.bands_taxable_income_gbp);
+
+  // Flat-rate codes (BR/D0/D1/SD0..SD3) charge one rate on all taxable pay.
+  const tax =
+    taxCode?.flatRate !== undefined
+      ? taxableIncome * taxCode.flatRate
+      : calculateProgressiveTax(taxableIncome, taxRules.bands_taxable_income_gbp);
 
   return { tax, personalAllowance, taxableIncome };
 }
