@@ -11,6 +11,7 @@ export type FieldDef = {
   type?: "number" | "text" | "select";
   options?: { label: string; value: string }[];
   defaultValue?: string | number;
+  scale?: number;
 };
 
 export function DynamicCalculator({ 
@@ -34,7 +35,13 @@ export function DynamicCalculator({
     e.preventDefault();
     try {
       setError(null);
-      const res = await calculate(calculatorId, inputs);
+      const transformedInputs = { ...inputs };
+      fields.forEach(f => {
+        if (f.scale && transformedInputs[f.name] !== undefined) {
+          transformedInputs[f.name] = Number(transformedInputs[f.name]) * f.scale;
+        }
+      });
+      const res = await calculate(calculatorId, transformedInputs);
       setResult(res);
     } catch (err: any) {
       setError(err.message || "Calculation failed");
