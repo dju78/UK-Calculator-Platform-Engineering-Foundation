@@ -16,12 +16,12 @@
 - [x] E2E Tests (Playwright) passing.
 - [x] Build successfully compiles without fatal errors.
 
-## Phase 3: Legal & Compliance (Pending)
-- [ ] Add formal text to `/privacy` (Privacy Policy).
-- [ ] Add formal text to `/terms` (Terms of Use).
-- [ ] Add formal text to `/disclaimer` (Disclaimer).
-- [ ] Add formal text to `/accessibility` (Accessibility Statement).
-- [ ] Have a legal representative review all boilerplate compliance wording.
+## Phase 3: Legal & Compliance (Pending Legal Review)
+- [x] Drafted robust text for `/privacy` (Privacy Policy).
+- [x] Drafted robust text for `/terms` (Terms of Use).
+- [x] Drafted robust text for `/disclaimer` (Disclaimer).
+- [x] Drafted robust text for `/accessibility` (Accessibility Statement).
+- [ ] Have a legal representative review all compliance wording and replace placeholders.
 
 ## Phase 4: Final Sign-off
 - [ ] Codebase deployed to Staging.
