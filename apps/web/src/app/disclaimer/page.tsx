@@ -1,4 +1,9 @@
-export const metadata = { title: "Disclaimer | UK Calculator Platform" };
+export const metadata = {
+  title: "Disclaimer | UK Calculator Platform",
+  description:
+    "Results on the UK Calculator Platform are illustrative estimates and do not constitute financial, tax, legal, lending or medical advice.",
+  alternates: { canonical: "/disclaimer" },
+};
 
 export default function Disclaimer() {
   return (

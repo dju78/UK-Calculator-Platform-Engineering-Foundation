@@ -1,4 +1,9 @@
-export const metadata = { title: "Privacy Policy | UK Calculator Platform" };
+export const metadata = {
+  title: "Privacy Policy | UK Calculator Platform",
+  description:
+    "How the UK Calculator Platform handles your data. Calculations run in your browser and we do not store the figures you enter.",
+  alternates: { canonical: "/privacy" },
+};
 
 export default function PrivacyPolicy() {
   return (

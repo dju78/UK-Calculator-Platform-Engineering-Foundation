@@ -6,6 +6,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/Card";
 import { Input } from "@/components/ui/Input";
 import type { FieldDef, PeriodicResultConfig } from "./fieldTypes";
 import { NOTE_OUTPUT_KEYS } from "./fieldMappings";
+import { formatOutputValue } from "./outputFormats";
 
 export type { FieldDef };
 
@@ -17,31 +18,12 @@ function isVisible(field: FieldDef, inputs: Inputs): boolean {
   return field.showWhen.equals.includes(String(inputs[field.showWhen.field] ?? ""));
 }
 
-/**
- * Money formatting for the UK Tax & Salary family: always "£", comma grouping
- * and exactly two decimal places, so results never mix £3,566.00 with 1426.4.
- */
-const gbp = new Intl.NumberFormat("en-GB", {
+const scheduleGbp = new Intl.NumberFormat("en-GB", {
   style: "currency",
   currency: "GBP",
   minimumFractionDigits: 2,
   maximumFractionDigits: 2
 });
-
-const plain = new Intl.NumberFormat("en-GB");
-
-/** Keys in the TAX family that are counts or assumptions, not money. */
-const TAX_NON_MONEY_KEYS = new Set([
-  "hours_per_week_used",
-  "paid_weeks_per_year_used",
-  "payroll_frequency",
-  "pension_arrangement",
-  "tax_code"
-]);
-
-function isTaxFamily(calculatorId: string): boolean {
-  return calculatorId.startsWith("TAX-") && calculatorId !== "TAX-015";
-}
 
 export function DynamicCalculator({
   calculatorId,
@@ -85,31 +67,9 @@ export function DynamicCalculator({
     setInputs(next);
   };
 
-  const formatOutput = (key: string, value: any) => {
-    if (typeof value !== "number") return String(value);
-
-    if (isTaxFamily(calculatorId)) {
-      return TAX_NON_MONEY_KEYS.has(key) ? plain.format(value) : gbp.format(value);
-    }
-
-    // Historic heuristic, unchanged, for the rest of the platform.
-    if (
-      key.includes("payment") ||
-      key.includes("repayment") ||
-      key.includes("interest") ||
-      key.includes("loan") ||
-      key.includes("principal")
-    ) {
-      return gbp.format(value);
-    }
-    if (key === "converted") {
-      return new Intl.NumberFormat("en-GB", {
-        minimumFractionDigits: 2,
-        maximumFractionDigits: 2
-      }).format(value);
-    }
-    return plain.format(value);
-  };
+  // All presentation decisions live in the central registry.
+  const formatOutput = (key: string, value: unknown) =>
+    formatOutputValue(calculatorId, key, value);
 
   const handleCalculate = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -248,7 +208,7 @@ export function DynamicCalculator({
                         />
                       )}
                       {field.helperText && (
-                        <p id={helpId} className="text-xs text-slate-500 mt-1">
+                        <p id={helpId} className="text-xs text-slate-600 mt-1">
                           {field.helperText}
                         </p>
                       )}
@@ -277,8 +237,11 @@ export function DynamicCalculator({
           <CardTitle>Results</CardTitle>
         </CardHeader>
         <CardContent>
+          {/* Results replace each other in place, so announce them politely
+              rather than leaving screen-reader users to discover the change. */}
+          <div aria-live="polite" aria-atomic="false">
           {!result ? (
-            <p className="text-slate-500 italic">Enter values and calculate to see results.</p>
+            <p className="text-slate-600 italic">Enter values and calculate to see results.</p>
           ) : (
             <div className="flex flex-col gap-4">
               {result.rulesetId && (
@@ -317,7 +280,7 @@ export function DynamicCalculator({
                       ))}
                   </div>
                   {primaryResult.note && (
-                    <p className="text-xs text-slate-500 mt-2">{primaryResult.note}</p>
+                    <p className="text-xs text-slate-600 mt-2">{primaryResult.note}</p>
                   )}
                 </section>
               )}
@@ -344,7 +307,7 @@ export function DynamicCalculator({
               {noteEntries.length > 0 && (
                 <div className="mt-2 flex flex-col gap-2">
                   {noteEntries.map(k => (
-                    <p key={k} className="text-xs text-slate-500">
+                    <p key={k} className="text-xs text-slate-600">
                       {outputs[k]}
                     </p>
                   ))}
@@ -372,12 +335,12 @@ export function DynamicCalculator({
                           <tr key={i} className="border-b border-slate-100 last:border-0">
                             <td className="py-1">{row.period || i + 1}</td>
                             <td className="py-1">
-                              {formatOutput("payment", row.payment || row.scheduled_payment || 0)}
+                              {scheduleGbp.format(row.payment || row.scheduled_payment || 0)}
                             </td>
-                            <td className="py-1">{formatOutput("interest", row.interest || 0)}</td>
-                            <td className="py-1">{formatOutput("principal", row.principal || 0)}</td>
+                            <td className="py-1">{scheduleGbp.format(row.interest || 0)}</td>
+                            <td className="py-1">{scheduleGbp.format(row.principal || 0)}</td>
                             <td className="py-1 text-right">
-                              {formatOutput("balance", row.closing_balance || row.balance || 0)}
+                              {scheduleGbp.format(row.closing_balance || row.balance || 0)}
                             </td>
                           </tr>
                         ))}
@@ -393,6 +356,7 @@ export function DynamicCalculator({
               )}
             </div>
           )}
+          </div>
         </CardContent>
       </Card>
     </div>

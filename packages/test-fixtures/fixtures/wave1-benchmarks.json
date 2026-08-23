@@ -3139,13 +3139,13 @@
       },
       "expected": {
         "payoff_months": 223,
-        "interest_saved": 0,
-        "months_saved": 0,
+        "interest_saved": 12737.94,
+        "months_saved": 17,
         "new_interest": 90933.76
       },
       "tolerance": "±£0.01 / ±0.0001 as applicable",
       "ruleset": "None",
-      "note": "Independent formula fixture"
+      "note": "Independent formula fixture | Corrected 2026-08-23: months_saved and interest_saved were 0, which contradicted this fixture's own payoff_months (223 vs a 240-month baseline). Independently re-derived by iterative amortisation and by closed-form annuity algebra; both give months_saved 17 and interest_saved 12737.94. payoff_months and new_interest were already correct and are unchanged."
     },
     {
       "scenario": "Zero rate",

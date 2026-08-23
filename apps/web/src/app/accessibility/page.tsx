@@ -1,4 +1,9 @@
-export const metadata = { title: "Accessibility Statement | UK Calculator Platform" };
+export const metadata = {
+  title: "Accessibility Statement | UK Calculator Platform",
+  description:
+    "Our commitment to WCAG 2.2 AA, how we test the UK Calculator Platform, known limitations, and how to report an accessibility barrier.",
+  alternates: { canonical: "/accessibility" },
+};
 
 export default function AccessibilityStatement() {
   return (

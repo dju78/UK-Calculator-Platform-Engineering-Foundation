@@ -3,6 +3,7 @@ import fs from 'fs';
 import path from 'path';
 import { mappings } from '../src/components/calculators/fieldMappings';
 import type { FieldDef } from '../src/components/calculators/fieldTypes';
+import { parseDisplayedValue } from '../src/components/calculators/outputFormats';
 
 // read benchmarks
 const benchmarksPath = path.resolve(process.cwd(), '../../packages/test-fixtures/fixtures/wave1-benchmarks.json');
@@ -106,10 +107,10 @@ test.describe('Calculator UI Parity', () => {
               }
             }
             
-            const isNegative = foundText.includes('-') || (foundText.includes('(') && foundText.includes(')'));
-            const cleanStr = foundText.replace(/[^0-9.]/g, '');
-            let parsedNum = parseFloat(cleanStr);
-            if (isNegative) parsedNum = -parsedNum;
+            // Invert the display transform using the SAME central registry the
+            // UI formats with, so a value rendered as "91.7%" is compared as
+            // 0.917 rather than 91.7.
+            const parsedNum = parseDisplayedValue(calcId, key, foundText);
             const expectedNum = expectedVal as number;
             
             // tolerance check

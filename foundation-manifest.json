@@ -1,10 +1,16 @@
 {
-  "generated_at": "2026-08-22T08:00:00Z",
+  "generated_at": "2026-08-23T00:00:00Z",
   "foundation_version": "0.1.0",
   "wave1_registry_count": 55,
   "wave1_benchmark_case_count": 275,
-  "implemented_calculators": [
-    "INV-002"
-  ],
-  "ruleset_status": "draft_second_review"
+  "implemented_calculator_count": 55,
+  "verified_calculator_count": 55,
+  "ruleset_id": "uk-2026-27-v1",
+  "ruleset_status": "approved",
+  "ruleset_checked_at": "2026-08-22",
+  "governance_notes": [
+    "ruleset_status previously read draft_second_review while the ruleset artefact itself was already approved. Reconciled to the artefact, which is what the engine enforces.",
+    "implemented_calculators previously listed only INV-002. Replaced with counts derived from the registry at generation time so the manifest cannot drift again.",
+    "Wave 1 specification documents referenced by registry specFile paths (03_Calculator-Specifications/) are NOT present in this repository, so output completeness could not be verified against the approved specifications in the 2026-08-23 audit. Tracked as an open governance item."
+  ]
 }

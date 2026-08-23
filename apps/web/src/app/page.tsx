@@ -1,66 +1,26 @@
-"use client";
+import type { Metadata } from "next";
+import { CalculatorBrowser } from "@/components/home/CalculatorBrowser";
+import { SITE_NAME, SITE_URL } from "@/lib/site";
 
-import { useState } from "react";
-import Link from "next/link";
-import { wave1Registry } from "../../../../dist/packages/calculator-registry/src/index.js";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/Card";
-import { Badge } from "@/components/ui/Badge";
-import { Input } from "@/components/ui/Input";
+// A server component so the homepage can declare its own canonical. The
+// interactive search lives in CalculatorBrowser, which stays a client
+// component.
+export const metadata: Metadata = {
+  title: `${SITE_NAME} | Free UK Tax, Mortgage and Savings Calculators`,
+  description:
+    "Browse 55 free UK calculators for tax, salary, mortgages, pensions, savings and everyday sums, using 2026/27 UK rules where applicable. Estimates only - not financial or tax advice.",
+  alternates: { canonical: "/" },
+  openGraph: {
+    title: `${SITE_NAME} | Free UK Tax, Mortgage and Savings Calculators`,
+    description:
+      "Browse 55 free UK calculators for tax, salary, mortgages, pensions, savings and everyday sums.",
+    url: SITE_URL,
+    siteName: SITE_NAME,
+    locale: "en_GB",
+    type: "website",
+  },
+};
 
 export default function Home() {
-  const [search, setSearch] = useState("");
-
-  const filtered = wave1Registry.filter(calc => 
-    calc.name.toLowerCase().includes(search.toLowerCase()) || 
-    calc.id.toLowerCase().includes(search.toLowerCase())
-  );
-
-  return (
-    <div className="flex flex-col gap-6">
-      <div className="flex flex-col gap-2">
-        <h1 className="text-3xl font-bold tracking-tight">Calculators</h1>
-        <p className="text-slate-500">
-          Browse and search all available Wave 1 calculators.
-        </p>
-      </div>
-      
-      <div className="max-w-md">
-        <Input 
-          placeholder="Search calculators..." 
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-        />
-      </div>
-
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-        {filtered.map(calc => (
-          <Link key={calc.id} href={`/calculators/${calc.slug}`}>
-            <Card className="h-full hover:border-slate-300 transition-colors cursor-pointer flex flex-col">
-              <CardHeader>
-                <CardTitle>{calc.name}</CardTitle>
-                <div className="text-xs text-slate-500 font-mono mt-1">{calc.id}</div>
-              </CardHeader>
-              <CardContent className="flex-1 flex flex-col justify-end gap-2">
-                <div className="flex gap-2 mt-auto">
-                  <Badge>{calc.category}</Badge>
-                  {calc.implementationStatus === "implemented" ? (
-                    <Badge variant="success">Live</Badge>
-                  ) : (
-                    <Badge variant="warning">Draft</Badge>
-                  )}
-                </div>
-              </CardContent>
-            </Card>
-          </Link>
-        ))}
-        {filtered.length === 0 && (
-          <div className="col-span-full py-12 text-center">
-            <p className="text-slate-500 mb-6">
-              No calculators found matching &quot;{search}&quot;. Try adjusting your search.
-            </p>
-          </div>
-        )}
-      </div>
-    </div>
-  );
+  return <CalculatorBrowser />;
 }

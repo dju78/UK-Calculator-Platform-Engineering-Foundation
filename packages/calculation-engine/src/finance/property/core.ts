@@ -60,15 +60,25 @@ export function calculateBuyToLet(
   const annual_mortgage = monthly_payment * 12;
   
   const pre_tax_cashflow = effective_rent - costs - annual_mortgage;
-  
-  // ICR = NOI / Mortgage Interest
+
+  // Interest Cover Ratio on a NET basis: rental income after voids AND after
+  // operating costs, divided by mortgage interest. This is deliberately more
+  // conservative than the gross convention most BTL lenders quote
+  // (gross rent / interest), so the figure here will read LOWER than a
+  // lender's stress test. The basis is surfaced to the user rather than left
+  // implicit, because "ICR" alone is ambiguous.
   const noi = effective_rent - costs;
-  const icr = interest_annual === 0 ? 0 : noi / interest_annual;
-  
+  // With no interest payable there is no coverage ratio to express - reporting
+  // 0 would read as "no cover" when the true position is the opposite.
+  const icr = interest_annual === 0 ? null : noi / interest_annual;
+
   return {
     effective_rent,
     pre_tax_cashflow,
-    icr
+    icr,
+    net_operating_income: noi,
+    annual_mortgage_cost: annual_mortgage,
+    mortgage: mortgage
   };
 }
 

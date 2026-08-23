@@ -79,12 +79,45 @@ export function implementedCalculatorIds(): string[] {
   return Object.keys(handlers).sort();
 }
 
+/** Turn an output key into something readable in an error message. */
+function humanKey(key: string): string {
+  const words = key.replace(/_/g, " ").trim();
+  return words.charAt(0).toUpperCase() + words.slice(1);
+}
+
 export async function calculate(calculatorId: string, inputs: NumericInputs, context: CalculationContext = {}): Promise<CalculationResult> {
   const definition = getCalculatorDefinition(calculatorId);
   if (!definition) throw new Error(`Unknown calculator: ${calculatorId}`);
   const handler = handlers[definition.id];
   if (!handler) throw new CalculatorNotImplementedError(definition.id);
+
+  // --- Input guard -------------------------------------------------------
+  // A non-finite number is never a legitimate input. Rejecting it here means
+  // every calculator gets the same accessible validation message instead of
+  // quietly propagating NaN through the arithmetic.
+  for (const [key, value] of Object.entries(inputs ?? {})) {
+    if (typeof value === "number" && !Number.isFinite(value)) {
+      throw new Error(`${humanKey(key)} must be a valid number.`);
+    }
+  }
+
   const payload = await handler(inputs, context);
+
+  // --- Output guard ------------------------------------------------------
+  // NaN and Infinity must never reach a user. They mean a required input was
+  // missing, or the inputs implied a division by zero (a payment that never
+  // clears a balance, a zero denominator). Either way the honest response is
+  // a validation message, not a number that looks like a result.
+  // `null` is deliberately allowed: several calculators use it to say
+  // "undefined in this scenario" (markup at zero cost, ICR at zero interest).
+  for (const [key, value] of Object.entries(payload.outputs ?? {})) {
+    if (typeof value === "number" && !Number.isFinite(value)) {
+      throw new Error(
+        `${humanKey(key)} could not be calculated from these inputs. Check that every required value is filled in and that no figure is zero where a division is needed.`
+      );
+    }
+  }
+
   return {
     calculatorId: definition.id,
     calculatorVersion: definition.version,

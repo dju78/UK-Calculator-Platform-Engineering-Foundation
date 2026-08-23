@@ -3,17 +3,23 @@ import { Header } from "@/components/layout/Header";
 import { Sidebar } from "@/components/layout/Sidebar";
 import { Footer } from "@/components/layout/Footer";
 import { wave1Registry } from "../../../../dist/packages/calculator-registry/src/index.js";
+import { SITE_NAME, SITE_URL } from "@/lib/site";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000"),
-  title: "UK Calculator Platform",
-  description: "Wave 1 Financial & Tax Calculators",
+  metadataBase: new URL(SITE_URL),
+  title: {
+    default: `${SITE_NAME} | Free UK Tax, Mortgage and Savings Calculators`,
+    template: `%s`,
+  },
+  description:
+    "Free UK calculators for tax, salary, mortgages, pensions, savings and everyday sums, using 2026/27 UK rules where applicable. Estimates only - not financial or tax advice.",
   openGraph: {
-    title: "UK Calculator Platform",
-    description: "Wave 1 Financial & Tax Calculators",
-    url: 'https://ukcalculatorplatform.co.uk',
-    siteName: 'UK Calculator Platform',
+    title: `${SITE_NAME} | Free UK Tax, Mortgage and Savings Calculators`,
+    description:
+      "Free UK calculators for tax, salary, mortgages, pensions, savings and everyday sums, using 2026/27 UK rules where applicable.",
+    url: SITE_URL,
+    siteName: SITE_NAME,
     locale: 'en_GB',
     type: 'website',
   },

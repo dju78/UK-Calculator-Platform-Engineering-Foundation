@@ -1,5 +1,5 @@
 import { CalculatorHandler } from "../../types.js";
-import { 
+import {
   calculateLtv,
   calculatePropertyDeposit,
   calculateRentalYield,
@@ -7,6 +7,12 @@ import {
   calculatePropertyRoi,
   calculateMortgageAffordability
 } from "./core.js";
+import { calculateSDLT } from "../tax/core.js";
+import { resolveRules } from "../../../../rules-uk/src/index.js";
+
+function round2(n: number): number {
+  return Math.round(n * 100) / 100;
+}
 
 export const handleLoanToValue: CalculatorHandler = (inputs, context) => {
   const value = inputs.value as number;
@@ -57,12 +63,33 @@ export const handleBuyToLet: CalculatorHandler = (inputs, context) => {
   const vacancy = inputs.vacancy as number;
   const costs = inputs.costs as number;
   const repayment = inputs.repayment as boolean;
-  // Intentionally omitting sdlt
+  const additionalProperty = inputs.additional_property !== false;
 
   const result = calculateBuyToLet(price, deposit, rate, term, rent, vacancy, costs, repayment);
 
+  // `additional_property` was previously accepted and then ignored, which left
+  // the purchase-cost side of a buy-to-let appraisal missing entirely. A BTL
+  // purchase almost always attracts the additional-property surcharge, so the
+  // estimated tax and the cash actually needed are material to the decision.
+  const rules = resolveRules({ taxYear: context.taxYear || "2026/27" });
+  const sdlt = calculateSDLT(price, false, additionalProperty, false, rules);
+  const cashRequired = deposit + sdlt;
+
+  const grossYield = price === 0 ? null : (rent * 12) / price;
+  const netYield = price === 0 ? null : result.net_operating_income / price;
+
   return {
-    outputs: result
+    outputs: {
+      ...result,
+      estimated_sdlt: round2(sdlt),
+      cash_required: round2(cashRequired),
+      gross_yield: grossYield,
+      net_yield: netYield,
+      icr_basis:
+        "Interest Cover Ratio here is rental income after voids and operating costs, divided by mortgage interest. Lenders usually quote ICR on gross rent before costs, so their figure will be higher.",
+      sdlt_basis:
+        "Estimated Stamp Duty Land Tax for England and Northern Ireland, including the additional-property surcharge. Scotland charges LBTT and Wales charges LTT instead; this figure does not apply there."
+    }
   };
 };
 

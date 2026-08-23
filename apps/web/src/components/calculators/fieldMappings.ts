@@ -499,5 +499,10 @@ export const NOTE_OUTPUT_KEYS = [
   "estimation_basis",
   "calculation_basis",
   "tax_code_explanation",
-  "tax_code_note"
+  "tax_code_note",
+  "jurisdiction_note",
+  "first_time_buyer_note",
+  "icr_basis",
+  "sdlt_basis",
+  "leap_day_convention"
 ];

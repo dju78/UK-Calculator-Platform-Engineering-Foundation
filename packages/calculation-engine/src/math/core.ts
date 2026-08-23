@@ -45,8 +45,13 @@ export function percentageCalculator(inputs: any): any {
 }
 
 export function gcd(a: number, b: number): number {
-  a = Math.abs(a);
-  b = Math.abs(b);
+  // NaN must be rejected before the loop: NaN % n is NaN and NaN !== 0 is
+  // always true, so a non-finite argument would loop forever.
+  if (!Number.isFinite(a) || !Number.isFinite(b)) {
+    throw new Error("Ratio values must be valid numbers.");
+  }
+  a = Math.abs(Math.trunc(a));
+  b = Math.abs(Math.trunc(b));
   while (b !== 0) {
     const temp = b;
     b = a % b;

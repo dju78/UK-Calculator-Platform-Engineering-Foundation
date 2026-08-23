@@ -4,6 +4,12 @@ import { Badge } from "@/components/ui/Badge";
 import { getCalculatorComponent } from "@/components/calculators/registry";
 import { DisclaimerBanner } from "@/components/layout/DisclaimerBanner";
 import { Metadata } from "next";
+import {
+  SITE_NAME,
+  absoluteUrl,
+  calculatorDescription,
+  calculatorPath,
+} from "@/lib/site";
 
 // Generate static params for all calculators
 export function generateStaticParams() {
@@ -24,13 +30,25 @@ export async function generateMetadata(
     };
   }
 
+  const title = `${calc.name} | ${SITE_NAME}`;
+  const description = calculatorDescription(calc);
+  const path = calculatorPath(calc.slug);
+
   return {
-    title: `${calc.name} | UK Calculator Platform`,
-    description: `Calculate your ${calc.name.toLowerCase()} with our free UK calculator.`,
+    title,
+    description,
+    // Canonical is the slug URL, so the internal-id form of the route can
+    // never be indexed as a duplicate of the same page.
+    alternates: { canonical: path },
     openGraph: {
-      title: `${calc.name} | UK Calculator Platform`,
-      description: `Calculate your ${calc.name.toLowerCase()} with our free UK calculator.`,
+      title,
+      description,
+      url: absoluteUrl(path),
+      siteName: SITE_NAME,
+      locale: "en_GB",
+      type: "website",
     },
+    twitter: { card: "summary", title, description },
   };
 }
 
@@ -57,6 +75,26 @@ export default async function CalculatorPage(props: { params: Promise<{ slug: st
         <h1 className="text-3xl font-bold tracking-tight text-slate-900">{calc.name}</h1>
       </div>
 
+      <script
+        type="application/ld+json"
+        // Structured data describing the tool itself. Kept minimal and factual
+        // so it stays valid: no invented ratings, prices or authorship.
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "WebApplication",
+            name: calc.name,
+            url: absoluteUrl(calculatorPath(calc.slug)),
+            description: calculatorDescription(calc),
+            applicationCategory: "FinanceApplication",
+            operatingSystem: "Any",
+            isAccessibleForFree: true,
+            inLanguage: "en-GB",
+            provider: { "@type": "Organization", name: "Jomovate" },
+          }),
+        }}
+      />
+
       {calc.implementationStatus !== "implemented" ? (
         <div className="bg-slate-50 border border-slate-200 rounded-lg p-8 text-center text-slate-700">
           <p className="mb-2 font-semibold text-lg">Specification complete — calculator implementation in progress</p>
@@ -70,7 +108,7 @@ export default async function CalculatorPage(props: { params: Promise<{ slug: st
         </div>
       )}
 
-      <DisclaimerBanner />
+      <DisclaimerBanner category={calc.category} />
     </div>
   );
 }

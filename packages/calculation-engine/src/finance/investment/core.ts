@@ -1,3 +1,5 @@
+import { assertTermYears, assertMoney } from "../../common/validation.js";
+
 export function investmentGrowth(
   start: number,
   monthly: number,
@@ -5,9 +7,13 @@ export function investmentGrowth(
   annualFee: number,
   years: number
 ): number {
+  // Bounded so an absurd term cannot spin the month loop indefinitely.
+  const safeYears = assertTermYears(years, "Years");
+  assertMoney(start, "Starting amount", { allowNegative: true });
+  assertMoney(monthly, "Monthly contribution", { allowNegative: true });
   const M = (1 + annualReturn) * (1 - annualFee);
   const m = Math.pow(M, 1 / 12) - 1;
-  const totalMonths = years * 12;
+  const totalMonths = Math.round(safeYears * 12);
   
   let balance = start;
   for (let i = 0; i < totalMonths; i++) {

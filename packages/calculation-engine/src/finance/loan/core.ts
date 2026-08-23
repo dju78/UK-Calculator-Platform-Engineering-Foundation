@@ -1,4 +1,8 @@
+import { assertTermYears, assertMoney } from "../../common/validation.js";
 export function calculatePmt(principal: number, annualRate: number, years: number, type: "repayment" | "interest-only" = "repayment"): number {
+  // Closed form, so no loop to run away - but an implausible term still yields
+  // a meaningless answer, so reject it rather than display one.
+  assertTermYears(years, "Term");
   if (annualRate === 0) {
     return type === "repayment" ? principal / (years * 12) : 0;
   }
@@ -32,8 +36,11 @@ export function calculateAmortisation(
   lumpSum: number = 0,
   lumpMonth: number = 1
 ): AmortisationResult {
+  // Bounded so an absurd term cannot spin the month loop indefinitely.
+  const safeYears = assertTermYears(years, "Term");
+  assertMoney(principal, "Balance");
   const r = annualRate / 12;
-  const n = years * 12;
+  const n = Math.round(safeYears * 12);
   const pmt = calculatePmt(principal, annualRate, years, "repayment");
   
   let balance = principal;

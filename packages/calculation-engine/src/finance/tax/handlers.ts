@@ -307,9 +307,26 @@ export const pro023Handler: CalculatorHandler = (inputs: NumericInputs, context:
 
   const sdlt = calculateSDLT(price, firstTime, additional, nonresident, rules);
 
+  const ftbRelief = (rules as any).property_transaction_tax.england_northern_ireland
+    .first_time_buyer_relief;
+  const ftbCeiling = ftbRelief.maximum_qualifying_property_value_gbp as number;
+
   return {
     outputs: {
-      sdlt: round2(sdlt)
+      sdlt: round2(sdlt),
+      effective_rate: price === 0 ? null : sdlt / price,
+      // Stamp Duty Land Tax is an England and Northern Ireland tax. Scotland
+      // and Wales levy different taxes with different bands, and presenting
+      // this figure without saying so would mislead users in those nations.
+      jurisdiction_note:
+        "Stamp Duty Land Tax applies to property in England and Northern Ireland only. Scotland charges Land and Buildings Transaction Tax (LBTT) and Wales charges Land Transaction Tax (LTT); this calculator does not cover either.",
+      ...(firstTime && price > ftbCeiling
+        ? {
+            first_time_buyer_note: `First-time buyer relief is not available above £${ftbCeiling.toLocaleString(
+              "en-GB"
+            )}, so the standard rates have been applied.`
+          }
+        : {})
     }
   };
 };

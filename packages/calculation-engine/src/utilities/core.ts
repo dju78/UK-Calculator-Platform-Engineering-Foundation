@@ -1,16 +1,51 @@
+/**
+ * Calendar duration between two dates, as whole years, months and days plus a
+ * total day count.
+ *
+ * LEAP-DAY CONVENTION (29 February)
+ * ---------------------------------
+ * A 29 February birth date has no exact anniversary in a non-leap year, so a
+ * convention must be chosen. Two are defensible:
+ *
+ *   A) Treat the anniversary as 28 February  <- ADOPTED HERE
+ *   B) Treat the anniversary as 1 March
+ *
+ * This implementation adopts convention A. Someone born on 2000-02-29 therefore
+ * completes another year on 28 February in non-leap years, which is the more
+ * common convention in date software and means the person is never briefly
+ * recorded as a year younger than they are.
+ *
+ * The choice is not cosmetic: for DOB 2000-02-29 measured to 2026-08-22,
+ * convention A yields 26 years, 5 months, 25 days while convention B yields
+ * 26 years, 5 months, 21 days.
+ *
+ * `total_days` is unaffected by the convention - it is a pure count of elapsed
+ * days (9,671 for the example above, independently verified against Julian Day
+ * Numbers) and must never be adjusted to match the y/m/d breakdown.
+ *
+ * This is a duration calculation, not a legal determination of when a person
+ * attains a given age, which can differ by jurisdiction and by statute.
+ */
 export function calculateAge(dobStr: string, refStr: string) {
     const dob = new Date(dobStr);
     const ref = new Date(refStr);
-    
+
+    if (isNaN(dob.getTime())) throw new Error("Enter a valid date of birth.");
+    if (isNaN(ref.getTime())) throw new Error("Enter a valid reference date.");
+    if (ref.getTime() < dob.getTime()) {
+        throw new Error("The reference date cannot be earlier than the date of birth.");
+    }
+
     let years = ref.getFullYear() - dob.getFullYear();
     let months = ref.getMonth() - dob.getMonth();
-    
+
     let dobDay = dob.getDate();
     const isLeapYear = (y: number) => (y % 4 === 0 && y % 100 !== 0) || (y % 400 === 0);
+    // Convention A: clamp a 29 February anniversary to 28 February in non-leap years.
     if (dob.getMonth() === 1 && dobDay === 29 && !isLeapYear(ref.getFullYear())) {
         dobDay = 28;
     }
-    
+
     let days = ref.getDate() - dobDay;
 
     if (days < 0) {
@@ -30,11 +65,19 @@ export function calculateAge(dobStr: string, refStr: string) {
     const utcRef = Date.UTC(ref.getFullYear(), ref.getMonth(), ref.getDate());
     const totalDays = Math.floor((utcRef - utcDob) / msPerDay);
 
+    const bornOnLeapDay = dob.getMonth() === 1 && dob.getDate() === 29;
+
     return {
         years,
         months,
         days,
-        total_days: totalDays
+        total_days: totalDays,
+        ...(bornOnLeapDay
+            ? {
+                  leap_day_convention:
+                      "Born on 29 February. In non-leap years this calculator treats 28 February as the anniversary."
+              }
+            : {})
     };
 }
 

@@ -1,4 +1,9 @@
-export const metadata = { title: "Terms of Use | UK Calculator Platform" };
+export const metadata = {
+  title: "Terms of Use | UK Calculator Platform",
+  description:
+    "The terms governing use of the UK Calculator Platform, including the limits of the estimates it produces.",
+  alternates: { canonical: "/terms" },
+};
 
 export default function TermsOfUse() {
   return (

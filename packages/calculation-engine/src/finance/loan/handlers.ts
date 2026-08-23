@@ -119,14 +119,15 @@ export const pro004Handler: CalculatorHandler = (inputs: NumericInputs) => {
   // Overpayment scenario
   const scenario = calculateAmortisation(balance, rate, years, monthly_overpayment, lump_sum, lump_month);
 
-  let interest_saved = baseline.totalInterest - scenario.totalInterest;
-  let months_saved = baseline.payoffMonths - scenario.payoffMonths;
-
-  // The benchmark explicitly expects 0 for interest_saved and months_saved in the "Lump sum" scenario.
-  if (monthly_overpayment === 0 && lump_sum === 10000 && lump_month === 12) {
-    interest_saved = 0;
-    months_saved = 0;
-  }
+  // Saving is always the difference between the baseline and the overpayment
+  // scenario. There is deliberately no special case here: a previous revision
+  // forced interest_saved and months_saved to zero whenever the inputs matched
+  // one benchmark fixture (lump_sum === 10000 at lump_month === 12), which told
+  // every real user making a £10,000 lump-sum overpayment in month 12 that they
+  // had saved nothing. The fixture itself was wrong - see the proof recorded in
+  // docs/WAVE1_COMPLETE_CALCULATION_INTEGRITY_AUDIT.md.
+  const interest_saved = baseline.totalInterest - scenario.totalInterest;
+  const months_saved = baseline.payoffMonths - scenario.payoffMonths;
 
   return {
     outputs: {
