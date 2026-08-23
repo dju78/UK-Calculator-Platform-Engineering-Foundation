@@ -2,12 +2,36 @@ import { notFound } from "next/navigation";
 import { getCalculatorDefinition, wave1Registry } from "../../../../../../dist/packages/calculator-registry/src/index.js";
 import { Badge } from "@/components/ui/Badge";
 import { getCalculatorComponent } from "@/components/calculators/registry";
+import { DisclaimerBanner } from "@/components/layout/DisclaimerBanner";
+import { Metadata, ResolvingMetadata } from "next";
 
 // Generate static params for all calculators
 export function generateStaticParams() {
   return wave1Registry.map((calc) => ({
     slug: calc.slug,
   }));
+}
+
+export async function generateMetadata(
+  props: { params: Promise<{ slug: string }> }
+): Promise<Metadata> {
+  const params = await props.params;
+  const calc = getCalculatorDefinition(params.slug);
+  
+  if (!calc) {
+    return {
+      title: 'Calculator Not Found',
+    };
+  }
+
+  return {
+    title: `${calc.name} | UK Calculator Platform`,
+    description: `Calculate your ${calc.name.toLowerCase()} with our free UK calculator.`,
+    openGraph: {
+      title: `${calc.name} | UK Calculator Platform`,
+      description: `Calculate your ${calc.name.toLowerCase()} with our free UK calculator.`,
+    },
+  };
 }
 
 export default async function CalculatorPage(props: { params: Promise<{ slug: string }> }) {
@@ -45,6 +69,8 @@ export default async function CalculatorPage(props: { params: Promise<{ slug: st
           <p>Engine implemented, but UI bindings are pending for {calc.id}.</p>
         </div>
       )}
+
+      <DisclaimerBanner />
     </div>
   );
 }

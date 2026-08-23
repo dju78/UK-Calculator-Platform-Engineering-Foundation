@@ -1,12 +1,21 @@
 import type { Metadata } from "next";
 import { Header } from "@/components/layout/Header";
 import { Sidebar } from "@/components/layout/Sidebar";
+import { Footer } from "@/components/layout/Footer";
 import { wave1Registry } from "../../../../dist/packages/calculator-registry/src/index.js";
 import "./globals.css";
 
 export const metadata: Metadata = {
   title: "UK Calculator Platform",
   description: "Wave 1 Financial & Tax Calculators",
+  openGraph: {
+    title: "UK Calculator Platform",
+    description: "Wave 1 Financial & Tax Calculators",
+    url: 'https://ukcalculatorplatform.co.uk',
+    siteName: 'UK Calculator Platform',
+    locale: 'en_GB',
+    type: 'website',
+  },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -23,6 +32,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               {children}
             </main>
           </div>
+          <Footer />
         </div>
       </body>
     </html>
