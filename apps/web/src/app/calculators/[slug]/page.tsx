@@ -3,7 +3,7 @@ import { getCalculatorDefinition, wave1Registry } from "../../../../../../dist/p
 import { Badge } from "@/components/ui/Badge";
 import { getCalculatorComponent } from "@/components/calculators/registry";
 import { DisclaimerBanner } from "@/components/layout/DisclaimerBanner";
-import { Metadata, ResolvingMetadata } from "next";
+import { Metadata } from "next";
 
 // Generate static params for all calculators
 export function generateStaticParams() {
