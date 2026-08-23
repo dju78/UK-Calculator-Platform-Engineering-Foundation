@@ -1,5 +1,5 @@
 import { notFound } from "next/navigation";
-import { getCalculatorDefinition, wave1Registry } from "../../../../../../dist/packages/calculator-registry/src/index.js";
+import { liveCalculators, getLiveCalculator } from "@/lib/calculators";
 import { Badge } from "@/components/ui/Badge";
 import { getCalculatorComponent } from "@/components/calculators/registry";
 import { DisclaimerBanner } from "@/components/layout/DisclaimerBanner";
@@ -13,7 +13,7 @@ import {
 
 // Generate static params for all calculators
 export function generateStaticParams() {
-  return wave1Registry.map((calc) => ({
+  return liveCalculators.map((calc) => ({
     slug: calc.slug,
   }));
 }
@@ -22,7 +22,7 @@ export async function generateMetadata(
   props: { params: Promise<{ slug: string }> }
 ): Promise<Metadata> {
   const params = await props.params;
-  const calc = getCalculatorDefinition(params.slug);
+  const calc = getLiveCalculator(params.slug);
   
   if (!calc) {
     return {
@@ -54,7 +54,7 @@ export async function generateMetadata(
 
 export default async function CalculatorPage(props: { params: Promise<{ slug: string }> }) {
   const params = await props.params;
-  const calc = getCalculatorDefinition(params.slug);
+  const calc = getLiveCalculator(params.slug);
   
   if (!calc) {
     notFound();

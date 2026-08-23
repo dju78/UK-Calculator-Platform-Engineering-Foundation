@@ -1,5 +1,5 @@
 import { test, expect } from '@playwright/test';
-import { wave1Registry } from '../../../dist/packages/calculator-registry/src/index.js';
+import { liveCalculators } from '../src/lib/calculators';
 
 /**
  * Routing and SEO regressions.
@@ -9,7 +9,7 @@ import { wave1Registry } from '../../../dist/packages/calculator-registry/src/in
  * the sitemap and robots.txt pointed at a domain that does not serve the app.
  */
 
-const calculators = wave1Registry as Array<{ id: string; slug: string; name: string; category: string }>;
+const calculators = liveCalculators as Array<{ id: string; slug: string; name: string; category: string }>;
 const categories = [...new Set(calculators.map(c => c.category))];
 
 test.describe('Sitemap', () => {

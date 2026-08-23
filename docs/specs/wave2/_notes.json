@@ -1,0 +1,79 @@
+{
+  "FIN-003": {
+    "purpose": "Work out the monthly repayment and total cost of an amortising business loan, including an arrangement fee.",
+    "scope": "Fixed-rate, capital-and-interest business loans repaid monthly. Variable rates, drawdown facilities, invoice finance and asset finance are out of scope.",
+    "assumptions": ["A fixed interest rate for the whole term.", "Equal monthly payments with no payment holidays.", "Interest accrues monthly on the reducing balance."],
+    "formula": "Level payment from the standard annuity formula `P = (A x r) / (1 - (1+r)^-n)` where `A` is the amount financed, `r` the monthly rate and `n` the number of months. Where the fee is financed it is added to `A` and therefore attracts interest; where it is paid up front it is excluded from `A` but still counted in the total cost of credit.",
+    "boundary": "An illustration only. It is not a quote, a credit decision, or an offer of finance, and lenders apply their own pricing and affordability rules.",
+    "methodology": "Benchmarks were derived independently by bisection on the simulated closing balance and by month-by-month interest simulation, not by calling the production engine.",
+    "related": ["FIN-001 Loan Calculator", "FIN-004 Secured Loan Calculator", "FIN-007 Amortisation Calculator"]
+  },
+  "FIN-004": {
+    "purpose": "Work out the repayments on a loan secured against property, and the resulting combined loan-to-value.",
+    "scope": "Fixed-rate second-charge and secured personal loans repaid monthly, plus a combined LTV against an existing mortgage.",
+    "assumptions": ["A fixed interest rate for the whole term.", "The existing mortgage balance and property value are as at today.", "Equal monthly payments."],
+    "formula": "Same annuity formula as FIN-003. Combined LTV is `(existing mortgage + new loan) / property value`.",
+    "validation": ["Property value of zero suppresses the combined LTV rather than dividing by zero."],
+    "boundary": "An illustration only, not a quote or credit decision. Because the loan would be secured on the borrower's home, the result carries an explicit repossession warning.",
+    "methodology": "Benchmarks derived independently by bisection and simulation.",
+    "related": ["FIN-003 Business Loan Calculator", "PRO-012 Home Equity Calculator"]
+  },
+  "FIN-007": {
+    "purpose": "Show the full amortisation of a loan: the monthly payment, the split between interest and capital, and how the balance falls.",
+    "scope": "Fixed-rate, capital-and-interest loans repaid monthly.",
+    "assumptions": ["A fixed rate for the whole term.", "Payments made on schedule with no overpayments."],
+    "formula": "Standard annuity payment, then a month-by-month schedule where each period's interest is `balance x monthly rate` and the remainder of the payment reduces the balance.",
+    "boundary": "An illustration of contractual amortisation. Real lenders may apply daily interest, rounding, and fees that shift figures by small amounts.",
+    "methodology": "First-year interest and capital were derived independently by explicit simulation.",
+    "related": ["FIN-001 Loan Calculator", "PRO-005 Mortgage Payoff Calculator"]
+  },
+  "FIN-008": {
+    "purpose": "Express monthly debt commitments as a proportion of gross monthly income.",
+    "scope": "A ratio only. It does not assess affordability or model tax, essential spending or credit history.",
+    "assumptions": ["Income is gross (before tax).", "Debt payments are the contractual monthly amounts."],
+    "formula": "`DTI = total monthly debt / gross monthly income`. The front-end ratio is `housing payment / gross monthly income`.",
+    "validation": ["Zero income is rejected, because a ratio against zero income has no meaning."],
+    "boundary": "Not a lending decision. Lenders use their own affordability rules and may assess net income, stress-tested rates and committed expenditure differently. The Low/Manageable/High bands are presentational guidance only.",
+    "methodology": "Ratios verified by independent arithmetic.",
+    "related": ["PRO-002 Mortgage Affordability Calculator", "FIN-013 Budget Calculator"]
+  },
+  "FIN-010": {
+    "purpose": "Show how long a credit card takes to clear at a fixed monthly payment, and what payment clears it within a target time.",
+    "scope": "A single card with a fixed payment and constant APR.",
+    "assumptions": ["No further spending on the card.", "A constant APR.", "Interest charged monthly on the outstanding balance."],
+    "formula": "Payoff by month-by-month simulation. The payment needed for a target term uses the annuity formula `(B x r) / (1 - (1+r)^-n)`.",
+    "validation": ["A payment that never clears the balance is reported as a validation error rather than an infinite term."],
+    "boundary": "An estimate. Real card interest depends on the issuer's daily calculation, statement dates, promotional rates and how payments are allocated between balance types.",
+    "methodology": "Payoff months cross-checked against the closed form `n = -ln(1 - Br/P)/ln(1+r)`; the oracle reports any disagreement with its own simulation.",
+    "related": ["FIN-009 Credit Card Calculator", "FIN-012 Debt Consolidation Calculator"]
+  },
+  "FIN-012": {
+    "purpose": "Compare keeping several debts against consolidating them into one loan.",
+    "scope": "Existing revolving or fixed-payment debts against a single fixed-rate consolidation loan.",
+    "assumptions": ["Existing debts are repaid at their current monthly payments with no further borrowing.", "The consolidation loan is fixed rate and fully amortising."],
+    "formula": "Each existing debt is run to payoff by simulation to obtain its total interest. The consolidation loan uses the annuity formula on the combined balance plus any fee.",
+    "validation": ["An existing debt whose payment never clears its balance is reported explicitly, naming the debt."],
+    "boundary": "Not a credit decision. The comparison deliberately reports the total interest change as well as the monthly payment change, because a longer consolidation term routinely lowers the monthly payment while increasing the total cost.",
+    "methodology": "Both sides derived independently by simulation and bisection.",
+    "related": ["FIN-010 Credit Card Payoff Calculator", "FIN-011 Debt Payoff Calculator"]
+  },
+  "FIN-014": {
+    "purpose": "Work out an emergency fund target and how long it takes to reach it.",
+    "scope": "Cash emergency savings against essential monthly spending.",
+    "assumptions": ["Essential spending is the unavoidable monthly total.", "The fund is held in accessible cash, so no investment growth is assumed."],
+    "formula": "`target = monthly essentials x months of cover`; `shortfall = max(0, target - current savings)`; months to target is `ceil(shortfall / monthly contribution)`.",
+    "validation": ["Zero essential spending is rejected. A zero contribution reports no completion date rather than an infinite one."],
+    "boundary": "A planning aid, not financial advice. How many months of cover is appropriate depends on personal circumstances.",
+    "methodology": "Verified by independent arithmetic.",
+    "related": ["FIN-013 Budget Calculator", "FIN-015 Savings Goal Calculator"]
+  },
+  "FIN-015": {
+    "purpose": "Work out the monthly saving needed to reach a target by a chosen date.",
+    "scope": "Regular monthly saving into an interest-bearing account, with an optional starting balance.",
+    "assumptions": ["Contributions are made at the END of each month, so a contribution never earns interest before it is paid in.", "A constant interest rate.", "Interest compounds monthly."],
+    "formula": "The existing balance grows to `S(1+r)^n`. The remainder is met by an ordinary annuity: `PMT = (target - S(1+r)^n) x r / ((1+r)^n - 1)`. Where the starting balance already exceeds the target, the required saving is zero.",
+    "boundary": "An illustration. Interest rates change, and returns on anything other than cash are not guaranteed.",
+    "methodology": "The required contribution was derived independently by bisection on a simulated month-by-month balance rather than by the annuity formula the engine uses.",
+    "related": ["FIN-014 Emergency Fund Calculator", "INV-018 Savings Calculator"]
+  }
+}

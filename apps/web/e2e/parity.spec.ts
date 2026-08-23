@@ -5,9 +5,13 @@ import { mappings } from '../src/components/calculators/fieldMappings';
 import type { FieldDef } from '../src/components/calculators/fieldTypes';
 import { parseDisplayedValue } from '../src/components/calculators/outputFormats';
 
-// read benchmarks
-const benchmarksPath = path.resolve(process.cwd(), '../../packages/test-fixtures/fixtures/wave1-benchmarks.json');
-const benchmarks = JSON.parse(fs.readFileSync(benchmarksPath, 'utf8'));
+// Read every wave's benchmarks so parity coverage grows with the platform
+// instead of silently staying at Wave 1.
+const fixtureDir = path.resolve(process.cwd(), '../../packages/test-fixtures/fixtures');
+const benchmarks: Record<string, any[]> = {
+  ...JSON.parse(fs.readFileSync(path.join(fixtureDir, 'wave1-benchmarks.json'), 'utf8')),
+  ...JSON.parse(fs.readFileSync(path.join(fixtureDir, 'wave2-benchmarks.json'), 'utf8'))
+};
 
 /**
  * Some benchmark fixtures are written against the engine's input contract,

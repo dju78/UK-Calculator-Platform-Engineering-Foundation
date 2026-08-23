@@ -1,0 +1,769 @@
+{
+  "FIN-003": [
+    {
+      "scenario": "Standard business loan",
+      "inputs": {
+        "amount": 50000,
+        "annual_rate": 7.5,
+        "years": 5,
+        "fee": 0,
+        "fee_financed": true
+      },
+      "expected": {
+        "monthly_payment": 1001.9,
+        "total_repayment": 60113.85,
+        "total_interest": 10113.85,
+        "total_cost_of_credit": 10113.85
+      },
+      "tolerance": "±£0.01 / ±0.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independently derived: bisection/simulation oracle, not the production engine."
+    },
+    {
+      "scenario": "With arrangement fee",
+      "inputs": {
+        "amount": 50000,
+        "annual_rate": 7.5,
+        "years": 5,
+        "fee": 1000,
+        "fee_financed": true
+      },
+      "expected": {
+        "monthly_payment": 1021.94,
+        "total_repayment": 61316.12,
+        "total_interest": 10316.12,
+        "total_cost_of_credit": 11316.12
+      },
+      "tolerance": "±£0.01 / ±0.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independently derived: bisection/simulation oracle, not the production engine."
+    },
+    {
+      "scenario": "Zero rate",
+      "inputs": {
+        "amount": 24000,
+        "annual_rate": 0,
+        "years": 4,
+        "fee": 0,
+        "fee_financed": true
+      },
+      "expected": {
+        "monthly_payment": 500,
+        "total_repayment": 24000,
+        "total_interest": 0,
+        "total_cost_of_credit": 0
+      },
+      "tolerance": "±£0.01 / ±0.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independently derived: bisection/simulation oracle, not the production engine."
+    },
+    {
+      "scenario": "Short term high rate",
+      "inputs": {
+        "amount": 10000,
+        "annual_rate": 14.9,
+        "years": 1,
+        "fee": 250,
+        "fee_financed": true
+      },
+      "expected": {
+        "monthly_payment": 924.66,
+        "total_repayment": 11095.97,
+        "total_interest": 845.97,
+        "total_cost_of_credit": 1095.97
+      },
+      "tolerance": "±£0.01 / ±0.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independently derived: bisection/simulation oracle, not the production engine."
+    },
+    {
+      "scenario": "Large facility",
+      "inputs": {
+        "amount": 500000,
+        "annual_rate": 6.25,
+        "years": 10,
+        "fee": 5000,
+        "fee_financed": true
+      },
+      "expected": {
+        "monthly_payment": 5670.14,
+        "total_repayment": 680417.39,
+        "total_interest": 175417.39,
+        "total_cost_of_credit": 180417.39
+      },
+      "tolerance": "±£0.01 / ±0.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independently derived: bisection/simulation oracle, not the production engine."
+    }
+  ],
+  "FIN-004": [
+    {
+      "scenario": "Standard secured loan",
+      "inputs": {
+        "amount": 25000,
+        "annual_rate": 8.9,
+        "years": 10,
+        "fee": 0,
+        "fee_financed": true,
+        "property_value": 350000,
+        "existing_mortgage": 180000
+      },
+      "expected": {
+        "monthly_payment": 315.34,
+        "total_interest": 12840.56,
+        "total_cost_of_credit": 12840.56,
+        "combined_ltv": 0.5857142857142857
+      },
+      "tolerance": "±£0.01 / ±0.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independently derived: bisection/simulation oracle, not the production engine."
+    },
+    {
+      "scenario": "With fee financed",
+      "inputs": {
+        "amount": 25000,
+        "annual_rate": 8.9,
+        "years": 10,
+        "fee": 995,
+        "fee_financed": true,
+        "property_value": 350000,
+        "existing_mortgage": 180000
+      },
+      "expected": {
+        "monthly_payment": 327.89,
+        "total_interest": 13351.62,
+        "total_cost_of_credit": 14346.62,
+        "combined_ltv": 0.5857142857142857
+      },
+      "tolerance": "±£0.01 / ±0.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independently derived: bisection/simulation oracle, not the production engine."
+    },
+    {
+      "scenario": "High combined LTV",
+      "inputs": {
+        "amount": 60000,
+        "annual_rate": 9.9,
+        "years": 15,
+        "fee": 0,
+        "fee_financed": true,
+        "property_value": 250000,
+        "existing_mortgage": 150000
+      },
+      "expected": {
+        "monthly_payment": 641.1,
+        "total_interest": 55397.53,
+        "total_cost_of_credit": 55397.53,
+        "combined_ltv": 0.84
+      },
+      "tolerance": "±£0.01 / ±0.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independently derived: bisection/simulation oracle, not the production engine."
+    },
+    {
+      "scenario": "Zero rate",
+      "inputs": {
+        "amount": 12000,
+        "annual_rate": 0,
+        "years": 5,
+        "fee": 0,
+        "fee_financed": true,
+        "property_value": 300000,
+        "existing_mortgage": 100000
+      },
+      "expected": {
+        "monthly_payment": 200,
+        "total_interest": 0,
+        "total_cost_of_credit": 0,
+        "combined_ltv": 0.37333333333333335
+      },
+      "tolerance": "±£0.01 / ±0.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independently derived: bisection/simulation oracle, not the production engine."
+    },
+    {
+      "scenario": "Large secured loan",
+      "inputs": {
+        "amount": 150000,
+        "annual_rate": 6.5,
+        "years": 20,
+        "fee": 1500,
+        "fee_financed": true,
+        "property_value": 800000,
+        "existing_mortgage": 300000
+      },
+      "expected": {
+        "monthly_payment": 1129.54,
+        "total_interest": 119590.39,
+        "total_cost_of_credit": 121090.39,
+        "combined_ltv": 0.5625
+      },
+      "tolerance": "±£0.01 / ±0.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independently derived: bisection/simulation oracle, not the production engine."
+    }
+  ],
+  "FIN-007": [
+    {
+      "scenario": "25-year mortgage",
+      "inputs": {
+        "principal": 200000,
+        "annual_rate": 4.5,
+        "years": 25
+      },
+      "expected": {
+        "monthly_payment": 1111.66,
+        "total_interest": 133499.49,
+        "total_repayment": 333499.49,
+        "payoff_months": 300,
+        "first_year_interest": 8909.36,
+        "first_year_principal": 4430.62
+      },
+      "tolerance": "±£0.01 / ±0.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independently derived: bisection/simulation oracle, not the production engine."
+    },
+    {
+      "scenario": "Zero rate",
+      "inputs": {
+        "principal": 120000,
+        "annual_rate": 0,
+        "years": 10
+      },
+      "expected": {
+        "monthly_payment": 1000,
+        "total_interest": 0,
+        "total_repayment": 120000,
+        "payoff_months": 120,
+        "first_year_interest": 0,
+        "first_year_principal": 12000
+      },
+      "tolerance": "±£0.01 / ±0.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independently derived: bisection/simulation oracle, not the production engine."
+    },
+    {
+      "scenario": "Short personal loan",
+      "inputs": {
+        "principal": 8000,
+        "annual_rate": 9.9,
+        "years": 3
+      },
+      "expected": {
+        "monthly_payment": 257.76,
+        "total_interest": 1279.43,
+        "total_repayment": 9279.43,
+        "payoff_months": 36,
+        "first_year_interest": 684.66,
+        "first_year_principal": 2408.48
+      },
+      "tolerance": "±£0.01 / ±0.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independently derived: bisection/simulation oracle, not the production engine."
+    },
+    {
+      "scenario": "Long term low rate",
+      "inputs": {
+        "principal": 300000,
+        "annual_rate": 2.5,
+        "years": 30
+      },
+      "expected": {
+        "monthly_payment": 1185.36,
+        "total_interest": 126730.57,
+        "total_repayment": 426730.57,
+        "payoff_months": 360,
+        "first_year_interest": 7422.41,
+        "first_year_principal": 6801.94
+      },
+      "tolerance": "±£0.01 / ±0.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independently derived: bisection/simulation oracle, not the production engine."
+    },
+    {
+      "scenario": "One year",
+      "inputs": {
+        "principal": 12000,
+        "annual_rate": 6,
+        "years": 1
+      },
+      "expected": {
+        "monthly_payment": 1032.8,
+        "total_interest": 393.57,
+        "total_repayment": 12393.57,
+        "payoff_months": 12,
+        "first_year_interest": 393.57,
+        "first_year_principal": 12000
+      },
+      "tolerance": "±£0.01 / ±0.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independently derived: bisection/simulation oracle, not the production engine."
+    }
+  ],
+  "FIN-008": [
+    {
+      "scenario": "Low ratio",
+      "inputs": {
+        "gross_monthly_income": 4000,
+        "total_monthly_debt": 600,
+        "housing_payment": 400
+      },
+      "expected": {
+        "dti_ratio": 0.15,
+        "front_end_ratio": 0.1,
+        "total_monthly_debt": 600,
+        "gross_monthly_income": 4000
+      },
+      "tolerance": "±£0.01 / ±0.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independently derived: bisection/simulation oracle, not the production engine."
+    },
+    {
+      "scenario": "Manageable",
+      "inputs": {
+        "gross_monthly_income": 3500,
+        "total_monthly_debt": 1050,
+        "housing_payment": 900
+      },
+      "expected": {
+        "dti_ratio": 0.3,
+        "front_end_ratio": 0.2571428571428571,
+        "total_monthly_debt": 1050,
+        "gross_monthly_income": 3500
+      },
+      "tolerance": "±£0.01 / ±0.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independently derived: bisection/simulation oracle, not the production engine."
+    },
+    {
+      "scenario": "High",
+      "inputs": {
+        "gross_monthly_income": 3000,
+        "total_monthly_debt": 1350,
+        "housing_payment": 1000
+      },
+      "expected": {
+        "dti_ratio": 0.45,
+        "front_end_ratio": 0.3333333333333333,
+        "total_monthly_debt": 1350,
+        "gross_monthly_income": 3000
+      },
+      "tolerance": "±£0.01 / ±0.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independently derived: bisection/simulation oracle, not the production engine."
+    },
+    {
+      "scenario": "Very high",
+      "inputs": {
+        "gross_monthly_income": 2500,
+        "total_monthly_debt": 1500,
+        "housing_payment": 1200
+      },
+      "expected": {
+        "dti_ratio": 0.6,
+        "front_end_ratio": 0.48,
+        "total_monthly_debt": 1500,
+        "gross_monthly_income": 2500
+      },
+      "tolerance": "±£0.01 / ±0.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independently derived: bisection/simulation oracle, not the production engine."
+    },
+    {
+      "scenario": "No housing supplied",
+      "inputs": {
+        "gross_monthly_income": 5000,
+        "total_monthly_debt": 1000
+      },
+      "expected": {
+        "dti_ratio": 0.2,
+        "front_end_ratio": null,
+        "total_monthly_debt": 1000,
+        "gross_monthly_income": 5000
+      },
+      "tolerance": "±£0.01 / ±0.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independently derived: bisection/simulation oracle, not the production engine."
+    }
+  ],
+  "FIN-010": [
+    {
+      "scenario": "Standard card",
+      "inputs": {
+        "balance": 3000,
+        "apr": 21.9,
+        "monthly_payment": 150
+      },
+      "expected": {
+        "months": 26,
+        "total_interest": 766.67,
+        "total_repaid": 3766.67
+      },
+      "tolerance": "±£0.01 / ±0.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independently derived: bisection/simulation oracle, not the production engine."
+    },
+    {
+      "scenario": "Minimum-ish payment",
+      "inputs": {
+        "balance": 5000,
+        "apr": 24.9,
+        "monthly_payment": 125
+      },
+      "expected": {
+        "months": 87,
+        "total_interest": 5785.07,
+        "total_repaid": 10785.07
+      },
+      "tolerance": "±£0.01 / ±0.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independently derived: bisection/simulation oracle, not the production engine."
+    },
+    {
+      "scenario": "Zero APR promo",
+      "inputs": {
+        "balance": 2400,
+        "apr": 0,
+        "monthly_payment": 200
+      },
+      "expected": {
+        "months": 12,
+        "total_interest": 0,
+        "total_repaid": 2400
+      },
+      "tolerance": "±£0.01 / ±0.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independently derived: bisection/simulation oracle, not the production engine."
+    },
+    {
+      "scenario": "Target payoff in 12 months",
+      "inputs": {
+        "balance": 3000,
+        "apr": 21.9,
+        "monthly_payment": 150,
+        "target_months": 12
+      },
+      "expected": {
+        "months": 26,
+        "total_interest": 766.67,
+        "total_repaid": 3766.67,
+        "payment_for_target": 280.64
+      },
+      "tolerance": "±£0.01 / ±0.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independently derived: bisection/simulation oracle, not the production engine."
+    },
+    {
+      "scenario": "Large balance",
+      "inputs": {
+        "balance": 12000,
+        "apr": 18.9,
+        "monthly_payment": 400
+      },
+      "expected": {
+        "months": 41,
+        "total_interest": 4371.77,
+        "total_repaid": 16371.77
+      },
+      "tolerance": "±£0.01 / ±0.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independently derived: bisection/simulation oracle, not the production engine."
+    }
+  ],
+  "FIN-012": [
+    {
+      "scenario": "Typical consolidation",
+      "inputs": {
+        "debts": "[{\"balance\":3000,\"apr\":21.9,\"monthly_payment\":150},{\"balance\":5000,\"apr\":18.9,\"monthly_payment\":200}]",
+        "consolidation_apr": 9.9,
+        "consolidation_years": 5,
+        "fee": 0
+      },
+      "expected": {
+        "current_total_balance": 8000,
+        "current_monthly_payment": 350,
+        "current_total_interest": 2171.71,
+        "current_payoff_months": 33,
+        "consolidated_monthly_payment": 169.58,
+        "consolidated_total_interest": 2174.98,
+        "monthly_payment_change": -180.42,
+        "total_interest_change": 3.27
+      },
+      "tolerance": "±£0.01 / ±0.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independently derived: bisection/simulation oracle, not the production engine."
+    },
+    {
+      "scenario": "With fee",
+      "inputs": {
+        "debts": "[{\"balance\":3000,\"apr\":21.9,\"monthly_payment\":150},{\"balance\":5000,\"apr\":18.9,\"monthly_payment\":200}]",
+        "consolidation_apr": 9.9,
+        "consolidation_years": 5,
+        "fee": 500
+      },
+      "expected": {
+        "current_total_balance": 8000,
+        "current_monthly_payment": 350,
+        "current_total_interest": 2171.71,
+        "current_payoff_months": 33,
+        "consolidated_monthly_payment": 180.18,
+        "consolidated_total_interest": 2310.92,
+        "monthly_payment_change": -169.82,
+        "total_interest_change": 139.21
+      },
+      "tolerance": "±£0.01 / ±0.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independently derived: bisection/simulation oracle, not the production engine."
+    },
+    {
+      "scenario": "Single debt",
+      "inputs": {
+        "debts": "[{\"balance\":8000,\"apr\":24.9,\"monthly_payment\":250}]",
+        "consolidation_apr": 12.9,
+        "consolidation_years": 3,
+        "fee": 0
+      },
+      "expected": {
+        "current_total_balance": 8000,
+        "current_monthly_payment": 250,
+        "current_total_interest": 5276.4,
+        "current_payoff_months": 54,
+        "consolidated_monthly_payment": 269.17,
+        "consolidated_total_interest": 1689.99,
+        "monthly_payment_change": 19.17,
+        "total_interest_change": -3586.4
+      },
+      "tolerance": "±£0.01 / ±0.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independently derived: bisection/simulation oracle, not the production engine."
+    },
+    {
+      "scenario": "Longer term costs more",
+      "inputs": {
+        "debts": "[{\"balance\":10000,\"apr\":12.9,\"monthly_payment\":400}]",
+        "consolidation_apr": 9.9,
+        "consolidation_years": 10,
+        "fee": 0
+      },
+      "expected": {
+        "current_total_balance": 10000,
+        "current_monthly_payment": 400,
+        "current_total_interest": 1709.42,
+        "current_payoff_months": 30,
+        "consolidated_monthly_payment": 131.6,
+        "consolidated_total_interest": 5791.71,
+        "monthly_payment_change": -268.4,
+        "total_interest_change": 4082.29
+      },
+      "tolerance": "±£0.01 / ±0.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independently derived: bisection/simulation oracle, not the production engine."
+    },
+    {
+      "scenario": "Zero rate consolidation",
+      "inputs": {
+        "debts": "[{\"balance\":4000,\"apr\":19.9,\"monthly_payment\":200}]",
+        "consolidation_apr": 0,
+        "consolidation_years": 3,
+        "fee": 0
+      },
+      "expected": {
+        "current_total_balance": 4000,
+        "current_monthly_payment": 200,
+        "current_total_interest": 900.52,
+        "current_payoff_months": 25,
+        "consolidated_monthly_payment": 111.11,
+        "consolidated_total_interest": 0,
+        "monthly_payment_change": -88.89,
+        "total_interest_change": -900.52
+      },
+      "tolerance": "±£0.01 / ±0.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independently derived: bisection/simulation oracle, not the production engine."
+    }
+  ],
+  "FIN-014": [
+    {
+      "scenario": "Three months target",
+      "inputs": {
+        "monthly_essentials": 1800,
+        "months_of_cover": 3,
+        "current_savings": 1000,
+        "monthly_contribution": 250
+      },
+      "expected": {
+        "target_fund": 5400,
+        "shortfall": 4400,
+        "months_covered_now": 0.5555555555555556,
+        "months_to_target": 18
+      },
+      "tolerance": "±£0.01 / ±0.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independently derived: bisection/simulation oracle, not the production engine."
+    },
+    {
+      "scenario": "Six months target",
+      "inputs": {
+        "monthly_essentials": 2200,
+        "months_of_cover": 6,
+        "current_savings": 0,
+        "monthly_contribution": 300
+      },
+      "expected": {
+        "target_fund": 13200,
+        "shortfall": 13200,
+        "months_covered_now": 0,
+        "months_to_target": 44
+      },
+      "tolerance": "±£0.01 / ±0.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independently derived: bisection/simulation oracle, not the production engine."
+    },
+    {
+      "scenario": "Already funded",
+      "inputs": {
+        "monthly_essentials": 1500,
+        "months_of_cover": 3,
+        "current_savings": 5000,
+        "monthly_contribution": 100
+      },
+      "expected": {
+        "target_fund": 4500,
+        "shortfall": 0,
+        "months_covered_now": 3.3333333333333335,
+        "months_to_target": 0
+      },
+      "tolerance": "±£0.01 / ±0.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independently derived: bisection/simulation oracle, not the production engine."
+    },
+    {
+      "scenario": "No contribution",
+      "inputs": {
+        "monthly_essentials": 2000,
+        "months_of_cover": 6,
+        "current_savings": 2000,
+        "monthly_contribution": 0
+      },
+      "expected": {
+        "target_fund": 12000,
+        "shortfall": 10000,
+        "months_covered_now": 1,
+        "months_to_target": null
+      },
+      "tolerance": "±£0.01 / ±0.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independently derived: bisection/simulation oracle, not the production engine."
+    },
+    {
+      "scenario": "Twelve months target",
+      "inputs": {
+        "monthly_essentials": 3000,
+        "months_of_cover": 12,
+        "current_savings": 10000,
+        "monthly_contribution": 500
+      },
+      "expected": {
+        "target_fund": 36000,
+        "shortfall": 26000,
+        "months_covered_now": 3.3333333333333335,
+        "months_to_target": 52
+      },
+      "tolerance": "±£0.01 / ±0.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independently derived: bisection/simulation oracle, not the production engine."
+    }
+  ],
+  "FIN-015": [
+    {
+      "scenario": "Deposit in 5 years",
+      "inputs": {
+        "target": 30000,
+        "months": 60,
+        "annual_rate": 4,
+        "starting_amount": 0
+      },
+      "expected": {
+        "required_monthly_saving": 452.5,
+        "total_contributions": 27149.74,
+        "projected_value": 30000,
+        "interest_earned": 2850.26
+      },
+      "tolerance": "±£0.01 / ±0.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independently derived: bisection/simulation oracle, not the production engine."
+    },
+    {
+      "scenario": "With starting balance",
+      "inputs": {
+        "target": 30000,
+        "months": 60,
+        "annual_rate": 4,
+        "starting_amount": 5000
+      },
+      "expected": {
+        "required_monthly_saving": 360.41,
+        "total_contributions": 21624.78,
+        "projected_value": 30000,
+        "interest_earned": 3375.22
+      },
+      "tolerance": "±£0.01 / ±0.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independently derived: bisection/simulation oracle, not the production engine."
+    },
+    {
+      "scenario": "Zero interest",
+      "inputs": {
+        "target": 12000,
+        "months": 24,
+        "annual_rate": 0,
+        "starting_amount": 0
+      },
+      "expected": {
+        "required_monthly_saving": 500,
+        "total_contributions": 12000,
+        "projected_value": 12000,
+        "interest_earned": 0
+      },
+      "tolerance": "±£0.01 / ±0.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independently derived: bisection/simulation oracle, not the production engine."
+    },
+    {
+      "scenario": "Already achieved",
+      "inputs": {
+        "target": 10000,
+        "months": 12,
+        "annual_rate": 5,
+        "starting_amount": 12000
+      },
+      "expected": {
+        "required_monthly_saving": 0,
+        "total_contributions": 0,
+        "projected_value": 12613.94,
+        "interest_earned": 613.94
+      },
+      "tolerance": "±£0.01 / ±0.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independently derived: bisection/simulation oracle, not the production engine."
+    },
+    {
+      "scenario": "Long horizon",
+      "inputs": {
+        "target": 100000,
+        "months": 180,
+        "annual_rate": 5,
+        "starting_amount": 10000
+      },
+      "expected": {
+        "required_monthly_saving": 295.05,
+        "total_contributions": 53108.57,
+        "projected_value": 100000,
+        "interest_earned": 36891.43
+      },
+      "tolerance": "±£0.01 / ±0.0001 as applicable",
+      "ruleset": "None",
+      "note": "Independently derived: bisection/simulation oracle, not the production engine."
+    }
+  ]
+}

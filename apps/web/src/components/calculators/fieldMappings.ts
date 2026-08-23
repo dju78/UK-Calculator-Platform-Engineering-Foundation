@@ -5,6 +5,7 @@
  * import the exact definitions the UI renders (see fieldTypes.ts).
  */
 import type { CalculatorConfig, FieldDef } from "./fieldTypes";
+import { wave2Mappings } from "./wave2FieldMappings";
 
 // --- Shared option lists for the UK Tax & Salary family --------------------
 // Statutory rates and thresholds are NEVER listed here; these are only the
@@ -98,7 +99,7 @@ export const WORKING_PATTERN_FIELDS = (frequencyField: string): FieldDef[] => [
   }
 ];
 
-export const mappings: Record<string, FieldDef[]> = {
+const wave1Mappings: Record<string, FieldDef[]> = {
   "AUT-006": [
     { name: "distance_miles", label: "Distance Miles", type: "number", defaultValue: 100 },
     { name: "mpg_uk", label: "Mpg Uk", type: "number", defaultValue: 40 },
@@ -441,6 +442,9 @@ export const mappings: Record<string, FieldDef[]> = {
     { name: "plan", label: "Repayment plan", type: "select", defaultValue: "Plan 1", options: REPAYMENT_PLAN_OPTIONS },
   ],
 };
+
+/** Every wave's field definitions, keyed by calculator id. */
+export const mappings: Record<string, FieldDef[]> = { ...wave1Mappings, ...wave2Mappings };
 
 /**
  * Prominent periodic result cards, and which output keys are prose rather than

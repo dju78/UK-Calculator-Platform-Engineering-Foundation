@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { wave1Registry } from "../../../../../dist/packages/calculator-registry/src/index.js";
+import { liveCalculators } from "@/lib/calculators";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/Card";
 import { Badge } from "@/components/ui/Badge";
 import { Input } from "@/components/ui/Input";
@@ -10,7 +10,7 @@ import { Input } from "@/components/ui/Input";
 export function CalculatorBrowser() {
   const [search, setSearch] = useState("");
 
-  const filtered = wave1Registry.filter(calc => 
+  const filtered = liveCalculators.filter(calc => 
     calc.name.toLowerCase().includes(search.toLowerCase()) || 
     calc.id.toLowerCase().includes(search.toLowerCase())
   );

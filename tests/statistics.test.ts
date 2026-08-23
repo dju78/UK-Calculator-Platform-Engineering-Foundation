@@ -1,6 +1,6 @@
 import test from "node:test";
 import assert from "node:assert";
-import { mean, median, mode, min, max, range, variance, standardDeviation } from "../packages/calculation-engine/src/statistics/descriptive.js";
+import { mean, median, mode, hasDistinctMode, min, max, range, variance, standardDeviation } from "../packages/calculation-engine/src/statistics/descriptive.js";
 import { normalCDF, inverseNormalCDF } from "../packages/calculation-engine/src/statistics/distributions.js";
 import { confidenceInterval, sampleSizeProportion } from "../packages/calculation-engine/src/statistics/inference.js";
 import { linearRegression } from "../packages/calculation-engine/src/statistics/regression.js";
@@ -42,7 +42,16 @@ test("Descriptive Statistics - median odd/even", () => {
 test("Descriptive Statistics - mode", () => {
   assert.deepStrictEqual(mode([1, 2, 2, 3]), [2]);
   assert.deepStrictEqual(mode([1, 2, 2, 3, 3, 4]), [2, 3]);
-  assert.deepStrictEqual(mode([1, 2, 3, 4]), []); // No mode
+  // Convention: the mode is every value at the maximum frequency, so when all
+  // values tie they are all modes. This resolves a contradiction where this
+  // assertion said [] while the canonical STA-001 benchmark expected
+  // [1,2,3,4] - a disagreement that stayed hidden because the old benchmark
+  // runner never compared array outputs at all. `hasDistinctMode` carries the
+  // "no meaningful mode" information that the empty array used to imply.
+  assert.deepStrictEqual(mode([1, 2, 3, 4]), [1, 2, 3, 4]);
+  assert.equal(hasDistinctMode([1, 2, 3, 4]), false);
+  assert.equal(hasDistinctMode([1, 2, 2, 3]), true);
+  assert.deepStrictEqual(mode([7]), [7]);
 });
 
 test("Descriptive Statistics - variance and SD (pop vs sample)", () => {

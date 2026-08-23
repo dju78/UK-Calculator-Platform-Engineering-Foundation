@@ -1,0 +1,3590 @@
+[
+  {
+    "id": "AUT-001",
+    "name": "Car Loan Calculator",
+    "slug": "car-loan-calculator",
+    "category": "Automotive & Travel",
+    "subcategory": "Vehicle Finance",
+    "version": "1.0",
+    "status": "planned",
+    "launchWave": "Wave 2",
+    "rulesSensitive": false,
+    "risk": "low",
+    "jurisdiction": "UK/General",
+    "aliases": [
+      "auto loan"
+    ],
+    "benchmarkCount": 0,
+    "specFile": "docs/specs/wave2/AUT-001.md",
+    "implementationStatus": "specified"
+  },
+  {
+    "id": "AUT-002",
+    "name": "Car Lease Calculator",
+    "slug": "car-lease-calculator",
+    "category": "Automotive & Travel",
+    "subcategory": "Vehicle Finance",
+    "version": "1.0",
+    "status": "planned",
+    "launchWave": "Wave 2",
+    "rulesSensitive": false,
+    "risk": "low",
+    "jurisdiction": "UK/General",
+    "aliases": [
+      "auto lease calculator"
+    ],
+    "benchmarkCount": 0,
+    "specFile": "docs/specs/wave2/AUT-002.md",
+    "implementationStatus": "specified"
+  },
+  {
+    "id": "AUT-003",
+    "name": "PCP Finance Calculator",
+    "slug": "pcp-finance-calculator",
+    "category": "Automotive & Travel",
+    "subcategory": "Vehicle Finance",
+    "version": "1.0",
+    "status": "planned",
+    "launchWave": "Wave 2",
+    "rulesSensitive": false,
+    "risk": "medium",
+    "jurisdiction": "UK/General",
+    "aliases": [
+      "personal contract purchase"
+    ],
+    "benchmarkCount": 0,
+    "specFile": "docs/specs/wave2/AUT-003.md",
+    "implementationStatus": "specified"
+  },
+  {
+    "id": "AUT-004",
+    "name": "HP Finance Calculator",
+    "slug": "hp-finance-calculator",
+    "category": "Automotive & Travel",
+    "subcategory": "Vehicle Finance",
+    "version": "1.0",
+    "status": "planned",
+    "launchWave": "Wave 2",
+    "rulesSensitive": false,
+    "risk": "medium",
+    "jurisdiction": "UK/General",
+    "aliases": [
+      "hire purchase"
+    ],
+    "benchmarkCount": 0,
+    "specFile": "docs/specs/wave2/AUT-004.md",
+    "implementationStatus": "specified"
+  },
+  {
+    "id": "AUT-005",
+    "name": "Dealer Contribution vs Low APR Calculator",
+    "slug": "dealer-contribution-vs-low-apr-calculator",
+    "category": "Automotive & Travel",
+    "subcategory": "Vehicle Finance",
+    "version": "1.0",
+    "status": "planned",
+    "launchWave": "Wave 2",
+    "rulesSensitive": false,
+    "risk": "low",
+    "jurisdiction": "UK/General",
+    "aliases": [
+      "cash back or low interest calculator"
+    ],
+    "benchmarkCount": 0,
+    "specFile": "docs/specs/wave2/AUT-005.md",
+    "implementationStatus": "specified"
+  },
+  {
+    "id": "AUT-007",
+    "name": "Fuel Economy Calculator",
+    "slug": "fuel-economy-calculator",
+    "category": "Automotive & Travel",
+    "subcategory": "Running Cost",
+    "version": "1.0",
+    "status": "planned",
+    "launchWave": "Wave 2",
+    "rulesSensitive": false,
+    "risk": "low",
+    "jurisdiction": "UK/General",
+    "aliases": [
+      "MPG",
+      "L/100km"
+    ],
+    "benchmarkCount": 0,
+    "specFile": "docs/specs/wave2/AUT-007.md",
+    "implementationStatus": "specified"
+  },
+  {
+    "id": "AUT-008",
+    "name": "Mileage Calculator",
+    "slug": "mileage-calculator",
+    "category": "Automotive & Travel",
+    "subcategory": "Running Cost",
+    "version": "1.0",
+    "status": "planned",
+    "launchWave": "Wave 2",
+    "rulesSensitive": false,
+    "risk": "low",
+    "jurisdiction": "UK/General",
+    "aliases": [
+      "mileage cost"
+    ],
+    "benchmarkCount": 0,
+    "specFile": "docs/specs/wave2/AUT-008.md",
+    "implementationStatus": "specified"
+  },
+  {
+    "id": "AUT-009",
+    "name": "EV Charging Cost Calculator",
+    "slug": "ev-charging-cost-calculator",
+    "category": "Automotive & Travel",
+    "subcategory": "Electric Vehicles",
+    "version": "1.0",
+    "status": "planned",
+    "launchWave": "Wave 2",
+    "rulesSensitive": false,
+    "risk": "low",
+    "jurisdiction": "UK/General",
+    "aliases": [
+      "electric car charging"
+    ],
+    "benchmarkCount": 0,
+    "specFile": "docs/specs/wave2/AUT-009.md",
+    "implementationStatus": "specified"
+  },
+  {
+    "id": "AUT-010",
+    "name": "EV Range Calculator",
+    "slug": "ev-range-calculator",
+    "category": "Automotive & Travel",
+    "subcategory": "Electric Vehicles",
+    "version": "1.0",
+    "status": "planned",
+    "launchWave": "Wave 2",
+    "rulesSensitive": false,
+    "risk": "low",
+    "jurisdiction": "UK/General",
+    "aliases": [
+      "electric range"
+    ],
+    "benchmarkCount": 0,
+    "specFile": "docs/specs/wave2/AUT-010.md",
+    "implementationStatus": "specified"
+  },
+  {
+    "id": "AUT-011",
+    "name": "Vehicle Depreciation Calculator",
+    "slug": "vehicle-depreciation-calculator",
+    "category": "Automotive & Travel",
+    "subcategory": "Running Cost",
+    "version": "1.0",
+    "status": "planned",
+    "launchWave": "Wave 2",
+    "rulesSensitive": false,
+    "risk": "low",
+    "jurisdiction": "UK/General",
+    "aliases": [
+      "car depreciation"
+    ],
+    "benchmarkCount": 0,
+    "specFile": "docs/specs/wave2/AUT-011.md",
+    "implementationStatus": "specified"
+  },
+  {
+    "id": "AUT-012",
+    "name": "Engine Horsepower Calculator",
+    "slug": "engine-horsepower-calculator",
+    "category": "Automotive & Travel",
+    "subcategory": "Engineering",
+    "version": "1.0",
+    "status": "planned",
+    "launchWave": "Wave 2",
+    "rulesSensitive": false,
+    "risk": "low",
+    "jurisdiction": "UK/General",
+    "aliases": [
+      "horsepower"
+    ],
+    "benchmarkCount": 0,
+    "specFile": "docs/specs/wave2/AUT-012.md",
+    "implementationStatus": "specified"
+  },
+  {
+    "id": "BUS-002",
+    "name": "Markup Calculator",
+    "slug": "markup-calculator",
+    "category": "Business & Commercial",
+    "subcategory": "Pricing",
+    "version": "1.0",
+    "status": "planned",
+    "launchWave": "Wave 2",
+    "rulesSensitive": false,
+    "risk": "low",
+    "jurisdiction": "UK/General",
+    "aliases": [
+      "markup percentage"
+    ],
+    "benchmarkCount": 0,
+    "specFile": "docs/specs/wave2/BUS-002.md",
+    "implementationStatus": "specified"
+  },
+  {
+    "id": "BUS-003",
+    "name": "Profit Calculator",
+    "slug": "profit-calculator",
+    "category": "Business & Commercial",
+    "subcategory": "Profitability",
+    "version": "1.0",
+    "status": "planned",
+    "launchWave": "Wave 2",
+    "rulesSensitive": false,
+    "risk": "low",
+    "jurisdiction": "UK/General",
+    "aliases": [
+      "gross profit"
+    ],
+    "benchmarkCount": 0,
+    "specFile": "docs/specs/wave2/BUS-003.md",
+    "implementationStatus": "specified"
+  },
+  {
+    "id": "BUS-004",
+    "name": "Gross Profit Calculator",
+    "slug": "gross-profit-calculator",
+    "category": "Business & Commercial",
+    "subcategory": "Profitability",
+    "version": "1.0",
+    "status": "planned",
+    "launchWave": "Wave 2",
+    "rulesSensitive": false,
+    "risk": "low",
+    "jurisdiction": "UK/General",
+    "aliases": [
+      "gross margin"
+    ],
+    "benchmarkCount": 0,
+    "specFile": "docs/specs/wave2/BUS-004.md",
+    "implementationStatus": "specified"
+  },
+  {
+    "id": "BUS-005",
+    "name": "Net Profit Calculator",
+    "slug": "net-profit-calculator",
+    "category": "Business & Commercial",
+    "subcategory": "Profitability",
+    "version": "1.0",
+    "status": "planned",
+    "launchWave": "Wave 2",
+    "rulesSensitive": false,
+    "risk": "low",
+    "jurisdiction": "UK/General",
+    "aliases": [
+      "net margin"
+    ],
+    "benchmarkCount": 0,
+    "specFile": "docs/specs/wave2/BUS-005.md",
+    "implementationStatus": "specified"
+  },
+  {
+    "id": "BUS-007",
+    "name": "Commission Calculator",
+    "slug": "commission-calculator",
+    "category": "Business & Commercial",
+    "subcategory": "Payroll",
+    "version": "1.0",
+    "status": "planned",
+    "launchWave": "Wave 2",
+    "rulesSensitive": false,
+    "risk": "low",
+    "jurisdiction": "UK/General",
+    "aliases": [
+      "sales commission"
+    ],
+    "benchmarkCount": 0,
+    "specFile": "docs/specs/wave2/BUS-007.md",
+    "implementationStatus": "specified"
+  },
+  {
+    "id": "BUS-009",
+    "name": "Depreciation Calculator",
+    "slug": "depreciation-calculator",
+    "category": "Business & Commercial",
+    "subcategory": "Accounting",
+    "version": "1.0",
+    "status": "planned",
+    "launchWave": "Wave 2",
+    "rulesSensitive": false,
+    "risk": "low",
+    "jurisdiction": "UK/General",
+    "aliases": [
+      "asset depreciation"
+    ],
+    "benchmarkCount": 0,
+    "specFile": "docs/specs/wave2/BUS-009.md",
+    "implementationStatus": "specified"
+  },
+  {
+    "id": "BUS-010",
+    "name": "Cash Flow Calculator",
+    "slug": "cash-flow-calculator",
+    "category": "Business & Commercial",
+    "subcategory": "Finance",
+    "version": "1.0",
+    "status": "planned",
+    "launchWave": "Wave 2",
+    "rulesSensitive": false,
+    "risk": "low",
+    "jurisdiction": "UK/General",
+    "aliases": [
+      "business cash flow"
+    ],
+    "benchmarkCount": 0,
+    "specFile": "docs/specs/wave2/BUS-010.md",
+    "implementationStatus": "specified"
+  },
+  {
+    "id": "BUS-011",
+    "name": "Pricing Calculator",
+    "slug": "pricing-calculator",
+    "category": "Business & Commercial",
+    "subcategory": "Pricing",
+    "version": "1.0",
+    "status": "planned",
+    "launchWave": "Wave 2",
+    "rulesSensitive": false,
+    "risk": "low",
+    "jurisdiction": "UK/General",
+    "aliases": [
+      "selling price"
+    ],
+    "benchmarkCount": 0,
+    "specFile": "docs/specs/wave2/BUS-011.md",
+    "implementationStatus": "specified"
+  },
+  {
+    "id": "BUS-012",
+    "name": "ROI for Business Project Calculator",
+    "slug": "roi-for-business-project-calculator",
+    "category": "Business & Commercial",
+    "subcategory": "Planning",
+    "version": "1.0",
+    "status": "planned",
+    "launchWave": "Wave 2",
+    "rulesSensitive": false,
+    "risk": "low",
+    "jurisdiction": "UK/General",
+    "aliases": [
+      "project ROI"
+    ],
+    "benchmarkCount": 0,
+    "specFile": "docs/specs/wave2/BUS-012.md",
+    "implementationStatus": "specified"
+  },
+  {
+    "id": "CON-002",
+    "name": "Length Converter",
+    "slug": "length-converter",
+    "category": "Conversions",
+    "subcategory": "General Conversion",
+    "version": "1.0",
+    "status": "planned",
+    "launchWave": "Wave 2",
+    "rulesSensitive": false,
+    "risk": "low",
+    "jurisdiction": "UK/General",
+    "aliases": [
+      "distance conversion"
+    ],
+    "benchmarkCount": 0,
+    "specFile": "docs/specs/wave2/CON-002.md",
+    "implementationStatus": "specified"
+  },
+  {
+    "id": "CON-003",
+    "name": "Weight / Mass Converter",
+    "slug": "weight-mass-converter",
+    "category": "Conversions",
+    "subcategory": "General Conversion",
+    "version": "1.0",
+    "status": "planned",
+    "launchWave": "Wave 2",
+    "rulesSensitive": false,
+    "risk": "low",
+    "jurisdiction": "UK/General",
+    "aliases": [
+      "weight calculator"
+    ],
+    "benchmarkCount": 0,
+    "specFile": "docs/specs/wave2/CON-003.md",
+    "implementationStatus": "specified"
+  },
+  {
+    "id": "CON-004",
+    "name": "Temperature Converter",
+    "slug": "temperature-converter",
+    "category": "Conversions",
+    "subcategory": "General Conversion",
+    "version": "1.0",
+    "status": "planned",
+    "launchWave": "Wave 2",
+    "rulesSensitive": false,
+    "risk": "low",
+    "jurisdiction": "UK/General",
+    "aliases": [
+      "Celsius Fahrenheit"
+    ],
+    "benchmarkCount": 0,
+    "specFile": "docs/specs/wave2/CON-004.md",
+    "implementationStatus": "specified"
+  },
+  {
+    "id": "CON-005",
+    "name": "Area Converter",
+    "slug": "area-converter",
+    "category": "Conversions",
+    "subcategory": "General Conversion",
+    "version": "1.0",
+    "status": "planned",
+    "launchWave": "Wave 2",
+    "rulesSensitive": false,
+    "risk": "low",
+    "jurisdiction": "UK/General",
+    "aliases": [
+      "area conversion"
+    ],
+    "benchmarkCount": 0,
+    "specFile": "docs/specs/wave2/CON-005.md",
+    "implementationStatus": "specified"
+  },
+  {
+    "id": "CON-006",
+    "name": "Volume Converter",
+    "slug": "volume-converter",
+    "category": "Conversions",
+    "subcategory": "General Conversion",
+    "version": "1.0",
+    "status": "planned",
+    "launchWave": "Wave 2",
+    "rulesSensitive": false,
+    "risk": "low",
+    "jurisdiction": "UK/General",
+    "aliases": [
+      "volume conversion"
+    ],
+    "benchmarkCount": 0,
+    "specFile": "docs/specs/wave2/CON-006.md",
+    "implementationStatus": "specified"
+  },
+  {
+    "id": "CON-007",
+    "name": "Speed Converter",
+    "slug": "speed-converter",
+    "category": "Conversions",
+    "subcategory": "General Conversion",
+    "version": "1.0",
+    "status": "planned",
+    "launchWave": "Wave 2",
+    "rulesSensitive": false,
+    "risk": "low",
+    "jurisdiction": "UK/General",
+    "aliases": [
+      "speed conversion"
+    ],
+    "benchmarkCount": 0,
+    "specFile": "docs/specs/wave2/CON-007.md",
+    "implementationStatus": "specified"
+  },
+  {
+    "id": "CON-008",
+    "name": "Fuel Economy Converter",
+    "slug": "fuel-economy-converter",
+    "category": "Conversions",
+    "subcategory": "General Conversion",
+    "version": "1.0",
+    "status": "planned",
+    "launchWave": "Wave 2",
+    "rulesSensitive": false,
+    "risk": "low",
+    "jurisdiction": "UK/General",
+    "aliases": [
+      "MPG to L100km"
+    ],
+    "benchmarkCount": 0,
+    "specFile": "docs/specs/wave2/CON-008.md",
+    "implementationStatus": "specified"
+  },
+  {
+    "id": "CON-009",
+    "name": "Shoe Size Converter",
+    "slug": "shoe-size-converter",
+    "category": "Conversions",
+    "subcategory": "Lifestyle Conversion",
+    "version": "1.0",
+    "status": "planned",
+    "launchWave": "Wave 2",
+    "rulesSensitive": false,
+    "risk": "low",
+    "jurisdiction": "UK/General",
+    "aliases": [
+      "UK EU US shoe size"
+    ],
+    "benchmarkCount": 0,
+    "specFile": "docs/specs/wave2/CON-009.md",
+    "implementationStatus": "specified"
+  },
+  {
+    "id": "DAT-002",
+    "name": "Date Calculator",
+    "slug": "date-calculator",
+    "category": "Date & Time",
+    "subcategory": "Date",
+    "version": "1.0",
+    "status": "planned",
+    "launchWave": "Wave 2",
+    "rulesSensitive": false,
+    "risk": "low",
+    "jurisdiction": "General",
+    "aliases": [
+      "date difference"
+    ],
+    "benchmarkCount": 0,
+    "specFile": "docs/specs/wave2/DAT-002.md",
+    "implementationStatus": "specified"
+  },
+  {
+    "id": "DAT-003",
+    "name": "Day Counter",
+    "slug": "day-counter",
+    "category": "Date & Time",
+    "subcategory": "Date",
+    "version": "1.0",
+    "status": "planned",
+    "launchWave": "Wave 2",
+    "rulesSensitive": false,
+    "risk": "low",
+    "jurisdiction": "General",
+    "aliases": [
+      "days between dates"
+    ],
+    "benchmarkCount": 0,
+    "specFile": "docs/specs/wave2/DAT-003.md",
+    "implementationStatus": "specified"
+  },
+  {
+    "id": "DAT-004",
+    "name": "Day of the Week Calculator",
+    "slug": "day-of-the-week-calculator",
+    "category": "Date & Time",
+    "subcategory": "Date",
+    "version": "1.0",
+    "status": "planned",
+    "launchWave": "Wave 2",
+    "rulesSensitive": false,
+    "risk": "low",
+    "jurisdiction": "General",
+    "aliases": [
+      "weekday"
+    ],
+    "benchmarkCount": 0,
+    "specFile": "docs/specs/wave2/DAT-004.md",
+    "implementationStatus": "specified"
+  },
+  {
+    "id": "DAT-005",
+    "name": "Time Calculator",
+    "slug": "time-calculator",
+    "category": "Date & Time",
+    "subcategory": "Time",
+    "version": "1.0",
+    "status": "planned",
+    "launchWave": "Wave 2",
+    "rulesSensitive": false,
+    "risk": "low",
+    "jurisdiction": "General",
+    "aliases": [
+      "time arithmetic"
+    ],
+    "benchmarkCount": 0,
+    "specFile": "docs/specs/wave2/DAT-005.md",
+    "implementationStatus": "specified"
+  },
+  {
+    "id": "DAT-006",
+    "name": "Time Duration Calculator",
+    "slug": "time-duration-calculator",
+    "category": "Date & Time",
+    "subcategory": "Time",
+    "version": "1.0",
+    "status": "planned",
+    "launchWave": "Wave 2",
+    "rulesSensitive": false,
+    "risk": "low",
+    "jurisdiction": "General",
+    "aliases": [
+      "duration"
+    ],
+    "benchmarkCount": 0,
+    "specFile": "docs/specs/wave2/DAT-006.md",
+    "implementationStatus": "specified"
+  },
+  {
+    "id": "DAT-007",
+    "name": "Hours Calculator",
+    "slug": "hours-calculator",
+    "category": "Date & Time",
+    "subcategory": "Time",
+    "version": "1.0",
+    "status": "planned",
+    "launchWave": "Wave 2",
+    "rulesSensitive": false,
+    "risk": "low",
+    "jurisdiction": "General",
+    "aliases": [
+      "hours between"
+    ],
+    "benchmarkCount": 0,
+    "specFile": "docs/specs/wave2/DAT-007.md",
+    "implementationStatus": "specified"
+  },
+  {
+    "id": "DAT-008",
+    "name": "Time Zone Calculator",
+    "slug": "time-zone-calculator",
+    "category": "Date & Time",
+    "subcategory": "Time",
+    "version": "1.0",
+    "status": "planned",
+    "launchWave": "Wave 2",
+    "rulesSensitive": false,
+    "risk": "low",
+    "jurisdiction": "General",
+    "aliases": [
+      "timezone"
+    ],
+    "benchmarkCount": 0,
+    "specFile": "docs/specs/wave2/DAT-008.md",
+    "implementationStatus": "specified"
+  },
+  {
+    "id": "DAT-009",
+    "name": "Time Card Calculator",
+    "slug": "time-card-calculator",
+    "category": "Date & Time",
+    "subcategory": "Work",
+    "version": "1.0",
+    "status": "planned",
+    "launchWave": "Wave 2",
+    "rulesSensitive": false,
+    "risk": "low",
+    "jurisdiction": "General",
+    "aliases": [
+      "timesheet"
+    ],
+    "benchmarkCount": 0,
+    "specFile": "docs/specs/wave2/DAT-009.md",
+    "implementationStatus": "specified"
+  },
+  {
+    "id": "EDU-001",
+    "name": "Grade Calculator",
+    "slug": "grade-calculator",
+    "category": "Education",
+    "subcategory": "Education",
+    "version": "1.0",
+    "status": "planned",
+    "launchWave": "Wave 2",
+    "rulesSensitive": false,
+    "risk": "low",
+    "jurisdiction": "UK/General",
+    "aliases": [
+      "grade"
+    ],
+    "benchmarkCount": 0,
+    "specFile": "docs/specs/wave2/EDU-001.md",
+    "implementationStatus": "specified"
+  },
+  {
+    "id": "EDU-002",
+    "name": "UK Degree Classification Calculator",
+    "slug": "uk-degree-classification-calculator",
+    "category": "Education",
+    "subcategory": "Education",
+    "version": "1.0",
+    "status": "planned",
+    "launchWave": "Wave 2",
+    "rulesSensitive": false,
+    "risk": "low",
+    "jurisdiction": "UK/General",
+    "aliases": [
+      "first",
+      "2:1",
+      "2:2"
+    ],
+    "benchmarkCount": 0,
+    "specFile": "docs/specs/wave2/EDU-002.md",
+    "implementationStatus": "specified"
+  },
+  {
+    "id": "EDU-003",
+    "name": "UCAS Points Calculator",
+    "slug": "ucas-points-calculator",
+    "category": "Education",
+    "subcategory": "Education",
+    "version": "1.0",
+    "status": "planned",
+    "launchWave": "Wave 2",
+    "rulesSensitive": true,
+    "risk": "medium",
+    "jurisdiction": "UK/General",
+    "aliases": [
+      "UCAS tariff"
+    ],
+    "benchmarkCount": 0,
+    "specFile": "docs/specs/wave2/EDU-003.md",
+    "implementationStatus": "specified"
+  },
+  {
+    "id": "EDU-004",
+    "name": "UK University Cost Calculator",
+    "slug": "uk-university-cost-calculator",
+    "category": "Education",
+    "subcategory": "Student Finance",
+    "version": "1.0",
+    "status": "planned",
+    "launchWave": "Wave 2",
+    "rulesSensitive": true,
+    "risk": "medium",
+    "jurisdiction": "UK/General",
+    "aliases": [
+      "college cost calculator UK"
+    ],
+    "benchmarkCount": 0,
+    "specFile": "docs/specs/wave2/EDU-004.md",
+    "implementationStatus": "specified"
+  },
+  {
+    "id": "EDU-005",
+    "name": "Student Budget Calculator",
+    "slug": "student-budget-calculator",
+    "category": "Education",
+    "subcategory": "Student Finance",
+    "version": "1.0",
+    "status": "planned",
+    "launchWave": "Wave 2",
+    "rulesSensitive": false,
+    "risk": "low",
+    "jurisdiction": "UK/General",
+    "aliases": [
+      "student budget"
+    ],
+    "benchmarkCount": 0,
+    "specFile": "docs/specs/wave2/EDU-005.md",
+    "implementationStatus": "specified"
+  },
+  {
+    "id": "EVE-001",
+    "name": "Tip Calculator",
+    "slug": "tip-calculator",
+    "category": "Everyday & Lifestyle",
+    "subcategory": "Everyday Money",
+    "version": "1.0",
+    "status": "planned",
+    "launchWave": "Wave 2",
+    "rulesSensitive": false,
+    "risk": "low",
+    "jurisdiction": "UK/General",
+    "aliases": [
+      "gratuity"
+    ],
+    "benchmarkCount": 0,
+    "specFile": "docs/specs/wave2/EVE-001.md",
+    "implementationStatus": "specified"
+  },
+  {
+    "id": "EVE-003",
+    "name": "Tire Size Calculator",
+    "slug": "tire-size-calculator",
+    "category": "Everyday & Lifestyle",
+    "subcategory": "Automotive Utility",
+    "version": "1.0",
+    "status": "planned",
+    "launchWave": "Wave 2",
+    "rulesSensitive": false,
+    "risk": "low",
+    "jurisdiction": "UK/General",
+    "aliases": [
+      "tyre size calculator"
+    ],
+    "benchmarkCount": 0,
+    "specFile": "docs/specs/wave2/EVE-003.md",
+    "implementationStatus": "specified"
+  },
+  {
+    "id": "FIN-003",
+    "name": "Business Loan Calculator",
+    "slug": "business-loan-calculator",
+    "category": "Finance & Debt",
+    "subcategory": "Loans",
+    "version": "1.0",
+    "status": "verified",
+    "launchWave": "Wave 2",
+    "rulesSensitive": false,
+    "risk": "low",
+    "jurisdiction": "UK/General",
+    "aliases": [
+      "commercial loan"
+    ],
+    "benchmarkCount": 5,
+    "specFile": "docs/specs/wave2/FIN-003.md",
+    "implementationStatus": "implemented"
+  },
+  {
+    "id": "FIN-004",
+    "name": "Secured Loan Calculator",
+    "slug": "secured-loan-calculator",
+    "category": "Finance & Debt",
+    "subcategory": "Loans",
+    "version": "1.0",
+    "status": "verified",
+    "launchWave": "Wave 2",
+    "rulesSensitive": false,
+    "risk": "medium",
+    "jurisdiction": "UK/General",
+    "aliases": [
+      "homeowner loan"
+    ],
+    "benchmarkCount": 5,
+    "specFile": "docs/specs/wave2/FIN-004.md",
+    "implementationStatus": "implemented"
+  },
+  {
+    "id": "FIN-007",
+    "name": "Amortisation Calculator",
+    "slug": "amortisation-calculator",
+    "category": "Finance & Debt",
+    "subcategory": "Loans",
+    "version": "1.0",
+    "status": "verified",
+    "launchWave": "Wave 2",
+    "rulesSensitive": false,
+    "risk": "low",
+    "jurisdiction": "UK/General",
+    "aliases": [
+      "amortization calculator"
+    ],
+    "benchmarkCount": 5,
+    "specFile": "docs/specs/wave2/FIN-007.md",
+    "implementationStatus": "implemented"
+  },
+  {
+    "id": "FIN-008",
+    "name": "Debt-to-Income Ratio Calculator",
+    "slug": "debt-to-income-ratio-calculator",
+    "category": "Finance & Debt",
+    "subcategory": "Debt",
+    "version": "1.0",
+    "status": "verified",
+    "launchWave": "Wave 2",
+    "rulesSensitive": false,
+    "risk": "low",
+    "jurisdiction": "UK/General",
+    "aliases": [
+      "DTI calculator"
+    ],
+    "benchmarkCount": 5,
+    "specFile": "docs/specs/wave2/FIN-008.md",
+    "implementationStatus": "implemented"
+  },
+  {
+    "id": "FIN-010",
+    "name": "Credit Card Payoff Calculator",
+    "slug": "credit-card-payoff-calculator",
+    "category": "Finance & Debt",
+    "subcategory": "Debt",
+    "version": "1.0",
+    "status": "verified",
+    "launchWave": "Wave 2",
+    "rulesSensitive": false,
+    "risk": "low",
+    "jurisdiction": "UK/General",
+    "aliases": [
+      "credit cards payoff"
+    ],
+    "benchmarkCount": 5,
+    "specFile": "docs/specs/wave2/FIN-010.md",
+    "implementationStatus": "implemented"
+  },
+  {
+    "id": "FIN-012",
+    "name": "Debt Consolidation Calculator",
+    "slug": "debt-consolidation-calculator",
+    "category": "Finance & Debt",
+    "subcategory": "Debt",
+    "version": "1.0",
+    "status": "verified",
+    "launchWave": "Wave 2",
+    "rulesSensitive": false,
+    "risk": "low",
+    "jurisdiction": "UK/General",
+    "aliases": [
+      "consolidate debt"
+    ],
+    "benchmarkCount": 5,
+    "specFile": "docs/specs/wave2/FIN-012.md",
+    "implementationStatus": "implemented"
+  },
+  {
+    "id": "FIN-014",
+    "name": "Emergency Fund Calculator",
+    "slug": "emergency-fund-calculator",
+    "category": "Finance & Debt",
+    "subcategory": "Personal Finance",
+    "version": "1.0",
+    "status": "verified",
+    "launchWave": "Wave 2",
+    "rulesSensitive": false,
+    "risk": "low",
+    "jurisdiction": "UK/General",
+    "aliases": [
+      "rainy day fund"
+    ],
+    "benchmarkCount": 5,
+    "specFile": "docs/specs/wave2/FIN-014.md",
+    "implementationStatus": "implemented"
+  },
+  {
+    "id": "FIN-015",
+    "name": "Savings Goal Calculator",
+    "slug": "savings-goal-calculator",
+    "category": "Finance & Debt",
+    "subcategory": "Personal Finance",
+    "version": "1.0",
+    "status": "verified",
+    "launchWave": "Wave 2",
+    "rulesSensitive": false,
+    "risk": "low",
+    "jurisdiction": "UK/General",
+    "aliases": [
+      "goal savings"
+    ],
+    "benchmarkCount": 5,
+    "specFile": "docs/specs/wave2/FIN-015.md",
+    "implementationStatus": "implemented"
+  },
+  {
+    "id": "GEO-001",
+    "name": "Area Calculator",
+    "slug": "area-calculator",
+    "category": "Geometry",
+    "subcategory": "Geometry",
+    "version": "1.0",
+    "status": "planned",
+    "launchWave": "Wave 2",
+    "rulesSensitive": false,
+    "risk": "low",
+    "jurisdiction": "General",
+    "aliases": [
+      "area"
+    ],
+    "benchmarkCount": 0,
+    "specFile": "docs/specs/wave2/GEO-001.md",
+    "implementationStatus": "specified"
+  },
+  {
+    "id": "GEO-002",
+    "name": "Volume Calculator",
+    "slug": "volume-calculator",
+    "category": "Geometry",
+    "subcategory": "Geometry",
+    "version": "1.0",
+    "status": "planned",
+    "launchWave": "Wave 2",
+    "rulesSensitive": false,
+    "risk": "low",
+    "jurisdiction": "General",
+    "aliases": [
+      "volume"
+    ],
+    "benchmarkCount": 0,
+    "specFile": "docs/specs/wave2/GEO-002.md",
+    "implementationStatus": "specified"
+  },
+  {
+    "id": "GEO-003",
+    "name": "Surface Area Calculator",
+    "slug": "surface-area-calculator",
+    "category": "Geometry",
+    "subcategory": "Geometry",
+    "version": "1.0",
+    "status": "planned",
+    "launchWave": "Wave 2",
+    "rulesSensitive": false,
+    "risk": "low",
+    "jurisdiction": "General",
+    "aliases": [
+      "surface area"
+    ],
+    "benchmarkCount": 0,
+    "specFile": "docs/specs/wave2/GEO-003.md",
+    "implementationStatus": "specified"
+  },
+  {
+    "id": "GEO-004",
+    "name": "Triangle Calculator",
+    "slug": "triangle-calculator",
+    "category": "Geometry",
+    "subcategory": "Geometry",
+    "version": "1.0",
+    "status": "planned",
+    "launchWave": "Wave 2",
+    "rulesSensitive": false,
+    "risk": "low",
+    "jurisdiction": "General",
+    "aliases": [
+      "triangle"
+    ],
+    "benchmarkCount": 0,
+    "specFile": "docs/specs/wave2/GEO-004.md",
+    "implementationStatus": "specified"
+  },
+  {
+    "id": "GEO-005",
+    "name": "Right Triangle Calculator",
+    "slug": "right-triangle-calculator",
+    "category": "Geometry",
+    "subcategory": "Geometry",
+    "version": "1.0",
+    "status": "planned",
+    "launchWave": "Wave 2",
+    "rulesSensitive": false,
+    "risk": "low",
+    "jurisdiction": "General",
+    "aliases": [
+      "right angle triangle"
+    ],
+    "benchmarkCount": 0,
+    "specFile": "docs/specs/wave2/GEO-005.md",
+    "implementationStatus": "specified"
+  },
+  {
+    "id": "GEO-006",
+    "name": "Circle Calculator",
+    "slug": "circle-calculator",
+    "category": "Geometry",
+    "subcategory": "Geometry",
+    "version": "1.0",
+    "status": "planned",
+    "launchWave": "Wave 2",
+    "rulesSensitive": false,
+    "risk": "low",
+    "jurisdiction": "General",
+    "aliases": [
+      "circle"
+    ],
+    "benchmarkCount": 0,
+    "specFile": "docs/specs/wave2/GEO-006.md",
+    "implementationStatus": "specified"
+  },
+  {
+    "id": "GEO-007",
+    "name": "Pythagorean Theorem Calculator",
+    "slug": "pythagorean-theorem-calculator",
+    "category": "Geometry",
+    "subcategory": "Geometry",
+    "version": "1.0",
+    "status": "planned",
+    "launchWave": "Wave 2",
+    "rulesSensitive": false,
+    "risk": "low",
+    "jurisdiction": "General",
+    "aliases": [
+      "Pythagoras"
+    ],
+    "benchmarkCount": 0,
+    "specFile": "docs/specs/wave2/GEO-007.md",
+    "implementationStatus": "specified"
+  },
+  {
+    "id": "GEO-008",
+    "name": "Distance Calculator",
+    "slug": "distance-calculator",
+    "category": "Geometry",
+    "subcategory": "Geometry",
+    "version": "1.0",
+    "status": "planned",
+    "launchWave": "Wave 2",
+    "rulesSensitive": false,
+    "risk": "low",
+    "jurisdiction": "General",
+    "aliases": [
+      "distance formula"
+    ],
+    "benchmarkCount": 0,
+    "specFile": "docs/specs/wave2/GEO-008.md",
+    "implementationStatus": "specified"
+  },
+  {
+    "id": "GEO-009",
+    "name": "Square Footage / Floor Area Calculator",
+    "slug": "square-footage-floor-area-calculator",
+    "category": "Geometry",
+    "subcategory": "Geometry",
+    "version": "1.0",
+    "status": "planned",
+    "launchWave": "Wave 2",
+    "rulesSensitive": false,
+    "risk": "low",
+    "jurisdiction": "General",
+    "aliases": [
+      "square footage",
+      "square metres"
+    ],
+    "benchmarkCount": 0,
+    "specFile": "docs/specs/wave2/GEO-009.md",
+    "implementationStatus": "specified"
+  },
+  {
+    "id": "HLT-002",
+    "name": "BMR Calculator",
+    "slug": "bmr-calculator",
+    "category": "Health & Fitness",
+    "subcategory": "Energy",
+    "version": "1.0",
+    "status": "planned",
+    "launchWave": "Wave 2",
+    "rulesSensitive": false,
+    "risk": "medium",
+    "jurisdiction": "UK/General",
+    "aliases": [
+      "basal metabolic rate"
+    ],
+    "benchmarkCount": 0,
+    "specFile": "docs/specs/wave2/HLT-002.md",
+    "implementationStatus": "specified"
+  },
+  {
+    "id": "HLT-003",
+    "name": "TDEE Calculator",
+    "slug": "tdee-calculator",
+    "category": "Health & Fitness",
+    "subcategory": "Energy",
+    "version": "1.0",
+    "status": "planned",
+    "launchWave": "Wave 2",
+    "rulesSensitive": false,
+    "risk": "medium",
+    "jurisdiction": "UK/General",
+    "aliases": [
+      "total daily energy expenditure"
+    ],
+    "benchmarkCount": 0,
+    "specFile": "docs/specs/wave2/HLT-003.md",
+    "implementationStatus": "specified"
+  },
+  {
+    "id": "HLT-004",
+    "name": "Calorie Calculator",
+    "slug": "calorie-calculator",
+    "category": "Health & Fitness",
+    "subcategory": "Energy",
+    "version": "1.0",
+    "status": "planned",
+    "launchWave": "Wave 2",
+    "rulesSensitive": false,
+    "risk": "medium",
+    "jurisdiction": "UK/General",
+    "aliases": [
+      "daily calories"
+    ],
+    "benchmarkCount": 0,
+    "specFile": "docs/specs/wave2/HLT-004.md",
+    "implementationStatus": "specified"
+  },
+  {
+    "id": "HLT-005",
+    "name": "Body Fat Calculator",
+    "slug": "body-fat-calculator",
+    "category": "Health & Fitness",
+    "subcategory": "Body Metrics",
+    "version": "1.0",
+    "status": "planned",
+    "launchWave": "Wave 2",
+    "rulesSensitive": false,
+    "risk": "medium",
+    "jurisdiction": "UK/General",
+    "aliases": [
+      "body fat percentage"
+    ],
+    "benchmarkCount": 0,
+    "specFile": "docs/specs/wave2/HLT-005.md",
+    "implementationStatus": "specified"
+  },
+  {
+    "id": "HLT-006",
+    "name": "Lean Body Mass Calculator",
+    "slug": "lean-body-mass-calculator",
+    "category": "Health & Fitness",
+    "subcategory": "Body Metrics",
+    "version": "1.0",
+    "status": "planned",
+    "launchWave": "Wave 2",
+    "rulesSensitive": false,
+    "risk": "medium",
+    "jurisdiction": "UK/General",
+    "aliases": [
+      "LBM"
+    ],
+    "benchmarkCount": 0,
+    "specFile": "docs/specs/wave2/HLT-006.md",
+    "implementationStatus": "specified"
+  },
+  {
+    "id": "HLT-007",
+    "name": "Healthy Weight Calculator",
+    "slug": "healthy-weight-calculator",
+    "category": "Health & Fitness",
+    "subcategory": "Body Metrics",
+    "version": "1.0",
+    "status": "planned",
+    "launchWave": "Wave 2",
+    "rulesSensitive": false,
+    "risk": "medium",
+    "jurisdiction": "UK/General",
+    "aliases": [
+      "healthy weight"
+    ],
+    "benchmarkCount": 0,
+    "specFile": "docs/specs/wave2/HLT-007.md",
+    "implementationStatus": "specified"
+  },
+  {
+    "id": "HLT-008",
+    "name": "Ideal Weight Calculator",
+    "slug": "ideal-weight-calculator",
+    "category": "Health & Fitness",
+    "subcategory": "Body Metrics",
+    "version": "1.0",
+    "status": "planned",
+    "launchWave": "Wave 2",
+    "rulesSensitive": false,
+    "risk": "medium",
+    "jurisdiction": "UK/General",
+    "aliases": [
+      "ideal body weight"
+    ],
+    "benchmarkCount": 0,
+    "specFile": "docs/specs/wave2/HLT-008.md",
+    "implementationStatus": "specified"
+  },
+  {
+    "id": "HLT-009",
+    "name": "Protein Calculator",
+    "slug": "protein-calculator",
+    "category": "Health & Fitness",
+    "subcategory": "Nutrition",
+    "version": "1.0",
+    "status": "planned",
+    "launchWave": "Wave 2",
+    "rulesSensitive": false,
+    "risk": "medium",
+    "jurisdiction": "UK/General",
+    "aliases": [
+      "protein intake"
+    ],
+    "benchmarkCount": 0,
+    "specFile": "docs/specs/wave2/HLT-009.md",
+    "implementationStatus": "specified"
+  },
+  {
+    "id": "HLT-010",
+    "name": "Carbohydrate Calculator",
+    "slug": "carbohydrate-calculator",
+    "category": "Health & Fitness",
+    "subcategory": "Nutrition",
+    "version": "1.0",
+    "status": "planned",
+    "launchWave": "Wave 2",
+    "rulesSensitive": false,
+    "risk": "medium",
+    "jurisdiction": "UK/General",
+    "aliases": [
+      "carb intake"
+    ],
+    "benchmarkCount": 0,
+    "specFile": "docs/specs/wave2/HLT-010.md",
+    "implementationStatus": "specified"
+  },
+  {
+    "id": "HLT-011",
+    "name": "Fat Intake Calculator",
+    "slug": "fat-intake-calculator",
+    "category": "Health & Fitness",
+    "subcategory": "Nutrition",
+    "version": "1.0",
+    "status": "planned",
+    "launchWave": "Wave 2",
+    "rulesSensitive": false,
+    "risk": "medium",
+    "jurisdiction": "UK/General",
+    "aliases": [
+      "fat intake"
+    ],
+    "benchmarkCount": 0,
+    "specFile": "docs/specs/wave2/HLT-011.md",
+    "implementationStatus": "specified"
+  },
+  {
+    "id": "HLT-012",
+    "name": "Macro Calculator",
+    "slug": "macro-calculator",
+    "category": "Health & Fitness",
+    "subcategory": "Nutrition",
+    "version": "1.0",
+    "status": "planned",
+    "launchWave": "Wave 2",
+    "rulesSensitive": false,
+    "risk": "medium",
+    "jurisdiction": "UK/General",
+    "aliases": [
+      "macros"
+    ],
+    "benchmarkCount": 0,
+    "specFile": "docs/specs/wave2/HLT-012.md",
+    "implementationStatus": "specified"
+  },
+  {
+    "id": "HLT-013",
+    "name": "Calories Burned Calculator",
+    "slug": "calories-burned-calculator",
+    "category": "Health & Fitness",
+    "subcategory": "Exercise",
+    "version": "1.0",
+    "status": "planned",
+    "launchWave": "Wave 2",
+    "rulesSensitive": false,
+    "risk": "medium",
+    "jurisdiction": "UK/General",
+    "aliases": [
+      "calorie burn"
+    ],
+    "benchmarkCount": 0,
+    "specFile": "docs/specs/wave2/HLT-013.md",
+    "implementationStatus": "specified"
+  },
+  {
+    "id": "HLT-014",
+    "name": "Pace Calculator",
+    "slug": "pace-calculator",
+    "category": "Health & Fitness",
+    "subcategory": "Exercise",
+    "version": "1.0",
+    "status": "planned",
+    "launchWave": "Wave 2",
+    "rulesSensitive": false,
+    "risk": "low",
+    "jurisdiction": "UK/General",
+    "aliases": [
+      "running pace"
+    ],
+    "benchmarkCount": 0,
+    "specFile": "docs/specs/wave2/HLT-014.md",
+    "implementationStatus": "specified"
+  },
+  {
+    "id": "HLT-015",
+    "name": "One Rep Max Calculator",
+    "slug": "one-rep-max-calculator",
+    "category": "Health & Fitness",
+    "subcategory": "Exercise",
+    "version": "1.0",
+    "status": "planned",
+    "launchWave": "Wave 2",
+    "rulesSensitive": false,
+    "risk": "medium",
+    "jurisdiction": "UK/General",
+    "aliases": [
+      "1RM"
+    ],
+    "benchmarkCount": 0,
+    "specFile": "docs/specs/wave2/HLT-015.md",
+    "implementationStatus": "specified"
+  },
+  {
+    "id": "HLT-016",
+    "name": "Target Heart Rate Calculator",
+    "slug": "target-heart-rate-calculator",
+    "category": "Health & Fitness",
+    "subcategory": "Exercise",
+    "version": "1.0",
+    "status": "planned",
+    "launchWave": "Wave 2",
+    "rulesSensitive": false,
+    "risk": "medium",
+    "jurisdiction": "UK/General",
+    "aliases": [
+      "heart rate zones"
+    ],
+    "benchmarkCount": 0,
+    "specFile": "docs/specs/wave2/HLT-016.md",
+    "implementationStatus": "specified"
+  },
+  {
+    "id": "HLT-017",
+    "name": "Body Surface Area Calculator",
+    "slug": "body-surface-area-calculator",
+    "category": "Health & Fitness",
+    "subcategory": "Clinical",
+    "version": "1.0",
+    "status": "planned",
+    "launchWave": "Wave 2",
+    "rulesSensitive": false,
+    "risk": "high",
+    "jurisdiction": "UK/General",
+    "aliases": [
+      "BSA"
+    ],
+    "benchmarkCount": 0,
+    "specFile": "docs/specs/wave2/HLT-017.md",
+    "implementationStatus": "specified"
+  },
+  {
+    "id": "HLT-019",
+    "name": "Pregnancy Calculator",
+    "slug": "pregnancy-calculator",
+    "category": "Health & Fitness",
+    "subcategory": "Pregnancy",
+    "version": "1.0",
+    "status": "planned",
+    "launchWave": "Wave 2",
+    "rulesSensitive": false,
+    "risk": "high",
+    "jurisdiction": "UK/General",
+    "aliases": [
+      "pregnancy dates"
+    ],
+    "benchmarkCount": 0,
+    "specFile": "docs/specs/wave2/HLT-019.md",
+    "implementationStatus": "specified"
+  },
+  {
+    "id": "HLT-020",
+    "name": "Pregnancy Due Date Calculator",
+    "slug": "pregnancy-due-date-calculator",
+    "category": "Health & Fitness",
+    "subcategory": "Pregnancy",
+    "version": "1.0",
+    "status": "planned",
+    "launchWave": "Wave 2",
+    "rulesSensitive": false,
+    "risk": "high",
+    "jurisdiction": "UK/General",
+    "aliases": [
+      "due date"
+    ],
+    "benchmarkCount": 0,
+    "specFile": "docs/specs/wave2/HLT-020.md",
+    "implementationStatus": "specified"
+  },
+  {
+    "id": "HLT-022",
+    "name": "Ovulation Calculator",
+    "slug": "ovulation-calculator",
+    "category": "Health & Fitness",
+    "subcategory": "Pregnancy",
+    "version": "1.0",
+    "status": "planned",
+    "launchWave": "Wave 2",
+    "rulesSensitive": false,
+    "risk": "high",
+    "jurisdiction": "UK/General",
+    "aliases": [
+      "ovulation"
+    ],
+    "benchmarkCount": 0,
+    "specFile": "docs/specs/wave2/HLT-022.md",
+    "implementationStatus": "specified"
+  },
+  {
+    "id": "HLT-023",
+    "name": "Period Calculator",
+    "slug": "period-calculator",
+    "category": "Health & Fitness",
+    "subcategory": "Pregnancy",
+    "version": "1.0",
+    "status": "planned",
+    "launchWave": "Wave 2",
+    "rulesSensitive": false,
+    "risk": "high",
+    "jurisdiction": "UK/General",
+    "aliases": [
+      "menstrual cycle"
+    ],
+    "benchmarkCount": 0,
+    "specFile": "docs/specs/wave2/HLT-023.md",
+    "implementationStatus": "specified"
+  },
+  {
+    "id": "HLT-025",
+    "name": "Sleep Calculator",
+    "slug": "sleep-calculator",
+    "category": "Health & Fitness",
+    "subcategory": "Wellbeing",
+    "version": "1.0",
+    "status": "planned",
+    "launchWave": "Wave 2",
+    "rulesSensitive": false,
+    "risk": "medium",
+    "jurisdiction": "UK/General",
+    "aliases": [
+      "sleep cycles"
+    ],
+    "benchmarkCount": 0,
+    "specFile": "docs/specs/wave2/HLT-025.md",
+    "implementationStatus": "specified"
+  },
+  {
+    "id": "HOM-001",
+    "name": "Concrete Calculator",
+    "slug": "concrete-calculator",
+    "category": "Home & Construction",
+    "subcategory": "Construction",
+    "version": "1.0",
+    "status": "planned",
+    "launchWave": "Wave 2",
+    "rulesSensitive": false,
+    "risk": "low",
+    "jurisdiction": "UK/General",
+    "aliases": [
+      "concrete volume"
+    ],
+    "benchmarkCount": 0,
+    "specFile": "docs/specs/wave2/HOM-001.md",
+    "implementationStatus": "specified"
+  },
+  {
+    "id": "HOM-002",
+    "name": "Roofing Calculator",
+    "slug": "roofing-calculator",
+    "category": "Home & Construction",
+    "subcategory": "Construction",
+    "version": "1.0",
+    "status": "planned",
+    "launchWave": "Wave 2",
+    "rulesSensitive": false,
+    "risk": "low",
+    "jurisdiction": "UK/General",
+    "aliases": [
+      "roofing"
+    ],
+    "benchmarkCount": 0,
+    "specFile": "docs/specs/wave2/HOM-002.md",
+    "implementationStatus": "specified"
+  },
+  {
+    "id": "HOM-003",
+    "name": "Tile Calculator",
+    "slug": "tile-calculator",
+    "category": "Home & Construction",
+    "subcategory": "Construction",
+    "version": "1.0",
+    "status": "planned",
+    "launchWave": "Wave 2",
+    "rulesSensitive": false,
+    "risk": "low",
+    "jurisdiction": "UK/General",
+    "aliases": [
+      "tiles"
+    ],
+    "benchmarkCount": 0,
+    "specFile": "docs/specs/wave2/HOM-003.md",
+    "implementationStatus": "specified"
+  },
+  {
+    "id": "HOM-004",
+    "name": "Gravel Calculator",
+    "slug": "gravel-calculator",
+    "category": "Home & Construction",
+    "subcategory": "Construction",
+    "version": "1.0",
+    "status": "planned",
+    "launchWave": "Wave 2",
+    "rulesSensitive": false,
+    "risk": "low",
+    "jurisdiction": "UK/General",
+    "aliases": [
+      "gravel"
+    ],
+    "benchmarkCount": 0,
+    "specFile": "docs/specs/wave2/HOM-004.md",
+    "implementationStatus": "specified"
+  },
+  {
+    "id": "HOM-005",
+    "name": "Mulch Calculator",
+    "slug": "mulch-calculator",
+    "category": "Home & Construction",
+    "subcategory": "Garden",
+    "version": "1.0",
+    "status": "planned",
+    "launchWave": "Wave 2",
+    "rulesSensitive": false,
+    "risk": "low",
+    "jurisdiction": "UK/General",
+    "aliases": [
+      "mulch"
+    ],
+    "benchmarkCount": 0,
+    "specFile": "docs/specs/wave2/HOM-005.md",
+    "implementationStatus": "specified"
+  },
+  {
+    "id": "HOM-006",
+    "name": "Stair Calculator",
+    "slug": "stair-calculator",
+    "category": "Home & Construction",
+    "subcategory": "Construction",
+    "version": "1.0",
+    "status": "planned",
+    "launchWave": "Wave 2",
+    "rulesSensitive": false,
+    "risk": "low",
+    "jurisdiction": "UK/General",
+    "aliases": [
+      "stairs"
+    ],
+    "benchmarkCount": 0,
+    "specFile": "docs/specs/wave2/HOM-006.md",
+    "implementationStatus": "specified"
+  },
+  {
+    "id": "INV-004",
+    "name": "Interest Calculator",
+    "slug": "interest-calculator",
+    "category": "Investing & Wealth",
+    "subcategory": "Investment Basics",
+    "version": "1.0",
+    "status": "planned",
+    "launchWave": "Wave 2",
+    "rulesSensitive": false,
+    "risk": "low",
+    "jurisdiction": "UK/General",
+    "aliases": [
+      "interest growth"
+    ],
+    "benchmarkCount": 0,
+    "specFile": "docs/specs/wave2/INV-004.md",
+    "implementationStatus": "specified"
+  },
+  {
+    "id": "INV-005",
+    "name": "Interest Rate Calculator",
+    "slug": "interest-rate-calculator",
+    "category": "Investing & Wealth",
+    "subcategory": "Investment Basics",
+    "version": "1.0",
+    "status": "planned",
+    "launchWave": "Wave 2",
+    "rulesSensitive": false,
+    "risk": "low",
+    "jurisdiction": "UK/General",
+    "aliases": [
+      "solve interest rate"
+    ],
+    "benchmarkCount": 0,
+    "specFile": "docs/specs/wave2/INV-005.md",
+    "implementationStatus": "specified"
+  },
+  {
+    "id": "INV-010",
+    "name": "Average Return Calculator",
+    "slug": "average-return-calculator",
+    "category": "Investing & Wealth",
+    "subcategory": "Returns",
+    "version": "1.0",
+    "status": "planned",
+    "launchWave": "Wave 2",
+    "rulesSensitive": false,
+    "risk": "low",
+    "jurisdiction": "UK/General",
+    "aliases": [
+      "mean return"
+    ],
+    "benchmarkCount": 0,
+    "specFile": "docs/specs/wave2/INV-010.md",
+    "implementationStatus": "specified"
+  },
+  {
+    "id": "INV-012",
+    "name": "XIRR Calculator",
+    "slug": "xirr-calculator",
+    "category": "Investing & Wealth",
+    "subcategory": "Returns",
+    "version": "1.0",
+    "status": "planned",
+    "launchWave": "Wave 2",
+    "rulesSensitive": false,
+    "risk": "low",
+    "jurisdiction": "UK/General",
+    "aliases": [
+      "irregular cash flow return"
+    ],
+    "benchmarkCount": 0,
+    "specFile": "docs/specs/wave2/INV-012.md",
+    "implementationStatus": "specified"
+  },
+  {
+    "id": "INV-013",
+    "name": "Payback Period Calculator",
+    "slug": "payback-period-calculator",
+    "category": "Investing & Wealth",
+    "subcategory": "Returns",
+    "version": "1.0",
+    "status": "planned",
+    "launchWave": "Wave 2",
+    "rulesSensitive": false,
+    "risk": "low",
+    "jurisdiction": "UK/General",
+    "aliases": [
+      "investment payback"
+    ],
+    "benchmarkCount": 0,
+    "specFile": "docs/specs/wave2/INV-013.md",
+    "implementationStatus": "specified"
+  },
+  {
+    "id": "INV-016",
+    "name": "Cost of Waiting to Invest Calculator",
+    "slug": "cost-of-waiting-to-invest-calculator",
+    "category": "Investing & Wealth",
+    "subcategory": "Planning",
+    "version": "1.0",
+    "status": "planned",
+    "launchWave": "Wave 2",
+    "rulesSensitive": false,
+    "risk": "medium",
+    "jurisdiction": "UK/General",
+    "aliases": [
+      "delay investing"
+    ],
+    "benchmarkCount": 0,
+    "specFile": "docs/specs/wave2/INV-016.md",
+    "implementationStatus": "specified"
+  },
+  {
+    "id": "INV-017",
+    "name": "Investment Contribution Calculator",
+    "slug": "investment-contribution-calculator",
+    "category": "Investing & Wealth",
+    "subcategory": "Planning",
+    "version": "1.0",
+    "status": "planned",
+    "launchWave": "Wave 2",
+    "rulesSensitive": false,
+    "risk": "low",
+    "jurisdiction": "UK/General",
+    "aliases": [
+      "monthly contribution"
+    ],
+    "benchmarkCount": 0,
+    "specFile": "docs/specs/wave2/INV-017.md",
+    "implementationStatus": "specified"
+  },
+  {
+    "id": "INV-018",
+    "name": "Savings Calculator",
+    "slug": "savings-calculator",
+    "category": "Investing & Wealth",
+    "subcategory": "Savings",
+    "version": "1.0",
+    "status": "planned",
+    "launchWave": "Wave 2",
+    "rulesSensitive": false,
+    "risk": "low",
+    "jurisdiction": "UK/General",
+    "aliases": [
+      "savings growth"
+    ],
+    "benchmarkCount": 0,
+    "specFile": "docs/specs/wave2/INV-018.md",
+    "implementationStatus": "specified"
+  },
+  {
+    "id": "INV-019",
+    "name": "Fixed-Term Savings Calculator",
+    "slug": "fixed-term-savings-calculator",
+    "category": "Investing & Wealth",
+    "subcategory": "Savings",
+    "version": "1.0",
+    "status": "planned",
+    "launchWave": "Wave 2",
+    "rulesSensitive": false,
+    "risk": "low",
+    "jurisdiction": "UK/General",
+    "aliases": [
+      "CD calculator",
+      "certificate of deposit concept"
+    ],
+    "benchmarkCount": 0,
+    "specFile": "docs/specs/wave2/INV-019.md",
+    "implementationStatus": "specified"
+  },
+  {
+    "id": "INV-020",
+    "name": "Fixed-Rate Bond Calculator",
+    "slug": "fixed-rate-bond-calculator",
+    "category": "Investing & Wealth",
+    "subcategory": "Savings",
+    "version": "1.0",
+    "status": "planned",
+    "launchWave": "Wave 2",
+    "rulesSensitive": false,
+    "risk": "low",
+    "jurisdiction": "UK/General",
+    "aliases": [
+      "savings bond"
+    ],
+    "benchmarkCount": 0,
+    "specFile": "docs/specs/wave2/INV-020.md",
+    "implementationStatus": "specified"
+  },
+  {
+    "id": "INV-021",
+    "name": "Bond Calculator",
+    "slug": "bond-calculator",
+    "category": "Investing & Wealth",
+    "subcategory": "Fixed Income",
+    "version": "1.0",
+    "status": "planned",
+    "launchWave": "Wave 2",
+    "rulesSensitive": false,
+    "risk": "medium",
+    "jurisdiction": "UK/General",
+    "aliases": [
+      "bond price",
+      "yield"
+    ],
+    "benchmarkCount": 0,
+    "specFile": "docs/specs/wave2/INV-021.md",
+    "implementationStatus": "specified"
+  },
+  {
+    "id": "INV-022",
+    "name": "Dividend Growth Calculator",
+    "slug": "dividend-growth-calculator",
+    "category": "Investing & Wealth",
+    "subcategory": "Income Investing",
+    "version": "1.0",
+    "status": "planned",
+    "launchWave": "Wave 2",
+    "rulesSensitive": false,
+    "risk": "medium",
+    "jurisdiction": "UK/General",
+    "aliases": [
+      "dividend reinvestment"
+    ],
+    "benchmarkCount": 0,
+    "specFile": "docs/specs/wave2/INV-022.md",
+    "implementationStatus": "specified"
+  },
+  {
+    "id": "INV-023",
+    "name": "Dividend Reinvestment Calculator",
+    "slug": "dividend-reinvestment-calculator",
+    "category": "Investing & Wealth",
+    "subcategory": "Income Investing",
+    "version": "1.0",
+    "status": "planned",
+    "launchWave": "Wave 2",
+    "rulesSensitive": false,
+    "risk": "medium",
+    "jurisdiction": "UK/General",
+    "aliases": [
+      "DRIP"
+    ],
+    "benchmarkCount": 0,
+    "specFile": "docs/specs/wave2/INV-023.md",
+    "implementationStatus": "specified"
+  },
+  {
+    "id": "INV-024",
+    "name": "Fund Investment Calculator",
+    "slug": "fund-investment-calculator",
+    "category": "Investing & Wealth",
+    "subcategory": "Funds",
+    "version": "1.0",
+    "status": "planned",
+    "launchWave": "Wave 2",
+    "rulesSensitive": false,
+    "risk": "medium",
+    "jurisdiction": "UK/General",
+    "aliases": [
+      "mutual fund calculator",
+      "fund growth"
+    ],
+    "benchmarkCount": 0,
+    "specFile": "docs/specs/wave2/INV-024.md",
+    "implementationStatus": "specified"
+  },
+  {
+    "id": "ISA-003",
+    "name": "ISA vs GIA Calculator",
+    "slug": "isa-vs-gia-calculator",
+    "category": "ISA & Tax Wrappers",
+    "subcategory": "ISA",
+    "version": "1.0",
+    "status": "planned",
+    "launchWave": "Wave 2",
+    "rulesSensitive": true,
+    "risk": "high",
+    "jurisdiction": "UK",
+    "aliases": [
+      "ISA versus taxable account"
+    ],
+    "benchmarkCount": 0,
+    "specFile": "docs/specs/wave2/ISA-003.md",
+    "implementationStatus": "specified"
+  },
+  {
+    "id": "ISA-004",
+    "name": "Lifetime ISA Calculator",
+    "slug": "lifetime-isa-calculator",
+    "category": "ISA & Tax Wrappers",
+    "subcategory": "ISA",
+    "version": "1.0",
+    "status": "planned",
+    "launchWave": "Wave 2",
+    "rulesSensitive": true,
+    "risk": "high",
+    "jurisdiction": "UK",
+    "aliases": [
+      "LISA"
+    ],
+    "benchmarkCount": 0,
+    "specFile": "docs/specs/wave2/ISA-004.md",
+    "implementationStatus": "specified"
+  },
+  {
+    "id": "ISA-005",
+    "name": "Junior ISA Calculator",
+    "slug": "junior-isa-calculator",
+    "category": "ISA & Tax Wrappers",
+    "subcategory": "ISA",
+    "version": "1.0",
+    "status": "planned",
+    "launchWave": "Wave 2",
+    "rulesSensitive": true,
+    "risk": "medium",
+    "jurisdiction": "UK",
+    "aliases": [
+      "JISA"
+    ],
+    "benchmarkCount": 0,
+    "specFile": "docs/specs/wave2/ISA-005.md",
+    "implementationStatus": "specified"
+  },
+  {
+    "id": "ISA-006",
+    "name": "Cash ISA Calculator",
+    "slug": "cash-isa-calculator",
+    "category": "ISA & Tax Wrappers",
+    "subcategory": "ISA",
+    "version": "1.0",
+    "status": "planned",
+    "launchWave": "Wave 2",
+    "rulesSensitive": true,
+    "risk": "medium",
+    "jurisdiction": "UK",
+    "aliases": [
+      "cash ISA"
+    ],
+    "benchmarkCount": 0,
+    "specFile": "docs/specs/wave2/ISA-006.md",
+    "implementationStatus": "specified"
+  },
+  {
+    "id": "MAT-001",
+    "name": "Basic Calculator",
+    "slug": "basic-calculator",
+    "category": "Maths & Algebra",
+    "subcategory": "Arithmetic",
+    "version": "1.0",
+    "status": "planned",
+    "launchWave": "Wave 2",
+    "rulesSensitive": false,
+    "risk": "low",
+    "jurisdiction": "General",
+    "aliases": [
+      "standard calculator"
+    ],
+    "benchmarkCount": 0,
+    "specFile": "docs/specs/wave2/MAT-001.md",
+    "implementationStatus": "specified"
+  },
+  {
+    "id": "MAT-004",
+    "name": "Percent Off Calculator",
+    "slug": "percent-off-calculator",
+    "category": "Maths & Algebra",
+    "subcategory": "Arithmetic",
+    "version": "1.0",
+    "status": "planned",
+    "launchWave": "Wave 2",
+    "rulesSensitive": false,
+    "risk": "low",
+    "jurisdiction": "General",
+    "aliases": [
+      "percentage discount"
+    ],
+    "benchmarkCount": 0,
+    "specFile": "docs/specs/wave2/MAT-004.md",
+    "implementationStatus": "specified"
+  },
+  {
+    "id": "MAT-007",
+    "name": "Rounding Calculator",
+    "slug": "rounding-calculator",
+    "category": "Maths & Algebra",
+    "subcategory": "Arithmetic",
+    "version": "1.0",
+    "status": "planned",
+    "launchWave": "Wave 2",
+    "rulesSensitive": false,
+    "risk": "low",
+    "jurisdiction": "General",
+    "aliases": [
+      "round numbers"
+    ],
+    "benchmarkCount": 0,
+    "specFile": "docs/specs/wave2/MAT-007.md",
+    "implementationStatus": "specified"
+  },
+  {
+    "id": "MAT-008",
+    "name": "Exponent Calculator",
+    "slug": "exponent-calculator",
+    "category": "Maths & Algebra",
+    "subcategory": "Algebra",
+    "version": "1.0",
+    "status": "planned",
+    "launchWave": "Wave 2",
+    "rulesSensitive": false,
+    "risk": "low",
+    "jurisdiction": "General",
+    "aliases": [
+      "powers"
+    ],
+    "benchmarkCount": 0,
+    "specFile": "docs/specs/wave2/MAT-008.md",
+    "implementationStatus": "specified"
+  },
+  {
+    "id": "MAT-009",
+    "name": "Root Calculator",
+    "slug": "root-calculator",
+    "category": "Maths & Algebra",
+    "subcategory": "Algebra",
+    "version": "1.0",
+    "status": "planned",
+    "launchWave": "Wave 2",
+    "rulesSensitive": false,
+    "risk": "low",
+    "jurisdiction": "General",
+    "aliases": [
+      "square root",
+      "nth root"
+    ],
+    "benchmarkCount": 0,
+    "specFile": "docs/specs/wave2/MAT-009.md",
+    "implementationStatus": "specified"
+  },
+  {
+    "id": "MAT-010",
+    "name": "Log Calculator",
+    "slug": "log-calculator",
+    "category": "Maths & Algebra",
+    "subcategory": "Algebra",
+    "version": "1.0",
+    "status": "planned",
+    "launchWave": "Wave 2",
+    "rulesSensitive": false,
+    "risk": "low",
+    "jurisdiction": "General",
+    "aliases": [
+      "logarithm"
+    ],
+    "benchmarkCount": 0,
+    "specFile": "docs/specs/wave2/MAT-010.md",
+    "implementationStatus": "specified"
+  },
+  {
+    "id": "MAT-011",
+    "name": "Scientific Notation Calculator",
+    "slug": "scientific-notation-calculator",
+    "category": "Maths & Algebra",
+    "subcategory": "Algebra",
+    "version": "1.0",
+    "status": "planned",
+    "launchWave": "Wave 2",
+    "rulesSensitive": false,
+    "risk": "low",
+    "jurisdiction": "General",
+    "aliases": [
+      "scientific notation"
+    ],
+    "benchmarkCount": 0,
+    "specFile": "docs/specs/wave2/MAT-011.md",
+    "implementationStatus": "specified"
+  },
+  {
+    "id": "MAT-012",
+    "name": "Quadratic Formula Calculator",
+    "slug": "quadratic-formula-calculator",
+    "category": "Maths & Algebra",
+    "subcategory": "Algebra",
+    "version": "1.0",
+    "status": "planned",
+    "launchWave": "Wave 2",
+    "rulesSensitive": false,
+    "risk": "low",
+    "jurisdiction": "General",
+    "aliases": [
+      "quadratic equation"
+    ],
+    "benchmarkCount": 0,
+    "specFile": "docs/specs/wave2/MAT-012.md",
+    "implementationStatus": "specified"
+  },
+  {
+    "id": "MAT-013",
+    "name": "Slope Calculator",
+    "slug": "slope-calculator",
+    "category": "Maths & Algebra",
+    "subcategory": "Algebra",
+    "version": "1.0",
+    "status": "planned",
+    "launchWave": "Wave 2",
+    "rulesSensitive": false,
+    "risk": "low",
+    "jurisdiction": "General",
+    "aliases": [
+      "gradient"
+    ],
+    "benchmarkCount": 0,
+    "specFile": "docs/specs/wave2/MAT-013.md",
+    "implementationStatus": "specified"
+  },
+  {
+    "id": "MAT-014",
+    "name": "Prime Factorisation Calculator",
+    "slug": "prime-factorisation-calculator",
+    "category": "Maths & Algebra",
+    "subcategory": "Number Theory",
+    "version": "1.0",
+    "status": "planned",
+    "launchWave": "Wave 2",
+    "rulesSensitive": false,
+    "risk": "low",
+    "jurisdiction": "General",
+    "aliases": [
+      "prime factorization"
+    ],
+    "benchmarkCount": 0,
+    "specFile": "docs/specs/wave2/MAT-014.md",
+    "implementationStatus": "specified"
+  },
+  {
+    "id": "MAT-015",
+    "name": "Factor Calculator",
+    "slug": "factor-calculator",
+    "category": "Maths & Algebra",
+    "subcategory": "Number Theory",
+    "version": "1.0",
+    "status": "planned",
+    "launchWave": "Wave 2",
+    "rulesSensitive": false,
+    "risk": "low",
+    "jurisdiction": "General",
+    "aliases": [
+      "factors"
+    ],
+    "benchmarkCount": 0,
+    "specFile": "docs/specs/wave2/MAT-015.md",
+    "implementationStatus": "specified"
+  },
+  {
+    "id": "MAT-016",
+    "name": "Greatest Common Factor Calculator",
+    "slug": "greatest-common-factor-calculator",
+    "category": "Maths & Algebra",
+    "subcategory": "Number Theory",
+    "version": "1.0",
+    "status": "planned",
+    "launchWave": "Wave 2",
+    "rulesSensitive": false,
+    "risk": "low",
+    "jurisdiction": "General",
+    "aliases": [
+      "GCF",
+      "HCF"
+    ],
+    "benchmarkCount": 0,
+    "specFile": "docs/specs/wave2/MAT-016.md",
+    "implementationStatus": "specified"
+  },
+  {
+    "id": "MAT-017",
+    "name": "Least Common Multiple Calculator",
+    "slug": "least-common-multiple-calculator",
+    "category": "Maths & Algebra",
+    "subcategory": "Number Theory",
+    "version": "1.0",
+    "status": "planned",
+    "launchWave": "Wave 2",
+    "rulesSensitive": false,
+    "risk": "low",
+    "jurisdiction": "General",
+    "aliases": [
+      "LCM"
+    ],
+    "benchmarkCount": 0,
+    "specFile": "docs/specs/wave2/MAT-017.md",
+    "implementationStatus": "specified"
+  },
+  {
+    "id": "MAT-018",
+    "name": "Long Division Calculator",
+    "slug": "long-division-calculator",
+    "category": "Maths & Algebra",
+    "subcategory": "Arithmetic",
+    "version": "1.0",
+    "status": "planned",
+    "launchWave": "Wave 2",
+    "rulesSensitive": false,
+    "risk": "low",
+    "jurisdiction": "General",
+    "aliases": [
+      "division"
+    ],
+    "benchmarkCount": 0,
+    "specFile": "docs/specs/wave2/MAT-018.md",
+    "implementationStatus": "specified"
+  },
+  {
+    "id": "MAT-019",
+    "name": "Number Sequence Calculator",
+    "slug": "number-sequence-calculator",
+    "category": "Maths & Algebra",
+    "subcategory": "Algebra",
+    "version": "1.0",
+    "status": "planned",
+    "launchWave": "Wave 2",
+    "rulesSensitive": false,
+    "risk": "low",
+    "jurisdiction": "General",
+    "aliases": [
+      "sequence"
+    ],
+    "benchmarkCount": 0,
+    "specFile": "docs/specs/wave2/MAT-019.md",
+    "implementationStatus": "specified"
+  },
+  {
+    "id": "MAT-021",
+    "name": "Matrix Calculator",
+    "slug": "matrix-calculator",
+    "category": "Maths & Algebra",
+    "subcategory": "Algebra",
+    "version": "1.0",
+    "status": "planned",
+    "launchWave": "Wave 2",
+    "rulesSensitive": false,
+    "risk": "low",
+    "jurisdiction": "General",
+    "aliases": [
+      "matrix operations"
+    ],
+    "benchmarkCount": 0,
+    "specFile": "docs/specs/wave2/MAT-021.md",
+    "implementationStatus": "specified"
+  },
+  {
+    "id": "MAT-022",
+    "name": "Binary Calculator",
+    "slug": "binary-calculator",
+    "category": "Maths & Algebra",
+    "subcategory": "Number Systems",
+    "version": "1.0",
+    "status": "planned",
+    "launchWave": "Wave 2",
+    "rulesSensitive": false,
+    "risk": "low",
+    "jurisdiction": "General",
+    "aliases": [
+      "binary arithmetic"
+    ],
+    "benchmarkCount": 0,
+    "specFile": "docs/specs/wave2/MAT-022.md",
+    "implementationStatus": "specified"
+  },
+  {
+    "id": "MAT-023",
+    "name": "Hex Calculator",
+    "slug": "hex-calculator",
+    "category": "Maths & Algebra",
+    "subcategory": "Number Systems",
+    "version": "1.0",
+    "status": "planned",
+    "launchWave": "Wave 2",
+    "rulesSensitive": false,
+    "risk": "low",
+    "jurisdiction": "General",
+    "aliases": [
+      "hexadecimal"
+    ],
+    "benchmarkCount": 0,
+    "specFile": "docs/specs/wave2/MAT-023.md",
+    "implementationStatus": "specified"
+  },
+  {
+    "id": "PEN-004",
+    "name": "Employer Pension Contribution Calculator",
+    "slug": "employer-pension-contribution-calculator",
+    "category": "Pensions & Retirement",
+    "subcategory": "Pension",
+    "version": "1.0",
+    "status": "planned",
+    "launchWave": "Wave 2",
+    "rulesSensitive": true,
+    "risk": "medium",
+    "jurisdiction": "UK",
+    "aliases": [
+      "employer match"
+    ],
+    "benchmarkCount": 0,
+    "specFile": "docs/specs/wave2/PEN-004.md",
+    "implementationStatus": "specified"
+  },
+  {
+    "id": "PEN-005",
+    "name": "Pension Tax Relief Calculator",
+    "slug": "pension-tax-relief-calculator",
+    "category": "Pensions & Retirement",
+    "subcategory": "Pension Tax",
+    "version": "1.0",
+    "status": "planned",
+    "launchWave": "Wave 2",
+    "rulesSensitive": true,
+    "risk": "high",
+    "jurisdiction": "UK",
+    "aliases": [
+      "tax relief"
+    ],
+    "benchmarkCount": 0,
+    "specFile": "docs/specs/wave2/PEN-005.md",
+    "implementationStatus": "specified"
+  },
+  {
+    "id": "PEN-007",
+    "name": "Retirement Income Calculator",
+    "slug": "retirement-income-calculator",
+    "category": "Pensions & Retirement",
+    "subcategory": "Retirement",
+    "version": "1.0",
+    "status": "planned",
+    "launchWave": "Wave 2",
+    "rulesSensitive": true,
+    "risk": "high",
+    "jurisdiction": "UK",
+    "aliases": [
+      "retirement income"
+    ],
+    "benchmarkCount": 0,
+    "specFile": "docs/specs/wave2/PEN-007.md",
+    "implementationStatus": "specified"
+  },
+  {
+    "id": "PEN-008",
+    "name": "Pension Drawdown Calculator",
+    "slug": "pension-drawdown-calculator",
+    "category": "Pensions & Retirement",
+    "subcategory": "Retirement",
+    "version": "1.0",
+    "status": "planned",
+    "launchWave": "Wave 2",
+    "rulesSensitive": true,
+    "risk": "high",
+    "jurisdiction": "UK",
+    "aliases": [
+      "RMD concept",
+      "retirement withdrawals"
+    ],
+    "benchmarkCount": 0,
+    "specFile": "docs/specs/wave2/PEN-008.md",
+    "implementationStatus": "specified"
+  },
+  {
+    "id": "PEN-009",
+    "name": "Annuity Calculator",
+    "slug": "annuity-calculator",
+    "category": "Pensions & Retirement",
+    "subcategory": "Retirement",
+    "version": "1.0",
+    "status": "planned",
+    "launchWave": "Wave 2",
+    "rulesSensitive": false,
+    "risk": "high",
+    "jurisdiction": "UK",
+    "aliases": [
+      "annuity payout calculator",
+      "annuity income"
+    ],
+    "benchmarkCount": 0,
+    "specFile": "docs/specs/wave2/PEN-009.md",
+    "implementationStatus": "specified"
+  },
+  {
+    "id": "PEN-010",
+    "name": "State Pension Calculator",
+    "slug": "state-pension-calculator",
+    "category": "Pensions & Retirement",
+    "subcategory": "Retirement",
+    "version": "1.0",
+    "status": "planned",
+    "launchWave": "Wave 2",
+    "rulesSensitive": true,
+    "risk": "high",
+    "jurisdiction": "UK",
+    "aliases": [
+      "social security concept",
+      "UK state pension"
+    ],
+    "benchmarkCount": 0,
+    "specFile": "docs/specs/wave2/PEN-010.md",
+    "implementationStatus": "specified"
+  },
+  {
+    "id": "PEN-012",
+    "name": "Retirement Target Calculator",
+    "slug": "retirement-target-calculator",
+    "category": "Pensions & Retirement",
+    "subcategory": "Retirement",
+    "version": "1.0",
+    "status": "planned",
+    "launchWave": "Wave 2",
+    "rulesSensitive": false,
+    "risk": "medium",
+    "jurisdiction": "UK",
+    "aliases": [
+      "required pension pot"
+    ],
+    "benchmarkCount": 0,
+    "specFile": "docs/specs/wave2/PEN-012.md",
+    "implementationStatus": "specified"
+  },
+  {
+    "id": "PRO-005",
+    "name": "Mortgage Payoff Calculator",
+    "slug": "mortgage-payoff-calculator",
+    "category": "Mortgages & Property",
+    "subcategory": "Mortgages",
+    "version": "1.0",
+    "status": "planned",
+    "launchWave": "Wave 2",
+    "rulesSensitive": false,
+    "risk": "low",
+    "jurisdiction": "UK",
+    "aliases": [
+      "pay mortgage early"
+    ],
+    "benchmarkCount": 0,
+    "specFile": "docs/specs/wave2/PRO-005.md",
+    "implementationStatus": "specified"
+  },
+  {
+    "id": "PRO-006",
+    "name": "Mortgage Refinance Calculator",
+    "slug": "mortgage-refinance-calculator",
+    "category": "Mortgages & Property",
+    "subcategory": "Mortgages",
+    "version": "1.0",
+    "status": "planned",
+    "launchWave": "Wave 2",
+    "rulesSensitive": false,
+    "risk": "medium",
+    "jurisdiction": "UK",
+    "aliases": [
+      "remortgage calculator",
+      "refinance"
+    ],
+    "benchmarkCount": 0,
+    "specFile": "docs/specs/wave2/PRO-006.md",
+    "implementationStatus": "specified"
+  },
+  {
+    "id": "PRO-007",
+    "name": "Interest-Only Mortgage Calculator",
+    "slug": "interest-only-mortgage-calculator",
+    "category": "Mortgages & Property",
+    "subcategory": "Mortgages",
+    "version": "1.0",
+    "status": "planned",
+    "launchWave": "Wave 2",
+    "rulesSensitive": false,
+    "risk": "medium",
+    "jurisdiction": "UK",
+    "aliases": [
+      "interest only"
+    ],
+    "benchmarkCount": 0,
+    "specFile": "docs/specs/wave2/PRO-007.md",
+    "implementationStatus": "specified"
+  },
+  {
+    "id": "PRO-009",
+    "name": "Mortgage Rate Stress Test Calculator",
+    "slug": "mortgage-rate-stress-test-calculator",
+    "category": "Mortgages & Property",
+    "subcategory": "Mortgages",
+    "version": "1.0",
+    "status": "planned",
+    "launchWave": "Wave 2",
+    "rulesSensitive": false,
+    "risk": "medium",
+    "jurisdiction": "UK",
+    "aliases": [
+      "mortgage stress"
+    ],
+    "benchmarkCount": 0,
+    "specFile": "docs/specs/wave2/PRO-009.md",
+    "implementationStatus": "specified"
+  },
+  {
+    "id": "PRO-012",
+    "name": "Home Equity Calculator",
+    "slug": "home-equity-calculator",
+    "category": "Mortgages & Property",
+    "subcategory": "Mortgages",
+    "version": "1.0",
+    "status": "planned",
+    "launchWave": "Wave 2",
+    "rulesSensitive": false,
+    "risk": "low",
+    "jurisdiction": "UK",
+    "aliases": [
+      "property equity"
+    ],
+    "benchmarkCount": 0,
+    "specFile": "docs/specs/wave2/PRO-012.md",
+    "implementationStatus": "specified"
+  },
+  {
+    "id": "PRO-014",
+    "name": "Rent Calculator",
+    "slug": "rent-calculator",
+    "category": "Mortgages & Property",
+    "subcategory": "Renting",
+    "version": "1.0",
+    "status": "planned",
+    "launchWave": "Wave 2",
+    "rulesSensitive": false,
+    "risk": "low",
+    "jurisdiction": "UK",
+    "aliases": [
+      "rent affordability"
+    ],
+    "benchmarkCount": 0,
+    "specFile": "docs/specs/wave2/PRO-014.md",
+    "implementationStatus": "specified"
+  },
+  {
+    "id": "PRO-015",
+    "name": "Rent vs Buy Calculator",
+    "slug": "rent-vs-buy-calculator",
+    "category": "Mortgages & Property",
+    "subcategory": "Property Decisions",
+    "version": "1.0",
+    "status": "planned",
+    "launchWave": "Wave 2",
+    "rulesSensitive": true,
+    "risk": "medium",
+    "jurisdiction": "UK",
+    "aliases": [
+      "rent or buy"
+    ],
+    "benchmarkCount": 0,
+    "specFile": "docs/specs/wave2/PRO-015.md",
+    "implementationStatus": "specified"
+  },
+  {
+    "id": "PRO-017",
+    "name": "Rental Property Calculator",
+    "slug": "rental-property-calculator",
+    "category": "Mortgages & Property",
+    "subcategory": "Property Investment",
+    "version": "1.0",
+    "status": "planned",
+    "launchWave": "Wave 2",
+    "rulesSensitive": true,
+    "risk": "medium",
+    "jurisdiction": "UK",
+    "aliases": [
+      "rental investment"
+    ],
+    "benchmarkCount": 0,
+    "specFile": "docs/specs/wave2/PRO-017.md",
+    "implementationStatus": "specified"
+  },
+  {
+    "id": "PRO-020",
+    "name": "Property vs Stocks Calculator",
+    "slug": "property-vs-stocks-calculator",
+    "category": "Mortgages & Property",
+    "subcategory": "Property Investment",
+    "version": "1.0",
+    "status": "planned",
+    "launchWave": "Wave 2",
+    "rulesSensitive": true,
+    "risk": "medium",
+    "jurisdiction": "UK",
+    "aliases": [
+      "property versus shares"
+    ],
+    "benchmarkCount": 0,
+    "specFile": "docs/specs/wave2/PRO-020.md",
+    "implementationStatus": "specified"
+  },
+  {
+    "id": "PRO-021",
+    "name": "Property Cash Flow Calculator",
+    "slug": "property-cash-flow-calculator",
+    "category": "Mortgages & Property",
+    "subcategory": "Property Investment",
+    "version": "1.0",
+    "status": "planned",
+    "launchWave": "Wave 2",
+    "rulesSensitive": true,
+    "risk": "medium",
+    "jurisdiction": "UK",
+    "aliases": [
+      "rental cash flow"
+    ],
+    "benchmarkCount": 0,
+    "specFile": "docs/specs/wave2/PRO-021.md",
+    "implementationStatus": "specified"
+  },
+  {
+    "id": "PRO-022",
+    "name": "Property Capital Growth Calculator",
+    "slug": "property-capital-growth-calculator",
+    "category": "Mortgages & Property",
+    "subcategory": "Property Investment",
+    "version": "1.0",
+    "status": "planned",
+    "launchWave": "Wave 2",
+    "rulesSensitive": false,
+    "risk": "low",
+    "jurisdiction": "UK",
+    "aliases": [
+      "house price growth"
+    ],
+    "benchmarkCount": 0,
+    "specFile": "docs/specs/wave2/PRO-022.md",
+    "implementationStatus": "specified"
+  },
+  {
+    "id": "PRO-024",
+    "name": "First-Time Buyer Stamp Duty Calculator",
+    "slug": "first-time-buyer-stamp-duty-calculator",
+    "category": "Mortgages & Property",
+    "subcategory": "Property Tax",
+    "version": "1.0",
+    "status": "planned",
+    "launchWave": "Wave 2",
+    "rulesSensitive": true,
+    "risk": "high",
+    "jurisdiction": "UK",
+    "aliases": [
+      "FTB SDLT"
+    ],
+    "benchmarkCount": 0,
+    "specFile": "docs/specs/wave2/PRO-024.md",
+    "implementationStatus": "specified"
+  },
+  {
+    "id": "PRO-025",
+    "name": "Additional Property Stamp Duty Calculator",
+    "slug": "additional-property-stamp-duty-calculator",
+    "category": "Mortgages & Property",
+    "subcategory": "Property Tax",
+    "version": "1.0",
+    "status": "planned",
+    "launchWave": "Wave 2",
+    "rulesSensitive": true,
+    "risk": "high",
+    "jurisdiction": "UK",
+    "aliases": [
+      "second home SDLT",
+      "additional dwelling"
+    ],
+    "benchmarkCount": 0,
+    "specFile": "docs/specs/wave2/PRO-025.md",
+    "implementationStatus": "specified"
+  },
+  {
+    "id": "PRO-026",
+    "name": "Scotland LBTT Calculator",
+    "slug": "scotland-lbtt-calculator",
+    "category": "Mortgages & Property",
+    "subcategory": "Property Tax",
+    "version": "1.0",
+    "status": "planned",
+    "launchWave": "Wave 2",
+    "rulesSensitive": true,
+    "risk": "high",
+    "jurisdiction": "UK",
+    "aliases": [
+      "Land and Buildings Transaction Tax"
+    ],
+    "benchmarkCount": 0,
+    "specFile": "docs/specs/wave2/PRO-026.md",
+    "implementationStatus": "specified"
+  },
+  {
+    "id": "PRO-027",
+    "name": "Wales LTT Calculator",
+    "slug": "wales-ltt-calculator",
+    "category": "Mortgages & Property",
+    "subcategory": "Property Tax",
+    "version": "1.0",
+    "status": "planned",
+    "launchWave": "Wave 2",
+    "rulesSensitive": true,
+    "risk": "high",
+    "jurisdiction": "UK",
+    "aliases": [
+      "Land Transaction Tax"
+    ],
+    "benchmarkCount": 0,
+    "specFile": "docs/specs/wave2/PRO-027.md",
+    "implementationStatus": "specified"
+  },
+  {
+    "id": "SCI-001",
+    "name": "Ohm's Law Calculator",
+    "slug": "ohm-s-law-calculator",
+    "category": "Science & Engineering",
+    "subcategory": "Electrical",
+    "version": "1.0",
+    "status": "planned",
+    "launchWave": "Wave 2",
+    "rulesSensitive": false,
+    "risk": "low",
+    "jurisdiction": "General",
+    "aliases": [
+      "ohms law"
+    ],
+    "benchmarkCount": 0,
+    "specFile": "docs/specs/wave2/SCI-001.md",
+    "implementationStatus": "specified"
+  },
+  {
+    "id": "SCI-002",
+    "name": "Voltage Drop Calculator",
+    "slug": "voltage-drop-calculator",
+    "category": "Science & Engineering",
+    "subcategory": "Electrical",
+    "version": "1.0",
+    "status": "planned",
+    "launchWave": "Wave 2",
+    "rulesSensitive": false,
+    "risk": "low",
+    "jurisdiction": "General",
+    "aliases": [
+      "voltage drop"
+    ],
+    "benchmarkCount": 0,
+    "specFile": "docs/specs/wave2/SCI-002.md",
+    "implementationStatus": "specified"
+  },
+  {
+    "id": "SCI-003",
+    "name": "Electricity Calculator",
+    "slug": "electricity-calculator",
+    "category": "Science & Engineering",
+    "subcategory": "Electrical",
+    "version": "1.0",
+    "status": "planned",
+    "launchWave": "Wave 2",
+    "rulesSensitive": false,
+    "risk": "low",
+    "jurisdiction": "General",
+    "aliases": [
+      "electrical power"
+    ],
+    "benchmarkCount": 0,
+    "specFile": "docs/specs/wave2/SCI-003.md",
+    "implementationStatus": "specified"
+  },
+  {
+    "id": "SCI-004",
+    "name": "Resistor Calculator",
+    "slug": "resistor-calculator",
+    "category": "Science & Engineering",
+    "subcategory": "Electrical",
+    "version": "1.0",
+    "status": "planned",
+    "launchWave": "Wave 2",
+    "rulesSensitive": false,
+    "risk": "low",
+    "jurisdiction": "General",
+    "aliases": [
+      "resistance"
+    ],
+    "benchmarkCount": 0,
+    "specFile": "docs/specs/wave2/SCI-004.md",
+    "implementationStatus": "specified"
+  },
+  {
+    "id": "SCI-005",
+    "name": "Density Calculator",
+    "slug": "density-calculator",
+    "category": "Science & Engineering",
+    "subcategory": "Physics",
+    "version": "1.0",
+    "status": "planned",
+    "launchWave": "Wave 2",
+    "rulesSensitive": false,
+    "risk": "low",
+    "jurisdiction": "General",
+    "aliases": [
+      "density"
+    ],
+    "benchmarkCount": 0,
+    "specFile": "docs/specs/wave2/SCI-005.md",
+    "implementationStatus": "specified"
+  },
+  {
+    "id": "SCI-006",
+    "name": "Molarity Calculator",
+    "slug": "molarity-calculator",
+    "category": "Science & Engineering",
+    "subcategory": "Chemistry",
+    "version": "1.0",
+    "status": "planned",
+    "launchWave": "Wave 2",
+    "rulesSensitive": false,
+    "risk": "low",
+    "jurisdiction": "General",
+    "aliases": [
+      "molarity"
+    ],
+    "benchmarkCount": 0,
+    "specFile": "docs/specs/wave2/SCI-006.md",
+    "implementationStatus": "specified"
+  },
+  {
+    "id": "SCI-007",
+    "name": "Molecular Weight Calculator",
+    "slug": "molecular-weight-calculator",
+    "category": "Science & Engineering",
+    "subcategory": "Chemistry",
+    "version": "1.0",
+    "status": "planned",
+    "launchWave": "Wave 2",
+    "rulesSensitive": false,
+    "risk": "low",
+    "jurisdiction": "General",
+    "aliases": [
+      "molecular mass"
+    ],
+    "benchmarkCount": 0,
+    "specFile": "docs/specs/wave2/SCI-007.md",
+    "implementationStatus": "specified"
+  },
+  {
+    "id": "SCI-008",
+    "name": "Heat Index Calculator",
+    "slug": "heat-index-calculator",
+    "category": "Science & Engineering",
+    "subcategory": "Weather",
+    "version": "1.0",
+    "status": "planned",
+    "launchWave": "Wave 2",
+    "rulesSensitive": false,
+    "risk": "low",
+    "jurisdiction": "General",
+    "aliases": [
+      "heat index"
+    ],
+    "benchmarkCount": 0,
+    "specFile": "docs/specs/wave2/SCI-008.md",
+    "implementationStatus": "specified"
+  },
+  {
+    "id": "SCI-009",
+    "name": "Wind Chill Calculator",
+    "slug": "wind-chill-calculator",
+    "category": "Science & Engineering",
+    "subcategory": "Weather",
+    "version": "1.0",
+    "status": "planned",
+    "launchWave": "Wave 2",
+    "rulesSensitive": false,
+    "risk": "low",
+    "jurisdiction": "General",
+    "aliases": [
+      "wind chill"
+    ],
+    "benchmarkCount": 0,
+    "specFile": "docs/specs/wave2/SCI-009.md",
+    "implementationStatus": "specified"
+  },
+  {
+    "id": "SCI-010",
+    "name": "Dew Point Calculator",
+    "slug": "dew-point-calculator",
+    "category": "Science & Engineering",
+    "subcategory": "Weather",
+    "version": "1.0",
+    "status": "planned",
+    "launchWave": "Wave 2",
+    "rulesSensitive": false,
+    "risk": "low",
+    "jurisdiction": "General",
+    "aliases": [
+      "dew point"
+    ],
+    "benchmarkCount": 0,
+    "specFile": "docs/specs/wave2/SCI-010.md",
+    "implementationStatus": "specified"
+  },
+  {
+    "id": "SCI-011",
+    "name": "BTU Calculator",
+    "slug": "btu-calculator",
+    "category": "Science & Engineering",
+    "subcategory": "Energy",
+    "version": "1.0",
+    "status": "planned",
+    "launchWave": "Wave 2",
+    "rulesSensitive": false,
+    "risk": "low",
+    "jurisdiction": "General",
+    "aliases": [
+      "BTU"
+    ],
+    "benchmarkCount": 0,
+    "specFile": "docs/specs/wave2/SCI-011.md",
+    "implementationStatus": "specified"
+  },
+  {
+    "id": "STA-002",
+    "name": "Average Calculator",
+    "slug": "average-calculator",
+    "category": "Statistics & Data",
+    "subcategory": "Descriptive Statistics",
+    "version": "1.0",
+    "status": "planned",
+    "launchWave": "Wave 2",
+    "rulesSensitive": false,
+    "risk": "low",
+    "jurisdiction": "General",
+    "aliases": [
+      "mean calculator"
+    ],
+    "benchmarkCount": 0,
+    "specFile": "docs/specs/wave2/STA-002.md",
+    "implementationStatus": "specified"
+  },
+  {
+    "id": "STA-004",
+    "name": "Variance Calculator",
+    "slug": "variance-calculator",
+    "category": "Statistics & Data",
+    "subcategory": "Descriptive Statistics",
+    "version": "1.0",
+    "status": "planned",
+    "launchWave": "Wave 2",
+    "rulesSensitive": false,
+    "risk": "low",
+    "jurisdiction": "General",
+    "aliases": [
+      "variance"
+    ],
+    "benchmarkCount": 0,
+    "specFile": "docs/specs/wave2/STA-004.md",
+    "implementationStatus": "specified"
+  },
+  {
+    "id": "STA-005",
+    "name": "Z-Score Calculator",
+    "slug": "z-score-calculator",
+    "category": "Statistics & Data",
+    "subcategory": "Inference",
+    "version": "1.0",
+    "status": "planned",
+    "launchWave": "Wave 2",
+    "rulesSensitive": false,
+    "risk": "low",
+    "jurisdiction": "General",
+    "aliases": [
+      "standard score"
+    ],
+    "benchmarkCount": 0,
+    "specFile": "docs/specs/wave2/STA-005.md",
+    "implementationStatus": "specified"
+  },
+  {
+    "id": "STA-007",
+    "name": "P-Value Calculator",
+    "slug": "p-value-calculator",
+    "category": "Statistics & Data",
+    "subcategory": "Inference",
+    "version": "1.0",
+    "status": "planned",
+    "launchWave": "Wave 2",
+    "rulesSensitive": false,
+    "risk": "low",
+    "jurisdiction": "General",
+    "aliases": [
+      "p value"
+    ],
+    "benchmarkCount": 0,
+    "specFile": "docs/specs/wave2/STA-007.md",
+    "implementationStatus": "specified"
+  },
+  {
+    "id": "STA-009",
+    "name": "Margin of Error Calculator",
+    "slug": "margin-of-error-calculator",
+    "category": "Statistics & Data",
+    "subcategory": "Research",
+    "version": "1.0",
+    "status": "planned",
+    "launchWave": "Wave 2",
+    "rulesSensitive": false,
+    "risk": "low",
+    "jurisdiction": "General",
+    "aliases": [
+      "MOE"
+    ],
+    "benchmarkCount": 0,
+    "specFile": "docs/specs/wave2/STA-009.md",
+    "implementationStatus": "specified"
+  },
+  {
+    "id": "STA-010",
+    "name": "Statistical Power Calculator",
+    "slug": "statistical-power-calculator",
+    "category": "Statistics & Data",
+    "subcategory": "Research",
+    "version": "1.0",
+    "status": "planned",
+    "launchWave": "Wave 2",
+    "rulesSensitive": false,
+    "risk": "low",
+    "jurisdiction": "General",
+    "aliases": [
+      "power analysis"
+    ],
+    "benchmarkCount": 0,
+    "specFile": "docs/specs/wave2/STA-010.md",
+    "implementationStatus": "specified"
+  },
+  {
+    "id": "STA-011",
+    "name": "Probability Calculator",
+    "slug": "probability-calculator",
+    "category": "Statistics & Data",
+    "subcategory": "Probability",
+    "version": "1.0",
+    "status": "planned",
+    "launchWave": "Wave 2",
+    "rulesSensitive": false,
+    "risk": "low",
+    "jurisdiction": "General",
+    "aliases": [
+      "probability"
+    ],
+    "benchmarkCount": 0,
+    "specFile": "docs/specs/wave2/STA-011.md",
+    "implementationStatus": "specified"
+  },
+  {
+    "id": "STA-012",
+    "name": "Permutation & Combination Calculator",
+    "slug": "permutation-and-combination-calculator",
+    "category": "Statistics & Data",
+    "subcategory": "Probability",
+    "version": "1.0",
+    "status": "planned",
+    "launchWave": "Wave 2",
+    "rulesSensitive": false,
+    "risk": "low",
+    "jurisdiction": "General",
+    "aliases": [
+      "nPr",
+      "nCr"
+    ],
+    "benchmarkCount": 0,
+    "specFile": "docs/specs/wave2/STA-012.md",
+    "implementationStatus": "specified"
+  },
+  {
+    "id": "STA-013",
+    "name": "Correlation Calculator",
+    "slug": "correlation-calculator",
+    "category": "Statistics & Data",
+    "subcategory": "Regression",
+    "version": "1.0",
+    "status": "planned",
+    "launchWave": "Wave 2",
+    "rulesSensitive": false,
+    "risk": "low",
+    "jurisdiction": "General",
+    "aliases": [
+      "Pearson correlation"
+    ],
+    "benchmarkCount": 0,
+    "specFile": "docs/specs/wave2/STA-013.md",
+    "implementationStatus": "specified"
+  },
+  {
+    "id": "STA-015",
+    "name": "R-Squared Calculator",
+    "slug": "r-squared-calculator",
+    "category": "Statistics & Data",
+    "subcategory": "Regression",
+    "version": "1.0",
+    "status": "planned",
+    "launchWave": "Wave 2",
+    "rulesSensitive": false,
+    "risk": "low",
+    "jurisdiction": "General",
+    "aliases": [
+      "coefficient of determination"
+    ],
+    "benchmarkCount": 0,
+    "specFile": "docs/specs/wave2/STA-015.md",
+    "implementationStatus": "specified"
+  },
+  {
+    "id": "STA-016",
+    "name": "T-Test Calculator",
+    "slug": "t-test-calculator",
+    "category": "Statistics & Data",
+    "subcategory": "Hypothesis Tests",
+    "version": "1.0",
+    "status": "planned",
+    "launchWave": "Wave 2",
+    "rulesSensitive": false,
+    "risk": "low",
+    "jurisdiction": "General",
+    "aliases": [
+      "t test"
+    ],
+    "benchmarkCount": 0,
+    "specFile": "docs/specs/wave2/STA-016.md",
+    "implementationStatus": "specified"
+  },
+  {
+    "id": "STA-017",
+    "name": "Chi-Square Calculator",
+    "slug": "chi-square-calculator",
+    "category": "Statistics & Data",
+    "subcategory": "Hypothesis Tests",
+    "version": "1.0",
+    "status": "planned",
+    "launchWave": "Wave 2",
+    "rulesSensitive": false,
+    "risk": "low",
+    "jurisdiction": "General",
+    "aliases": [
+      "chi square"
+    ],
+    "benchmarkCount": 0,
+    "specFile": "docs/specs/wave2/STA-017.md",
+    "implementationStatus": "specified"
+  },
+  {
+    "id": "STA-018",
+    "name": "ANOVA Calculator",
+    "slug": "anova-calculator",
+    "category": "Statistics & Data",
+    "subcategory": "Hypothesis Tests",
+    "version": "1.0",
+    "status": "planned",
+    "launchWave": "Wave 2",
+    "rulesSensitive": false,
+    "risk": "low",
+    "jurisdiction": "General",
+    "aliases": [
+      "analysis of variance"
+    ],
+    "benchmarkCount": 0,
+    "specFile": "docs/specs/wave2/STA-018.md",
+    "implementationStatus": "specified"
+  },
+  {
+    "id": "STA-019",
+    "name": "A/B Test Calculator",
+    "slug": "a-b-test-calculator",
+    "category": "Statistics & Data",
+    "subcategory": "Experimentation",
+    "version": "1.0",
+    "status": "planned",
+    "launchWave": "Wave 2",
+    "rulesSensitive": false,
+    "risk": "low",
+    "jurisdiction": "General",
+    "aliases": [
+      "conversion test"
+    ],
+    "benchmarkCount": 0,
+    "specFile": "docs/specs/wave2/STA-019.md",
+    "implementationStatus": "specified"
+  },
+  {
+    "id": "STA-020",
+    "name": "Percent Error Calculator",
+    "slug": "percent-error-calculator",
+    "category": "Statistics & Data",
+    "subcategory": "Research",
+    "version": "1.0",
+    "status": "planned",
+    "launchWave": "Wave 2",
+    "rulesSensitive": false,
+    "risk": "low",
+    "jurisdiction": "General",
+    "aliases": [
+      "percentage error"
+    ],
+    "benchmarkCount": 0,
+    "specFile": "docs/specs/wave2/STA-020.md",
+    "implementationStatus": "specified"
+  },
+  {
+    "id": "TAX-005",
+    "name": "Salary Sacrifice Calculator",
+    "slug": "salary-sacrifice-calculator",
+    "category": "UK Tax & Salary",
+    "subcategory": "Salary",
+    "version": "1.0",
+    "status": "planned",
+    "launchWave": "Wave 2",
+    "rulesSensitive": true,
+    "risk": "high",
+    "jurisdiction": "UK",
+    "aliases": [
+      "salary sacrifice"
+    ],
+    "benchmarkCount": 0,
+    "specFile": "docs/specs/wave2/TAX-005.md",
+    "implementationStatus": "specified"
+  },
+  {
+    "id": "TAX-006",
+    "name": "Hourly to Salary Calculator",
+    "slug": "hourly-to-salary-calculator",
+    "category": "UK Tax & Salary",
+    "subcategory": "Salary",
+    "version": "1.0",
+    "status": "planned",
+    "launchWave": "Wave 2",
+    "rulesSensitive": false,
+    "risk": "low",
+    "jurisdiction": "UK",
+    "aliases": [
+      "hourly wage to annual"
+    ],
+    "benchmarkCount": 0,
+    "specFile": "docs/specs/wave2/TAX-006.md",
+    "implementationStatus": "specified"
+  },
+  {
+    "id": "TAX-007",
+    "name": "Salary to Hourly Calculator",
+    "slug": "salary-to-hourly-calculator",
+    "category": "UK Tax & Salary",
+    "subcategory": "Salary",
+    "version": "1.0",
+    "status": "planned",
+    "launchWave": "Wave 2",
+    "rulesSensitive": false,
+    "risk": "low",
+    "jurisdiction": "UK",
+    "aliases": [
+      "annual salary to hourly"
+    ],
+    "benchmarkCount": 0,
+    "specFile": "docs/specs/wave2/TAX-007.md",
+    "implementationStatus": "specified"
+  },
+  {
+    "id": "TAX-008",
+    "name": "Overtime Pay Calculator",
+    "slug": "overtime-pay-calculator",
+    "category": "UK Tax & Salary",
+    "subcategory": "Salary",
+    "version": "1.0",
+    "status": "planned",
+    "launchWave": "Wave 2",
+    "rulesSensitive": false,
+    "risk": "medium",
+    "jurisdiction": "UK",
+    "aliases": [
+      "overtime"
+    ],
+    "benchmarkCount": 0,
+    "specFile": "docs/specs/wave2/TAX-008.md",
+    "implementationStatus": "specified"
+  },
+  {
+    "id": "TAX-009",
+    "name": "Bonus Tax Calculator",
+    "slug": "bonus-tax-calculator",
+    "category": "UK Tax & Salary",
+    "subcategory": "Salary",
+    "version": "1.0",
+    "status": "planned",
+    "launchWave": "Wave 2",
+    "rulesSensitive": true,
+    "risk": "high",
+    "jurisdiction": "UK",
+    "aliases": [
+      "bonus take home"
+    ],
+    "benchmarkCount": 0,
+    "specFile": "docs/specs/wave2/TAX-009.md",
+    "implementationStatus": "specified"
+  },
+  {
+    "id": "TAX-010",
+    "name": "Marriage Allowance Calculator",
+    "slug": "marriage-allowance-calculator",
+    "category": "UK Tax & Salary",
+    "subcategory": "Income Tax",
+    "version": "1.0",
+    "status": "planned",
+    "launchWave": "Wave 2",
+    "rulesSensitive": true,
+    "risk": "high",
+    "jurisdiction": "UK",
+    "aliases": [
+      "marriage tax calculator"
+    ],
+    "benchmarkCount": 0,
+    "specFile": "docs/specs/wave2/TAX-010.md",
+    "implementationStatus": "specified"
+  },
+  {
+    "id": "TAX-011",
+    "name": "Dividend Tax Calculator",
+    "slug": "dividend-tax-calculator",
+    "category": "UK Tax & Salary",
+    "subcategory": "Investment Tax",
+    "version": "1.0",
+    "status": "planned",
+    "launchWave": "Wave 2",
+    "rulesSensitive": true,
+    "risk": "high",
+    "jurisdiction": "UK",
+    "aliases": [
+      "dividend allowance"
+    ],
+    "benchmarkCount": 0,
+    "specFile": "docs/specs/wave2/TAX-011.md",
+    "implementationStatus": "specified"
+  },
+  {
+    "id": "TAX-012",
+    "name": "Capital Gains Tax Calculator",
+    "slug": "capital-gains-tax-calculator",
+    "category": "UK Tax & Salary",
+    "subcategory": "Investment Tax",
+    "version": "1.0",
+    "status": "planned",
+    "launchWave": "Wave 2",
+    "rulesSensitive": true,
+    "risk": "high",
+    "jurisdiction": "UK",
+    "aliases": [
+      "CGT calculator"
+    ],
+    "benchmarkCount": 0,
+    "specFile": "docs/specs/wave2/TAX-012.md",
+    "implementationStatus": "specified"
+  },
+  {
+    "id": "TAX-014",
+    "name": "Inheritance Tax Calculator",
+    "slug": "inheritance-tax-calculator",
+    "category": "UK Tax & Salary",
+    "subcategory": "Wealth Tax",
+    "version": "1.0",
+    "status": "planned",
+    "launchWave": "Wave 2",
+    "rulesSensitive": true,
+    "risk": "high",
+    "jurisdiction": "UK",
+    "aliases": [
+      "estate tax concept",
+      "IHT"
+    ],
+    "benchmarkCount": 0,
+    "specFile": "docs/specs/wave2/TAX-014.md",
+    "implementationStatus": "specified"
+  },
+  {
+    "id": "TAX-016",
+    "name": "Self-Employment Tax Calculator",
+    "slug": "self-employment-tax-calculator",
+    "category": "UK Tax & Salary",
+    "subcategory": "Self-Employment",
+    "version": "1.0",
+    "status": "planned",
+    "launchWave": "Wave 2",
+    "rulesSensitive": true,
+    "risk": "high",
+    "jurisdiction": "UK",
+    "aliases": [
+      "sole trader tax"
+    ],
+    "benchmarkCount": 0,
+    "specFile": "docs/specs/wave2/TAX-016.md",
+    "implementationStatus": "specified"
+  },
+  {
+    "id": "TAX-017",
+    "name": "Sole Trader Profit & Tax Calculator",
+    "slug": "sole-trader-profit-and-tax-calculator",
+    "category": "UK Tax & Salary",
+    "subcategory": "Self-Employment",
+    "version": "1.0",
+    "status": "planned",
+    "launchWave": "Wave 2",
+    "rulesSensitive": true,
+    "risk": "high",
+    "jurisdiction": "UK",
+    "aliases": [
+      "sole trader calculator"
+    ],
+    "benchmarkCount": 0,
+    "specFile": "docs/specs/wave2/TAX-017.md",
+    "implementationStatus": "specified"
+  },
+  {
+    "id": "TAX-018",
+    "name": "Corporation Tax Calculator",
+    "slug": "corporation-tax-calculator",
+    "category": "UK Tax & Salary",
+    "subcategory": "Business Tax",
+    "version": "1.0",
+    "status": "planned",
+    "launchWave": "Wave 2",
+    "rulesSensitive": true,
+    "risk": "high",
+    "jurisdiction": "UK",
+    "aliases": [
+      "company tax"
+    ],
+    "benchmarkCount": 0,
+    "specFile": "docs/specs/wave2/TAX-018.md",
+    "implementationStatus": "specified"
+  },
+  {
+    "id": "TEC-001",
+    "name": "IP Subnet Calculator",
+    "slug": "ip-subnet-calculator",
+    "category": "Technology & Digital",
+    "subcategory": "Networking",
+    "version": "1.0",
+    "status": "planned",
+    "launchWave": "Wave 2",
+    "rulesSensitive": false,
+    "risk": "low",
+    "jurisdiction": "General",
+    "aliases": [
+      "subnet"
+    ],
+    "benchmarkCount": 0,
+    "specFile": "docs/specs/wave2/TEC-001.md",
+    "implementationStatus": "specified"
+  },
+  {
+    "id": "TEC-002",
+    "name": "Bandwidth Calculator",
+    "slug": "bandwidth-calculator",
+    "category": "Technology & Digital",
+    "subcategory": "Networking",
+    "version": "1.0",
+    "status": "planned",
+    "launchWave": "Wave 2",
+    "rulesSensitive": false,
+    "risk": "low",
+    "jurisdiction": "General",
+    "aliases": [
+      "bandwidth"
+    ],
+    "benchmarkCount": 0,
+    "specFile": "docs/specs/wave2/TEC-002.md",
+    "implementationStatus": "specified"
+  },
+  {
+    "id": "TEC-003",
+    "name": "Base64 Encode / Decode",
+    "slug": "base64-encode-decode",
+    "category": "Technology & Digital",
+    "subcategory": "Encoding",
+    "version": "1.0",
+    "status": "planned",
+    "launchWave": "Wave 2",
+    "rulesSensitive": false,
+    "risk": "low",
+    "jurisdiction": "General",
+    "aliases": [
+      "base64"
+    ],
+    "benchmarkCount": 0,
+    "specFile": "docs/specs/wave2/TEC-003.md",
+    "implementationStatus": "specified"
+  },
+  {
+    "id": "TEC-004",
+    "name": "URL Encode / Decode",
+    "slug": "url-encode-decode",
+    "category": "Technology & Digital",
+    "subcategory": "Encoding",
+    "version": "1.0",
+    "status": "planned",
+    "launchWave": "Wave 2",
+    "rulesSensitive": false,
+    "risk": "low",
+    "jurisdiction": "General",
+    "aliases": [
+      "URL encoder"
+    ],
+    "benchmarkCount": 0,
+    "specFile": "docs/specs/wave2/TEC-004.md",
+    "implementationStatus": "specified"
+  },
+  {
+    "id": "TEC-005",
+    "name": "Password Generator",
+    "slug": "password-generator",
+    "category": "Technology & Digital",
+    "subcategory": "Security Utility",
+    "version": "1.0",
+    "status": "planned",
+    "launchWave": "Wave 2",
+    "rulesSensitive": false,
+    "risk": "low",
+    "jurisdiction": "General",
+    "aliases": [
+      "password maker"
+    ],
+    "benchmarkCount": 0,
+    "specFile": "docs/specs/wave2/TEC-005.md",
+    "implementationStatus": "specified"
+  }
+]

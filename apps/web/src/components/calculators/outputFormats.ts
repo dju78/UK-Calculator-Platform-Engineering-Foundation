@@ -49,7 +49,10 @@ const PERCENT_OUTPUTS: Record<string, string[]> = {
   "PRO-016": ["gross_yield", "net_yield"],
   "PRO-018": ["gross_yield", "net_yield"],
   "PRO-023": ["effective_rate"],
-  "PRO-019": ["annualised_return", "total_return"]
+  "PRO-019": ["annualised_return", "total_return"],
+  // --- Wave 2 ---
+  "FIN-004": ["combined_ltv"],
+  "FIN-008": ["dti_ratio", "front_end_ratio"]
 };
 
 /** Values already carried in percentage units. */
@@ -69,7 +72,12 @@ const COUNT_OUTPUTS: Record<string, string[]> = {
   "FIN-009": ["months"],
   "FIN-011": ["months"],
   "PRO-004": ["payoff_months", "months_saved"],
-  "STA-008": ["n"]
+  "STA-008": ["n"],
+  // --- Wave 2 ---
+  "FIN-007": ["payoff_months"],
+  "FIN-010": ["months"],
+  "FIN-012": ["current_payoff_months"],
+  "FIN-014": ["months_to_target"]
 };
 
 /**
@@ -80,7 +88,9 @@ const NON_MONEY_OUTPUTS: Record<string, string[]> = {
   "AUT-006": ["litres"],
   "CON-010": ["converted"],
   "TAX-002": ["hours_per_week_used", "paid_weeks_per_year_used"],
-  "TAX-003": ["hours_per_week_used", "paid_weeks_per_year_used"]
+  "TAX-003": ["hours_per_week_used", "paid_weeks_per_year_used"],
+  // --- Wave 2 ---
+  "FIN-014": ["months_covered_now"]
 };
 
 /**

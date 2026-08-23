@@ -21,6 +21,25 @@ export function median(data: number[]): number {
   return sorted[mid];
 }
 
+/**
+ * The value or values occurring most often.
+ *
+ * CONVENTION
+ * ----------
+ * This returns the literal definition: every value whose frequency equals the
+ * maximum frequency. When all values occur equally often, all of them are
+ * therefore returned.
+ *
+ * A previous revision instead returned an empty array in that case ("no
+ * mode"), which is a common teaching convention - but it was applied
+ * inconsistently: [7] returned [7] while [1,2,3,4] returned [], even though
+ * every value ties in both. The canonical STA-001 benchmark fixtures use the
+ * literal definition consistently, so that is the convention adopted here.
+ *
+ * Because "four modes" is rarely a useful statement, `hasDistinctMode` reports
+ * whether the modal values actually stand out, and the STA-001 handler turns
+ * that into a plain-English note rather than leaving the reader to guess.
+ */
 export function mode(data: number[]): number[] {
   if (data.length === 0) throw new Error("Dataset is empty");
   const freqs = new Map<number, number>();
@@ -30,10 +49,6 @@ export function mode(data: number[]): number[] {
     freqs.set(val, curr);
     if (curr > maxFreq) maxFreq = curr;
   }
-  
-  if (maxFreq === 1 && data.length > 1) {
-    return []; // No mode (every item appears exactly once)
-  }
 
   const modes: number[] = [];
   for (const [val, freq] of freqs.entries()) {
@@ -42,6 +57,17 @@ export function mode(data: number[]): number[] {
     }
   }
   return modes.sort((a, b) => a - b);
+}
+
+/**
+ * True when the modal values genuinely occur more often than the rest.
+ * False when every distinct value occurs equally often, in which case the mode
+ * carries no information about the data.
+ */
+export function hasDistinctMode(data: number[]): boolean {
+  if (data.length === 0) throw new Error("Dataset is empty");
+  const distinct = new Set(data).size;
+  return mode(data).length < distinct;
 }
 
 export function min(data: number[]): number {

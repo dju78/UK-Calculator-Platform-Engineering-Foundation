@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
-import { wave1Registry } from "../../../../../../dist/packages/calculator-registry/src/index.js";
+import { liveCalculators, liveCalculatorsInCategory } from "@/lib/calculators";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/Card";
 import { Badge } from "@/components/ui/Badge";
 import {
@@ -12,9 +12,7 @@ import {
 } from "@/lib/site";
 
 function calculatorsIn(category: string) {
-  return wave1Registry.filter(
-    (calc: { category: string }) => calc.category.toLowerCase() === category
-  );
+  return liveCalculatorsInCategory(category);
 }
 
 export async function generateMetadata(
@@ -45,7 +43,7 @@ export async function generateMetadata(
 }
 
 export function generateStaticParams() {
-  const categories = Array.from(new Set(wave1Registry.map(c => c.category)));
+  const categories = Array.from(new Set(liveCalculators.map(c => c.category)));
   return categories.map((category) => ({
     category: category.toLowerCase(),
   }));

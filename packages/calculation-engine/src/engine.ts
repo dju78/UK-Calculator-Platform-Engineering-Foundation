@@ -14,6 +14,11 @@ import { utilitiesHandlers } from "./utilities/handlers.js";
 import { handlePensionGrowth, handleSippGrowth, handleWorkplacePension, handleRetirement } from "./finance/pension/handlers.js";
 import { hlt001Handler } from "./health/handlers.js";
 import { con010Handler } from "./conversion/handlers.js";
+// --- Wave 2 ---
+import {
+  fin003Handler, fin004Handler, fin007Handler, fin008Handler,
+  fin010Handler, fin012Handler, fin014Handler, fin015Handler
+} from "./finance/wave2/handlers.js";
 
 export const ENGINE_VERSION = "0.1.0";
 
@@ -46,6 +51,16 @@ const handlers: Record<string, CalculatorHandler> = {
   "PRO-002": handleMortgageAffordability,
   "PRO-003": pro003Handler,
   "PRO-004": pro004Handler,
+
+  // --- Wave 2: Finance & Debt ---
+  "FIN-003": fin003Handler,
+  "FIN-004": fin004Handler,
+  "FIN-007": fin007Handler,
+  "FIN-008": fin008Handler,
+  "FIN-010": fin010Handler,
+  "FIN-012": fin012Handler,
+  "FIN-014": fin014Handler,
+  "FIN-015": fin015Handler,
   "TAX-001": tax001Handler,
   "TAX-002": tax002Handler,
   "TAX-003": tax003Handler,

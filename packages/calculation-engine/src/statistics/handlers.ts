@@ -1,5 +1,5 @@
 import { parseDataset } from "./parser.js";
-import { mean, median, mode, min, max, range, count, variance, standardDeviation } from "./descriptive.js";
+import { mean, median, mode, hasDistinctMode, min, max, range, count, variance, standardDeviation } from "./descriptive.js";
 import { confidenceInterval, sampleSizeProportion } from "./inference.js";
 import { linearRegression } from "./regression.js";
 import type { NumericInputs, CalculatorHandler } from "../types.js";
@@ -22,7 +22,13 @@ export const sta001Handler: CalculatorHandler = (inputs: Record<string, any>) =>
       mean: round8(mean(data)),
       median: round8(median(data)),
       modes: mode(data).map(round8),
-      range: round8(range(data))
+      range: round8(range(data)),
+      ...(hasDistinctMode(data)
+        ? {}
+        : {
+            mode_note:
+              "Every value in this dataset occurs equally often, so the mode does not identify a most common value."
+          })
     }
   };
 };
