@@ -35,10 +35,27 @@ export function DynamicCalculator({
     e.preventDefault();
     try {
       setError(null);
-      const transformedInputs = { ...inputs };
+      const transformedInputs: Record<string, any> = { ...inputs };
       fields.forEach(f => {
-        if (f.scale && transformedInputs[f.name] !== undefined) {
+        if (transformedInputs[f.name] === "" || transformedInputs[f.name] === undefined) {
+          delete transformedInputs[f.name];
+          return;
+        }
+        if (f.type !== "text" && f.type !== "select") {
+          transformedInputs[f.name] = Number(transformedInputs[f.name]);
+        }
+        if (f.scale !== undefined) {
           transformedInputs[f.name] = Number(transformedInputs[f.name]) * f.scale;
+        }
+        if (f.type === "select" && (transformedInputs[f.name] === "true" || transformedInputs[f.name] === "false")) {
+          transformedInputs[f.name] = transformedInputs[f.name] === "true";
+        }
+        if (typeof transformedInputs[f.name] === "string" && (transformedInputs[f.name] as string).startsWith("[")) {
+          try {
+            transformedInputs[f.name] = JSON.parse(transformedInputs[f.name] as string);
+          } catch {
+            // ignore
+          }
         }
       });
       const res = await calculate(calculatorId, transformedInputs);

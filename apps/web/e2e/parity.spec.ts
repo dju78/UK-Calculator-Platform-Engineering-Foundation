@@ -56,7 +56,10 @@ test.describe('Calculator UI Parity', () => {
               throw new Error(`Could not find result for ${key}. UI Error possibly?`);
             }
             
-            const parsedNum = parseFloat(foundText.replace(/[^0-9.-]+/g, ''));
+            const isNegative = foundText.includes('-') || (foundText.includes('(') && foundText.includes(')'));
+            const cleanStr = foundText.replace(/[^0-9.]/g, '');
+            let parsedNum = parseFloat(cleanStr);
+            if (isNegative) parsedNum = -parsedNum;
             const expectedNum = expectedVal as number;
             
             // tolerance check

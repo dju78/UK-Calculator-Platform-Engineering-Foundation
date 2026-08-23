@@ -10,6 +10,7 @@ const mappings: Record<string, FieldDef[]> = {
   "BUS-001": [
     { name: "cost", label: "Cost", type: "number", defaultValue: 60 },
     { name: "price", label: "Price", type: "number", defaultValue: 100 },
+    { name: "target_margin", label: "Target Margin", type: "number", defaultValue: 50, scale: 0.01 },
   ],
   "BUS-006": [
     { name: "fixed", label: "Fixed", type: "number", defaultValue: 10000 },
@@ -19,6 +20,7 @@ const mappings: Record<string, FieldDef[]> = {
   "BUS-008": [
     { name: "original", label: "Original", type: "number", defaultValue: 100 },
     { name: "discount", label: "discount (%)", type: "number", defaultValue: 20, scale: 0.01 },
+    { name: "sale_price", label: "Sale Price", type: "number", defaultValue: 80 },
   ],
   "CON-001": [
     { name: "value", label: "Value", type: "number", defaultValue: 10 },
@@ -140,15 +142,23 @@ const mappings: Record<string, FieldDef[]> = {
   ],
   "MAT-002": [
     { name: "expression", label: "Expression", type: "text", defaultValue: "2+3*4" },
+      { name: "angle", label: "Angle", type: "number", defaultValue: 45 },
   ],
   "MAT-003": [
     { name: "mode", label: "Mode", type: "text", defaultValue: "percent_of" },
     { name: "pct", label: "Pct", type: "number", defaultValue: 20 },
     { name: "value", label: "Value", type: "number", defaultValue: 50 },
+      { name: "a", label: "A", type: "number", defaultValue: 10 },
+      { name: "b", label: "B", type: "number", defaultValue: 20 },
+      { name: "old", label: "Old", type: "number", defaultValue: 10 },
+      { name: "new", label: "New", type: "number", defaultValue: 20 },
   ],
   "MAT-005": [
     { name: "a", label: "A", type: "number", defaultValue: 12 },
     { name: "b", label: "B", type: "number", defaultValue: 18 },
+      { name: "c", label: "C", type: "number", defaultValue: 24 },
+      { name: "d", label: "D", type: "number", defaultValue: 36 },
+      { name: "scale", label: "Scale", type: "number", defaultValue: 1 },
   ],
   "MAT-006": [
     { name: "a", label: "A", type: "text", defaultValue: "1/2" },
@@ -226,6 +236,7 @@ const mappings: Record<string, FieldDef[]> = {
   "PRO-011": [
     { name: "price", label: "Price", type: "number", defaultValue: 300000 },
     { name: "target_ltv", label: "Target Ltv", type: "number", defaultValue: 0.8 },
+      { name: "mortgage", label: "Mortgage", type: "number", defaultValue: 200000 },
   ],
   "PRO-016": [
     { name: "price", label: "Price", type: "number", defaultValue: 250000 },
@@ -279,6 +290,7 @@ const mappings: Record<string, FieldDef[]> = {
     { name: "confidence", label: "Confidence", type: "number", defaultValue: 0.95 },
     { name: "margin", label: "margin (%)", type: "number", defaultValue: 5, scale: 0.01 },
     { name: "p", label: "P", type: "number", defaultValue: 0.5 },
+      { name: "population", label: "Population", type: "number", defaultValue: 10000 },
   ],
   "STA-014": [
     { name: "x", label: "X", type: "text", defaultValue: "[1,2,3,4,5]" },
