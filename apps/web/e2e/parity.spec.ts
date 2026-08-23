@@ -21,7 +21,7 @@ test.describe('Calculator UI Parity', () => {
             
             const isSelect = await selectLoc.count() > 0;
             
-            const firstVal = fixtures[0].inputs[key];
+            const firstVal = (fixtures as any)[0].inputs[key];
             let finalVal = val;
             let isRate = (key.includes('rate') || key.includes('margin') || key.includes('discount') || key.includes('inflation') || key.includes('return') || key.includes('apr')) && typeof firstVal === 'number' && firstVal >= 0 && firstVal <= 1;
             if (isRate) {
