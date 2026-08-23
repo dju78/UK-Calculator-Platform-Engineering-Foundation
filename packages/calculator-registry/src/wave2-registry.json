@@ -2488,7 +2488,7 @@
     "category": "Mortgages & Property",
     "subcategory": "Mortgages",
     "version": "1.0",
-    "status": "planned",
+    "status": "verified",
     "launchWave": "Wave 2",
     "rulesSensitive": false,
     "risk": "low",
@@ -2496,9 +2496,9 @@
     "aliases": [
       "pay mortgage early"
     ],
-    "benchmarkCount": 0,
+    "benchmarkCount": 5,
     "specFile": "docs/specs/wave2/PRO-005.md",
-    "implementationStatus": "specified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "PRO-006",
@@ -2507,7 +2507,7 @@
     "category": "Mortgages & Property",
     "subcategory": "Mortgages",
     "version": "1.0",
-    "status": "planned",
+    "status": "verified",
     "launchWave": "Wave 2",
     "rulesSensitive": false,
     "risk": "medium",
@@ -2516,9 +2516,9 @@
       "remortgage calculator",
       "refinance"
     ],
-    "benchmarkCount": 0,
+    "benchmarkCount": 5,
     "specFile": "docs/specs/wave2/PRO-006.md",
-    "implementationStatus": "specified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "PRO-007",
@@ -2527,7 +2527,7 @@
     "category": "Mortgages & Property",
     "subcategory": "Mortgages",
     "version": "1.0",
-    "status": "planned",
+    "status": "verified",
     "launchWave": "Wave 2",
     "rulesSensitive": false,
     "risk": "medium",
@@ -2535,9 +2535,9 @@
     "aliases": [
       "interest only"
     ],
-    "benchmarkCount": 0,
+    "benchmarkCount": 5,
     "specFile": "docs/specs/wave2/PRO-007.md",
-    "implementationStatus": "specified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "PRO-009",
@@ -2546,7 +2546,7 @@
     "category": "Mortgages & Property",
     "subcategory": "Mortgages",
     "version": "1.0",
-    "status": "planned",
+    "status": "verified",
     "launchWave": "Wave 2",
     "rulesSensitive": false,
     "risk": "medium",
@@ -2554,9 +2554,9 @@
     "aliases": [
       "mortgage stress"
     ],
-    "benchmarkCount": 0,
+    "benchmarkCount": 5,
     "specFile": "docs/specs/wave2/PRO-009.md",
-    "implementationStatus": "specified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "PRO-012",
@@ -2565,7 +2565,7 @@
     "category": "Mortgages & Property",
     "subcategory": "Mortgages",
     "version": "1.0",
-    "status": "planned",
+    "status": "verified",
     "launchWave": "Wave 2",
     "rulesSensitive": false,
     "risk": "low",
@@ -2573,9 +2573,9 @@
     "aliases": [
       "property equity"
     ],
-    "benchmarkCount": 0,
+    "benchmarkCount": 5,
     "specFile": "docs/specs/wave2/PRO-012.md",
-    "implementationStatus": "specified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "PRO-014",
@@ -2584,7 +2584,7 @@
     "category": "Mortgages & Property",
     "subcategory": "Renting",
     "version": "1.0",
-    "status": "planned",
+    "status": "verified",
     "launchWave": "Wave 2",
     "rulesSensitive": false,
     "risk": "low",
@@ -2592,9 +2592,9 @@
     "aliases": [
       "rent affordability"
     ],
-    "benchmarkCount": 0,
+    "benchmarkCount": 5,
     "specFile": "docs/specs/wave2/PRO-014.md",
-    "implementationStatus": "specified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "PRO-015",
@@ -2603,7 +2603,7 @@
     "category": "Mortgages & Property",
     "subcategory": "Property Decisions",
     "version": "1.0",
-    "status": "planned",
+    "status": "verified",
     "launchWave": "Wave 2",
     "rulesSensitive": true,
     "risk": "medium",
@@ -2611,9 +2611,9 @@
     "aliases": [
       "rent or buy"
     ],
-    "benchmarkCount": 0,
+    "benchmarkCount": 5,
     "specFile": "docs/specs/wave2/PRO-015.md",
-    "implementationStatus": "specified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "PRO-017",
@@ -2622,7 +2622,7 @@
     "category": "Mortgages & Property",
     "subcategory": "Property Investment",
     "version": "1.0",
-    "status": "planned",
+    "status": "verified",
     "launchWave": "Wave 2",
     "rulesSensitive": true,
     "risk": "medium",
@@ -2630,9 +2630,9 @@
     "aliases": [
       "rental investment"
     ],
-    "benchmarkCount": 0,
+    "benchmarkCount": 5,
     "specFile": "docs/specs/wave2/PRO-017.md",
-    "implementationStatus": "specified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "PRO-020",
@@ -2641,7 +2641,7 @@
     "category": "Mortgages & Property",
     "subcategory": "Property Investment",
     "version": "1.0",
-    "status": "planned",
+    "status": "verified",
     "launchWave": "Wave 2",
     "rulesSensitive": true,
     "risk": "medium",
@@ -2649,9 +2649,9 @@
     "aliases": [
       "property versus shares"
     ],
-    "benchmarkCount": 0,
+    "benchmarkCount": 5,
     "specFile": "docs/specs/wave2/PRO-020.md",
-    "implementationStatus": "specified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "PRO-021",
@@ -2660,7 +2660,7 @@
     "category": "Mortgages & Property",
     "subcategory": "Property Investment",
     "version": "1.0",
-    "status": "planned",
+    "status": "verified",
     "launchWave": "Wave 2",
     "rulesSensitive": true,
     "risk": "medium",
@@ -2668,9 +2668,9 @@
     "aliases": [
       "rental cash flow"
     ],
-    "benchmarkCount": 0,
+    "benchmarkCount": 5,
     "specFile": "docs/specs/wave2/PRO-021.md",
-    "implementationStatus": "specified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "PRO-022",
@@ -2679,7 +2679,7 @@
     "category": "Mortgages & Property",
     "subcategory": "Property Investment",
     "version": "1.0",
-    "status": "planned",
+    "status": "verified",
     "launchWave": "Wave 2",
     "rulesSensitive": false,
     "risk": "low",
@@ -2687,9 +2687,9 @@
     "aliases": [
       "house price growth"
     ],
-    "benchmarkCount": 0,
+    "benchmarkCount": 5,
     "specFile": "docs/specs/wave2/PRO-022.md",
-    "implementationStatus": "specified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "PRO-024",
@@ -2698,7 +2698,7 @@
     "category": "Mortgages & Property",
     "subcategory": "Property Tax",
     "version": "1.0",
-    "status": "planned",
+    "status": "verified",
     "launchWave": "Wave 2",
     "rulesSensitive": true,
     "risk": "high",
@@ -2706,9 +2706,9 @@
     "aliases": [
       "FTB SDLT"
     ],
-    "benchmarkCount": 0,
+    "benchmarkCount": 5,
     "specFile": "docs/specs/wave2/PRO-024.md",
-    "implementationStatus": "specified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "PRO-025",
@@ -2717,7 +2717,7 @@
     "category": "Mortgages & Property",
     "subcategory": "Property Tax",
     "version": "1.0",
-    "status": "planned",
+    "status": "verified",
     "launchWave": "Wave 2",
     "rulesSensitive": true,
     "risk": "high",
@@ -2726,9 +2726,9 @@
       "second home SDLT",
       "additional dwelling"
     ],
-    "benchmarkCount": 0,
+    "benchmarkCount": 5,
     "specFile": "docs/specs/wave2/PRO-025.md",
-    "implementationStatus": "specified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "PRO-026",
@@ -2737,7 +2737,7 @@
     "category": "Mortgages & Property",
     "subcategory": "Property Tax",
     "version": "1.0",
-    "status": "planned",
+    "status": "verified",
     "launchWave": "Wave 2",
     "rulesSensitive": true,
     "risk": "high",
@@ -2745,9 +2745,9 @@
     "aliases": [
       "Land and Buildings Transaction Tax"
     ],
-    "benchmarkCount": 0,
+    "benchmarkCount": 5,
     "specFile": "docs/specs/wave2/PRO-026.md",
-    "implementationStatus": "specified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "PRO-027",
@@ -2756,7 +2756,7 @@
     "category": "Mortgages & Property",
     "subcategory": "Property Tax",
     "version": "1.0",
-    "status": "planned",
+    "status": "verified",
     "launchWave": "Wave 2",
     "rulesSensitive": true,
     "risk": "high",
@@ -2764,9 +2764,9 @@
     "aliases": [
       "Land Transaction Tax"
     ],
-    "benchmarkCount": 0,
+    "benchmarkCount": 5,
     "specFile": "docs/specs/wave2/PRO-027.md",
-    "implementationStatus": "specified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "SCI-001",

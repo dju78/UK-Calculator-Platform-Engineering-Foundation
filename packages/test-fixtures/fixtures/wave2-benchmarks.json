@@ -765,5 +765,1521 @@
       "ruleset": "None",
       "note": "Independently derived: bisection/simulation oracle, not the production engine."
     }
+  ],
+  "PRO-005": [
+    {
+      "scenario": "£200 overpayment",
+      "inputs": {
+        "balance": 180000,
+        "annual_rate": 4.5,
+        "remaining_years": 20,
+        "monthly_overpayment": 200
+      },
+      "expected": {
+        "current_monthly_payment": 1138.77,
+        "original_payoff_months": 240,
+        "new_payoff_months": 188,
+        "months_saved": 52,
+        "interest_saved": 22369.95,
+        "new_total_interest": 70934.58
+      },
+      "tolerance": "±£0.01 / ±0.0001 as applicable",
+      "ruleset": "uk-2026-27-v1",
+      "note": "Independently derived: simulation/bisection and band tables re-typed from primary sources."
+    },
+    {
+      "scenario": "No overpayment",
+      "inputs": {
+        "balance": 180000,
+        "annual_rate": 4.5,
+        "remaining_years": 20,
+        "monthly_overpayment": 0
+      },
+      "expected": {
+        "current_monthly_payment": 1138.77,
+        "original_payoff_months": 240,
+        "new_payoff_months": 240,
+        "months_saved": 0,
+        "interest_saved": 0,
+        "new_total_interest": 93304.53
+      },
+      "tolerance": "±£0.01 / ±0.0001 as applicable",
+      "ruleset": "uk-2026-27-v1",
+      "note": "Independently derived: simulation/bisection and band tables re-typed from primary sources."
+    },
+    {
+      "scenario": "£500 overpayment",
+      "inputs": {
+        "balance": 250000,
+        "annual_rate": 5.25,
+        "remaining_years": 25,
+        "monthly_overpayment": 500
+      },
+      "expected": {
+        "current_monthly_payment": 1498.12,
+        "original_payoff_months": 300,
+        "new_payoff_months": 182,
+        "months_saved": 118,
+        "interest_saved": 86596.04,
+        "new_total_interest": 112839.74
+      },
+      "tolerance": "±£0.01 / ±0.0001 as applicable",
+      "ruleset": "uk-2026-27-v1",
+      "note": "Independently derived: simulation/bisection and band tables re-typed from primary sources."
+    },
+    {
+      "scenario": "Zero rate",
+      "inputs": {
+        "balance": 120000,
+        "annual_rate": 0,
+        "remaining_years": 10,
+        "monthly_overpayment": 100
+      },
+      "expected": {
+        "current_monthly_payment": 1000,
+        "original_payoff_months": 120,
+        "new_payoff_months": 110,
+        "months_saved": 10,
+        "interest_saved": 0,
+        "new_total_interest": 0
+      },
+      "tolerance": "±£0.01 / ±0.0001 as applicable",
+      "ruleset": "uk-2026-27-v1",
+      "note": "Independently derived: simulation/bisection and band tables re-typed from primary sources."
+    },
+    {
+      "scenario": "Large overpayment",
+      "inputs": {
+        "balance": 90000,
+        "annual_rate": 3.75,
+        "remaining_years": 15,
+        "monthly_overpayment": 1000
+      },
+      "expected": {
+        "current_monthly_payment": 654.5,
+        "original_payoff_months": 180,
+        "new_payoff_months": 60,
+        "months_saved": 120,
+        "interest_saved": 19010.91,
+        "new_total_interest": 8799.13
+      },
+      "tolerance": "±£0.01 / ±0.0001 as applicable",
+      "ruleset": "uk-2026-27-v1",
+      "note": "Independently derived: simulation/bisection and band tables re-typed from primary sources."
+    }
+  ],
+  "PRO-006": [
+    {
+      "scenario": "Lower rate same term",
+      "inputs": {
+        "balance": 200000,
+        "current_rate": 5.5,
+        "current_remaining_years": 20,
+        "new_rate": 4.2,
+        "new_term_years": 20,
+        "fees": 999
+      },
+      "expected": {
+        "current_monthly_payment": 1375.77,
+        "new_monthly_payment": 1239.3,
+        "monthly_saving": 136.47,
+        "new_total_interest": 96433.24,
+        "total_interest_change": -33752.66,
+        "break_even_months": 8
+      },
+      "tolerance": "±£0.01 / ±0.0001 as applicable",
+      "ruleset": "uk-2026-27-v1",
+      "note": "Independently derived: simulation/bisection and band tables re-typed from primary sources."
+    },
+    {
+      "scenario": "Lower rate longer term",
+      "inputs": {
+        "balance": 200000,
+        "current_rate": 5.5,
+        "current_remaining_years": 20,
+        "new_rate": 4.2,
+        "new_term_years": 25,
+        "fees": 999
+      },
+      "expected": {
+        "current_monthly_payment": 1375.77,
+        "new_monthly_payment": 1083.27,
+        "monthly_saving": 292.51,
+        "new_total_interest": 123981.6,
+        "total_interest_change": -6204.31,
+        "break_even_months": 4
+      },
+      "tolerance": "±£0.01 / ±0.0001 as applicable",
+      "ruleset": "uk-2026-27-v1",
+      "note": "Independently derived: simulation/bisection and band tables re-typed from primary sources."
+    },
+    {
+      "scenario": "No fees",
+      "inputs": {
+        "balance": 150000,
+        "current_rate": 6,
+        "current_remaining_years": 15,
+        "new_rate": 4.5,
+        "new_term_years": 15,
+        "fees": 0
+      },
+      "expected": {
+        "current_monthly_payment": 1265.79,
+        "new_monthly_payment": 1147.49,
+        "monthly_saving": 118.3,
+        "new_total_interest": 56548.19,
+        "total_interest_change": -21293.16,
+        "break_even_months": 0
+      },
+      "tolerance": "±£0.01 / ±0.0001 as applicable",
+      "ruleset": "uk-2026-27-v1",
+      "note": "Independently derived: simulation/bisection and band tables re-typed from primary sources."
+    },
+    {
+      "scenario": "Higher new rate",
+      "inputs": {
+        "balance": 100000,
+        "current_rate": 3,
+        "current_remaining_years": 10,
+        "new_rate": 5,
+        "new_term_years": 10,
+        "fees": 500
+      },
+      "expected": {
+        "current_monthly_payment": 965.61,
+        "new_monthly_payment": 1065.96,
+        "monthly_saving": -100.35,
+        "new_total_interest": 27415.01,
+        "total_interest_change": 11542.12,
+        "break_even_months": null
+      },
+      "tolerance": "±£0.01 / ±0.0001 as applicable",
+      "ruleset": "uk-2026-27-v1",
+      "note": "Independently derived: simulation/bisection and band tables re-typed from primary sources."
+    },
+    {
+      "scenario": "Zero rate remortgage",
+      "inputs": {
+        "balance": 80000,
+        "current_rate": 4,
+        "current_remaining_years": 10,
+        "new_rate": 0,
+        "new_term_years": 10,
+        "fees": 0
+      },
+      "expected": {
+        "current_monthly_payment": 809.96,
+        "new_monthly_payment": 666.67,
+        "monthly_saving": 143.29,
+        "new_total_interest": 0,
+        "total_interest_change": -17195.33,
+        "break_even_months": 0
+      },
+      "tolerance": "±£0.01 / ±0.0001 as applicable",
+      "ruleset": "uk-2026-27-v1",
+      "note": "Independently derived: simulation/bisection and band tables re-typed from primary sources."
+    }
+  ],
+  "PRO-007": [
+    {
+      "scenario": "Standard interest-only",
+      "inputs": {
+        "balance": 200000,
+        "annual_rate": 4.5,
+        "years": 25
+      },
+      "expected": {
+        "monthly_interest_payment": 750,
+        "total_interest_over_term": 225000,
+        "balance_at_end_of_term": 200000,
+        "repayment_equivalent_payment": 1111.66,
+        "monthly_difference": 361.66
+      },
+      "tolerance": "±£0.01 / ±0.0001 as applicable",
+      "ruleset": "uk-2026-27-v1",
+      "note": "Independently derived: simulation/bisection and band tables re-typed from primary sources."
+    },
+    {
+      "scenario": "Low rate",
+      "inputs": {
+        "balance": 300000,
+        "annual_rate": 2.5,
+        "years": 20
+      },
+      "expected": {
+        "monthly_interest_payment": 625,
+        "total_interest_over_term": 150000,
+        "balance_at_end_of_term": 300000,
+        "repayment_equivalent_payment": 1589.71,
+        "monthly_difference": 964.71
+      },
+      "tolerance": "±£0.01 / ±0.0001 as applicable",
+      "ruleset": "uk-2026-27-v1",
+      "note": "Independently derived: simulation/bisection and band tables re-typed from primary sources."
+    },
+    {
+      "scenario": "Zero rate",
+      "inputs": {
+        "balance": 150000,
+        "annual_rate": 0,
+        "years": 15
+      },
+      "expected": {
+        "monthly_interest_payment": 0,
+        "total_interest_over_term": 0,
+        "balance_at_end_of_term": 150000,
+        "repayment_equivalent_payment": 833.33,
+        "monthly_difference": 833.33
+      },
+      "tolerance": "±£0.01 / ±0.0001 as applicable",
+      "ruleset": "uk-2026-27-v1",
+      "note": "Independently derived: simulation/bisection and band tables re-typed from primary sources."
+    },
+    {
+      "scenario": "High rate",
+      "inputs": {
+        "balance": 100000,
+        "annual_rate": 8,
+        "years": 10
+      },
+      "expected": {
+        "monthly_interest_payment": 666.67,
+        "total_interest_over_term": 80000,
+        "balance_at_end_of_term": 100000,
+        "repayment_equivalent_payment": 1213.28,
+        "monthly_difference": 546.61
+      },
+      "tolerance": "±£0.01 / ±0.0001 as applicable",
+      "ruleset": "uk-2026-27-v1",
+      "note": "Independently derived: simulation/bisection and band tables re-typed from primary sources."
+    },
+    {
+      "scenario": "Short term",
+      "inputs": {
+        "balance": 250000,
+        "annual_rate": 5,
+        "years": 5
+      },
+      "expected": {
+        "monthly_interest_payment": 1041.67,
+        "total_interest_over_term": 62500,
+        "balance_at_end_of_term": 250000,
+        "repayment_equivalent_payment": 4717.81,
+        "monthly_difference": 3676.14
+      },
+      "tolerance": "±£0.01 / ±0.0001 as applicable",
+      "ruleset": "uk-2026-27-v1",
+      "note": "Independently derived: simulation/bisection and band tables re-typed from primary sources."
+    }
+  ],
+  "PRO-009": [
+    {
+      "scenario": "Plus 2 points",
+      "inputs": {
+        "balance": 200000,
+        "current_rate": 4.5,
+        "remaining_years": 20,
+        "rate_increase": 2,
+        "gross_monthly_income": 4000
+      },
+      "expected": {
+        "current_monthly_payment": 1265.3,
+        "stressed_monthly_payment": 1491.15,
+        "monthly_increase": 225.85,
+        "annual_increase": 2710.17,
+        "payment_to_income_stressed": 0.37278656775754826
+      },
+      "tolerance": "±£0.01 / ±0.0001 as applicable",
+      "ruleset": "uk-2026-27-v1",
+      "note": "Independently derived: simulation/bisection and band tables re-typed from primary sources."
+    },
+    {
+      "scenario": "Plus 3 points",
+      "inputs": {
+        "balance": 250000,
+        "current_rate": 3.5,
+        "remaining_years": 25,
+        "rate_increase": 3,
+        "gross_monthly_income": 5000
+      },
+      "expected": {
+        "current_monthly_payment": 1251.56,
+        "stressed_monthly_payment": 1688.02,
+        "monthly_increase": 436.46,
+        "annual_increase": 5237.51,
+        "payment_to_income_stressed": 0.337603580673816
+      },
+      "tolerance": "±£0.01 / ±0.0001 as applicable",
+      "ruleset": "uk-2026-27-v1",
+      "note": "Independently derived: simulation/bisection and band tables re-typed from primary sources."
+    },
+    {
+      "scenario": "No change",
+      "inputs": {
+        "balance": 180000,
+        "current_rate": 5,
+        "remaining_years": 20,
+        "rate_increase": 0,
+        "gross_monthly_income": 4500
+      },
+      "expected": {
+        "current_monthly_payment": 1187.92,
+        "stressed_monthly_payment": 1187.92,
+        "monthly_increase": 0,
+        "annual_increase": 0,
+        "payment_to_income_stressed": 0.26398229568666204
+      },
+      "tolerance": "±£0.01 / ±0.0001 as applicable",
+      "ruleset": "uk-2026-27-v1",
+      "note": "Independently derived: simulation/bisection and band tables re-typed from primary sources."
+    },
+    {
+      "scenario": "Rate falls",
+      "inputs": {
+        "balance": 180000,
+        "current_rate": 5,
+        "remaining_years": 20,
+        "rate_increase": -1,
+        "gross_monthly_income": 4500
+      },
+      "expected": {
+        "current_monthly_payment": 1187.92,
+        "stressed_monthly_payment": 1090.76,
+        "monthly_increase": -97.16,
+        "annual_increase": -1165.87,
+        "payment_to_income_stressed": 0.24239213171976898
+      },
+      "tolerance": "±£0.01 / ±0.0001 as applicable",
+      "ruleset": "uk-2026-27-v1",
+      "note": "Independently derived: simulation/bisection and band tables re-typed from primary sources."
+    },
+    {
+      "scenario": "No income supplied",
+      "inputs": {
+        "balance": 300000,
+        "current_rate": 4,
+        "remaining_years": 30,
+        "rate_increase": 2
+      },
+      "expected": {
+        "current_monthly_payment": 1432.25,
+        "stressed_monthly_payment": 1798.65,
+        "monthly_increase": 366.41,
+        "annual_increase": 4396.87,
+        "payment_to_income_stressed": null
+      },
+      "tolerance": "±£0.01 / ±0.0001 as applicable",
+      "ruleset": "uk-2026-27-v1",
+      "note": "Independently derived: simulation/bisection and band tables re-typed from primary sources."
+    }
+  ],
+  "PRO-012": [
+    {
+      "scenario": "Typical equity",
+      "inputs": {
+        "property_value": 350000,
+        "mortgage_balance": 180000,
+        "max_ltv": 85
+      },
+      "expected": {
+        "equity": 170000,
+        "equity_percentage": 0.4857142857142857,
+        "ltv": 0.5142857142857142,
+        "available_to_borrow": 117500
+      },
+      "tolerance": "±£0.01 / ±0.0001 as applicable",
+      "ruleset": "uk-2026-27-v1",
+      "note": "Independently derived: simulation/bisection and band tables re-typed from primary sources."
+    },
+    {
+      "scenario": "High equity",
+      "inputs": {
+        "property_value": 500000,
+        "mortgage_balance": 100000,
+        "max_ltv": 85
+      },
+      "expected": {
+        "equity": 400000,
+        "equity_percentage": 0.8,
+        "ltv": 0.2,
+        "available_to_borrow": 325000
+      },
+      "tolerance": "±£0.01 / ±0.0001 as applicable",
+      "ruleset": "uk-2026-27-v1",
+      "note": "Independently derived: simulation/bisection and band tables re-typed from primary sources."
+    },
+    {
+      "scenario": "Negative equity",
+      "inputs": {
+        "property_value": 200000,
+        "mortgage_balance": 220000,
+        "max_ltv": 85
+      },
+      "expected": {
+        "equity": -20000,
+        "equity_percentage": -0.1,
+        "ltv": 1.1,
+        "available_to_borrow": 0
+      },
+      "tolerance": "±£0.01 / ±0.0001 as applicable",
+      "ruleset": "uk-2026-27-v1",
+      "note": "Independently derived: simulation/bisection and band tables re-typed from primary sources."
+    },
+    {
+      "scenario": "No mortgage",
+      "inputs": {
+        "property_value": 300000,
+        "mortgage_balance": 0,
+        "max_ltv": 85
+      },
+      "expected": {
+        "equity": 300000,
+        "equity_percentage": 1,
+        "ltv": 0,
+        "available_to_borrow": 255000
+      },
+      "tolerance": "±£0.01 / ±0.0001 as applicable",
+      "ruleset": "uk-2026-27-v1",
+      "note": "Independently derived: simulation/bisection and band tables re-typed from primary sources."
+    },
+    {
+      "scenario": "Low max LTV",
+      "inputs": {
+        "property_value": 400000,
+        "mortgage_balance": 150000,
+        "max_ltv": 60
+      },
+      "expected": {
+        "equity": 250000,
+        "equity_percentage": 0.625,
+        "ltv": 0.375,
+        "available_to_borrow": 90000
+      },
+      "tolerance": "±£0.01 / ±0.0001 as applicable",
+      "ruleset": "uk-2026-27-v1",
+      "note": "Independently derived: simulation/bisection and band tables re-typed from primary sources."
+    }
+  ],
+  "PRO-014": [
+    {
+      "scenario": "Standard 30x rule",
+      "inputs": {
+        "gross_monthly_income": 3000,
+        "income_multiple": 30,
+        "deposit_weeks": 5,
+        "proposed_rent": 1000
+      },
+      "expected": {
+        "affordable_rent_by_ratio": 1200,
+        "annual_income_required": 30000,
+        "rent_to_income": 0.3333333333333333,
+        "deposit_required": 1153.85,
+        "upfront_cost": 2153.85
+      },
+      "tolerance": "±£0.01 / ±0.0001 as applicable",
+      "ruleset": "uk-2026-27-v1",
+      "note": "Independently derived: simulation/bisection and band tables re-typed from primary sources."
+    },
+    {
+      "scenario": "No proposed rent",
+      "inputs": {
+        "gross_monthly_income": 4000,
+        "income_multiple": 30,
+        "deposit_weeks": 5
+      },
+      "expected": {
+        "affordable_rent_by_ratio": 1600,
+        "annual_income_required": 48000,
+        "rent_to_income": 0.4,
+        "deposit_required": 1846.15,
+        "upfront_cost": 3446.15
+      },
+      "tolerance": "±£0.01 / ±0.0001 as applicable",
+      "ruleset": "uk-2026-27-v1",
+      "note": "Independently derived: simulation/bisection and band tables re-typed from primary sources."
+    },
+    {
+      "scenario": "Stricter multiple",
+      "inputs": {
+        "gross_monthly_income": 3000,
+        "income_multiple": 36,
+        "deposit_weeks": 5,
+        "proposed_rent": 900
+      },
+      "expected": {
+        "affordable_rent_by_ratio": 1000,
+        "annual_income_required": 32400,
+        "rent_to_income": 0.3,
+        "deposit_required": 1038.46,
+        "upfront_cost": 1938.46
+      },
+      "tolerance": "±£0.01 / ±0.0001 as applicable",
+      "ruleset": "uk-2026-27-v1",
+      "note": "Independently derived: simulation/bisection and band tables re-typed from primary sources."
+    },
+    {
+      "scenario": "Six week deposit",
+      "inputs": {
+        "gross_monthly_income": 2500,
+        "income_multiple": 30,
+        "deposit_weeks": 6,
+        "proposed_rent": 800
+      },
+      "expected": {
+        "affordable_rent_by_ratio": 1000,
+        "annual_income_required": 24000,
+        "rent_to_income": 0.32,
+        "deposit_required": 1107.69,
+        "upfront_cost": 1907.69
+      },
+      "tolerance": "±£0.01 / ±0.0001 as applicable",
+      "ruleset": "uk-2026-27-v1",
+      "note": "Independently derived: simulation/bisection and band tables re-typed from primary sources."
+    },
+    {
+      "scenario": "High income",
+      "inputs": {
+        "gross_monthly_income": 8000,
+        "income_multiple": 30,
+        "deposit_weeks": 5,
+        "proposed_rent": 2200
+      },
+      "expected": {
+        "affordable_rent_by_ratio": 3200,
+        "annual_income_required": 66000,
+        "rent_to_income": 0.275,
+        "deposit_required": 2538.46,
+        "upfront_cost": 4738.46
+      },
+      "tolerance": "±£0.01 / ±0.0001 as applicable",
+      "ruleset": "uk-2026-27-v1",
+      "note": "Independently derived: simulation/bisection and band tables re-typed from primary sources."
+    }
+  ],
+  "PRO-021": [
+    {
+      "scenario": "Positive cash flow",
+      "inputs": {
+        "monthly_rent": 1300,
+        "vacancy": 5,
+        "annual_costs": 3000,
+        "monthly_mortgage_payment": 700,
+        "cash_invested": 90000
+      },
+      "expected": {
+        "annual_gross_rent": 15600,
+        "annual_effective_rent": 14820,
+        "annual_mortgage_cost": 8400,
+        "net_annual_cash_flow": 3420,
+        "net_monthly_cash_flow": 285,
+        "cash_on_cash_return": 0.038
+      },
+      "tolerance": "±£0.01 / ±0.0001 as applicable",
+      "ruleset": "uk-2026-27-v1",
+      "note": "Independently derived: simulation/bisection and band tables re-typed from primary sources."
+    },
+    {
+      "scenario": "Negative cash flow",
+      "inputs": {
+        "monthly_rent": 900,
+        "vacancy": 10,
+        "annual_costs": 4000,
+        "monthly_mortgage_payment": 800,
+        "cash_invested": 60000
+      },
+      "expected": {
+        "annual_gross_rent": 10800,
+        "annual_effective_rent": 9720,
+        "annual_mortgage_cost": 9600,
+        "net_annual_cash_flow": -3880,
+        "net_monthly_cash_flow": -323.33,
+        "cash_on_cash_return": -0.06466666666666666
+      },
+      "tolerance": "±£0.01 / ±0.0001 as applicable",
+      "ruleset": "uk-2026-27-v1",
+      "note": "Independently derived: simulation/bisection and band tables re-typed from primary sources."
+    },
+    {
+      "scenario": "No mortgage",
+      "inputs": {
+        "monthly_rent": 1000,
+        "vacancy": 5,
+        "annual_costs": 2000,
+        "monthly_mortgage_payment": 0,
+        "cash_invested": 200000
+      },
+      "expected": {
+        "annual_gross_rent": 12000,
+        "annual_effective_rent": 11400,
+        "annual_mortgage_cost": 0,
+        "net_annual_cash_flow": 9400,
+        "net_monthly_cash_flow": 783.33,
+        "cash_on_cash_return": 0.047
+      },
+      "tolerance": "±£0.01 / ±0.0001 as applicable",
+      "ruleset": "uk-2026-27-v1",
+      "note": "Independently derived: simulation/bisection and band tables re-typed from primary sources."
+    },
+    {
+      "scenario": "Full occupancy",
+      "inputs": {
+        "monthly_rent": 1200,
+        "vacancy": 0,
+        "annual_costs": 2500,
+        "monthly_mortgage_payment": 650,
+        "cash_invested": 75000
+      },
+      "expected": {
+        "annual_gross_rent": 14400,
+        "annual_effective_rent": 14400,
+        "annual_mortgage_cost": 7800,
+        "net_annual_cash_flow": 4100,
+        "net_monthly_cash_flow": 341.67,
+        "cash_on_cash_return": 0.05466666666666667
+      },
+      "tolerance": "±£0.01 / ±0.0001 as applicable",
+      "ruleset": "uk-2026-27-v1",
+      "note": "Independently derived: simulation/bisection and band tables re-typed from primary sources."
+    },
+    {
+      "scenario": "High vacancy",
+      "inputs": {
+        "monthly_rent": 1500,
+        "vacancy": 20,
+        "annual_costs": 3500,
+        "monthly_mortgage_payment": 900,
+        "cash_invested": 100000
+      },
+      "expected": {
+        "annual_gross_rent": 18000,
+        "annual_effective_rent": 14400,
+        "annual_mortgage_cost": 10800,
+        "net_annual_cash_flow": 100,
+        "net_monthly_cash_flow": 8.33,
+        "cash_on_cash_return": 0.001
+      },
+      "tolerance": "±£0.01 / ±0.0001 as applicable",
+      "ruleset": "uk-2026-27-v1",
+      "note": "Independently derived: simulation/bisection and band tables re-typed from primary sources."
+    }
+  ],
+  "PRO-022": [
+    {
+      "scenario": "Steady growth",
+      "inputs": {
+        "initial_value": 300000,
+        "annual_growth": 3,
+        "years": 10,
+        "inflation": 0
+      },
+      "expected": {
+        "final_value": 403174.91,
+        "total_growth": 103174.91,
+        "total_growth_percentage": 0.3439163793441222,
+        "real_final_value": 403174.91,
+        "real_total_growth_percentage": 0.3439163793441222
+      },
+      "tolerance": "±£0.01 / ±0.0001 as applicable",
+      "ruleset": "uk-2026-27-v1",
+      "note": "Independently derived: simulation/bisection and band tables re-typed from primary sources."
+    },
+    {
+      "scenario": "With inflation",
+      "inputs": {
+        "initial_value": 300000,
+        "annual_growth": 3,
+        "years": 10,
+        "inflation": 2.5
+      },
+      "expected": {
+        "final_value": 403174.91,
+        "total_growth": 103174.91,
+        "total_growth_percentage": 0.3439163793441222,
+        "real_final_value": 314959.6,
+        "real_total_growth_percentage": 0.04986532759665452
+      },
+      "tolerance": "±£0.01 / ±0.0001 as applicable",
+      "ruleset": "uk-2026-27-v1",
+      "note": "Independently derived: simulation/bisection and band tables re-typed from primary sources."
+    },
+    {
+      "scenario": "Zero growth",
+      "inputs": {
+        "initial_value": 250000,
+        "annual_growth": 0,
+        "years": 5,
+        "inflation": 0
+      },
+      "expected": {
+        "final_value": 250000,
+        "total_growth": 0,
+        "total_growth_percentage": 0,
+        "real_final_value": 250000,
+        "real_total_growth_percentage": 0
+      },
+      "tolerance": "±£0.01 / ±0.0001 as applicable",
+      "ruleset": "uk-2026-27-v1",
+      "note": "Independently derived: simulation/bisection and band tables re-typed from primary sources."
+    },
+    {
+      "scenario": "Falling prices",
+      "inputs": {
+        "initial_value": 400000,
+        "annual_growth": -2,
+        "years": 5,
+        "inflation": 2
+      },
+      "expected": {
+        "final_value": 361568.32,
+        "total_growth": -38431.68,
+        "total_growth_percentage": -0.09607920320000007,
+        "real_final_value": 327483.57,
+        "real_total_growth_percentage": -0.18129108469223332
+      },
+      "tolerance": "±£0.01 / ±0.0001 as applicable",
+      "ruleset": "uk-2026-27-v1",
+      "note": "Independently derived: simulation/bisection and band tables re-typed from primary sources."
+    },
+    {
+      "scenario": "Long horizon",
+      "inputs": {
+        "initial_value": 200000,
+        "annual_growth": 4,
+        "years": 25,
+        "inflation": 2
+      },
+      "expected": {
+        "final_value": 533167.27,
+        "total_growth": 333167.27,
+        "total_growth_percentage": 1.665836331487422,
+        "real_final_value": 324981.91,
+        "real_total_growth_percentage": 0.6249095398174418
+      },
+      "tolerance": "±£0.01 / ±0.0001 as applicable",
+      "ruleset": "uk-2026-27-v1",
+      "note": "Independently derived: simulation/bisection and band tables re-typed from primary sources."
+    }
+  ],
+  "PRO-024": [
+    {
+      "scenario": "Under 300k - no tax",
+      "inputs": {
+        "price": 250000
+      },
+      "expected": {
+        "tax": 0,
+        "effective_rate": 0
+      },
+      "tolerance": "±£0.01 / ±0.0001 as applicable",
+      "ruleset": "uk-2026-27-v1",
+      "note": "Independently derived: simulation/bisection and band tables re-typed from primary sources."
+    },
+    {
+      "scenario": "At 300k threshold",
+      "inputs": {
+        "price": 300000
+      },
+      "expected": {
+        "tax": 0,
+        "effective_rate": 0
+      },
+      "tolerance": "±£0.01 / ±0.0001 as applicable",
+      "ruleset": "uk-2026-27-v1",
+      "note": "Independently derived: simulation/bisection and band tables re-typed from primary sources."
+    },
+    {
+      "scenario": "Between 300k and 500k",
+      "inputs": {
+        "price": 400000
+      },
+      "expected": {
+        "tax": 5000,
+        "effective_rate": 0.0125
+      },
+      "tolerance": "±£0.01 / ±0.0001 as applicable",
+      "ruleset": "uk-2026-27-v1",
+      "note": "Independently derived: simulation/bisection and band tables re-typed from primary sources."
+    },
+    {
+      "scenario": "At the 500k ceiling",
+      "inputs": {
+        "price": 500000
+      },
+      "expected": {
+        "tax": 10000,
+        "effective_rate": 0.02
+      },
+      "tolerance": "±£0.01 / ±0.0001 as applicable",
+      "ruleset": "uk-2026-27-v1",
+      "note": "Independently derived: simulation/bisection and band tables re-typed from primary sources."
+    },
+    {
+      "scenario": "Above ceiling - relief lost",
+      "inputs": {
+        "price": 600000
+      },
+      "expected": {
+        "tax": 20000,
+        "effective_rate": 0.03333333333333333
+      },
+      "tolerance": "±£0.01 / ±0.0001 as applicable",
+      "ruleset": "uk-2026-27-v1",
+      "note": "Independently derived: simulation/bisection and band tables re-typed from primary sources."
+    }
+  ],
+  "PRO-025": [
+    {
+      "scenario": "Small additional property",
+      "inputs": {
+        "price": 150000
+      },
+      "expected": {
+        "tax": 8000,
+        "base_tax": 500,
+        "surcharge": 7500,
+        "effective_rate": 0.05333333333333334
+      },
+      "tolerance": "±£0.01 / ±0.0001 as applicable",
+      "ruleset": "uk-2026-27-v1",
+      "note": "Independently derived: simulation/bisection and band tables re-typed from primary sources."
+    },
+    {
+      "scenario": "Typical buy-to-let",
+      "inputs": {
+        "price": 250000
+      },
+      "expected": {
+        "tax": 15000,
+        "base_tax": 2500,
+        "surcharge": 12500,
+        "effective_rate": 0.06
+      },
+      "tolerance": "±£0.01 / ±0.0001 as applicable",
+      "ruleset": "uk-2026-27-v1",
+      "note": "Independently derived: simulation/bisection and band tables re-typed from primary sources."
+    },
+    {
+      "scenario": "Mid value",
+      "inputs": {
+        "price": 400000
+      },
+      "expected": {
+        "tax": 30000,
+        "base_tax": 10000,
+        "surcharge": 20000,
+        "effective_rate": 0.075
+      },
+      "tolerance": "±£0.01 / ±0.0001 as applicable",
+      "ruleset": "uk-2026-27-v1",
+      "note": "Independently derived: simulation/bisection and band tables re-typed from primary sources."
+    },
+    {
+      "scenario": "High value",
+      "inputs": {
+        "price": 1000000
+      },
+      "expected": {
+        "tax": 93750,
+        "base_tax": 43750,
+        "surcharge": 50000,
+        "effective_rate": 0.09375
+      },
+      "tolerance": "±£0.01 / ±0.0001 as applicable",
+      "ruleset": "uk-2026-27-v1",
+      "note": "Independently derived: simulation/bisection and band tables re-typed from primary sources."
+    },
+    {
+      "scenario": "Very high value",
+      "inputs": {
+        "price": 2000000
+      },
+      "expected": {
+        "tax": 253750,
+        "base_tax": 153750,
+        "surcharge": 100000,
+        "effective_rate": 0.126875
+      },
+      "tolerance": "±£0.01 / ±0.0001 as applicable",
+      "ruleset": "uk-2026-27-v1",
+      "note": "Independently derived: simulation/bisection and band tables re-typed from primary sources."
+    }
+  ],
+  "PRO-026": [
+    {
+      "scenario": "Below nil rate",
+      "inputs": {
+        "price": 140000
+      },
+      "expected": {
+        "tax": 0,
+        "effective_rate": 0
+      },
+      "tolerance": "±£0.01 / ±0.0001 as applicable",
+      "ruleset": "uk-2026-27-v1",
+      "note": "Independently derived: simulation/bisection and band tables re-typed from primary sources."
+    },
+    {
+      "scenario": "Standard purchase",
+      "inputs": {
+        "price": 300000
+      },
+      "expected": {
+        "tax": 4600,
+        "effective_rate": 0.015333333333333332
+      },
+      "tolerance": "±£0.01 / ±0.0001 as applicable",
+      "ruleset": "uk-2026-27-v1",
+      "note": "Independently derived: simulation/bisection and band tables re-typed from primary sources."
+    },
+    {
+      "scenario": "First-time buyer",
+      "inputs": {
+        "price": 200000,
+        "first_time_buyer": true
+      },
+      "expected": {
+        "tax": 500,
+        "effective_rate": 0.0025
+      },
+      "tolerance": "±£0.01 / ±0.0001 as applicable",
+      "ruleset": "uk-2026-27-v1",
+      "note": "Independently derived: simulation/bisection and band tables re-typed from primary sources."
+    },
+    {
+      "scenario": "Additional dwelling",
+      "inputs": {
+        "price": 250000,
+        "additional_property": true
+      },
+      "expected": {
+        "tax": 22100,
+        "effective_rate": 0.0884
+      },
+      "tolerance": "±£0.01 / ±0.0001 as applicable",
+      "ruleset": "uk-2026-27-v1",
+      "note": "Independently derived: simulation/bisection and band tables re-typed from primary sources."
+    },
+    {
+      "scenario": "High value",
+      "inputs": {
+        "price": 800000
+      },
+      "expected": {
+        "tax": 54350,
+        "effective_rate": 0.0679375
+      },
+      "tolerance": "±£0.01 / ±0.0001 as applicable",
+      "ruleset": "uk-2026-27-v1",
+      "note": "Independently derived: simulation/bisection and band tables re-typed from primary sources."
+    }
+  ],
+  "PRO-027": [
+    {
+      "scenario": "Below nil rate",
+      "inputs": {
+        "price": 200000
+      },
+      "expected": {
+        "tax": 0,
+        "effective_rate": 0
+      },
+      "tolerance": "±£0.01 / ±0.0001 as applicable",
+      "ruleset": "uk-2026-27-v1",
+      "note": "Independently derived: simulation/bisection and band tables re-typed from primary sources."
+    },
+    {
+      "scenario": "Standard purchase",
+      "inputs": {
+        "price": 300000
+      },
+      "expected": {
+        "tax": 4500,
+        "effective_rate": 0.015
+      },
+      "tolerance": "±£0.01 / ±0.0001 as applicable",
+      "ruleset": "uk-2026-27-v1",
+      "note": "Independently derived: simulation/bisection and band tables re-typed from primary sources."
+    },
+    {
+      "scenario": "Higher rate additional property",
+      "inputs": {
+        "price": 300000,
+        "additional_property": true
+      },
+      "expected": {
+        "tax": 19950,
+        "effective_rate": 0.0665
+      },
+      "tolerance": "±£0.01 / ±0.0001 as applicable",
+      "ruleset": "uk-2026-27-v1",
+      "note": "Independently derived: simulation/bisection and band tables re-typed from primary sources."
+    },
+    {
+      "scenario": "High value main residence",
+      "inputs": {
+        "price": 800000
+      },
+      "expected": {
+        "tax": 41750,
+        "effective_rate": 0.0521875
+      },
+      "tolerance": "±£0.01 / ±0.0001 as applicable",
+      "ruleset": "uk-2026-27-v1",
+      "note": "Independently derived: simulation/bisection and band tables re-typed from primary sources."
+    },
+    {
+      "scenario": "Very high value",
+      "inputs": {
+        "price": 1600000
+      },
+      "expected": {
+        "tax": 123750,
+        "effective_rate": 0.07734375
+      },
+      "tolerance": "±£0.01 / ±0.0001 as applicable",
+      "ruleset": "uk-2026-27-v1",
+      "note": "Independently derived: simulation/bisection and band tables re-typed from primary sources."
+    }
+  ],
+  "PRO-015": [
+    {
+      "scenario": "Ten year hold",
+      "inputs": {
+        "property_price": 300000,
+        "deposit": 60000,
+        "mortgage_rate": 4.5,
+        "mortgage_years": 25,
+        "maintenance_pct": 1,
+        "property_growth": 3,
+        "monthly_rent": 1200,
+        "rent_increase": 2,
+        "investment_return": 5,
+        "years_held": 10,
+        "first_time_buyer": false,
+        "jurisdiction": "england_ni"
+      },
+      "expected": {
+        "purchase_tax": 5000,
+        "total_cost_of_renting": 157675.98,
+        "total_cost_of_buying": 259471.39,
+        "property_value_at_end": 403174.91,
+        "equity_at_end": 228794.57,
+        "net_position_buying": -30676.82,
+        "net_position_renting": -116797.83,
+        "difference": 86121.01
+      },
+      "tolerance": "±£0.01 / ±0.0001 as applicable",
+      "ruleset": "uk-2026-27-v1",
+      "note": "Independently derived: simulation/bisection and band tables re-typed from primary sources."
+    },
+    {
+      "scenario": "Short hold favours renting",
+      "inputs": {
+        "property_price": 300000,
+        "deposit": 60000,
+        "mortgage_rate": 4.5,
+        "mortgage_years": 25,
+        "maintenance_pct": 1,
+        "property_growth": 0,
+        "monthly_rent": 1200,
+        "rent_increase": 0,
+        "investment_return": 5,
+        "years_held": 3,
+        "first_time_buyer": false,
+        "jurisdiction": "england_ni"
+      },
+      "expected": {
+        "purchase_tax": 5000,
+        "total_cost_of_renting": 43200,
+        "total_cost_of_buying": 122023.93,
+        "property_value_at_end": 300000,
+        "equity_at_end": 76694.2,
+        "net_position_buying": -45329.72,
+        "net_position_renting": -32954.37,
+        "difference": -12375.35
+      },
+      "tolerance": "±£0.01 / ±0.0001 as applicable",
+      "ruleset": "uk-2026-27-v1",
+      "note": "Independently derived: simulation/bisection and band tables re-typed from primary sources."
+    },
+    {
+      "scenario": "First-time buyer",
+      "inputs": {
+        "property_price": 280000,
+        "deposit": 40000,
+        "mortgage_rate": 4.2,
+        "mortgage_years": 30,
+        "maintenance_pct": 1,
+        "property_growth": 3,
+        "monthly_rent": 1100,
+        "rent_increase": 2,
+        "investment_return": 4,
+        "years_held": 10,
+        "first_time_buyer": true,
+        "jurisdiction": "england_ni"
+      },
+      "expected": {
+        "purchase_tax": 0,
+        "total_cost_of_renting": 144536.32,
+        "total_cost_of_buying": 212935.81,
+        "property_value_at_end": 376296.59,
+        "equity_at_end": 185946.78,
+        "net_position_buying": -26989.03,
+        "net_position_renting": -125326.55,
+        "difference": 98337.51
+      },
+      "tolerance": "±£0.01 / ±0.0001 as applicable",
+      "ruleset": "uk-2026-27-v1",
+      "note": "Independently derived: simulation/bisection and band tables re-typed from primary sources."
+    },
+    {
+      "scenario": "No growth no returns",
+      "inputs": {
+        "property_price": 250000,
+        "deposit": 50000,
+        "mortgage_rate": 4,
+        "mortgage_years": 25,
+        "maintenance_pct": 1,
+        "property_growth": 0,
+        "monthly_rent": 1000,
+        "rent_increase": 0,
+        "investment_return": 0,
+        "years_held": 5,
+        "first_time_buyer": false,
+        "jurisdiction": "england_ni"
+      },
+      "expected": {
+        "purchase_tax": 2500,
+        "total_cost_of_renting": 60000,
+        "total_cost_of_buying": 128340.42,
+        "property_value_at_end": 250000,
+        "equity_at_end": 75790.77,
+        "net_position_buying": -52549.65,
+        "net_position_renting": -60000,
+        "difference": 7450.35
+      },
+      "tolerance": "±£0.01 / ±0.0001 as applicable",
+      "ruleset": "uk-2026-27-v1",
+      "note": "Independently derived: simulation/bisection and band tables re-typed from primary sources."
+    },
+    {
+      "scenario": "Long hold favours buying",
+      "inputs": {
+        "property_price": 300000,
+        "deposit": 60000,
+        "mortgage_rate": 4.5,
+        "mortgage_years": 25,
+        "maintenance_pct": 1,
+        "property_growth": 4,
+        "monthly_rent": 1300,
+        "rent_increase": 3,
+        "investment_return": 4,
+        "years_held": 20,
+        "first_time_buyer": false,
+        "jurisdiction": "england_ni"
+      },
+      "expected": {
+        "purchase_tax": 5000,
+        "total_cost_of_renting": 419177.84,
+        "total_cost_of_buying": 474493.74,
+        "property_value_at_end": 657336.94,
+        "equity_at_end": 585782.12,
+        "net_position_buying": 111288.38,
+        "net_position_renting": -341754.84,
+        "difference": 453043.21
+      },
+      "tolerance": "±£0.01 / ±0.0001 as applicable",
+      "ruleset": "uk-2026-27-v1",
+      "note": "Independently derived: simulation/bisection and band tables re-typed from primary sources."
+    }
+  ],
+  "PRO-017": [
+    {
+      "scenario": "Interest-only BTL",
+      "inputs": {
+        "price": 250000,
+        "deposit": 75000,
+        "mortgage_rate": 4.5,
+        "mortgage_years": 25,
+        "interest_only": true,
+        "monthly_rent": 1300,
+        "vacancy": 5,
+        "annual_costs": 3000,
+        "other_purchase_costs": 2000,
+        "jurisdiction": "england_ni"
+      },
+      "expected": {
+        "annual_gross_rent": 15600,
+        "annual_effective_rent": 14820,
+        "net_operating_income": 11820,
+        "gross_yield": 0.0624,
+        "net_yield": 0.04728,
+        "annual_mortgage_cost": 7875,
+        "pre_tax_cash_flow": 3945,
+        "purchase_tax": 15000,
+        "cash_invested": 92000,
+        "cash_on_cash_return": 0.042880434782608695
+      },
+      "tolerance": "±£0.01 / ±0.0001 as applicable",
+      "ruleset": "uk-2026-27-v1",
+      "note": "Independently derived: simulation/bisection and band tables re-typed from primary sources."
+    },
+    {
+      "scenario": "Repayment BTL",
+      "inputs": {
+        "price": 250000,
+        "deposit": 75000,
+        "mortgage_rate": 4.5,
+        "mortgage_years": 25,
+        "interest_only": false,
+        "monthly_rent": 1300,
+        "vacancy": 5,
+        "annual_costs": 3000,
+        "other_purchase_costs": 2000,
+        "jurisdiction": "england_ni"
+      },
+      "expected": {
+        "annual_gross_rent": 15600,
+        "annual_effective_rent": 14820,
+        "net_operating_income": 11820,
+        "gross_yield": 0.0624,
+        "net_yield": 0.04728,
+        "annual_mortgage_cost": 11672.48,
+        "pre_tax_cash_flow": 147.52,
+        "purchase_tax": 15000,
+        "cash_invested": 92000,
+        "cash_on_cash_return": 0.0016034561173730016
+      },
+      "tolerance": "±£0.01 / ±0.0001 as applicable",
+      "ruleset": "uk-2026-27-v1",
+      "note": "Independently derived: simulation/bisection and band tables re-typed from primary sources."
+    },
+    {
+      "scenario": "No mortgage",
+      "inputs": {
+        "price": 200000,
+        "deposit": 200000,
+        "mortgage_rate": 0,
+        "mortgage_years": 25,
+        "interest_only": true,
+        "monthly_rent": 1000,
+        "vacancy": 5,
+        "annual_costs": 2500,
+        "other_purchase_costs": 1500,
+        "jurisdiction": "england_ni"
+      },
+      "expected": {
+        "annual_gross_rent": 12000,
+        "annual_effective_rent": 11400,
+        "net_operating_income": 8900,
+        "gross_yield": 0.06,
+        "net_yield": 0.0445,
+        "annual_mortgage_cost": 0,
+        "pre_tax_cash_flow": 8900,
+        "purchase_tax": 11500,
+        "cash_invested": 213000,
+        "cash_on_cash_return": 0.04178403755868545
+      },
+      "tolerance": "±£0.01 / ±0.0001 as applicable",
+      "ruleset": "uk-2026-27-v1",
+      "note": "Independently derived: simulation/bisection and band tables re-typed from primary sources."
+    },
+    {
+      "scenario": "High vacancy",
+      "inputs": {
+        "price": 300000,
+        "deposit": 90000,
+        "mortgage_rate": 5,
+        "mortgage_years": 25,
+        "interest_only": true,
+        "monthly_rent": 1500,
+        "vacancy": 20,
+        "annual_costs": 4000,
+        "other_purchase_costs": 2500,
+        "jurisdiction": "england_ni"
+      },
+      "expected": {
+        "annual_gross_rent": 18000,
+        "annual_effective_rent": 14400,
+        "net_operating_income": 10400,
+        "gross_yield": 0.06,
+        "net_yield": 0.034666666666666665,
+        "annual_mortgage_cost": 10500,
+        "pre_tax_cash_flow": -100,
+        "purchase_tax": 20000,
+        "cash_invested": 112500,
+        "cash_on_cash_return": -0.0008888888888888889
+      },
+      "tolerance": "±£0.01 / ±0.0001 as applicable",
+      "ruleset": "uk-2026-27-v1",
+      "note": "Independently derived: simulation/bisection and band tables re-typed from primary sources."
+    },
+    {
+      "scenario": "Low yield",
+      "inputs": {
+        "price": 500000,
+        "deposit": 150000,
+        "mortgage_rate": 4,
+        "mortgage_years": 25,
+        "interest_only": true,
+        "monthly_rent": 1800,
+        "vacancy": 5,
+        "annual_costs": 5000,
+        "other_purchase_costs": 4000,
+        "jurisdiction": "england_ni"
+      },
+      "expected": {
+        "annual_gross_rent": 21600,
+        "annual_effective_rent": 20520,
+        "net_operating_income": 15520,
+        "gross_yield": 0.0432,
+        "net_yield": 0.03104,
+        "annual_mortgage_cost": 14000,
+        "pre_tax_cash_flow": 1520,
+        "purchase_tax": 40000,
+        "cash_invested": 194000,
+        "cash_on_cash_return": 0.007835051546391752
+      },
+      "tolerance": "±£0.01 / ±0.0001 as applicable",
+      "ruleset": "uk-2026-27-v1",
+      "note": "Independently derived: simulation/bisection and band tables re-typed from primary sources."
+    }
+  ],
+  "PRO-020": [
+    {
+      "scenario": "Ten years",
+      "inputs": {
+        "price": 250000,
+        "deposit": 62500,
+        "other_purchase_costs": 2000,
+        "mortgage_rate": 4.5,
+        "mortgage_years": 25,
+        "monthly_rent": 1200,
+        "annual_costs": 3000,
+        "property_growth": 3,
+        "stock_return": 7,
+        "years": 10,
+        "jurisdiction": "england_ni"
+      },
+      "expected": {
+        "property_final_equity": 199744.45,
+        "property_total_invested": 90562.31,
+        "property_net_gain": 109182.14,
+        "stocks_final_value": 175724.06,
+        "stocks_total_invested": 90562.31,
+        "stocks_net_gain": 85161.75
+      },
+      "tolerance": "±£0.01 / ±0.0001 as applicable",
+      "ruleset": "uk-2026-27-v1",
+      "note": "Independently derived: simulation/bisection and band tables re-typed from primary sources."
+    },
+    {
+      "scenario": "Stocks ahead",
+      "inputs": {
+        "price": 250000,
+        "deposit": 62500,
+        "other_purchase_costs": 2000,
+        "mortgage_rate": 5.5,
+        "mortgage_years": 25,
+        "monthly_rent": 1000,
+        "annual_costs": 4000,
+        "property_growth": 1,
+        "stock_return": 9,
+        "years": 10,
+        "jurisdiction": "england_ni"
+      },
+      "expected": {
+        "property_final_equity": 135237.97,
+        "property_total_invested": 137669.69,
+        "property_net_gain": -2431.71,
+        "stocks_final_value": 288688.43,
+        "stocks_total_invested": 137669.69,
+        "stocks_net_gain": 151018.74
+      },
+      "tolerance": "±£0.01 / ±0.0001 as applicable",
+      "ruleset": "uk-2026-27-v1",
+      "note": "Independently derived: simulation/bisection and band tables re-typed from primary sources."
+    },
+    {
+      "scenario": "Property ahead",
+      "inputs": {
+        "price": 250000,
+        "deposit": 62500,
+        "other_purchase_costs": 2000,
+        "mortgage_rate": 3.5,
+        "mortgage_years": 25,
+        "monthly_rent": 1400,
+        "annual_costs": 2000,
+        "property_growth": 6,
+        "stock_return": 3,
+        "years": 15,
+        "jurisdiction": "england_ni"
+      },
+      "expected": {
+        "property_final_equity": 504215.04,
+        "property_total_invested": 26460.45,
+        "property_net_gain": 477754.59,
+        "stocks_final_value": 124610.82,
+        "stocks_total_invested": 79500,
+        "stocks_net_gain": 45110.82
+      },
+      "tolerance": "±£0.01 / ±0.0001 as applicable",
+      "ruleset": "uk-2026-27-v1",
+      "note": "Independently derived: simulation/bisection and band tables re-typed from primary sources."
+    },
+    {
+      "scenario": "Short horizon",
+      "inputs": {
+        "price": 200000,
+        "deposit": 50000,
+        "other_purchase_costs": 1500,
+        "mortgage_rate": 4,
+        "mortgage_years": 25,
+        "monthly_rent": 1000,
+        "annual_costs": 2500,
+        "property_growth": 3,
+        "stock_return": 6,
+        "years": 5,
+        "jurisdiction": "england_ni"
+      },
+      "expected": {
+        "property_final_equity": 101197.89,
+        "property_total_invested": 63005.32,
+        "property_net_gain": 38192.57,
+        "stocks_final_value": 84983.74,
+        "stocks_total_invested": 63005.32,
+        "stocks_net_gain": 21978.43
+      },
+      "tolerance": "±£0.01 / ±0.0001 as applicable",
+      "ruleset": "uk-2026-27-v1",
+      "note": "Independently derived: simulation/bisection and band tables re-typed from primary sources."
+    },
+    {
+      "scenario": "No growth",
+      "inputs": {
+        "price": 300000,
+        "deposit": 75000,
+        "other_purchase_costs": 2500,
+        "mortgage_rate": 4,
+        "mortgage_years": 25,
+        "monthly_rent": 1300,
+        "annual_costs": 3000,
+        "property_growth": 0,
+        "stock_return": 0,
+        "years": 10,
+        "jurisdiction": "england_ni"
+      },
+      "expected": {
+        "property_final_equity": 139441.36,
+        "property_total_invested": 114015.95,
+        "property_net_gain": 25425.41,
+        "stocks_final_value": 114015.95,
+        "stocks_total_invested": 114015.95,
+        "stocks_net_gain": 0
+      },
+      "tolerance": "±£0.01 / ±0.0001 as applicable",
+      "ruleset": "uk-2026-27-v1",
+      "note": "Independently derived: simulation/bisection and band tables re-typed from primary sources."
+    }
   ]
 }

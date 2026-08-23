@@ -132,7 +132,9 @@
             "rate": 0.05
           }
         ]
-      }
+      },
+      "jurisdiction": "England and Northern Ireland",
+      "tax_name": "Stamp Duty Land Tax (SDLT)"
     },
     "scotland": {
       "standard_bands": [
@@ -161,7 +163,11 @@
         }
       ],
       "additional_dwelling_supplement_rate": 0.08,
-      "first_time_buyer_nil_rate_ceiling_gbp": 175000
+      "first_time_buyer_nil_rate_ceiling_gbp": 175000,
+      "additional_dwelling_supplement_minimum_consideration_gbp": 40000,
+      "additional_dwelling_supplement_effective_from": "2024-12-05",
+      "jurisdiction": "Scotland",
+      "tax_name": "Land and Buildings Transaction Tax (LBTT)"
     },
     "wales": {
       "main_bands": [
@@ -218,7 +224,12 @@
           "from": 1500001,
           "rate": 0.17
         }
-      ]
+      ],
+      "jurisdiction": "Wales",
+      "tax_name": "Land Transaction Tax (LTT)",
+      "higher_rates_effective_from": "2024-12-11",
+      "first_time_buyer_relief": null,
+      "first_time_buyer_relief_note": "Wales has no first-time buyer relief for LTT. The main residential nil-rate band of 225,000 already applies to all main-residence purchases."
     }
   },
   "reference_indicators": {
@@ -270,6 +281,24 @@
       "verified_on": "2026-08-23",
       "source": "https://assets.publishing.service.gov.uk/media/6996e9b3b33a4db7ff889e08/P9X_2026_Tax_codes_to_use_from_6_April_2026.pdf",
       "finding": "The emergency and standard code for 2026/27 is 1257L. S prefix denotes a Scottish taxpayer and C a Welsh taxpayer. BR/D0/D1 charge basic/higher/additional rates on all income from the employment; 0T applies no Personal Allowance; NT deducts no Income Tax; K codes represent a negative allowance; W1/M1/X denote non-cumulative operation."
+    },
+    {
+      "topic": "LBTT residential rates, first-time buyer relief and ADS",
+      "verified_on": "2026-08-23",
+      "source": "https://revenue.scot/taxes/land-buildings-transaction-tax/residential-property",
+      "finding": "Bands 0% to 145,000; 2% to 250,000; 5% to 325,000; 10% to 750,000; 12% above. First-time buyer relief raises the nil-rate band to 175,000. Matches this ruleset."
+    },
+    {
+      "topic": "LBTT Additional Dwelling Supplement",
+      "verified_on": "2026-08-23",
+      "source": "https://revenue.scot/taxes/land-buildings-transaction-tax/additional-dwelling-supplement-ads",
+      "finding": "ADS is 8% for transactions on or after 5 December 2024, payable where consideration is 40,000 or more. Rate matched; the 40,000 minimum consideration was missing and has been added."
+    },
+    {
+      "topic": "LTT main and higher residential rates",
+      "verified_on": "2026-08-23",
+      "source": "https://www.gov.wales/welsh-government-draft-budget-changes-land-transaction-tax-and-landfill-disposals-tax",
+      "finding": "Higher residential rates from 11 December 2024 are 5%/8.5%/10%/12.5%/15%/17% at 180,000/250,000/400,000/750,000/1,500,000. This CONFIRMS the ruleset. A general rates page still showed the pre-December-2024 figures (4%/7.5%/9%/11.5%/14%/16%); the ruleset was NOT changed to match that stale page. Wales has no first-time buyer relief."
     }
   ],
   "national_insurance_employee_class1_category_a": {
@@ -306,19 +335,40 @@
     },
     "flat_rate_codes": {
       "england_wales_ni": {
-        "BR": { "band_index": 0 },
-        "D0": { "band_index": 1 },
-        "D1": { "band_index": 2 }
+        "BR": {
+          "band_index": 0
+        },
+        "D0": {
+          "band_index": 1
+        },
+        "D1": {
+          "band_index": 2
+        }
       },
       "scotland": {
-        "SBR": { "band_index": 1 },
-        "SD0": { "band_index": 2 },
-        "SD1": { "band_index": 3 },
-        "SD2": { "band_index": 4 },
-        "SD3": { "band_index": 5 }
+        "SBR": {
+          "band_index": 1
+        },
+        "SD0": {
+          "band_index": 2
+        },
+        "SD1": {
+          "band_index": 3
+        },
+        "SD2": {
+          "band_index": 4
+        },
+        "SD3": {
+          "band_index": 5
+        }
       }
     },
-    "unsupported_code_families": ["K", "W1", "M1", "X"],
+    "unsupported_code_families": [
+      "K",
+      "W1",
+      "M1",
+      "X"
+    ],
     "explanations": {
       "1257L": "Standard tax code for most people with one job or pension.",
       "BR": "All income from this employment is taxed at the basic rate.",

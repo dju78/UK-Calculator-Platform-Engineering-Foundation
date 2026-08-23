@@ -52,7 +52,17 @@ const PERCENT_OUTPUTS: Record<string, string[]> = {
   "PRO-019": ["annualised_return", "total_return"],
   // --- Wave 2 ---
   "FIN-004": ["combined_ltv"],
-  "FIN-008": ["dti_ratio", "front_end_ratio"]
+  "FIN-008": ["dti_ratio", "front_end_ratio"],
+  "PRO-009": ["percentage_increase", "payment_to_income_now", "payment_to_income_stressed"],
+  "PRO-012": ["equity_percentage", "ltv"],
+  "PRO-014": ["rent_to_income"],
+  "PRO-017": ["gross_yield", "net_yield", "cash_on_cash_return"],
+  "PRO-021": ["cash_on_cash_return"],
+  "PRO-022": ["total_growth_percentage", "real_total_growth_percentage"],
+  "PRO-024": ["effective_rate"],
+  "PRO-025": ["effective_rate"],
+  "PRO-026": ["effective_rate"],
+  "PRO-027": ["effective_rate"]
 };
 
 /** Values already carried in percentage units. */
@@ -77,7 +87,10 @@ const COUNT_OUTPUTS: Record<string, string[]> = {
   "FIN-007": ["payoff_months"],
   "FIN-010": ["months"],
   "FIN-012": ["current_payoff_months"],
-  "FIN-014": ["months_to_target"]
+  "FIN-014": ["months_to_target"],
+  "PRO-005": ["original_payoff_months", "new_payoff_months", "months_saved"],
+  "PRO-006": ["break_even_months"],
+  "PRO-015": ["breakeven_year"]
 };
 
 /**

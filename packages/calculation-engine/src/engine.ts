@@ -19,6 +19,11 @@ import {
   fin003Handler, fin004Handler, fin007Handler, fin008Handler,
   fin010Handler, fin012Handler, fin014Handler, fin015Handler
 } from "./finance/wave2/handlers.js";
+import {
+  pro005Handler, pro006Handler, pro007Handler, pro009Handler, pro012Handler,
+  pro014Handler, pro015Handler, pro017Handler, pro020Handler, pro021Handler,
+  pro022Handler, pro024Handler, pro025Handler, pro026Handler, pro027Handler
+} from "./finance/wave2/property-handlers.js";
 
 export const ENGINE_VERSION = "0.1.0";
 
@@ -61,6 +66,23 @@ const handlers: Record<string, CalculatorHandler> = {
   "FIN-012": fin012Handler,
   "FIN-014": fin014Handler,
   "FIN-015": fin015Handler,
+
+  // --- Wave 2: Mortgages & Property ---
+  "PRO-005": pro005Handler,
+  "PRO-006": pro006Handler,
+  "PRO-007": pro007Handler,
+  "PRO-009": pro009Handler,
+  "PRO-012": pro012Handler,
+  "PRO-014": pro014Handler,
+  "PRO-015": pro015Handler,
+  "PRO-017": pro017Handler,
+  "PRO-020": pro020Handler,
+  "PRO-021": pro021Handler,
+  "PRO-022": pro022Handler,
+  "PRO-024": pro024Handler,
+  "PRO-025": pro025Handler,
+  "PRO-026": pro026Handler,
+  "PRO-027": pro027Handler,
   "TAX-001": tax001Handler,
   "TAX-002": tax002Handler,
   "TAX-003": tax003Handler,

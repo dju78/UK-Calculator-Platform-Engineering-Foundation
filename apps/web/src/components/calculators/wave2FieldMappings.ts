@@ -17,6 +17,12 @@ const YES_NO = [
   { label: "No", value: "false" }
 ];
 
+const PROPERTY_JURISDICTION = [
+  { label: "England & Northern Ireland (SDLT)", value: "england_ni" },
+  { label: "Scotland (LBTT)", value: "scotland" },
+  { label: "Wales (LTT)", value: "wales" }
+];
+
 export const wave2Mappings: Record<string, FieldDef[]> = {
   // ------------------------------------------------- Finance & Debt --------
   "FIN-003": [
@@ -68,5 +74,111 @@ export const wave2Mappings: Record<string, FieldDef[]> = {
     { name: "months", label: "Months to save", type: "number", defaultValue: 60 },
     { name: "annual_rate", label: "Interest rate (%)", type: "number", defaultValue: 4, helperText: "Enter 4 for 4%." },
     { name: "starting_amount", label: "Starting amount (£)", type: "number", defaultValue: 0 }
+  ],
+
+  // ------------------------------------------- Mortgages & Property --------
+  "PRO-005": [
+    { name: "balance", label: "Outstanding balance (£)", type: "number", defaultValue: 180000 },
+    { name: "annual_rate", label: "Interest rate (%)", type: "number", defaultValue: 4.5 },
+    { name: "remaining_years", label: "Remaining term (years)", type: "number", defaultValue: 20 },
+    { name: "monthly_overpayment", label: "Monthly overpayment (£)", type: "number", defaultValue: 200, helperText: "Many lenders cap overpayments at 10% of the balance a year." }
+  ],
+  "PRO-006": [
+    { name: "balance", label: "Outstanding balance (£)", type: "number", defaultValue: 200000 },
+    { name: "current_rate", label: "Current rate (%)", type: "number", defaultValue: 5.5, group: "Current mortgage" },
+    { name: "current_remaining_years", label: "Remaining term (years)", type: "number", defaultValue: 20, group: "Current mortgage" },
+    { name: "new_rate", label: "New rate (%)", type: "number", defaultValue: 4.2, group: "New mortgage" },
+    { name: "new_term_years", label: "New term (years)", type: "number", defaultValue: 20, group: "New mortgage" },
+    { name: "fees", label: "Product and legal fees (£)", type: "number", defaultValue: 999, group: "New mortgage" }
+  ],
+  "PRO-007": [
+    { name: "balance", label: "Mortgage balance (£)", type: "number", defaultValue: 200000 },
+    { name: "annual_rate", label: "Interest rate (%)", type: "number", defaultValue: 4.5 },
+    { name: "years", label: "Term (years)", type: "number", defaultValue: 25 }
+  ],
+  "PRO-009": [
+    { name: "balance", label: "Mortgage balance (£)", type: "number", defaultValue: 200000 },
+    { name: "current_rate", label: "Current rate (%)", type: "number", defaultValue: 4.5 },
+    { name: "remaining_years", label: "Remaining term (years)", type: "number", defaultValue: 20 },
+    { name: "rate_increase", label: "Rate rise to test (percentage points)", type: "number", defaultValue: 2, helperText: "Enter 2 to test a rise of two percentage points." },
+    { name: "gross_monthly_income", label: "Gross monthly income (£)", type: "number", defaultValue: 4000, helperText: "Optional. Used to show the payment as a share of income." }
+  ],
+  "PRO-012": [
+    { name: "property_value", label: "Property value (£)", type: "number", defaultValue: 350000 },
+    { name: "mortgage_balance", label: "Mortgage balance (£)", type: "number", defaultValue: 180000 },
+    { name: "max_ltv", label: "Maximum LTV (%)", type: "number", defaultValue: 85, helperText: "The highest loan-to-value you expect a lender to allow." }
+  ],
+  "PRO-014": [
+    { name: "gross_monthly_income", label: "Gross monthly income (£)", type: "number", defaultValue: 3000 },
+    { name: "income_multiple", label: "Income multiple required", type: "number", defaultValue: 30, helperText: "Agents commonly require annual income of 30x the monthly rent." },
+    { name: "proposed_rent", label: "Proposed monthly rent (£)", type: "number", defaultValue: "", helperText: "Optional. Leave blank to see the maximum rent your income supports." },
+    { name: "deposit_weeks", label: "Deposit (weeks of rent)", type: "number", defaultValue: 5, helperText: "Capped at five weeks in England where annual rent is under £50,000." }
+  ],
+  "PRO-015": [
+    { name: "property_price", label: "Property price (£)", type: "number", defaultValue: 300000, group: "Buying" },
+    { name: "deposit", label: "Deposit (£)", type: "number", defaultValue: 60000, group: "Buying" },
+    { name: "mortgage_rate", label: "Mortgage rate (%)", type: "number", defaultValue: 4.5, group: "Buying" },
+    { name: "mortgage_years", label: "Mortgage term (years)", type: "number", defaultValue: 25, group: "Buying" },
+    { name: "jurisdiction", label: "Where is the property?", type: "select", defaultValue: "england_ni", options: PROPERTY_JURISDICTION, group: "Buying" },
+    { name: "first_time_buyer", label: "First-time buyer?", type: "select", defaultValue: "false", options: YES_NO, group: "Buying" },
+    { name: "maintenance_pct", label: "Annual maintenance (% of value)", type: "number", defaultValue: 1, group: "Buying" },
+    { name: "property_growth", label: "Annual property growth (%)", type: "number", defaultValue: 3, group: "Buying" },
+    { name: "monthly_rent", label: "Monthly rent (£)", type: "number", defaultValue: 1200, group: "Renting" },
+    { name: "rent_increase", label: "Annual rent increase (%)", type: "number", defaultValue: 2, group: "Renting" },
+    { name: "investment_return", label: "Return on invested deposit (%)", type: "number", defaultValue: 5, group: "Renting", helperText: "If you rent, the deposit stays invested instead." },
+    { name: "years_held", label: "Years to compare", type: "number", defaultValue: 10 }
+  ],
+  "PRO-017": [
+    { name: "price", label: "Property price (£)", type: "number", defaultValue: 250000 },
+    { name: "deposit", label: "Deposit (£)", type: "number", defaultValue: 75000 },
+    { name: "jurisdiction", label: "Where is the property?", type: "select", defaultValue: "england_ni", options: PROPERTY_JURISDICTION },
+    { name: "mortgage_rate", label: "Mortgage rate (%)", type: "number", defaultValue: 4.5, group: "Mortgage" },
+    { name: "mortgage_years", label: "Mortgage term (years)", type: "number", defaultValue: 25, group: "Mortgage" },
+    { name: "interest_only", label: "Interest-only?", type: "select", defaultValue: "true", options: YES_NO, group: "Mortgage" },
+    { name: "monthly_rent", label: "Monthly rent (£)", type: "number", defaultValue: 1300, group: "Income and costs" },
+    { name: "vacancy", label: "Vacancy allowance (%)", type: "number", defaultValue: 5, group: "Income and costs" },
+    { name: "annual_costs", label: "Annual running costs (£)", type: "number", defaultValue: 3000, group: "Income and costs" },
+    { name: "other_purchase_costs", label: "Other purchase costs (£)", type: "number", defaultValue: 2000, group: "Income and costs" }
+  ],
+  "PRO-020": [
+    { name: "price", label: "Property price (£)", type: "number", defaultValue: 250000, group: "Property" },
+    { name: "deposit", label: "Deposit (£)", type: "number", defaultValue: 62500, group: "Property" },
+    { name: "jurisdiction", label: "Where is the property?", type: "select", defaultValue: "england_ni", options: PROPERTY_JURISDICTION, group: "Property" },
+    { name: "other_purchase_costs", label: "Other purchase costs (£)", type: "number", defaultValue: 2000, group: "Property" },
+    { name: "mortgage_rate", label: "Mortgage rate (%)", type: "number", defaultValue: 4.5, group: "Property" },
+    { name: "mortgage_years", label: "Mortgage term (years)", type: "number", defaultValue: 25, group: "Property" },
+    { name: "monthly_rent", label: "Monthly rent (£)", type: "number", defaultValue: 1200, group: "Property" },
+    { name: "annual_costs", label: "Annual running costs (£)", type: "number", defaultValue: 3000, group: "Property" },
+    { name: "property_growth", label: "Annual property growth (%)", type: "number", defaultValue: 3, group: "Property" },
+    { name: "stock_return", label: "Annual stock market return (%)", type: "number", defaultValue: 7, group: "Stocks" },
+    { name: "years", label: "Years to compare", type: "number", defaultValue: 10 }
+  ],
+  "PRO-021": [
+    { name: "monthly_rent", label: "Monthly rent (£)", type: "number", defaultValue: 1300 },
+    { name: "vacancy", label: "Vacancy allowance (%)", type: "number", defaultValue: 5 },
+    { name: "annual_costs", label: "Annual running costs (£)", type: "number", defaultValue: 3000 },
+    { name: "monthly_mortgage_payment", label: "Monthly mortgage payment (£)", type: "number", defaultValue: 700 },
+    { name: "cash_invested", label: "Cash invested (£)", type: "number", defaultValue: 90000 }
+  ],
+  "PRO-022": [
+    { name: "initial_value", label: "Property value today (£)", type: "number", defaultValue: 300000 },
+    { name: "annual_growth", label: "Annual growth (%)", type: "number", defaultValue: 3 },
+    { name: "years", label: "Years", type: "number", defaultValue: 10 },
+    { name: "inflation", label: "Annual inflation (%)", type: "number", defaultValue: 2.5, helperText: "Used to show the value in today's money." }
+  ],
+  "PRO-024": [
+    { name: "price", label: "Property price (£)", type: "number", defaultValue: 400000, helperText: "First-time buyer relief in England and Northern Ireland. Relief is unavailable above £500,000." }
+  ],
+  "PRO-025": [
+    { name: "price", label: "Property price (£)", type: "number", defaultValue: 250000, helperText: "Higher rates for additional dwellings in England and Northern Ireland." }
+  ],
+  "PRO-026": [
+    { name: "price", label: "Property price (£)", type: "number", defaultValue: 300000, helperText: "Land and Buildings Transaction Tax applies to property in Scotland." },
+    { name: "first_time_buyer", label: "First-time buyer?", type: "select", defaultValue: "false", options: YES_NO },
+    { name: "additional_property", label: "Additional dwelling?", type: "select", defaultValue: "false", options: YES_NO }
+  ],
+  "PRO-027": [
+    { name: "price", label: "Property price (£)", type: "number", defaultValue: 300000, helperText: "Land Transaction Tax applies to property in Wales." },
+    { name: "additional_property", label: "Additional property?", type: "select", defaultValue: "false", options: YES_NO }
   ]
 };

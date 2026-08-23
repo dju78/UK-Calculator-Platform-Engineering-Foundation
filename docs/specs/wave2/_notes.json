@@ -1,79 +1,367 @@
 {
-  "FIN-003": {
-    "purpose": "Work out the monthly repayment and total cost of an amortising business loan, including an arrangement fee.",
-    "scope": "Fixed-rate, capital-and-interest business loans repaid monthly. Variable rates, drawdown facilities, invoice finance and asset finance are out of scope.",
-    "assumptions": ["A fixed interest rate for the whole term.", "Equal monthly payments with no payment holidays.", "Interest accrues monthly on the reducing balance."],
-    "formula": "Level payment from the standard annuity formula `P = (A x r) / (1 - (1+r)^-n)` where `A` is the amount financed, `r` the monthly rate and `n` the number of months. Where the fee is financed it is added to `A` and therefore attracts interest; where it is paid up front it is excluded from `A` but still counted in the total cost of credit.",
-    "boundary": "An illustration only. It is not a quote, a credit decision, or an offer of finance, and lenders apply their own pricing and affordability rules.",
-    "methodology": "Benchmarks were derived independently by bisection on the simulated closing balance and by month-by-month interest simulation, not by calling the production engine.",
-    "related": ["FIN-001 Loan Calculator", "FIN-004 Secured Loan Calculator", "FIN-007 Amortisation Calculator"]
-  },
-  "FIN-004": {
-    "purpose": "Work out the repayments on a loan secured against property, and the resulting combined loan-to-value.",
-    "scope": "Fixed-rate second-charge and secured personal loans repaid monthly, plus a combined LTV against an existing mortgage.",
-    "assumptions": ["A fixed interest rate for the whole term.", "The existing mortgage balance and property value are as at today.", "Equal monthly payments."],
-    "formula": "Same annuity formula as FIN-003. Combined LTV is `(existing mortgage + new loan) / property value`.",
-    "validation": ["Property value of zero suppresses the combined LTV rather than dividing by zero."],
-    "boundary": "An illustration only, not a quote or credit decision. Because the loan would be secured on the borrower's home, the result carries an explicit repossession warning.",
-    "methodology": "Benchmarks derived independently by bisection and simulation.",
-    "related": ["FIN-003 Business Loan Calculator", "PRO-012 Home Equity Calculator"]
-  },
-  "FIN-007": {
-    "purpose": "Show the full amortisation of a loan: the monthly payment, the split between interest and capital, and how the balance falls.",
-    "scope": "Fixed-rate, capital-and-interest loans repaid monthly.",
-    "assumptions": ["A fixed rate for the whole term.", "Payments made on schedule with no overpayments."],
-    "formula": "Standard annuity payment, then a month-by-month schedule where each period's interest is `balance x monthly rate` and the remainder of the payment reduces the balance.",
-    "boundary": "An illustration of contractual amortisation. Real lenders may apply daily interest, rounding, and fees that shift figures by small amounts.",
-    "methodology": "First-year interest and capital were derived independently by explicit simulation.",
-    "related": ["FIN-001 Loan Calculator", "PRO-005 Mortgage Payoff Calculator"]
-  },
-  "FIN-008": {
-    "purpose": "Express monthly debt commitments as a proportion of gross monthly income.",
-    "scope": "A ratio only. It does not assess affordability or model tax, essential spending or credit history.",
-    "assumptions": ["Income is gross (before tax).", "Debt payments are the contractual monthly amounts."],
-    "formula": "`DTI = total monthly debt / gross monthly income`. The front-end ratio is `housing payment / gross monthly income`.",
-    "validation": ["Zero income is rejected, because a ratio against zero income has no meaning."],
-    "boundary": "Not a lending decision. Lenders use their own affordability rules and may assess net income, stress-tested rates and committed expenditure differently. The Low/Manageable/High bands are presentational guidance only.",
-    "methodology": "Ratios verified by independent arithmetic.",
-    "related": ["PRO-002 Mortgage Affordability Calculator", "FIN-013 Budget Calculator"]
-  },
-  "FIN-010": {
-    "purpose": "Show how long a credit card takes to clear at a fixed monthly payment, and what payment clears it within a target time.",
-    "scope": "A single card with a fixed payment and constant APR.",
-    "assumptions": ["No further spending on the card.", "A constant APR.", "Interest charged monthly on the outstanding balance."],
-    "formula": "Payoff by month-by-month simulation. The payment needed for a target term uses the annuity formula `(B x r) / (1 - (1+r)^-n)`.",
-    "validation": ["A payment that never clears the balance is reported as a validation error rather than an infinite term."],
-    "boundary": "An estimate. Real card interest depends on the issuer's daily calculation, statement dates, promotional rates and how payments are allocated between balance types.",
-    "methodology": "Payoff months cross-checked against the closed form `n = -ln(1 - Br/P)/ln(1+r)`; the oracle reports any disagreement with its own simulation.",
-    "related": ["FIN-009 Credit Card Calculator", "FIN-012 Debt Consolidation Calculator"]
-  },
-  "FIN-012": {
-    "purpose": "Compare keeping several debts against consolidating them into one loan.",
-    "scope": "Existing revolving or fixed-payment debts against a single fixed-rate consolidation loan.",
-    "assumptions": ["Existing debts are repaid at their current monthly payments with no further borrowing.", "The consolidation loan is fixed rate and fully amortising."],
-    "formula": "Each existing debt is run to payoff by simulation to obtain its total interest. The consolidation loan uses the annuity formula on the combined balance plus any fee.",
-    "validation": ["An existing debt whose payment never clears its balance is reported explicitly, naming the debt."],
-    "boundary": "Not a credit decision. The comparison deliberately reports the total interest change as well as the monthly payment change, because a longer consolidation term routinely lowers the monthly payment while increasing the total cost.",
-    "methodology": "Both sides derived independently by simulation and bisection.",
-    "related": ["FIN-010 Credit Card Payoff Calculator", "FIN-011 Debt Payoff Calculator"]
-  },
-  "FIN-014": {
-    "purpose": "Work out an emergency fund target and how long it takes to reach it.",
-    "scope": "Cash emergency savings against essential monthly spending.",
-    "assumptions": ["Essential spending is the unavoidable monthly total.", "The fund is held in accessible cash, so no investment growth is assumed."],
-    "formula": "`target = monthly essentials x months of cover`; `shortfall = max(0, target - current savings)`; months to target is `ceil(shortfall / monthly contribution)`.",
-    "validation": ["Zero essential spending is rejected. A zero contribution reports no completion date rather than an infinite one."],
-    "boundary": "A planning aid, not financial advice. How many months of cover is appropriate depends on personal circumstances.",
-    "methodology": "Verified by independent arithmetic.",
-    "related": ["FIN-013 Budget Calculator", "FIN-015 Savings Goal Calculator"]
-  },
-  "FIN-015": {
-    "purpose": "Work out the monthly saving needed to reach a target by a chosen date.",
-    "scope": "Regular monthly saving into an interest-bearing account, with an optional starting balance.",
-    "assumptions": ["Contributions are made at the END of each month, so a contribution never earns interest before it is paid in.", "A constant interest rate.", "Interest compounds monthly."],
-    "formula": "The existing balance grows to `S(1+r)^n`. The remainder is met by an ordinary annuity: `PMT = (target - S(1+r)^n) x r / ((1+r)^n - 1)`. Where the starting balance already exceeds the target, the required saving is zero.",
-    "boundary": "An illustration. Interest rates change, and returns on anything other than cash are not guaranteed.",
-    "methodology": "The required contribution was derived independently by bisection on a simulated month-by-month balance rather than by the annuity formula the engine uses.",
-    "related": ["FIN-014 Emergency Fund Calculator", "INV-018 Savings Calculator"]
-  }
+ "FIN-003": {
+  "purpose": "Work out the monthly repayment and total cost of an amortising business loan, including an arrangement fee.",
+  "scope": "Fixed-rate, capital-and-interest business loans repaid monthly. Variable rates, drawdown facilities, invoice finance and asset finance are out of scope.",
+  "assumptions": [
+   "A fixed interest rate for the whole term.",
+   "Equal monthly payments with no payment holidays.",
+   "Interest accrues monthly on the reducing balance."
+  ],
+  "formula": "Level payment from the standard annuity formula `P = (A x r) / (1 - (1+r)^-n)` where `A` is the amount financed, `r` the monthly rate and `n` the number of months. Where the fee is financed it is added to `A` and therefore attracts interest; where it is paid up front it is excluded from `A` but still counted in the total cost of credit.",
+  "boundary": "An illustration only. It is not a quote, a credit decision, or an offer of finance, and lenders apply their own pricing and affordability rules.",
+  "methodology": "Benchmarks were derived independently by bisection on the simulated closing balance and by month-by-month interest simulation, not by calling the production engine.",
+  "related": [
+   "FIN-001 Loan Calculator",
+   "FIN-004 Secured Loan Calculator",
+   "FIN-007 Amortisation Calculator"
+  ]
+ },
+ "FIN-004": {
+  "purpose": "Work out the repayments on a loan secured against property, and the resulting combined loan-to-value.",
+  "scope": "Fixed-rate second-charge and secured personal loans repaid monthly, plus a combined LTV against an existing mortgage.",
+  "assumptions": [
+   "A fixed interest rate for the whole term.",
+   "The existing mortgage balance and property value are as at today.",
+   "Equal monthly payments."
+  ],
+  "formula": "Same annuity formula as FIN-003. Combined LTV is `(existing mortgage + new loan) / property value`.",
+  "validation": [
+   "Property value of zero suppresses the combined LTV rather than dividing by zero."
+  ],
+  "boundary": "An illustration only, not a quote or credit decision. Because the loan would be secured on the borrower's home, the result carries an explicit repossession warning.",
+  "methodology": "Benchmarks derived independently by bisection and simulation.",
+  "related": [
+   "FIN-003 Business Loan Calculator",
+   "PRO-012 Home Equity Calculator"
+  ]
+ },
+ "FIN-007": {
+  "purpose": "Show the full amortisation of a loan: the monthly payment, the split between interest and capital, and how the balance falls.",
+  "scope": "Fixed-rate, capital-and-interest loans repaid monthly.",
+  "assumptions": [
+   "A fixed rate for the whole term.",
+   "Payments made on schedule with no overpayments."
+  ],
+  "formula": "Standard annuity payment, then a month-by-month schedule where each period's interest is `balance x monthly rate` and the remainder of the payment reduces the balance.",
+  "boundary": "An illustration of contractual amortisation. Real lenders may apply daily interest, rounding, and fees that shift figures by small amounts.",
+  "methodology": "First-year interest and capital were derived independently by explicit simulation.",
+  "related": [
+   "FIN-001 Loan Calculator",
+   "PRO-005 Mortgage Payoff Calculator"
+  ]
+ },
+ "FIN-008": {
+  "purpose": "Express monthly debt commitments as a proportion of gross monthly income.",
+  "scope": "A ratio only. It does not assess affordability or model tax, essential spending or credit history.",
+  "assumptions": [
+   "Income is gross (before tax).",
+   "Debt payments are the contractual monthly amounts."
+  ],
+  "formula": "`DTI = total monthly debt / gross monthly income`. The front-end ratio is `housing payment / gross monthly income`.",
+  "validation": [
+   "Zero income is rejected, because a ratio against zero income has no meaning."
+  ],
+  "boundary": "Not a lending decision. Lenders use their own affordability rules and may assess net income, stress-tested rates and committed expenditure differently. The Low/Manageable/High bands are presentational guidance only.",
+  "methodology": "Ratios verified by independent arithmetic.",
+  "related": [
+   "PRO-002 Mortgage Affordability Calculator",
+   "FIN-013 Budget Calculator"
+  ]
+ },
+ "FIN-010": {
+  "purpose": "Show how long a credit card takes to clear at a fixed monthly payment, and what payment clears it within a target time.",
+  "scope": "A single card with a fixed payment and constant APR.",
+  "assumptions": [
+   "No further spending on the card.",
+   "A constant APR.",
+   "Interest charged monthly on the outstanding balance."
+  ],
+  "formula": "Payoff by month-by-month simulation. The payment needed for a target term uses the annuity formula `(B x r) / (1 - (1+r)^-n)`.",
+  "validation": [
+   "A payment that never clears the balance is reported as a validation error rather than an infinite term."
+  ],
+  "boundary": "An estimate. Real card interest depends on the issuer's daily calculation, statement dates, promotional rates and how payments are allocated between balance types.",
+  "methodology": "Payoff months cross-checked against the closed form `n = -ln(1 - Br/P)/ln(1+r)`; the oracle reports any disagreement with its own simulation.",
+  "related": [
+   "FIN-009 Credit Card Calculator",
+   "FIN-012 Debt Consolidation Calculator"
+  ]
+ },
+ "FIN-012": {
+  "purpose": "Compare keeping several debts against consolidating them into one loan.",
+  "scope": "Existing revolving or fixed-payment debts against a single fixed-rate consolidation loan.",
+  "assumptions": [
+   "Existing debts are repaid at their current monthly payments with no further borrowing.",
+   "The consolidation loan is fixed rate and fully amortising."
+  ],
+  "formula": "Each existing debt is run to payoff by simulation to obtain its total interest. The consolidation loan uses the annuity formula on the combined balance plus any fee.",
+  "validation": [
+   "An existing debt whose payment never clears its balance is reported explicitly, naming the debt."
+  ],
+  "boundary": "Not a credit decision. The comparison deliberately reports the total interest change as well as the monthly payment change, because a longer consolidation term routinely lowers the monthly payment while increasing the total cost.",
+  "methodology": "Both sides derived independently by simulation and bisection.",
+  "related": [
+   "FIN-010 Credit Card Payoff Calculator",
+   "FIN-011 Debt Payoff Calculator"
+  ]
+ },
+ "FIN-014": {
+  "purpose": "Work out an emergency fund target and how long it takes to reach it.",
+  "scope": "Cash emergency savings against essential monthly spending.",
+  "assumptions": [
+   "Essential spending is the unavoidable monthly total.",
+   "The fund is held in accessible cash, so no investment growth is assumed."
+  ],
+  "formula": "`target = monthly essentials x months of cover`; `shortfall = max(0, target - current savings)`; months to target is `ceil(shortfall / monthly contribution)`.",
+  "validation": [
+   "Zero essential spending is rejected. A zero contribution reports no completion date rather than an infinite one."
+  ],
+  "boundary": "A planning aid, not financial advice. How many months of cover is appropriate depends on personal circumstances.",
+  "methodology": "Verified by independent arithmetic.",
+  "related": [
+   "FIN-013 Budget Calculator",
+   "FIN-015 Savings Goal Calculator"
+  ]
+ },
+ "FIN-015": {
+  "purpose": "Work out the monthly saving needed to reach a target by a chosen date.",
+  "scope": "Regular monthly saving into an interest-bearing account, with an optional starting balance.",
+  "assumptions": [
+   "Contributions are made at the END of each month, so a contribution never earns interest before it is paid in.",
+   "A constant interest rate.",
+   "Interest compounds monthly."
+  ],
+  "formula": "The existing balance grows to `S(1+r)^n`. The remainder is met by an ordinary annuity: `PMT = (target - S(1+r)^n) x r / ((1+r)^n - 1)`. Where the starting balance already exceeds the target, the required saving is zero.",
+  "boundary": "An illustration. Interest rates change, and returns on anything other than cash are not guaranteed.",
+  "methodology": "The required contribution was derived independently by bisection on a simulated month-by-month balance rather than by the annuity formula the engine uses.",
+  "related": [
+   "FIN-014 Emergency Fund Calculator",
+   "INV-018 Savings Calculator"
+  ]
+ },
+ "PRO-005": {
+  "purpose": "Show how regular overpayments shorten a mortgage and cut total interest.",
+  "scope": "Repayment mortgages with a level monthly overpayment.",
+  "assumptions": [
+   "A fixed rate for the remaining term.",
+   "Overpayments are made every month and reduce capital immediately."
+  ],
+  "formula": "Two amortisation simulations - baseline and with the overpayment - differenced for months and interest saved.",
+  "boundary": "Not a quote. Many lenders cap annual overpayments (commonly 10% of the balance); check your mortgage terms.",
+  "methodology": "Both scenarios simulated independently month by month in the oracle.",
+  "related": [
+   "PRO-004 Mortgage Overpayment Calculator",
+   "FIN-007 Amortisation Calculator"
+  ]
+ },
+ "PRO-006": {
+  "purpose": "Compare staying on a current mortgage against remortgaging to a new deal.",
+  "scope": "Fixed-rate comparison including product and legal fees.",
+  "assumptions": [
+   "Both rates fixed for the periods compared.",
+   "Fees are added to the new loan."
+  ],
+  "formula": "Annuity payment on each side; break-even is fees divided by the monthly saving.",
+  "boundary": "Not a quote or a recommendation. Early repayment charges on the existing deal are NOT modelled and can be substantial.",
+  "methodology": "Payments derived by bisection in the oracle.",
+  "related": [
+   "PRO-001 Mortgage Calculator",
+   "PRO-005 Mortgage Payoff Calculator"
+  ]
+ },
+ "PRO-007": {
+  "purpose": "Show interest-only payments against the capital-and-interest equivalent.",
+  "scope": "Interest-only residential and buy-to-let mortgages.",
+  "assumptions": [
+   "A fixed rate.",
+   "No capital is repaid during the term."
+  ],
+  "formula": "Monthly interest is balance x rate / 12. The repayment equivalent uses the annuity formula.",
+  "boundary": "The full capital is still owed at the end of the term. A credible repayment plan is required; this calculator does not assess one.",
+  "methodology": "Independently computed in the oracle.",
+  "related": [
+   "PRO-001 Mortgage Calculator",
+   "PRO-018 Buy-to-Let Calculator"
+  ]
+ },
+ "PRO-009": {
+  "purpose": "Show what a mortgage payment becomes if interest rates rise.",
+  "scope": "A single rate shock applied to the remaining term.",
+  "assumptions": [
+   "The term and balance are unchanged.",
+   "The stressed rate applies for the whole remaining term."
+  ],
+  "formula": "Annuity payment recomputed at the current rate plus the shock.",
+  "boundary": "Lenders run their own stress tests with their own assumptions. This is not an affordability assessment.",
+  "methodology": "Both payments derived by bisection in the oracle.",
+  "related": [
+   "PRO-002 Mortgage Affordability Calculator"
+  ]
+ },
+ "PRO-012": {
+  "purpose": "Work out equity in a property and how much could be released within a maximum LTV.",
+  "scope": "A single property with one mortgage.",
+  "assumptions": [
+   "The property value entered is accurate."
+  ],
+  "formula": "Equity is value less balance; LTV is balance divided by value; available borrowing is value x max LTV less the balance, floored at zero.",
+  "validation": [
+   "Zero property value is rejected."
+  ],
+  "boundary": "Lenders use their own valuation and their own maximum LTV. Negative equity is reported honestly rather than floored.",
+  "methodology": "Independent arithmetic.",
+  "related": [
+   "PRO-010 Loan-to-Value Calculator",
+   "FIN-004 Secured Loan Calculator"
+  ]
+ },
+ "PRO-014": {
+  "purpose": "Work out affordable rent, the income a landlord will require, and the upfront cost.",
+  "scope": "UK assured shorthold tenancies.",
+  "assumptions": [
+   "Agents commonly require annual income of about 30x the monthly rent; the multiple is editable.",
+   "Deposit expressed in weeks of rent."
+  ],
+  "formula": "Affordable rent is annual income divided by the multiple. Deposit is weekly rent (annual rent / 52) times the number of weeks.",
+  "boundary": "Agency criteria differ. In England the tenancy deposit is capped at five weeks' rent where annual rent is under 50,000; this calculator does not enforce local caps.",
+  "methodology": "Independent arithmetic.",
+  "related": [
+   "PRO-015 Rent vs Buy Calculator"
+  ]
+ },
+ "PRO-015": {
+  "purpose": "Compare the long-run financial position of renting against buying.",
+  "scope": "A holding period comparison including purchase tax, mortgage interest, maintenance, rent inflation and the opportunity cost of the deposit.",
+  "assumptions": [
+   "Constant growth, rent inflation and investment return.",
+   "The deposit and purchase tax stay invested if renting."
+  ],
+  "formula": "Both sides are reduced to a NET POSITION: buying is end equity less all cash paid in; renting is the grown investment pot less contributions less rent paid.",
+  "boundary": "Extremely sensitive to assumptions that cannot be predicted. Not advice. Purchase tax uses the versioned rules for the selected jurisdiction.",
+  "methodology": "Both sides re-implemented independently in the oracle, including the SDLT band table.",
+  "rules": "Purchase tax from the versioned ruleset for the selected jurisdiction (SDLT, LBTT or LTT).",
+  "related": [
+   "PRO-014 Rent Calculator",
+   "PRO-020 Property vs Stocks Calculator"
+  ]
+ },
+ "PRO-017": {
+  "purpose": "Appraise a rental property including purchase costs, yields and cash-on-cash return.",
+  "scope": "Single buy-to-let purchase with an interest-only or repayment mortgage.",
+  "assumptions": [
+   "Vacancy expressed as a percentage of gross rent.",
+   "Purchase tax at additional-property rates."
+  ],
+  "formula": "Effective rent is gross rent net of vacancy; NOI deducts running costs; cash-on-cash divides pre-tax cash flow by cash invested.",
+  "boundary": "Cash flow BEFORE income tax. Landlord income tax, mortgage interest relief restrictions and company structures are out of scope.",
+  "methodology": "Independently recomputed in the oracle with a re-typed SDLT table.",
+  "rules": "Purchase tax from the versioned ruleset for the selected jurisdiction.",
+  "related": [
+   "PRO-018 Buy-to-Let Calculator",
+   "PRO-021 Property Cash Flow Calculator"
+  ]
+ },
+ "PRO-020": {
+  "purpose": "Compare a geared property investment against an ungeared stock portfolio.",
+  "scope": "Like-for-like on cash committed over a holding period.",
+  "assumptions": [
+   "The same upfront cash and the same net periodic outlay go into the portfolio.",
+   "Constant growth and return rates."
+  ],
+  "formula": "Property net gain is end equity less total cash invested. The portfolio starts with the same upfront cash and receives the property's net monthly outlay, compounded monthly.",
+  "boundary": "Taxes on rental income and on investment gains are NOT modelled, and neither return is guaranteed. Not investment advice.",
+  "methodology": "Both sides re-implemented independently in the oracle.",
+  "rules": "Purchase tax from the versioned ruleset.",
+  "related": [
+   "PRO-019 Property ROI Calculator",
+   "INV-001 Investment Calculator"
+  ]
+ },
+ "PRO-021": {
+  "purpose": "Show a rental property's annual and monthly cash flow before tax.",
+  "scope": "Rent, vacancy, running costs and mortgage payments.",
+  "assumptions": [
+   "Vacancy as a percentage of gross rent."
+  ],
+  "formula": "Effective rent less costs less mortgage; cash-on-cash divides by cash invested.",
+  "boundary": "Before income tax.",
+  "methodology": "Independent arithmetic.",
+  "related": [
+   "PRO-017 Rental Property Calculator"
+  ]
+ },
+ "PRO-022": {
+  "purpose": "Project property capital growth, in nominal and real terms.",
+  "scope": "Compound growth at a constant rate.",
+  "assumptions": [
+   "Constant growth and inflation."
+  ],
+  "formula": "Final value is initial x (1+g)^n; the real value divides by (1+i)^n.",
+  "boundary": "House prices do not grow smoothly and can fall. A projection, not a forecast.",
+  "methodology": "Independent compounding in the oracle.",
+  "related": [
+   "PRO-019 Property ROI Calculator"
+  ]
+ },
+ "PRO-024": {
+  "purpose": "Work out Stamp Duty Land Tax for a first-time buyer in England or Northern Ireland.",
+  "scope": "First-time buyer relief on a single main residence.",
+  "assumptions": [
+   "The buyer qualifies for first-time buyer relief."
+  ],
+  "formula": "Relief bands applied where the price is within the qualifying ceiling; standard bands otherwise.",
+  "rules": "SDLT bands, first-time buyer relief bands and the qualifying ceiling from the versioned ruleset, verified against gov.uk.",
+  "boundary": "SDLT applies to England and Northern Ireland ONLY. Scotland charges LBTT and Wales charges LTT. Relief is lost entirely above the qualifying ceiling.",
+  "methodology": "Band tables re-typed from gov.uk into the oracle and applied independently.",
+  "related": [
+   "PRO-023 Stamp Duty Land Tax Calculator",
+   "PRO-026 Scotland LBTT Calculator",
+   "PRO-027 Wales LTT Calculator"
+  ]
+ },
+ "PRO-025": {
+  "purpose": "Work out Stamp Duty Land Tax at the higher rates for an additional property in England or Northern Ireland.",
+  "scope": "Additional dwellings, including buy-to-let and second homes.",
+  "assumptions": [
+   "The higher-rate surcharge applies to the whole price."
+  ],
+  "formula": "Standard bands plus a surcharge on the whole consideration.",
+  "rules": "SDLT standard bands and the additional-property surcharge rate from the versioned ruleset.",
+  "boundary": "England and Northern Ireland only. Does not model the refund available if a previous main residence is sold within the statutory period.",
+  "methodology": "Band table and surcharge re-typed from gov.uk into the oracle.",
+  "related": [
+   "PRO-023 Stamp Duty Land Tax Calculator",
+   "PRO-024 First-Time Buyer Stamp Duty Calculator"
+  ]
+ },
+ "PRO-026": {
+  "purpose": "Work out Land and Buildings Transaction Tax on property in Scotland.",
+  "scope": "Residential LBTT including first-time buyer relief and the Additional Dwelling Supplement.",
+  "assumptions": [
+   "Residential rates only."
+  ],
+  "formula": "Progressive LBTT bands. First-time buyer relief raises the nil-rate band; ADS is charged on the whole price where consideration reaches the statutory minimum.",
+  "rules": "LBTT bands, first-time buyer nil-rate ceiling, ADS rate and ADS minimum consideration from the versioned ruleset, verified against revenue.scot.",
+  "boundary": "LBTT applies to Scotland ONLY. England and Northern Ireland charge SDLT; Wales charges LTT.",
+  "methodology": "LBTT bands and ADS re-typed from revenue.scot into the oracle, including the raised nil-rate band for first-time buyers.",
+  "related": [
+   "PRO-023 Stamp Duty Land Tax Calculator",
+   "PRO-027 Wales LTT Calculator"
+  ]
+ },
+ "PRO-027": {
+  "purpose": "Work out Land Transaction Tax on property in Wales.",
+  "scope": "Residential LTT at main and higher residential rates.",
+  "assumptions": [
+   "Residential rates only."
+  ],
+  "formula": "Progressive LTT bands. Additional properties use a SEPARATE higher-rate band table, not a surcharge added to the main rates.",
+  "rules": "LTT main and higher residential bands from the versioned ruleset, verified against gov.wales. The higher rates in force are those effective from 11 December 2024.",
+  "boundary": "LTT applies to Wales ONLY. Wales has NO first-time buyer relief; the main residential nil-rate band of 225,000 already applies to all main-residence purchases.",
+  "methodology": "Both band tables re-typed from gov.wales into the oracle. A general rates page still showed pre-December-2024 higher rates; the ruleset was verified against the Welsh Government announcement rather than changed to match the stale page.",
+  "related": [
+   "PRO-023 Stamp Duty Land Tax Calculator",
+   "PRO-026 Scotland LBTT Calculator"
+  ]
+ }
 }
