@@ -37,12 +37,12 @@ const mappings: Record<string, FieldDef[]> = {
   ],
   "FIN-001": [
     { name: "principal", label: "Principal", type: "number", defaultValue: 10000 },
-    { name: "annual_rate", label: "annual_rate (%)", type: "number", defaultValue: 6, scale: 0.01 },
+    { name: "annual_rate", label: "annual_rate (%)", type: "number", defaultValue: 6 },
     { name: "years", label: "Years", type: "number", defaultValue: 5 },
   ],
   "FIN-002": [
     { name: "cash_received", label: "Cash Received", type: "number", defaultValue: 8000 },
-    { name: "rate", label: "rate (%)", type: "number", defaultValue: 7.5, scale: 0.01 },
+    { name: "rate", label: "rate (%)", type: "number", defaultValue: 7.5 },
     { name: "years", label: "Years", type: "number", defaultValue: 4 },
     { name: "fee", label: "Fee", type: "number", defaultValue: 0 },
     { name: "fee_financed", label: "Fee Financed", type: "select", defaultValue: "true", options: [{label: "True", value: "true"}, {label: "False", value: "false"}] },
@@ -192,7 +192,7 @@ const mappings: Record<string, FieldDef[]> = {
   "PRO-001": [
     { name: "price", label: "Price", type: "number", defaultValue: 300000 },
     { name: "deposit", label: "Deposit", type: "number", defaultValue: 60000 },
-    { name: "rate", label: "rate (%)", type: "number", defaultValue: 4.5, scale: 0.01 },
+    { name: "rate", label: "rate (%)", type: "number", defaultValue: 4.5 },
     { name: "years", label: "Years", type: "number", defaultValue: 25 },
     { name: "type", label: "Type", type: "text", defaultValue: "repayment" },
   ],
@@ -207,13 +207,13 @@ const mappings: Record<string, FieldDef[]> = {
   ],
   "PRO-003": [
     { name: "balance", label: "Balance", type: "number", defaultValue: 240000 },
-    { name: "rate", label: "rate (%)", type: "number", defaultValue: 4.5, scale: 0.01 },
+    { name: "rate", label: "rate (%)", type: "number", defaultValue: 4.5 },
     { name: "years", label: "Years", type: "number", defaultValue: 25 },
     { name: "months_elapsed", label: "Months Elapsed", type: "number", defaultValue: 12 },
   ],
   "PRO-004": [
     { name: "balance", label: "Balance", type: "number", defaultValue: 200000 },
-    { name: "rate", label: "rate (%)", type: "number", defaultValue: 4.5, scale: 0.01 },
+    { name: "rate", label: "rate (%)", type: "number", defaultValue: 4.5 },
     { name: "years", label: "Years", type: "number", defaultValue: 20 },
     { name: "monthly_overpayment", label: "Monthly Overpayment", type: "number", defaultValue: 200 },
     { name: "lump_sum", label: "Lump Sum", type: "number", defaultValue: 0 },

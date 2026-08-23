@@ -7,7 +7,7 @@ function round2(num: number): number {
 
 export const fin001Handler: CalculatorHandler = (inputs: NumericInputs) => {
   const principal = Number(inputs.principal);
-  const annual_rate = Number(inputs.annual_rate);
+  const annual_rate = Number(inputs.annual_rate) / 100;
   const years = Number(inputs.years);
 
   const pmt = calculatePmt(principal, annual_rate, years);
@@ -25,7 +25,7 @@ export const fin001Handler: CalculatorHandler = (inputs: NumericInputs) => {
 
 export const fin002Handler: CalculatorHandler = (inputs: NumericInputs) => {
   const cash_received = Number(inputs.cash_received);
-  const rate = Number(inputs.rate);
+  const rate = Number(inputs.rate) / 100;
   const years = Number(inputs.years);
   const fee = Number(inputs.fee);
   const fee_financed = Boolean(inputs.fee_financed);
@@ -52,7 +52,7 @@ export const fin002Handler: CalculatorHandler = (inputs: NumericInputs) => {
 export const pro001Handler: CalculatorHandler = (inputs: NumericInputs) => {
   const price = Number(inputs.price);
   const deposit = Number(inputs.deposit);
-  const rate = Number(inputs.rate);
+  const rate = Number(inputs.rate) / 100;
   const years = Number(inputs.years);
   const type = String(inputs.type) as "repayment" | "interest-only";
 
@@ -79,7 +79,7 @@ export const pro001Handler: CalculatorHandler = (inputs: NumericInputs) => {
 
 export const pro003Handler: CalculatorHandler = (inputs: NumericInputs) => {
   const balance = Number(inputs.balance);
-  const rate = Number(inputs.rate);
+  const rate = Number(inputs.rate) / 100;
   const years = Number(inputs.years);
   const months_elapsed = Number(inputs.months_elapsed);
 
@@ -107,7 +107,7 @@ export const pro003Handler: CalculatorHandler = (inputs: NumericInputs) => {
 
 export const pro004Handler: CalculatorHandler = (inputs: NumericInputs) => {
   const balance = Number(inputs.balance);
-  const rate = Number(inputs.rate);
+  const rate = Number(inputs.rate) / 100;
   const years = Number(inputs.years);
   const monthly_overpayment = Number(inputs.monthly_overpayment || 0);
   const lump_sum = Number(inputs.lump_sum || 0);

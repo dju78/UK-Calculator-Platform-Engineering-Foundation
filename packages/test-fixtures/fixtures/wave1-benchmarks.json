@@ -544,7 +544,7 @@
       "scenario": "Standard",
       "inputs": {
         "principal": 10000,
-        "annual_rate": 0.06,
+        "annual_rate": 6,
         "years": 5
       },
       "expected": {
@@ -576,7 +576,7 @@
       "scenario": "Short term",
       "inputs": {
         "principal": 5000,
-        "annual_rate": 0.12,
+        "annual_rate": 12,
         "years": 1
       },
       "expected": {
@@ -592,7 +592,7 @@
       "scenario": "Low rate",
       "inputs": {
         "principal": 25000,
-        "annual_rate": 0.025,
+        "annual_rate": 2.5,
         "years": 7
       },
       "expected": {
@@ -608,7 +608,7 @@
       "scenario": "Long term",
       "inputs": {
         "principal": 150000,
-        "annual_rate": 0.045,
+        "annual_rate": 4.5,
         "years": 20
       },
       "expected": {
@@ -626,7 +626,7 @@
       "scenario": "No fee",
       "inputs": {
         "cash_received": 8000,
-        "rate": 0.075,
+        "rate": 7.5,
         "years": 4,
         "fee": 0,
         "fee_financed": true
@@ -644,7 +644,7 @@
       "scenario": "Financed fee",
       "inputs": {
         "cash_received": 10000,
-        "rate": 0.08,
+        "rate": 8,
         "years": 5,
         "fee": 250,
         "fee_financed": true
@@ -662,7 +662,7 @@
       "scenario": "Upfront fee",
       "inputs": {
         "cash_received": 10000,
-        "rate": 0.08,
+        "rate": 8,
         "years": 5,
         "fee": 250,
         "fee_financed": false
@@ -698,7 +698,7 @@
       "scenario": "Short",
       "inputs": {
         "cash_received": 3000,
-        "rate": 0.12,
+        "rate": 12,
         "years": 1,
         "fee": 0,
         "fee_financed": true
@@ -2811,7 +2811,7 @@
       "inputs": {
         "price": 300000,
         "deposit": 60000,
-        "rate": 0.045,
+        "rate": 4.5,
         "years": 25,
         "type": "repayment"
       },
@@ -2830,7 +2830,7 @@
       "inputs": {
         "price": 300000,
         "deposit": 60000,
-        "rate": 0.045,
+        "rate": 4.5,
         "years": 25,
         "type": "interest-only"
       },
@@ -2868,7 +2868,7 @@
       "inputs": {
         "price": 250000,
         "deposit": 150000,
-        "rate": 0.04,
+        "rate": 4,
         "years": 15,
         "type": "repayment"
       },
@@ -2887,7 +2887,7 @@
       "inputs": {
         "price": 180000,
         "deposit": 18000,
-        "rate": 0.055,
+        "rate": 5.5,
         "years": 30,
         "type": "repayment"
       },
@@ -3009,7 +3009,7 @@
       "scenario": "Start",
       "inputs": {
         "balance": 240000,
-        "rate": 0.045,
+        "rate": 4.5,
         "years": 25,
         "months_elapsed": 12
       },
@@ -3025,7 +3025,7 @@
       "scenario": "Five years",
       "inputs": {
         "balance": 240000,
-        "rate": 0.045,
+        "rate": 4.5,
         "years": 25,
         "months_elapsed": 60
       },
@@ -3057,7 +3057,7 @@
       "scenario": "Near end",
       "inputs": {
         "balance": 100000,
-        "rate": 0.03,
+        "rate": 3,
         "years": 10,
         "months_elapsed": 119
       },
@@ -3073,7 +3073,7 @@
       "scenario": "High rate",
       "inputs": {
         "balance": 150000,
-        "rate": 0.08,
+        "rate": 8,
         "years": 20,
         "months_elapsed": 24
       },
@@ -3091,7 +3091,7 @@
       "scenario": "£200 monthly",
       "inputs": {
         "balance": 200000,
-        "rate": 0.045,
+        "rate": 4.5,
         "years": 20,
         "monthly_overpayment": 200,
         "lump_sum": 0,
@@ -3111,7 +3111,7 @@
       "scenario": "£500 monthly",
       "inputs": {
         "balance": 200000,
-        "rate": 0.045,
+        "rate": 4.5,
         "years": 20,
         "monthly_overpayment": 500,
         "lump_sum": 0,
@@ -3131,7 +3131,7 @@
       "scenario": "Lump sum",
       "inputs": {
         "balance": 200000,
-        "rate": 0.045,
+        "rate": 4.5,
         "years": 20,
         "monthly_overpayment": 0,
         "lump_sum": 10000,
@@ -3171,7 +3171,7 @@
       "scenario": "Small extra",
       "inputs": {
         "balance": 100000,
-        "rate": 0.03,
+        "rate": 3,
         "years": 15,
         "monthly_overpayment": 50,
         "lump_sum": 0,
