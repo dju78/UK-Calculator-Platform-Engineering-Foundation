@@ -24,3 +24,10 @@ Status: **ENGINEERING RELEASE READY WITH BLOCKERS**
 - Codebase tested and builds successfully (`npm run build`).
 - Linter passes with no errors (`npm run lint`).
 - Tests and E2E pass (`npm run test` & `npm run test:e2e`).
+
+## 5. Deployment Status
+- **PRODUCTION PROVIDER**: Vercel
+- **DEPLOYMENT**: BLOCKED
+- **REASON**: Vercel CLI requires authentication. Run `vercel deploy --temporary` or `vercel login` manually to resolve.
+- **PRODUCTION URL**: BLOCKED
+- **POST-DEPLOYMENT SMOKE TESTS**: BLOCKED (Cannot run against live URL yet).

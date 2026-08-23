@@ -24,7 +24,7 @@
 - [ ] Owner details supplied = COMPLETE. Legal review = REQUIRED.
 
 ## Phase 4: Final Sign-off
-- [ ] Codebase deployed to Staging.
-- [ ] QA / UAT testing complete.
-- [ ] Legal approval confirmed.
+- [ ] Codebase deployed to Staging / Production. (BLOCKED: Vercel Authentication required)
+- [ ] QA / UAT testing complete. (Live smoke tests BLOCKED)
+- [ ] Legal approval confirmed. (Legal review = REQUIRED)
 - [ ] Go-live switch.
