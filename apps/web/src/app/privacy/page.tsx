@@ -8,7 +8,7 @@ export default function PrivacyPolicy() {
 
       <h2>1. Introduction</h2>
       <p>
-        Welcome to the UK Calculator Platform, operated by [OPERATOR LEGAL NAME]. We are committed to protecting your privacy. This Privacy Policy explains how we handle data when you visit and use our website.
+        Welcome to the UK Calculator Platform, operated by Jomovate. We are committed to protecting your privacy. This Privacy Policy explains how we handle data when you visit and use our website.
       </p>
 
       <h2>2. What Data We Collect and How We Use It</h2>
@@ -39,7 +39,7 @@ export default function PrivacyPolicy() {
 
       <h2>5. Contact Us</h2>
       <p>
-        If you have any questions or concerns about this Privacy Policy, please contact us at <a href="mailto:[CONTACT EMAIL]">[CONTACT EMAIL]</a>.
+        If you have any questions or concerns about this Privacy Policy, please contact us at <a href="mailto:dju78@jomovate.com">dju78@jomovate.com</a>.
       </p>
     </div>
   );

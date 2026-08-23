@@ -16,4 +16,4 @@
 
 ## 4. Legal Pages
 - Check that the footer links (Privacy Policy, Terms of Use, Disclaimer, Accessibility) load properly.
-- *Note: Ensure `[OPERATOR LEGAL NAME]` and `[CONTACT EMAIL]` are replaced before final public release.*
+- *Note: Ensure `Jomovate` and `dju78@jomovate.com` are replaced before final public release.*

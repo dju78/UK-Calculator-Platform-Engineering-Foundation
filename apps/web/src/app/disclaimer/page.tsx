@@ -7,7 +7,7 @@ export default function Disclaimer() {
       <p>Last updated: August 2026</p>
 
       <p>
-        The UK Calculator Platform is operated by [OPERATOR LEGAL NAME]. By using this website, you acknowledge and agree to the following disclaimers:
+        The UK Calculator Platform is operated by Jomovate. By using this website, you acknowledge and agree to the following disclaimers:
       </p>
 
       <h2>1. General Informational Purposes Only</h2>
@@ -41,7 +41,7 @@ export default function Disclaimer() {
 
       <h2>4. Contact</h2>
       <p>
-        If you have questions regarding this disclaimer, please contact us at <a href="mailto:[CONTACT EMAIL]">[CONTACT EMAIL]</a>.
+        If you have questions regarding this disclaimer, please contact us at <a href="mailto:dju78@jomovate.com">dju78@jomovate.com</a>.
       </p>
     </div>
   );

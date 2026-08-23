@@ -18,7 +18,7 @@ Status: **ENGINEERING RELEASE READY WITH BLOCKERS**
 - Created stub pages for Privacy, Terms, Disclaimer, and Accessibility.
 
 ## 3. Outstanding Blockers
-- **LEGAL REVIEW REQUIRED**: The Legal pages (Privacy Policy, Terms of Use, Disclaimer, and Accessibility Statement) have been drafted based on a data flow audit, but await formal Legal Review and Owner Details before public launch.
+- **LEGAL REVIEW REQUIRED**: The Legal pages (Privacy Policy, Terms of Use, Disclaimer, and Accessibility Statement) have been drafted based on a data flow audit, but await formal Legal Review (Legal review = REQUIRED) but Owner details supplied = COMPLETE.
 
 ## 4. Quality Metrics
 - Codebase tested and builds successfully (`npm run build`).

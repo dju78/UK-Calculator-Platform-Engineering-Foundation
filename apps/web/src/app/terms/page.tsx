@@ -8,7 +8,7 @@ export default function TermsOfUse() {
 
       <h2>1. Acceptance of Terms</h2>
       <p>
-        By accessing and using the UK Calculator Platform (the &quot;Service&quot;), operated by [OPERATOR LEGAL NAME], you accept and agree to be bound by these Terms of Use. If you do not agree to these Terms, you must not use the Service.
+        By accessing and using the UK Calculator Platform (the &quot;Service&quot;), operated by Jomovate, you accept and agree to be bound by these Terms of Use. If you do not agree to these Terms, you must not use the Service.
       </p>
 
       <h2>2. Use of the Service</h2>
@@ -26,12 +26,12 @@ export default function TermsOfUse() {
 
       <h2>4. Limitation of Liability</h2>
       <p>
-        To the maximum extent permitted by applicable law, [OPERATOR LEGAL NAME] and its affiliates shall not be liable for any direct, indirect, incidental, consequential, or special damages arising out of or in connection with your use of, or inability to use, the Service or the results provided by the Service. 
+        To the maximum extent permitted by applicable law, Jomovate and its affiliates shall not be liable for any direct, indirect, incidental, consequential, or special damages arising out of or in connection with your use of, or inability to use, the Service or the results provided by the Service. 
       </p>
 
       <h2>5. Intellectual Property</h2>
       <p>
-        The Service, including its code, design, and content, is the intellectual property of [OPERATOR LEGAL NAME] and is protected by copyright and other intellectual property laws.
+        The Service, including its code, design, and content, is the intellectual property of Jomovate and is protected by copyright and other intellectual property laws.
       </p>
 
       <h2>6. Modifications to the Service and Terms</h2>
@@ -41,7 +41,7 @@ export default function TermsOfUse() {
 
       <h2>7. Contact</h2>
       <p>
-        For any questions regarding these Terms of Use, please contact <a href="mailto:[CONTACT EMAIL]">[CONTACT EMAIL]</a>.
+        For any questions regarding these Terms of Use, please contact <a href="mailto:dju78@jomovate.com">dju78@jomovate.com</a>.
       </p>
     </div>
   );

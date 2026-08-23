@@ -7,7 +7,7 @@ export default function AccessibilityStatement() {
       <p>Last updated: August 2026</p>
 
       <p>
-        [OPERATOR LEGAL NAME] is committed to making the UK Calculator Platform accessible to everyone, regardless of technology or ability. We strive to provide a positive, inclusive user experience for all our visitors.
+        Jomovate is committed to making the UK Calculator Platform accessible to everyone, regardless of technology or ability. We strive to provide a positive, inclusive user experience for all our visitors.
       </p>
 
       <h2>1. Our Commitment</h2>
@@ -38,7 +38,7 @@ export default function AccessibilityStatement() {
         We welcome your feedback on the accessibility of the UK Calculator Platform. If you encounter any barriers, or if you need assistance using any of our tools, please contact us:
       </p>
       <ul>
-        <li>Email: <a href="mailto:[CONTACT EMAIL]">[CONTACT EMAIL]</a></li>
+        <li>Email: <a href="mailto:dju78@jomovate.com">dju78@jomovate.com</a></li>
       </ul>
       <p>
         We try to respond to all accessibility feedback within 5 business days.

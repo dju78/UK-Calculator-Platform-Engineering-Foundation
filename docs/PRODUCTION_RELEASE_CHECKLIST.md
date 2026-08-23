@@ -21,7 +21,7 @@
 - [x] Drafted robust text for `/terms` (Terms of Use).
 - [x] Drafted robust text for `/disclaimer` (Disclaimer).
 - [x] Drafted robust text for `/accessibility` (Accessibility Statement).
-- [ ] Have a legal representative review all compliance wording and replace placeholders.
+- [ ] Owner details supplied = COMPLETE. Legal review = REQUIRED.
 
 ## Phase 4: Final Sign-off
 - [ ] Codebase deployed to Staging.
