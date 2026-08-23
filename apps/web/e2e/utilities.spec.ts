@@ -38,7 +38,7 @@ test.describe('Everyday Utilities Calculators', () => {
         await page.getByRole('button', { name: /Calculate/i }).click();
 
         // Check the deterministic result
-        await expect(page.getByText(/125/)).toBeVisible();
+        await expect(page.getByText('125.00')).toBeVisible();
 
         const accessibilityScanResults = await new AxeBuilder({ page }).analyze();
         const blockingViolations = accessibilityScanResults.violations.filter(

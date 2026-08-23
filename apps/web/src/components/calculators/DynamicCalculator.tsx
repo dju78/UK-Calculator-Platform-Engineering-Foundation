@@ -47,6 +47,9 @@ export function DynamicCalculator({
       if (key.includes("payment") || key.includes("repayment") || key.includes("interest") || key.includes("loan") || key.includes("principal")) {
         return new Intl.NumberFormat("en-GB", { style: "currency", currency: "GBP" }).format(value);
       }
+      if (key === "converted") {
+        return new Intl.NumberFormat("en-GB", { minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(value);
+      }
       return new Intl.NumberFormat("en-GB").format(value);
     }
     return String(value);
