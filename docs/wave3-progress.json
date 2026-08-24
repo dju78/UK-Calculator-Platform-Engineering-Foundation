@@ -1,0 +1,123 @@
+{
+  "generated_at": "2026-08-24",
+  "branch": "wave3-development",
+  "baseline_commit": "df9f31f",
+  "counts": {
+    "expected": 10,
+    "discovered": 10,
+    "specified": 10,
+    "benchmarked": 10,
+    "engine_implemented": 10,
+    "unit_tested": 10,
+    "rules_verified": 4,
+    "ui_prepared": 10,
+    "integration_pending": 10,
+    "verified": 0
+  },
+  "benchmark_cases": {
+    "wave3_cases_written": 50,
+    "wave3_minimum_target": 50
+  },
+  "calculators": [
+    {
+      "id": "PRO-008",
+      "name": "Fixed vs Tracker Mortgage Calculator",
+      "category": "Mortgages & Property",
+      "risk": "Medium",
+      "rules_sensitive": false,
+      "status": "planned",
+      "implementation_status": "implemented",
+      "benchmarks": 5
+    },
+    {
+      "id": "PRO-028",
+      "name": "Property Capital Gains Tax Calculator",
+      "category": "Mortgages & Property",
+      "risk": "High",
+      "rules_sensitive": true,
+      "status": "planned",
+      "implementation_status": "implemented",
+      "benchmarks": 5
+    },
+    {
+      "id": "INV-025",
+      "name": "Portfolio Withdrawal Calculator",
+      "category": "Investing & Wealth",
+      "risk": "Medium",
+      "rules_sensitive": false,
+      "status": "planned",
+      "implementation_status": "implemented",
+      "benchmarks": 5
+    },
+    {
+      "id": "INV-026",
+      "name": "Safe Withdrawal Rate Calculator",
+      "category": "Investing & Wealth",
+      "risk": "Medium",
+      "rules_sensitive": false,
+      "status": "planned",
+      "implementation_status": "implemented",
+      "benchmarks": 5
+    },
+    {
+      "id": "INV-027",
+      "name": "Portfolio Rebalancing Calculator",
+      "category": "Investing & Wealth",
+      "risk": "Medium",
+      "rules_sensitive": false,
+      "status": "planned",
+      "implementation_status": "implemented",
+      "benchmarks": 5
+    },
+    {
+      "id": "INV-029",
+      "name": "Monte Carlo Investment Simulator",
+      "category": "Investing & Wealth",
+      "risk": "High",
+      "rules_sensitive": false,
+      "status": "planned",
+      "implementation_status": "implemented",
+      "benchmarks": 5
+    },
+    {
+      "id": "ISA-007",
+      "name": "SIPP vs ISA Calculator",
+      "category": "ISA & Tax Wrappers",
+      "risk": "High",
+      "rules_sensitive": true,
+      "status": "planned",
+      "implementation_status": "implemented",
+      "benchmarks": 5
+    },
+    {
+      "id": "TAX-013",
+      "name": "General Investment Account Tax Calculator",
+      "category": "UK Tax & Salary",
+      "risk": "High",
+      "rules_sensitive": true,
+      "status": "planned",
+      "implementation_status": "implemented",
+      "benchmarks": 5
+    },
+    {
+      "id": "TAX-019",
+      "name": "High Income Child Benefit Charge Calculator",
+      "category": "UK Tax & Salary",
+      "risk": "High",
+      "rules_sensitive": true,
+      "status": "planned",
+      "implementation_status": "implemented",
+      "benchmarks": 5
+    },
+    {
+      "id": "PEN-011",
+      "name": "FIRE Calculator",
+      "category": "Pensions & Retirement",
+      "risk": "Medium",
+      "rules_sensitive": false,
+      "status": "planned",
+      "implementation_status": "implemented",
+      "benchmarks": 5
+    }
+  ]
+}
