@@ -7,8 +7,12 @@
  */
 import type { CalculatorGuideDefinition } from "./types.js";
 import { batch1TaxSalaryGuides } from "./batch1-tax-salary.js";
+import { batch2MortgagesPropertyGuides } from "./batch2-mortgages-property.js";
 
-export const allGuides: CalculatorGuideDefinition[] = [...batch1TaxSalaryGuides];
+export const allGuides: CalculatorGuideDefinition[] = [
+  ...batch1TaxSalaryGuides,
+  ...batch2MortgagesPropertyGuides,
+];
 
 /** Guides keyed by calculator id, for O(1) lookup during rendering. */
 const guidesById = new Map<string, CalculatorGuideDefinition>(
