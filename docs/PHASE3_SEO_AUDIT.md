@@ -67,8 +67,15 @@ All 19 canonical categories feature:
 
 ## 4. Structured Data (JSON-LD) Architecture
 
-### 4.1 WebApplication Schema
-Applied uniformly to all 253 calculator pages:
+### 4.1 WebApplication Schema (Category-Aware)
+Applied across all 253 calculator pages with genuine Schema.org category mapping (and non-applicable categories omitted):
+- **FinanceApplication**: `UK Tax & Salary`, `Finance & Debt`, `Mortgages & Property`, `Investing & Wealth`, `Pensions & Retirement`, `ISA & Tax Wrappers`
+- **HealthApplication**: `Health & Fitness`
+- **BusinessApplication**: `Business & Commercial`
+- **EducationalApplication**: `Education`, `Maths & Algebra`, `Geometry`, `Statistics & Data`, `Science & Engineering`
+- **TravelApplication**: `Automotive & Travel`
+- **UtilitiesApplication**: `Conversions`, `Date & Time`, `Everyday & Lifestyle`, `Home & Construction`, `Technology & Digital`
+
 ```json
 {
   "@context": "https://schema.org",

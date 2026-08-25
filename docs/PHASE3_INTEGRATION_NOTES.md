@@ -23,17 +23,21 @@ Phase 2 content specialists can curate bespoke editorially linked tools per calc
 
 ```typescript
 export const CURATED_RELATED: Record<string, string[]> = {
-  // Example format: slug -> array of 3-4 target slugs
-  'take-home-pay-calculator': [
-    'salary-calculator',
-    'national-insurance-calculator',
-    'pension-calculator',
-    'stamp-duty-calculator',
+  // Authoritative Contract: Source keys and target array items support either
+  // canonical Calculator IDs (e.g. "TAX-001") or canonical Slugs (e.g. "take-home-pay-calculator").
+  "TAX-001": ["TAX-002", "TAX-003", "TAX-004", "TAX-005", "ISA-007"],
+  "take-home-pay-calculator": [
+    "uk-salary-calculator",
+    "national-insurance-calculator",
+    "pension-calculator",
   ],
 };
 ```
 
-If a calculator slug is present in `CURATED_RELATED`, the recommendation engine will prioritize those exact tools before falling back to automatic subcategory and category matching.
+### Identifier Contract & Runtime Validation:
+1. **Dual Resolution**: Both canonical Calculator IDs (e.g. `"TAX-001"`) and canonical Slugs (e.g. `"take-home-pay-calculator"`) are supported and resolved automatically to live calculators in the registry.
+2. **Integrity Validation**: The helper `validateCuratedRelationships()` dynamically tests that every source key and every target entry resolves to an active live calculator (preventing broken internal references).
+3. **Fallback Resolution**: If a calculator has fewer than the requested limit of curated tools (or none configured), the recommendation engine automatically supplements with matching subcategory, category, and adjacent domain tools.
 
 ---
 

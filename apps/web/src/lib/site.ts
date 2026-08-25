@@ -32,6 +32,43 @@ export function categoryPath(category: string): string {
 
 const TAX_YEAR = "2026/27";
 
+/**
+ * Category-aware Schema.org applicationCategory mapping.
+ * Uses genuine Schema.org applicationCategory types; returns undefined where
+ * no precise Schema.org category applies.
+ */
+export function getApplicationCategory(category: string): string | undefined {
+  switch (category) {
+    case "UK Tax & Salary":
+    case "Finance & Debt":
+    case "Mortgages & Property":
+    case "Investing & Wealth":
+    case "Pensions & Retirement":
+    case "ISA & Tax Wrappers":
+      return "FinanceApplication";
+    case "Business & Commercial":
+      return "BusinessApplication";
+    case "Health & Fitness":
+      return "HealthApplication";
+    case "Education":
+    case "Maths & Algebra":
+    case "Geometry":
+    case "Statistics & Data":
+    case "Science & Engineering":
+      return "EducationalApplication";
+    case "Automotive & Travel":
+      return "TravelApplication";
+    case "Conversions":
+    case "Date & Time":
+    case "Everyday & Lifestyle":
+    case "Home & Construction":
+    case "Technology & Digital":
+      return "UtilitiesApplication";
+    default:
+      return undefined;
+  }
+}
+
 export interface CategoryDetails {
   title: string;
   summary: string;

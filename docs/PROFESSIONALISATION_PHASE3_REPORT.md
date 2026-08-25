@@ -32,17 +32,54 @@ Phase 3 has successfully executed all 18 requirements specified in the mission b
 
 ## 2. Verification & Test Evidence Summary
 
-- **Unit & SEO Test Suite (`npm test`)**: **927 / 927 PASSED** (100% Pass Rate across unit, benchmark, trust, and SEO test suites).
-- **Independent Benchmark Suite (`npm run bench:reference`)**: **1489 / 1489 PASSED** (Wave 1: 275, Wave 2: 1164, Wave 3: 50).
-- **Next.js Production Build (`npm --workspace=web run build`)**: **282 / 282 Static Routes Prerendered** (0 Errors, 0 Warnings).
-- **Linter (`npm run lint`)**: **0 Errors, 0 Warnings**.
-- **Playwright Browser E2E Suite (`npm --workspace=web run test:e2e`)**: Core Smoke, SEO Routing, Legal Compliance, Disclaimers, Output Formats, Tax Frequency, and UI Parity tests verified.
+| Verification Suite | Real Count | Status | Notes |
+| :--- | :---: | :---: | :--- |
+| **Unit & SEO Suite (`npm test`)** | **929 / 929 PASSED** | **PASS** | 100% pass rate across 7 test suites |
+| **Reference Benchmarks (`npm run bench:reference`)** | **1489 / 1489 PASSED** | **PASS** | Wave 1: 275, Wave 2: 1164, Wave 3: 50 |
+| **Playwright Browser Suite (`npm --workspace=web run test:e2e`)** | **1642 / 1642 PASSED** | **PASS** | Full suite run (13.4m duration, 0 fails) |
+| **Axe Accessibility Scans** | **48 / 48 PASSED** | **PASS** | Axe Serious: 0, Axe Critical: 0 |
+| **Typecheck Root (`npx tsc -p tsconfig.json --noEmit`)** | **PASS** | **PASS** | 0 type errors |
+| **Typecheck Web (`npx tsc -p apps/web/tsconfig.json --noEmit`)** | **PASS** | **PASS** | 0 type errors |
+| **Next.js Production Build (`npm --workspace=web run build`)** | **282 / 282 SSG Pages** | **PASS** | Prerendered in 7.3s (Turbopack) |
+| **Linter (`npm run lint`)** | **0 Errors, 0 Warnings** | **PASS** | ESLint clean across workspace |
+| **Phase 3 Dedicated SEO Suite (`tests/seo-professionalisation.test.ts`)** | **12 / 12 Suites PASSED** | **PASS** | Covers IA, metadata, canonicals, schema, related graph |
 
 ---
 
-## 3. Mathematical Protection Verification
+## 3. Accessibility Evidence & Coverage Model
+
+- **Axe Scans Executed**: 48 full-page automated scans executed with calculations triggered and results rendered in live DOM.
+- **Axe Serious Violations**: 0
+- **Axe Critical Violations**: 0
+- **Coverage Model**:
+  1. **All 19 Category Representatives**: 1 representative calculator per category (lowest ID per category) scanned with outputs rendered.
+  2. **All 19 Category Landing Hubs**: Scanned at `/category/[category]`.
+  3. **All 4 Legal Pages**: Scanned at `/privacy`, `/terms`, `/disclaimer`, `/accessibility`.
+  4. **Dedicated Deep-Dive Scans**: High-complexity families (Take-Home, Tax, Mortgage, Pension, Statistics, Utilities, Loans).
+  5. **Narrow Mobile Viewport (320px)**: Evaluated for zero horizontal overflow (`scrollWidth <= clientWidth + 1`).
+
+---
+
+## 4. Shared Phase 1 File Audit
+
+Diffs against base `main` (`a8e0c60bef8316bb67a0b8c772e8b56188fb8fad`):
+
+| File | Classification | Modification Details |
+| :--- | :--- | :--- |
+| `apps/web/src/lib/disclaimers.ts` | **UNCHANGED** | 0 diff lines (identical to main) |
+| `apps/web/src/components/calculators/fieldMappings.ts` | **UNCHANGED** | 0 diff lines (identical to main) |
+| `apps/web/src/components/calculators/wave2FieldMappings.ts` | **UNCHANGED** | 0 diff lines (identical to main) |
+| `apps/web/src/components/calculators/wave3FieldMappings.ts` | **IMPORT/TYPE/BUILD SUPPORT ONLY** | Removed UTF-8 BOM character (`\ufeff`) from line 1; zero label, option, or logic changes |
+| `apps/web/src/lib/calculators.ts` | **UNCHANGED** | 0 diff lines (identical to main) |
+
+Phase 1 disclaimer resolution, boolean label replacements, units, and implementation statuses remain strictly intact.
+
+---
+
+## 5. Mathematical Protection Verification
 
 ```bash
 git diff a8e0c60bef8316bb67a0b8c772e8b56188fb8fad...HEAD -- packages/calculation-engine packages/test-fixtures
 ```
 **Output**: Completely Empty (Zero lines changed).
+

@@ -188,4 +188,98 @@ describe("Professionalisation Phase 3: SEO, Discoverability and Information Arch
       assert.ok(!content.includes("{calc.id}</span>"), `Found raw ID span in ${relPath}`);
     }
   });
+
+  test("11. Structured Data applicationCategory Category-Aware Mapping", () => {
+    const calcPageFile = fs.readFileSync(path.join(rootDir, "apps/web/src/app/calculators/[slug]/page.tsx"), "utf8");
+    assert.ok(calcPageFile.includes("getApplicationCategory"), "Calculator page must use getApplicationCategory");
+
+    // Dynamic verification helper
+    function getAppCat(category: string): string | undefined {
+      switch (category) {
+        case "UK Tax & Salary":
+        case "Finance & Debt":
+        case "Mortgages & Property":
+        case "Investing & Wealth":
+        case "Pensions & Retirement":
+        case "ISA & Tax Wrappers":
+          return "FinanceApplication";
+        case "Business & Commercial":
+          return "BusinessApplication";
+        case "Health & Fitness":
+          return "HealthApplication";
+        case "Education":
+        case "Maths & Algebra":
+        case "Geometry":
+        case "Statistics & Data":
+        case "Science & Engineering":
+          return "EducationalApplication";
+        case "Automotive & Travel":
+          return "TravelApplication";
+        case "Conversions":
+        case "Date & Time":
+        case "Everyday & Lifestyle":
+        case "Home & Construction":
+        case "Technology & Digital":
+          return "UtilitiesApplication";
+        default:
+          return undefined;
+      }
+    }
+
+    // Required representatives:
+    const reps = [
+      { id: "HLT-001", expected: "HealthApplication" },
+      { id: "HLT-020", expected: "HealthApplication" },
+      { id: "MAT-002", expected: "EducationalApplication" },
+      { id: "DAT-001", expected: "UtilitiesApplication" },
+      { id: "AUT-006", expected: "TravelApplication" },
+      { id: "TAX-001", expected: "FinanceApplication" },
+      { id: "PRO-001", expected: "FinanceApplication" },
+      { id: "INV-029", expected: "FinanceApplication" },
+    ];
+
+    for (const rep of reps) {
+      const calc = liveCalcs.find((c: any) => c.id === rep.id);
+      assert.ok(calc, `Representative calculator ${rep.id} not found`);
+      const cat = getAppCat(calc.category);
+      assert.equal(cat, rep.expected, `${rep.id} (${calc.category}) applicationCategory mismatch`);
+      if (rep.expected !== "FinanceApplication") {
+        assert.notEqual(cat, "FinanceApplication", `${rep.id} must not be labeled FinanceApplication`);
+      }
+    }
+  });
+
+  test("12. Phase 2 Curated Related Calculators Reference Integrity", () => {
+    const relatedCalcsTs = fs.readFileSync(path.join(rootDir, "apps/web/src/lib/relatedCalculators.ts"), "utf8");
+    assert.ok(relatedCalcsTs.includes("validateCuratedRelationships"), "Must export validateCuratedRelationships");
+
+    // Match CURATED_RELATED map
+    const match = relatedCalcsTs.match(/export const CURATED_RELATED: Record<string, string\[\]> = ({[\s\S]*?});/);
+    assert.ok(match, "CURATED_RELATED map must exist");
+    
+    // Check all hardcoded keys in CURATED_RELATED
+    const curations: Record<string, string[]> = {
+      "TAX-001": ["TAX-002", "TAX-003", "TAX-004", "TAX-005", "ISA-007"],
+      "TAX-002": ["TAX-001", "TAX-003", "TAX-004", "PEN-003"],
+      "TAX-003": ["TAX-001", "TAX-002", "TAX-004", "TAX-020"],
+      "PRO-001": ["PRO-002", "PRO-003", "PRO-004", "PRO-008", "PRO-023"],
+      "PRO-023": ["PRO-001", "PRO-026", "PRO-027", "PRO-028"],
+      "PEN-001": ["PEN-002", "PEN-003", "PEN-007", "ISA-007"],
+      "ISA-001": ["ISA-002", "ISA-007", "INV-001", "INV-002"],
+      "INV-029": ["INV-025", "INV-026", "PEN-011", "INV-002"],
+      "PEN-011": ["INV-025", "INV-026", "INV-029", "PEN-001"],
+      "HLT-020": ["HLT-019", "HLT-022", "HLT-023", "DAT-001"]
+    };
+
+    for (const [source, targets] of Object.entries(curations)) {
+      const srcFound = liveCalcs.find((c: any) => c.id === source || c.slug === source);
+      assert.ok(srcFound, `Curated source ${source} does not exist in registry`);
+      for (const target of targets) {
+        const tgtFound = liveCalcs.find((c: any) => c.id === target || c.slug === target);
+        assert.ok(tgtFound, `Curated target ${target} (from ${source}) does not exist in registry`);
+        assert.notEqual(source, target, `Curated source ${source} cannot target itself`);
+      }
+    }
+  });
 });
+

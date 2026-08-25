@@ -12,6 +12,7 @@ import {
   calculatorDescription,
   calculatorPath,
   categoryPath,
+  getApplicationCategory,
 } from "@/lib/site";
 
 // Generate static params for all calculators
@@ -65,6 +66,8 @@ export default async function CalculatorPage(props: { params: Promise<{ slug: st
 
   const UiComponent = getCalculatorComponent(calc.id);
 
+  const appCategory = getApplicationCategory(calc.category);
+
   return (
     <div className="flex flex-col gap-6 max-w-6xl w-full mx-auto" data-calculator-id={calc.id}>
       <script
@@ -78,7 +81,7 @@ export default async function CalculatorPage(props: { params: Promise<{ slug: st
             name: calc.name,
             url: absoluteUrl(calculatorPath(calc.slug)),
             description: calculatorDescription(calc),
-            applicationCategory: "FinanceApplication",
+            ...(appCategory ? { applicationCategory: appCategory } : {}),
             operatingSystem: "Any",
             isAccessibleForFree: true,
             inLanguage: "en-GB",
