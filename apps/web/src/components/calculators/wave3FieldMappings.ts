@@ -1,4 +1,4 @@
-﻿import type { FieldDef } from "./fieldTypes";
+import type { FieldDef } from "./fieldTypes";
 
 const YES_NO = [
   { label: "Yes", value: "true" },
