@@ -83,13 +83,18 @@ export interface WorkedExampleOutput {
    * tests/calculator-guides.test.ts, so an engine change that moves this
    * number fails the suite rather than leaving a stale figure published.
    */
-  value: number;
+  value: number | string;
   /**
    * "percentValue" means the number is already in percentage units (30 -> 30%),
    * matching the engine outputs these guides quote. There is deliberately no
    * decimal-fraction percent format here.
+   *
+   * "date" and "text" carry string outputs, such as an estimated due date.
+   * Only outputs that are stable for the given inputs may be published: an
+   * output that depends on today's date changes daily and must not be quoted
+   * as a fixed figure.
    */
-  format: "currency" | "percentValue" | "number";
+  format: "currency" | "percentValue" | "number" | "date" | "text";
 }
 
 /** A concrete, reproducible example run of the calculator. */
@@ -101,6 +106,13 @@ export interface WorkedExample {
    * the UI scales at its input boundary is already scaled here.
    */
   engineInputs: Record<string, unknown>;
+  /**
+   * Pins the date the example was computed on, for the handful of calculators
+   * that read the current date. Without it, a dated example both drifts and
+   * eventually falls outside the calculator's own validation window as real
+   * time passes. ISO date, e.g. "2026-08-25".
+   */
+  engineNow?: string;
   /** The same inputs restated for the reader. */
   displayInputs: WorkedExampleInput[];
   /** The arithmetic, one step per line, in the order it is applied. */

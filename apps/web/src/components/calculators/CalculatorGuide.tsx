@@ -46,11 +46,19 @@ const currency = new Intl.NumberFormat("en-GB", {
 function formatOutput(output: WorkedExampleOutput): string {
   switch (output.format) {
     case "currency":
-      return currency.format(output.value);
+      return currency.format(Number(output.value));
     case "percentValue":
       return `${output.value}%`;
+    case "date":
+      return new Date(String(output.value)).toLocaleDateString("en-GB", {
+        day: "numeric",
+        month: "long",
+        year: "numeric",
+      });
+    case "text":
+      return String(output.value);
     default:
-      return new Intl.NumberFormat("en-GB").format(output.value);
+      return new Intl.NumberFormat("en-GB").format(Number(output.value));
   }
 }
 

@@ -10,12 +10,14 @@ import { batch1TaxSalaryGuides } from "./batch1-tax-salary.js";
 import { batch2MortgagesPropertyGuides } from "./batch2-mortgages-property.js";
 import { batch3PensionsRetirementGuides } from "./batch3-pensions-retirement.js";
 import { batch4InvestingIsaGuides } from "./batch4-investing-isa.js";
+import { batch5HealthFinanceAutomotiveGuides } from "./batch5-health-finance-automotive.js";
 
 export const allGuides: CalculatorGuideDefinition[] = [
   ...batch1TaxSalaryGuides,
   ...batch2MortgagesPropertyGuides,
   ...batch3PensionsRetirementGuides,
   ...batch4InvestingIsaGuides,
+  ...batch5HealthFinanceAutomotiveGuides,
 ];
 
 /** Guides keyed by calculator id, for O(1) lookup during rendering. */

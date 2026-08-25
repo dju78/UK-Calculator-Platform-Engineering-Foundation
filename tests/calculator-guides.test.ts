@@ -334,7 +334,13 @@ describe("Phase 2: worked examples are reproduced by the live calculation engine
       assert.ok(example.steps.length > 0, "worked example shows no arithmetic");
       assert.ok(example.outputs.length > 0, "worked example publishes no figures");
 
-      const result = await calculate(guide.calculatorId, example.engineInputs);
+      // A calculator that reads the current date gets a pinned one, so the
+      // example neither drifts nor eventually falls outside the calculator's
+      // own validation window as real time passes.
+      const base = example.engineNow ? new Date(example.engineNow) : new Date();
+      const result = await calculate(guide.calculatorId, example.engineInputs, {
+        now: base,
+      });
 
       for (const output of example.outputs) {
         assert.ok(
@@ -342,15 +348,32 @@ describe("Phase 2: worked examples are reproduced by the live calculation engine
           `${guide.calculatorId}: engine returns no output named "${output.key}"`
         );
         const actual = result.outputs[output.key];
-        assert.equal(
-          typeof actual,
-          "number",
-          `${guide.calculatorId}: output "${output.key}" is not numeric, so it cannot be published as a figure`
+        assert.ok(
+          typeof actual === "number" || typeof actual === "string",
+          `${guide.calculatorId}: output "${output.key}" is neither a number nor a string, so it cannot be published as a figure`
         );
         assert.equal(
           actual,
           output.value,
           `${guide.calculatorId}: published "${output.label}" is ${output.value} but the engine returns ${String(actual)}`
+        );
+      }
+
+      // A published figure must be stable for the inputs given. Some
+      // calculators derive outputs from the current date - gestational age,
+      // days remaining - and those change every day, so quoting one as a
+      // fixed result would put a number on the page that is wrong tomorrow.
+      // Re-running a few days later catches any such output. The shift is
+      // small so it stays inside each calculator's own validation window.
+      const shifted = new Date(base.getTime() + 3 * 24 * 60 * 60 * 1000);
+      const later = await calculate(guide.calculatorId, example.engineInputs, {
+        now: shifted,
+      });
+      for (const output of example.outputs) {
+        assert.equal(
+          later.outputs[output.key],
+          output.value,
+          `${guide.calculatorId}: published "${output.label}" changes with the current date, so it cannot be quoted as a fixed figure`
         );
       }
     });
