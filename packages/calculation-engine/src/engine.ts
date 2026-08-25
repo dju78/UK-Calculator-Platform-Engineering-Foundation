@@ -94,6 +94,12 @@ import {
   edu001Handler, edu002Handler, edu003Handler, edu004Handler, edu005Handler,
   eve001Handler, eve003Handler
 } from "./education/wave2-handlers.js";
+// --- Wave 3 ---
+import {
+  pro008Handler, pro028Handler, inv025Handler, inv026Handler,
+  inv027Handler, inv029Handler, isa007Handler, tax013Handler,
+  tax019Handler, pen011Handler
+} from "./finance/wave3/handlers.js";
 
 export const ENGINE_VERSION = "0.1.0";
 
@@ -379,7 +385,19 @@ const handlers: Record<string, CalculatorHandler> = {
   "PEN-001": handlePensionGrowth,
   "PEN-002": handleSippGrowth,
   "PEN-003": handleWorkplacePension,
-  "PEN-006": handleRetirement
+  "PEN-006": handleRetirement,
+
+  // --- Wave 3 ---
+  "PRO-008": pro008Handler,
+  "PRO-028": pro028Handler,
+  "INV-025": inv025Handler,
+  "INV-026": inv026Handler,
+  "INV-027": inv027Handler,
+  "INV-029": inv029Handler,
+  "ISA-007": isa007Handler,
+  "TAX-013": tax013Handler,
+  "TAX-019": tax019Handler,
+  "PEN-011": pen011Handler
 };
 
 export function implementedCalculatorIds(): string[] {

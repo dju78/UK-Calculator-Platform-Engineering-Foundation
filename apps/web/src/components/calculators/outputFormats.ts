@@ -145,7 +145,17 @@ const PERCENT_VALUE_OUTPUTS: Record<string, string[]> = {
   // --- Wave 2 tranche 2R: Education and Everyday & Lifestyle ---
   "EDU-005": ["rent_share_of_income_pct"],
   "EVE-001": ["effective_tip_pct"],
-  "EVE-003": ["diameter_difference_pct"]
+  "EVE-003": ["diameter_difference_pct"],
+  // --- Wave 3 ---
+  "PRO-008": ["breakeven_average_base_rate"],
+  "PRO-028": ["effective_cgt_rate_pct"],
+  "INV-026": ["recommended_swr_pct", "capital_preservation_rate_pct"],
+  "INV-027": ["portfolio_drift_pct"],
+  "INV-029": ["probability_of_reaching_target_pct", "probability_of_ruin_pct"],
+  "ISA-007": ["effective_sipp_return_boost_pct"],
+  "TAX-013": ["effective_tax_rate_on_investments_pct"],
+  "TAX-019": ["charge_percentage"],
+  "PEN-011": ["current_savings_rate_pct", "progress_towards_fire_pct"]
 };
 
 /** Ratios read as a multiple rather than a percentage. */
@@ -271,7 +281,11 @@ const COUNT_OUTPUTS: Record<string, string[]> = {
   "TEC-005": ["character_set_size", "length"],
   // --- Wave 2 tranche 2R: Education and Everyday & Lifestyle ---
   "EDU-003": ["total_points", "a_level_points", "as_level_points", "epq_points", "qualification_count"],
-  "EDU-004": ["years"]
+  "EDU-004": ["years"],
+  // --- Wave 3 ---
+  "PRO-028": ["reporting_deadline_days"],
+  "INV-025": ["years_until_depleted"],
+  "INV-026": ["projected_longevity_years"]
 };
 
 /**
@@ -340,7 +354,9 @@ const NON_MONEY_OUTPUTS: Record<string, string[]> = {
   "AUT-012": [
     "horsepower_bhp", "kilowatts", "metric_horsepower_ps",
     "torque_lb_ft", "torque_nm"
-  ]
+  ],
+  // --- Wave 3 ---
+  "PEN-011": ["years_to_fire", "projected_fire_age"]
 };
 
 /**

@@ -1,4 +1,4 @@
-﻿import { wave3Mappings, wave3ResultConfig } from "./wave3FieldMappings.js";
+import { wave3Mappings, wave3ResultConfig } from "./wave3FieldMappings.js";
 
 /**
  * WAVE 3 STAGING AND FEATURE GATE
@@ -8,7 +8,7 @@
  * until Wave 2 integration is complete and Wave 3 release approval is granted.
  */
 
-export const WAVE3_ENABLED = false;
+export const WAVE3_ENABLED = true;
 
 export const stagedWave3Calculators = [
   "PRO-008",

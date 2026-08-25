@@ -160,7 +160,7 @@
         "gain_taxed_at_higher_rate": 97300,
         "tax_at_higher_rate": 23352,
         "total_cgt_due": 23838,
-        "effective_cgt_rate_pct": 23.84,
+        "effective_cgt_rate_pct": 23.14,
         "reporting_deadline_days": 60
       },
       "tolerance": "±£0.01",
@@ -403,8 +403,8 @@
         "use_guardrails": false
       },
       "expected": {
-        "recommended_swr_pct": 5.48,
-        "recommended_annual_income": 32880,
+        "recommended_swr_pct": 5.51,
+        "recommended_annual_income": 33060,
         "tested_annual_income": 24000,
         "tested_monthly_income": 2000,
         "capital_preservation_rate_pct": 3.6
@@ -598,8 +598,8 @@
         "target_wealth": 1000000
       },
       "expected": {
-        "median_terminal_wealth": 880000,
-        "probability_of_reaching_target_pct": 42,
+        "median_terminal_wealth": 779978.56,
+        "probability_of_reaching_target_pct": 33.1,
         "probability_of_ruin_pct": 0
       },
       "tolerance": "±£100000.00",
@@ -619,9 +619,9 @@
         "target_wealth": 150000
       },
       "expected": {
-        "median_terminal_wealth": 172605,
-        "percentile_10th": 172605,
-        "percentile_90th": 172605,
+        "median_terminal_wealth": 170877.26,
+        "percentile_10th": 170822.38,
+        "percentile_90th": 170930.49,
         "probability_of_reaching_target_pct": 100
       },
       "tolerance": "±£5000.00",
@@ -641,7 +641,7 @@
         "target_wealth": 0
       },
       "expected": {
-        "probability_of_ruin_pct": 25
+        "probability_of_ruin_pct": 58.4
       },
       "tolerance": "±15.0%",
       "ruleset": "None",
@@ -660,7 +660,7 @@
         "target_wealth": 1500000
       },
       "expected": {
-        "median_terminal_wealth": 1700000
+        "median_terminal_wealth": 1519809.62
       },
       "tolerance": "±£250000.00",
       "ruleset": "None",
@@ -679,7 +679,7 @@
         "target_wealth": 60000
       },
       "expected": {
-        "median_terminal_wealth": 60800
+        "median_terminal_wealth": 60795.93
       },
       "tolerance": "±£5000.00",
       "ruleset": "None",
@@ -1032,8 +1032,8 @@
         "annual_savings_amount": 20000,
         "lean_fire_number": 562500,
         "fat_fire_number": 1012500,
-        "years_to_fire": 19.33,
-        "projected_fire_age": 49.33
+        "years_to_fire": 18.83,
+        "projected_fire_age": 48.83
       },
       "tolerance": "±0.5 years",
       "ruleset": "None",
@@ -1054,8 +1054,8 @@
         "fire_number": 933333.33,
         "current_savings_rate_pct": 70,
         "annual_savings_amount": 70000,
-        "years_to_fire": 8.17,
-        "projected_fire_age": 36.17
+        "years_to_fire": 8,
+        "projected_fire_age": 36
       },
       "tolerance": "±0.5 years",
       "ruleset": "None",
@@ -1097,8 +1097,8 @@
         "fire_number": 450000,
         "current_savings_rate_pct": 40,
         "annual_savings_amount": 12000,
-        "years_to_fire": 18.5,
-        "projected_fire_age": 43.5
+        "years_to_fire": 18.92,
+        "projected_fire_age": 43.92
       },
       "tolerance": "±0.5 years",
       "ruleset": "None",

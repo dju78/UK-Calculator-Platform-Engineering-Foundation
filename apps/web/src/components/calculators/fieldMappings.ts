@@ -6,6 +6,7 @@
  */
 import type { CalculatorConfig, FieldDef } from "./fieldTypes";
 import { wave2Mappings } from "./wave2FieldMappings";
+import { wave3Mappings } from "./wave3FieldMappings";
 
 // --- Shared option lists for the UK Tax & Salary family --------------------
 // Statutory rates and thresholds are NEVER listed here; these are only the
@@ -444,7 +445,7 @@ const wave1Mappings: Record<string, FieldDef[]> = {
 };
 
 /** Every wave's field definitions, keyed by calculator id. */
-export const mappings: Record<string, FieldDef[]> = { ...wave1Mappings, ...wave2Mappings };
+export const mappings: Record<string, FieldDef[]> = { ...wave1Mappings, ...wave2Mappings, ...wave3Mappings };
 
 /**
  * Prominent periodic result cards, and which output keys are prose rather than
@@ -514,5 +515,6 @@ export const NOTE_OUTPUT_KEYS = [
   // in the notes block rather than squeezed into a two-column value row.
   "basis",
   "eligibility_note",
-  "validation"
+  "validation",
+  "effective_marginal_tax_rate_note"
 ];

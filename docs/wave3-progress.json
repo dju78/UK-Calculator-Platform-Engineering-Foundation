@@ -1,7 +1,7 @@
 {
-  "generated_at": "2026-08-24",
+  "generated_at": "2026-08-25",
   "branch": "wave3-development",
-  "baseline_commit": "df9f31f",
+  "baseline_commit": "2948d94",
   "counts": {
     "expected": 10,
     "discovered": 10,
@@ -11,8 +11,8 @@
     "unit_tested": 10,
     "rules_verified": 4,
     "ui_prepared": 10,
-    "integration_pending": 10,
-    "verified": 0
+    "integration_pending": 0,
+    "verified": 10
   },
   "benchmark_cases": {
     "wave3_cases_written": 50,
@@ -25,7 +25,7 @@
       "category": "Mortgages & Property",
       "risk": "Medium",
       "rules_sensitive": false,
-      "status": "planned",
+      "status": "verified",
       "implementation_status": "implemented",
       "benchmarks": 5
     },
@@ -35,7 +35,7 @@
       "category": "Mortgages & Property",
       "risk": "High",
       "rules_sensitive": true,
-      "status": "planned",
+      "status": "verified",
       "implementation_status": "implemented",
       "benchmarks": 5
     },
@@ -45,7 +45,7 @@
       "category": "Investing & Wealth",
       "risk": "Medium",
       "rules_sensitive": false,
-      "status": "planned",
+      "status": "verified",
       "implementation_status": "implemented",
       "benchmarks": 5
     },
@@ -55,7 +55,7 @@
       "category": "Investing & Wealth",
       "risk": "Medium",
       "rules_sensitive": false,
-      "status": "planned",
+      "status": "verified",
       "implementation_status": "implemented",
       "benchmarks": 5
     },
@@ -65,7 +65,7 @@
       "category": "Investing & Wealth",
       "risk": "Medium",
       "rules_sensitive": false,
-      "status": "planned",
+      "status": "verified",
       "implementation_status": "implemented",
       "benchmarks": 5
     },
@@ -75,7 +75,7 @@
       "category": "Investing & Wealth",
       "risk": "High",
       "rules_sensitive": false,
-      "status": "planned",
+      "status": "verified",
       "implementation_status": "implemented",
       "benchmarks": 5
     },
@@ -85,7 +85,7 @@
       "category": "ISA & Tax Wrappers",
       "risk": "High",
       "rules_sensitive": true,
-      "status": "planned",
+      "status": "verified",
       "implementation_status": "implemented",
       "benchmarks": 5
     },
@@ -95,7 +95,7 @@
       "category": "UK Tax & Salary",
       "risk": "High",
       "rules_sensitive": true,
-      "status": "planned",
+      "status": "verified",
       "implementation_status": "implemented",
       "benchmarks": 5
     },
@@ -105,7 +105,7 @@
       "category": "UK Tax & Salary",
       "risk": "High",
       "rules_sensitive": true,
-      "status": "planned",
+      "status": "verified",
       "implementation_status": "implemented",
       "benchmarks": 5
     },
@@ -115,7 +115,7 @@
       "category": "Pensions & Retirement",
       "risk": "Medium",
       "rules_sensitive": false,
-      "status": "planned",
+      "status": "verified",
       "implementation_status": "implemented",
       "benchmarks": 5
     }

@@ -10,7 +10,8 @@ import { parseDisplayedValue } from '../src/components/calculators/outputFormats
 const fixtureDir = path.resolve(process.cwd(), '../../packages/test-fixtures/fixtures');
 const benchmarks: Record<string, any[]> = {
   ...JSON.parse(fs.readFileSync(path.join(fixtureDir, 'wave1-benchmarks.json'), 'utf8')),
-  ...JSON.parse(fs.readFileSync(path.join(fixtureDir, 'wave2-benchmarks.json'), 'utf8'))
+  ...JSON.parse(fs.readFileSync(path.join(fixtureDir, 'wave2-benchmarks.json'), 'utf8')),
+  ...JSON.parse(fs.readFileSync(path.join(fixtureDir, 'wave3-benchmarks.json'), 'utf8'))
 };
 
 /**

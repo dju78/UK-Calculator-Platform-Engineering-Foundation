@@ -97,11 +97,12 @@ run('benchmarks', 'npm run bench:reference', (out) => {
   };
   const wave1 = line('Wave 1');
   const wave2 = line('Wave 2');
+  const wave3 = line('Wave 3');
   const combined = line('COMBINED');
-  if (!wave1 || !wave2 || !combined) throw new Error('could not parse the benchmark summary');
+  if (!wave1 || !wave2 || !wave3 || !combined) throw new Error('could not parse the benchmark summary');
   return {
     status: combined.failed === 0 && combined.skipped === 0 ? 'PASS' : 'FAIL',
-    wave1, wave2, combined
+    wave1, wave2, wave3, combined
   };
 });
 
@@ -109,12 +110,14 @@ run('benchmarks', 'npm run bench:reference', (out) => {
 run('routes', 'node dist/scripts/verify_routes.js', (out) => {
   const m1 = out.match(/Wave 1: (\d+)\/(\d+) routable, (\d+)\/(\d+) verified/);
   const m2 = out.match(/Wave 2: (\d+)\/(\d+) routable, (\d+)\/(\d+) verified/);
+  const m3 = out.match(/Wave 3: (\d+)\/(\d+) routable, (\d+)\/(\d+) verified/);
   const mt = out.match(/Total routable: (\d+)\/(\d+)/);
-  if (!m1 || !m2 || !mt) throw new Error('could not parse the route summary');
+  if (!m1 || !m2 || !m3 || !mt) throw new Error('could not parse the route summary');
   return {
     status: /verified\.$/m.test(out.trim()) && mt[1] === mt[2] ? 'PASS' : 'FAIL',
     wave1: `${m1[1]}/${m1[2]}`,
     wave2: `${m2[1]}/${m2[2]}`,
+    wave3: `${m3[1]}/${m3[2]}`,
     total: `${mt[1]}/${mt[2]}`
   };
 });

@@ -1,6 +1,6 @@
 export type RiskLevel = "low" | "medium" | "high";
 export type ImplementationStatus = "specified" | "implemented";
-export type LaunchWave = "Wave 1" | "Wave 2";
+export type LaunchWave = "Wave 1" | "Wave 2" | "Wave 3";
 
 /**
  * Registry status and implementationStatus are deliberately separate axes:
