@@ -1,32 +1,17 @@
+import { getCalculatorDisclaimer, DisclaimerResolutionContext } from "@/lib/disclaimers";
+
 /**
  * Standing disclaimer shown on every calculator page.
  *
- * The wording is chosen per category so it names the right kind of
- * professional. A single finance-only sentence appeared on the BMI calculator
- * too, which is the wrong disclaimer for a health tool.
+ * Resolves context hierarchically:
+ *   Calculator-specific -> Subcategory/Family -> Category -> General Educational
  *
- * Nothing here claims to be advice, and nothing claims professional or legal
- * approval that has not taken place.
+ * Every disclaimer accurately identifies the relevant professional (e.g. tax adviser,
+ * conveyancer/solicitor, mortgage adviser, medical professional, financial adviser)
+ * without generic mismatch or inaccurate exclusions.
  */
-export function DisclaimerBanner({ category }: { category?: string } = {}) {
-  const key = (category ?? "").toLowerCase();
-
-  let body =
-    "This calculator provides an estimate based on the information you enter. It is not professional advice. Always consult a qualified professional before making a decision.";
-
-  if (key.includes("health")) {
-    body =
-      "This calculator provides a general estimate based on the information you enter. It is not medical advice and does not account for age, build, ethnicity, pregnancy, muscle mass or medical conditions. Speak to a GP or another qualified healthcare professional about your health.";
-  } else if (key.includes("tax") || key.includes("salary")) {
-    body =
-      "This calculator provides an estimate based on the information you enter and published 2026/27 UK rules. It is an annual estimate, not a payslip or a tax return, and it is not tax advice. Consult a qualified tax adviser or check GOV.UK for your circumstances.";
-  } else if (key.includes("pension") || key.includes("isa") || key.includes("invest")) {
-    body =
-      "This calculator provides an illustrative projection based on the information you enter and the assumptions shown. Investment returns are not guaranteed and past performance does not predict future results. It is not financial or investment advice; consider speaking to a regulated financial adviser.";
-  } else if (key.includes("mortgage") || key.includes("property")) {
-    body =
-      "This calculator provides an estimate based on the information you enter. It is not a mortgage illustration, a lending decision or advice, and lenders apply their own affordability rules and stress tests. Consult a qualified mortgage adviser.";
-  }
+export function DisclaimerBanner(props: DisclaimerResolutionContext = {}) {
+  const { body } = getCalculatorDisclaimer(props);
 
   return (
     <div className="bg-amber-50 border-l-4 border-amber-500 p-4 my-4" role="note">

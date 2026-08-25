@@ -246,13 +246,11 @@ export function DynamicCalculator({
             <div className="flex flex-col gap-4">
               {result.rulesetId && (
                 <div className="bg-blue-50 text-blue-900 border border-blue-200 p-3 rounded text-sm mb-4">
-                  <strong>Regulatory Context:</strong> Calculation executed under UK Ruleset{" "}
-                  <code>{result.rulesetId}</code>. (Tax Year 2026/27).
+                  <strong>UK Statutory Basis:</strong> 2026/27 Tax Year (Ruleset <code>{result.rulesetId}</code>).
                   <br />
-                  <em className="text-xs text-blue-700 block mt-1">
-                    Disclaimer: Results are estimates for illustration only and do not
-                    constitute financial advice. Source provenance checked and active.
-                  </em>
+                  <span className="text-xs text-blue-700 block mt-1">
+                    Calculated in accordance with published UK statutory rates and allowances (HMRC / devolved administrations).
+                  </span>
                 </div>
               )}
 

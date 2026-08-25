@@ -12,7 +12,8 @@ export function CalculatorBrowser() {
 
   const filtered = liveCalculators.filter(calc => 
     calc.name.toLowerCase().includes(search.toLowerCase()) || 
-    calc.id.toLowerCase().includes(search.toLowerCase())
+    (calc.subcategory && calc.subcategory.toLowerCase().includes(search.toLowerCase())) ||
+    calc.category.toLowerCase().includes(search.toLowerCase())
   );
 
   return (
@@ -20,7 +21,7 @@ export function CalculatorBrowser() {
       <div className="flex flex-col gap-2">
         <h1 className="text-3xl font-bold tracking-tight">Calculators</h1>
         <p className="text-slate-500">
-          Browse and search all available Wave 1 calculators.
+          Browse and search {liveCalculators.length} free UK calculators for tax, property, finance, investments and everyday calculations.
         </p>
       </div>
       
@@ -29,24 +30,25 @@ export function CalculatorBrowser() {
           placeholder="Search calculators..." 
           value={search}
           onChange={(e) => setSearch(e.target.value)}
+          aria-label="Search calculators"
         />
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {filtered.map(calc => (
           <Link key={calc.id} href={`/calculators/${calc.slug}`}>
-            <Card className="h-full hover:border-slate-300 transition-colors cursor-pointer flex flex-col">
+            <Card className="h-full hover:border-slate-300 transition-colors cursor-pointer flex flex-col" data-calculator-id={calc.id}>
               <CardHeader>
-                <CardTitle>{calc.name}</CardTitle>
-                <div className="text-xs text-slate-500 font-mono mt-1">{calc.id}</div>
+                <CardTitle className="text-lg font-semibold text-slate-900">{calc.name}</CardTitle>
               </CardHeader>
               <CardContent className="flex-1 flex flex-col justify-end gap-2">
-                <div className="flex gap-2 mt-auto">
+                <div className="flex flex-wrap gap-2 mt-auto">
                   <Badge>{calc.category}</Badge>
-                  {calc.implementationStatus === "implemented" ? (
-                    <Badge variant="success">Live</Badge>
-                  ) : (
-                    <Badge variant="warning">Draft</Badge>
+                  {calc.subcategory && (
+                    <Badge variant="outline">{calc.subcategory}</Badge>
+                  )}
+                  {calc.rulesSensitive && (
+                    <Badge variant="outline">2026/27</Badge>
                   )}
                 </div>
               </CardContent>
