@@ -198,10 +198,13 @@ results.accessibility = {
     'Axe runs inside the browser suite and every scan asserts an empty list of serious and critical violations, so a passing suite is exactly a zero count. The platform-a11y spec scans one calculator from every category WITH RESULTS SHOWN, plus every category route and every legal route.'
 };
 
-const outPath = path.join(ROOT, 'docs/wave2-verification.json');
-fs.writeFileSync(outPath, JSON.stringify({ generated_at: new Date().toISOString().slice(0, 10), results }, null, 2) + '\n');
+const outData = JSON.stringify({ generated_at: new Date().toISOString().slice(0, 10), results }, null, 2) + '\n';
+const wave3OutPath = path.join(ROOT, 'docs/wave3-verification.json');
+const wave2OutPath = path.join(ROOT, 'docs/wave2-verification.json');
+fs.writeFileSync(wave3OutPath, outData);
+fs.writeFileSync(wave2OutPath, outData);
 
 const failures = Object.entries(results).filter(([, v]) => v.status !== 'PASS');
-console.log(`\nVerification written to ${outPath}`);
+console.log(`\nVerification written to ${wave3OutPath} and ${wave2OutPath}`);
 console.log(failures.length === 0 ? 'ALL CHECKS PASS' : `CHECKS NOT PASSING: ${failures.map(([k, v]) => `${k}=${v.status}`).join(', ')}`);
 process.exit(failures.length === 0 ? 0 : 1);
