@@ -23,8 +23,16 @@ export function calculateHicbc(inputs: HicbcInputs): HicbcResult {
   const giftAidNet = Math.max(0, Number(inputs.gift_aid_net ?? 0));
   const children = Math.max(1, Math.round(Number(inputs.children_count)));
 
-  // 2026/27 Child Benefit rates: £25.60/wk eldest child, £16.95/wk subsequent
-  const weeklyBenefit = 25.60 + Math.max(0, children - 1) * 16.95;
+  // 2026/27 Child Benefit rates, confirmed against GOV.UK on 25 August 2026:
+  // £27.05/wk for the eldest or only child, £17.90/wk for each additional
+  // child. These were previously £25.60 and £16.95, which are the preceding
+  // year's rates, so both the benefit received and the resulting charge were
+  // understated.
+  const CHILD_BENEFIT_ELDEST_WEEKLY = 27.05;
+  const CHILD_BENEFIT_ADDITIONAL_WEEKLY = 17.90;
+  const weeklyBenefit =
+    CHILD_BENEFIT_ELDEST_WEEKLY +
+    Math.max(0, children - 1) * CHILD_BENEFIT_ADDITIONAL_WEEKLY;
   const annualBenefit = Math.round(weeklyBenefit * 52 * 100) / 100;
 
   // Gross Gift Aid
