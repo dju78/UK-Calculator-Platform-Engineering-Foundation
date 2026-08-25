@@ -5,15 +5,50 @@ math.import({
   ln: math.log
 });
 
+/**
+ * Disable the parts of the expression language that let an expression reach
+ * outside arithmetic.
+ *
+ * mathjs is a full language, not a calculator: `import`, `createUnit`, a
+ * nested `evaluate` and the symbolic helpers can all be used to escape the
+ * intended sandbox. A calculator needs none of them, so they are replaced with
+ * functions that refuse. This costs nothing a user would notice and removes
+ * the whole class of expression-injection problem.
+ */
+// Capture the real evaluator BEFORE the namespace entries are replaced, so
+// this module can still evaluate while an expression can no longer reach
+// these names.
+const evaluateSafely = math.evaluate.bind(math);
+
+const DISABLED = ['import', 'createUnit', 'evaluate', 'parse', 'simplify', 'derivative'];
+math.import(
+  Object.fromEntries(
+    DISABLED.map((name) => [
+      name,
+      () => {
+        throw new Error(`"${name}" is not available in an expression.`);
+      }
+    ])
+  ),
+  { override: true }
+);
+
+const MAX_EXPRESSION_LENGTH = 500;
+
 export function evaluateExpression(expression: string, angle: "radians" | "degrees" = "radians"): number {
   if (!expression || typeof expression !== 'string') {
     throw new Error("Invalid expression");
   }
+  if (expression.length > MAX_EXPRESSION_LENGTH) {
+    throw new Error(
+      `That expression is too long. Keep it under ${MAX_EXPRESSION_LENGTH} characters.`
+    );
+  }
 
   // mathjs eval
   try {
-    let result = math.evaluate(expression);
-    
+    let result = evaluateSafely(expression);
+
     if (typeof result === 'number') {
       if (!isFinite(result)) {
         throw new Error("Result is not a finite number");

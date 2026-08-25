@@ -49,17 +49,46 @@ test.describe('Calculator UI Parity', () => {
           ];
 
           for (const [key, val] of entries) {
-            // A null fixture value means "leave this field blank so the
-            // engine infers it from the other inputs" (e.g. MAT-005
-            // Proportion's `d`). Don't fill it - the field's own default is
-            // blank for these inferable fields.
-            if (val === null) continue;
-
             // Check if it's a select or input
             const inputLoc = page.locator(`input[name="${key}"]`);
             const selectLoc = page.locator(`select[name="${key}"]`);
 
             const isSelect = await selectLoc.count() > 0;
+
+            // A null fixture value means "this field is blank, so the engine
+            // infers it from the others". The field must therefore be CLEARED,
+            // not merely skipped.
+            //
+            // Skipping was wrong, and it was wrong in a way that hid real
+            // defects rather than causing false failures. It assumed every
+            // inferable field defaults to blank on the page. That holds for
+            // MAT-005's `d`, but not for the solve-for-any-of-these
+            // calculators: SCI-001 Ohm's Law ships with a worked example in the
+            // form, so a fixture meaning "solve for the voltage" left the
+            // default voltage sitting in the box and the engine saw a
+            // contradiction instead. The same applied to SCI-005 and SCI-006,
+            // and to SCI-010, where leaving the default humidity in place made
+            // the engine solve the OPPOSITE direction from the one the fixture
+            // was testing. Clearing the field reproduces what a user does.
+            if (val === null) {
+              if (!isSelect && (await inputLoc.count()) > 0) {
+                await inputLoc.fill('');
+              }
+              continue;
+            }
+
+            // A field hidden by `showWhen` is not part of the form the user is
+            // looking at, so there is nothing to fill and the engine will use
+            // its own default. Waiting for it to appear just burns the whole
+            // 60-second timeout and reports a misleading failure, which is
+            // exactly what happened to BUS-009, STA-007, STA-009, STA-016 and
+            // MAT-021 in turn. The fields are set in declaration order, and
+            // every controlling field is declared before the fields it
+            // controls, so by the time we reach a conditional field its
+            // controller already holds the fixture's value and this
+            // visibility check reflects the real form state.
+            if (!isSelect && (await inputLoc.count()) === 0) continue;
+            if (isSelect && (await selectLoc.count()) === 0) continue;
 
             // Convert the engine-contract fixture value into what a human
             // would type, using the field's OWN declared scale rather than a

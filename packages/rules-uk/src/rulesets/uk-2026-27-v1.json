@@ -7,7 +7,18 @@
   "checked_at": "2026-08-22",
   "isa": {
     "overall_subscription_limit_gbp": 20000,
-    "lifetime_isa_subscription_limit_gbp": 4000
+    "lifetime_isa_subscription_limit_gbp": 4000,
+    "junior_isa_subscription_limit_gbp": 9000,
+    "lifetime_isa_bonus_rate": 0.25,
+    "lifetime_isa_maximum_bonus_gbp": 1000,
+    "lifetime_isa_withdrawal_charge_rate": 0.25,
+    "lifetime_isa_maximum_property_price_gbp": 450000,
+    "lifetime_isa_minimum_opening_age": 18,
+    "lifetime_isa_maximum_opening_age": 39,
+    "lifetime_isa_last_contribution_age": 49,
+    "lifetime_isa_penalty_free_age": 60,
+    "junior_isa_maturity_age": 18,
+    "note": "The Lifetime ISA subscription limit counts towards the overall ISA subscription limit. The 25% withdrawal charge applies to the amount withdrawn, so it removes more than the bonus added."
   },
   "income_tax_england_wales_ni": {
     "personal_allowance_gbp": 12570,
@@ -88,7 +99,11 @@
     "adjusted_income_taper_gbp": 260000,
     "minimum_tapered_annual_allowance_gbp": 10000,
     "lump_sum_allowance_gbp": 268275,
-    "relief_at_source_basic_rate": 0.2
+    "relief_at_source_basic_rate": 0.2,
+    "tax_free_lump_sum_proportion": 0.25,
+    "normal_minimum_pension_age": 55,
+    "normal_minimum_pension_age_after_increase": 57,
+    "normal_minimum_pension_age_increase_date": "2028-04-06"
   },
   "property_transaction_tax": {
     "england_northern_ireland": {
@@ -124,7 +139,7 @@
         "bands": [
           {
             "to": 300000,
-            "rate": 0.0
+            "rate": 0
           },
           {
             "from": 300001,
@@ -267,7 +282,32 @@
     "https://www.gov.uk/guidance/rates-of-stamp-duty-land-tax-for-non-uk-residents",
     "https://www.gov.uk/tax-codes/what-your-tax-code-means",
     "https://www.gov.uk/employee-tax-codes/letters",
-    "https://assets.publishing.service.gov.uk/media/6996e9b3b33a4db7ff889e08/P9X_2026_Tax_codes_to_use_from_6_April_2026.pdf"
+    "https://assets.publishing.service.gov.uk/media/6996e9b3b33a4db7ff889e08/P9X_2026_Tax_codes_to_use_from_6_April_2026.pdf",
+    "https://www.gov.uk/self-employed-national-insurance-rates",
+    "https://www.gov.uk/marriage-allowance",
+    "https://www.gov.uk/inheritance-tax",
+    "https://www.gov.uk/guidance/inheritance-tax-residence-nil-rate-band",
+    "https://www.gov.uk/corporation-tax-rates",
+    "https://www.gov.uk/junior-individual-savings-accounts",
+    "https://www.gov.uk/lifetime-isa",
+    "https://www.gov.uk/lifetime-isa/withdrawing-money-from-your-lifetime-isa",
+    "https://www.gov.uk/apply-tax-free-interest-on-savings",
+    "https://www.gov.uk/understand-self-assessment-bill/payments-on-account",
+    "https://www.gov.uk/new-state-pension/what-youll-get",
+    "https://www.gov.uk/new-state-pension/eligibility",
+    "https://www.gov.uk/tax-on-your-private-pension/lump-sum-allowance",
+    "https://www.gov.uk/hmrc-internal-manuals/pensions-tax-manual/ptm062100",
+    "https://www.nhs.uk/better-health/lose-weight/calorie-counting/",
+    "https://www.nhs.uk/conditions/obesity/diagnosis/",
+    "https://www.nhs.uk/common-health-questions/lifestyle/what-is-the-body-mass-index-bmi/",
+    "https://www.gov.uk/bank-holidays.json",
+    "https://www.gov.uk/government/publications/rates-and-allowances-travel-mileage-and-fuel-allowances/travel-mileage-and-fuel-rates-and-allowances",
+    "https://www.gov.uk/expenses-and-benefits-business-travel-mileage/rules-for-national-insurance",
+    "https://www.wpc.ncep.noaa.gov/html/heatindex_equation.shtml",
+    "https://professional-electrician.com/technical/how-to-determine-voltage-drop-limits-within-electrical-installations-napit/",
+    "https://www.firstinarchitecture.co.uk/stair-design-guide-03-regulations-2/",
+    "https://www.gov.uk/student-finance/new-fulltime-students",
+    "https://en.wikipedia.org/wiki/UCAS_Tariff"
   ],
   "source_register_notes": [
     {
@@ -299,6 +339,156 @@
       "verified_on": "2026-08-23",
       "source": "https://www.gov.wales/welsh-government-draft-budget-changes-land-transaction-tax-and-landfill-disposals-tax",
       "finding": "Higher residential rates from 11 December 2024 are 5%/8.5%/10%/12.5%/15%/17% at 180,000/250,000/400,000/750,000/1,500,000. This CONFIRMS the ruleset. A general rates page still showed the pre-December-2024 figures (4%/7.5%/9%/11.5%/14%/16%); the ruleset was NOT changed to match that stale page. Wales has no first-time buyer relief."
+    },
+    {
+      "topic": "Junior ISA subscription limit",
+      "verified_on": "2026-08-23",
+      "source": "https://www.gov.uk/junior-individual-savings-accounts",
+      "finding": "9,000 for the 2026 to 2027 tax year."
+    },
+    {
+      "topic": "Marriage Allowance",
+      "verified_on": "2026-08-23",
+      "source": "https://www.gov.uk/marriage-allowance",
+      "finding": "1,260 of Personal Allowance transferable, worth up to 252 of tax. The transferor must have income below the Personal Allowance and the recipient must be a basic-rate taxpayer."
+    },
+    {
+      "topic": "Inheritance Tax rates and bands",
+      "verified_on": "2026-08-23",
+      "source": "https://www.gov.uk/inheritance-tax",
+      "finding": "Nil-rate band 325,000; standard rate 40%; reduced rate 36% where at least 10% of the net estate passes to charity. The combined threshold of 500,000 when a home passes to direct descendants implies a residence nil-rate band of 175,000 (500,000 - 325,000)."
+    },
+    {
+      "topic": "Residence nil-rate band taper",
+      "verified_on": "2026-08-23",
+      "source": "https://www.gov.uk/guidance/inheritance-tax-residence-nil-rate-band",
+      "finding": "Taper begins at an estate value of 2,000,000 and withdraws 1 for every 2 above it. The band is transferable between spouses, which this calculator does NOT model."
+    },
+    {
+      "topic": "Self-employed National Insurance",
+      "verified_on": "2026-08-23",
+      "source": "https://www.gov.uk/self-employed-national-insurance-rates",
+      "finding": "2026/27: Class 2 3.65 a week; small profits threshold 7,105; Class 4 6% between 12,570 and 50,270 and 2% above; at or above the small profits threshold Class 2 is treated as paid."
+    },
+    {
+      "topic": "Corporation Tax rates and marginal relief",
+      "verified_on": "2026-08-23",
+      "source": "https://www.gov.uk/corporation-tax-rates",
+      "finding": "19% small profits rate up to 50,000; 25% main rate above 250,000; marginal relief between. GOV.UK does not publish the standard fraction on the rates page, so it is DERIVED from the two published boundary conditions as 3/200 - see corporation_tax.marginal_relief_fraction_derivation."
+    },
+    {
+      "key": "isa.lifetime_isa_*",
+      "verified_value": "25% government bonus, maximum 1,000 per year on the 4,000 subscription limit; 25% withdrawal charge on non-qualifying withdrawals; first-home property price cap 450,000; open between 18 and 39, contribute until 50, penalty-free from 60.",
+      "source": "https://www.gov.uk/lifetime-isa and https://www.gov.uk/lifetime-isa/withdrawing-money-from-your-lifetime-isa",
+      "note": "The withdrawal charge is 25% of the amount withdrawn, not 25% of the bonus. Because the bonus was 25% of the contribution, a charge of 25% of the larger post-bonus balance recovers the bonus AND takes about 6.25% of the saver own money. The calculator must show this, not present the charge as merely clawing back the bonus."
+    },
+    {
+      "key": "savings.personal_savings_allowance_gbp / starting_rate_for_savings_band_gbp",
+      "verified_value": "Personal Savings Allowance 1,000 basic rate, 500 higher rate, 0 additional rate. Starting rate for savings band 5,000 at 0%, reduced by 1 for every 1 of other income above the Personal Allowance and unavailable once other income reaches 17,570.",
+      "source": "https://www.gov.uk/apply-tax-free-interest-on-savings",
+      "note": "Needed to compare a Cash ISA against a taxable savings account honestly. Without it a Cash ISA comparison overstates the ISA advantage for every basic-rate saver with under 1,000 of interest, for whom the advantage is nil."
+    },
+    {
+      "key": "dividends.* and capital_gains.* (re-verified for Wave 2 tranche 2E)",
+      "verified_value": "Dividend allowance 500; dividend rates 10.75% basic, 35.75% higher, 39.35% additional for 6 April 2026 to 5 April 2027. CGT annual exempt amount 3,000; rates 18% and 24% for individuals from 6 April 2026, with no separate residential property rates.",
+      "source": "https://www.gov.uk/tax-on-dividends and https://www.gov.uk/guidance/capital-gains-tax-rates-and-allowances",
+      "note": "Re-checked against the primary sources before TAX-011 and TAX-012 were built rather than trusted from the Wave 1 approval. Both matched the existing ruleset values, so no change was made."
+    },
+    {
+      "key": "self_assessment.payment_on_account_threshold_gbp",
+      "verified_value": "No payments on account where the tax owed last year was under 1,000, or where more than 80% of it was collected at source. Each payment on account is half the previous year liability, due 31 January and 31 July.",
+      "source": "https://www.gov.uk/understand-self-assessment-bill/payments-on-account",
+      "note": "Used by TAX-016 and TAX-017 so a newly self-employed user sees the real January demand, which is the balancing payment plus the first payment on account and therefore about 150% of the tax they expected for the year."
+    },
+    {
+      "key": "state_pension.*",
+      "verified_value": "Full new State Pension 241.30 a week. 35 qualifying years for the full amount, 10 qualifying years to get any new State Pension at all.",
+      "source": "https://www.gov.uk/new-state-pension/what-youll-get and https://www.gov.uk/new-state-pension/eligibility",
+      "note": "The 10-year minimum is a cliff, not a taper: below it the entitlement is nil, not a small amount. A calculator that scales entitlement linearly from zero years would tell someone with 8 years that they will receive a pension they will not receive."
+    },
+    {
+      "key": "pension.tax_free_lump_sum_proportion / normal_minimum_pension_age",
+      "verified_value": "Usually up to 25% of a pension can be taken tax free, capped by the lump sum allowance of 268,275. The normal minimum pension age is 55, rising to 57 on 6 April 2028.",
+      "source": "https://www.gov.uk/tax-on-your-private-pension/lump-sum-allowance and https://www.gov.uk/hmrc-internal-manuals/pensions-tax-manual/ptm062100",
+      "note": "The 25% is capped in cash terms, so a pot above 1,073,100 cannot take 25% of it tax free. The age rise matters to anyone currently planning to retire between 2028 and 2030 and is surfaced rather than assumed away."
+    },
+    {
+      "key": "health.bmi.*",
+      "verified_value": "Overweight from BMI 25, obese from 30. For people from South Asian, Chinese, other Asian, Middle Eastern, Black African or African-Caribbean backgrounds: overweight from 23, obese from 27.5.",
+      "source": "https://www.nhs.uk/conditions/obesity/diagnosis/ and https://www.nhs.uk/common-health-questions/lifestyle/what-is-the-body-mass-index-bmi/",
+      "note": "PROVENANCE IS SPLIT AND THIS MATTERS. The 25 and 30 thresholds, and the adjusted 23 and 27.5, are stated by the NHS on the pages cited. The underweight threshold of 18.5 is NOT stated on any NHS page reachable here; it is the World Health Organization figure, which the NHS uses in practice. It is recorded as such rather than attributed to the NHS. The ethnicity-adjusted thresholds are the point most BMI calculators get wrong, and omitting them understates risk for a large part of the UK population."
+    },
+    {
+      "key": "health.daily_calorie_guide / recommended_daily_deficit_kcal / minimum_daily_calories",
+      "verified_value": "NHS daily guide 2,000 kcal for women and 2,500 for men. A reduction of around 600 kcal a day is described as a safe and sustainable way to lose weight.",
+      "source": "https://www.nhs.uk/better-health/lose-weight/calorie-counting/",
+      "note": "The NHS does not publish a minimum daily calorie floor on that page, so none is invented. The floors of 1,400 and 1,900 are DERIVED from the two figures it does publish - the maintenance guide less the 600 kcal reduction - and the deficit itself is capped at 600 so a user cannot ask the calculator for a starvation target. The NHS page also says to speak to a GP first if you have a history of an eating disorder, and the calculators repeat that."
+    },
+    {
+      "key": "bank_holidays.*",
+      "verified_value": "Taken verbatim from the official GOV.UK feed for 2026 and 2027, for all three divisions. Includes the Scotland-only World Cup bank holiday on 15 June 2026, and reflects that Scotland has no Easter Monday.",
+      "source": "https://www.gov.uk/bank-holidays.json",
+      "note": "Verified twice against the feed, the second time specifically to confirm the two facts a naive list gets wrong: the Scotland-only World Cup holiday, and the absence of Easter Monday in Scotland. Working-day calculations are only correct if the division is chosen, so the calculators require it rather than defaulting silently. Coverage is limited to the years in the feed, and any date outside them is refused rather than answered from an assumption."
+    },
+    {
+      "key": "motoring.approved_mileage_allowance_payments.*",
+      "verified_value": "55p for the first 10,000 business miles in the tax year and 25p thereafter for cars and vans; 24p for motorcycles; 20p for bicycles; 5p per passenger per business mile.",
+      "source": "https://www.gov.uk/government/publications/rates-and-allowances-travel-mileage-and-fuel-allowances/travel-mileage-and-fuel-rates-and-allowances",
+      "note": "Checked against two separate GOV.UK pages because this figure CHANGED for 2026/27. Both the rates-and-allowances table and the employer guidance state 55p from 6 April 2026, with 45p shown as the pre-April-2026 figure. Almost every third-party mileage calculator still carries 45p, so a benchmark asserting 45p would have been a wrong benchmark rather than a wrong engine. The 10,000 mile threshold is per employee per tax year."
+    },
+    {
+      "key": "motoring.national_insurance_mileage.*",
+      "verified_value": "A single 55p rate for all business miles for National Insurance, with no 10,000 mile step and no Mileage Allowance Relief.",
+      "source": "https://www.gov.uk/expenses-and-benefits-business-travel-mileage/rules-for-national-insurance",
+      "note": "The tax and National Insurance treatments genuinely differ and are routinely conflated. For NI the qualifying amount uses one rate for every business mile, so an employee driving 15,000 miles has a different tax-free figure for tax than for NI. The page states explicitly that there is no Mileage Allowance Relief for National Insurance and that a shortfall cannot be carried forward to a later earnings period."
+    },
+    {
+      "key": "motoring.units.*",
+      "verified_value": "Imperial gallon 4.54609 litres; US gallon 3.785411784 litres; mile 1.609344 kilometres; mechanical horsepower 745.6998715822702 W; metric horsepower (PS) 735.49875 W.",
+      "source": "Defined constants: imperial gallon and mile are exact by definition; the mechanical horsepower follows from 550 ft lbf/s with the international foot and pound.",
+      "note": "Recorded in the ruleset rather than scattered through the code because the single most common defect in a UK fuel calculator is quoting mpg on the US gallon, which overstates economy by about twenty per cent. Holding one definition makes that impossible to do accidentally in one calculator and not another."
+    },
+    {
+      "key": "engineering.voltage_drop_limits_bs7671.*",
+      "verified_value": "3 per cent of nominal voltage for lighting circuits and 5 per cent for all other circuits, for low voltage installations supplied from a public distribution network.",
+      "source": "BS 7671 section 525 and Appendix 4 section 6.4, as reported in NAPIT technical guidance",
+      "note": "BS 7671 itself is a copyrighted standard and cannot be quoted from a free primary source, so the figures were checked across several independent UK electrical trade sources which agree on both the percentages and the regulation reference. At 230 V that is 6.9 V for lighting and 11.5 V for other circuits. The limits are reported as a CHECK rather than as a compliance certificate, and the calculator states that a real design must consult the standard. The caveat about private supplies is recorded because a calculator that always applies the public-supply limit would wrongly fail a legitimate design."
+    },
+    {
+      "key": "engineering.standard_atomic_weights.*",
+      "verified_value": "IUPAC conventional atomic weights for the elements listed.",
+      "source": "IUPAC Commission on Isotopic Abundances and Atomic Weights, conventional atomic-weight values",
+      "note": "Conventional values are used rather than interval values because a molecular weight calculator must return a single number. Elements outside the list are REFUSED BY NAME rather than defaulted to zero, which would silently understate a molar mass."
+    },
+    {
+      "key": "engineering.energy_conversions.*",
+      "verified_value": "One International Table BTU is 1055.05585262 joules exactly; one therm is 100,000 of them; one IT calorie is 4.1868 joules; one kilowatt hour is 3,600,000 joules.",
+      "source": "Definitional values of the International Table units.",
+      "note": "The IT BTU is the definition used for gas billing and appliance ratings in the UK. The thermochemical BTU differs in the fourth significant figure, which is immaterial for a room heating estimate but not for a units conversion, so the definition is stated rather than left implicit."
+    },
+    {
+      "key": "building.private_stairs_approved_document_k.*",
+      "verified_value": "Maximum rise 220 mm, minimum going 220 mm, maximum pitch 42 degrees, and twice the rise plus the going between 550 mm and 700 mm, for a private stair serving a single dwelling. Headroom 2000 mm, maximum 36 consecutive risers, handrail 900 to 1100 mm above the pitch line.",
+      "source": "Approved Document K to the Building Regulations for England, as reported by two independent UK stair-design references that agree on every figure",
+      "note": "The four core figures were cross-checked across two unrelated sources which agree exactly. The calculator reports these as a CHECK and never as a compliance certificate: the Approved Documents are guidance on one way of meeting the Regulations rather than the Regulations themselves, they apply to England, and Scotland, Wales and Northern Ireland publish their own. A real design is signed off by building control, not by a calculator. The private-stair qualification is recorded because common, institutional and assembly stairs have tighter limits and applying the private figures to them would wrongly pass a non-compliant design."
+    },
+    {
+      "key": "education.ucas_tariff.*",
+      "verified_value": "A level A*=56, A=48, B=40, C=32, D=24, E=16. AS level A=20, B=16, C=12, D=10, E=6. EPQ A*=28, A=24, B=20, C=16, D=12, E=8.",
+      "source": "UCAS Tariff tables, cross-checked across two independent published tables that agree on every value",
+      "note": "The UCAS site serves these figures from an interactive tool rather than as page text, so two separate published tables were compared instead and agree exactly on all seventeen values. The rule that points cannot be claimed for both an AS and the full A level in the same subject is recorded because it is the commonest way a self-calculated total comes out too high."
+    },
+    {
+      "key": "education.student_finance_england.*",
+      "verified_value": "Tuition fee loan up to 9,790 pounds; maintenance loan up to 9,118 living at home, 10,830 living away outside London and 14,135 living away in London, for 2026/27.",
+      "source": "https://www.gov.uk/student-finance/new-fulltime-students",
+      "note": "These are ENGLAND figures and the maxima only. Student finance is devolved and Scotland, Wales and Northern Ireland differ substantially in both fees and support. The maintenance figures are means tested against household income, so most students receive less; the calculator says so rather than presenting the maximum as an entitlement."
+    },
+    {
+      "key": "education.degree_classification_boundaries.*",
+      "verified_value": "First 70 and above, upper second 60 to 69, lower second 50 to 59, third 40 to 49.",
+      "source": "The conventional UK honours degree classification bands.",
+      "note": "These are the BANDS, not an algorithm for awarding a degree. Universities differ in how they weight years, whether they discount the worst credits, and how they treat borderline cases, and those rules change the outcome far more often than the boundaries do. The calculator states this rather than implying a computed average is a classification."
     }
   ],
   "national_insurance_employee_class1_category_a": {
@@ -324,7 +514,7 @@
   "vat": {
     "standard_rate": 0.2,
     "reduced_rate": 0.05,
-    "zero_rate": 0.0
+    "zero_rate": 0
   },
   "tax_codes": {
     "numeric_code_multiplier": 10,
@@ -415,5 +605,355 @@
     "minimum_employer_contribution_rate": 0.03,
     "minimum_employee_contribution_benchmark_rate": 0.05,
     "minimum_total_contribution_rate": 0.08
+  },
+  "marriage_allowance": {
+    "transferable_personal_allowance_gbp": 1260,
+    "maximum_benefit_gbp": 252,
+    "recipient_must_be_basic_rate": true,
+    "note": "The transferring partner must have income below the Personal Allowance; the recipient must be a basic-rate taxpayer."
+  },
+  "inheritance_tax": {
+    "nil_rate_band_gbp": 325000,
+    "residence_nil_rate_band_gbp": 175000,
+    "residence_nil_rate_band_taper_threshold_gbp": 2000000,
+    "residence_nil_rate_band_taper_rate": 0.5,
+    "standard_rate": 0.4,
+    "reduced_charity_rate": 0.36,
+    "charity_proportion_for_reduced_rate": 0.1
+  },
+  "national_insurance_self_employed": {
+    "class2_weekly_gbp": 3.65,
+    "small_profits_threshold_gbp": 7105,
+    "class4_lower_profits_limit_gbp": 12570,
+    "class4_upper_profits_limit_gbp": 50270,
+    "class4_main_rate": 0.06,
+    "class4_upper_rate": 0.02,
+    "note": "Where profits reach the small profits threshold, Class 2 is treated as paid and no Class 2 liability arises."
+  },
+  "corporation_tax": {
+    "small_profits_rate": 0.19,
+    "small_profits_limit_gbp": 50000,
+    "main_rate": 0.25,
+    "main_rate_limit_gbp": 250000,
+    "marginal_relief_standard_fraction": 0.015,
+    "marginal_relief_fraction_derivation": "3/200. GOV.UK states the rate is 19% at 50,000 and 25% at 250,000 but does not publish the fraction on the rates page. It is derived from those two published boundary conditions: tax = 0.25A - F(250000 - A); at A = 50,000 the tax must be 9,500, so 12,500 - 200,000F = 9,500, giving F = 3/200 = 0.015."
+  },
+  "savings": {
+    "personal_savings_allowance_gbp": {
+      "basic": 1000,
+      "higher": 500,
+      "additional": 0
+    },
+    "starting_rate_for_savings_band_gbp": 5000,
+    "starting_rate_for_savings_rate": 0,
+    "starting_rate_reduction_per_gbp_of_other_income": 1,
+    "starting_rate_exhausted_at_other_income_gbp": 17570,
+    "note": "The starting rate for savings is reduced by GBP 1 for every GBP 1 of non-savings income above the Personal Allowance, so it is unavailable once other income reaches 17,570."
+  },
+  "self_assessment": {
+    "payment_on_account_threshold_gbp": 1000,
+    "payment_on_account_proportion": 0.5,
+    "collected_at_source_exemption_proportion": 0.8,
+    "note": "No payments on account are due if the tax owed last year was under 1,000, or if more than 80% of it was collected at source. Each payment on account is half of last year liability."
+  },
+  "state_pension": {
+    "new_state_pension_weekly_gbp": 241.3,
+    "full_entitlement_qualifying_years": 35,
+    "minimum_qualifying_years": 10,
+    "weeks_per_year": 52,
+    "note": "Entitlement below 35 qualifying years is broadly proportionate, but a record that began before April 2016 is calculated under transitional rules using a starting amount, so this proportional model is an estimate and not a forecast."
+  },
+  "health": {
+    "bmi": {
+      "underweight_below": 18.5,
+      "healthy_from": 18.5,
+      "overweight_from": 25,
+      "obese_from": 30,
+      "higher_risk_ethnic_groups": {
+        "overweight_from": 23,
+        "obese_from": 27.5,
+        "applies_to": "People from South Asian, Chinese, other Asian, Middle Eastern, Black African or African-Caribbean backgrounds, who are at risk of health problems at a lower BMI."
+      }
+    },
+    "daily_calorie_guide": {
+      "female": 2000,
+      "male": 2500
+    },
+    "recommended_daily_deficit_kcal": 600,
+    "maximum_daily_deficit_kcal": 600,
+    "minimum_daily_calories": {
+      "female": 1400,
+      "male": 1900
+    },
+    "minimum_daily_calories_derivation": "NOT published as a floor by the NHS. Derived from what the NHS does publish: the maintenance guide of 2,000 kcal for women and 2,500 for men, less the 600 kcal daily reduction it calls a safe and sustainable way to lose weight. The calculator caps the deficit at 600 and never returns a target below these figures.",
+    "safe_weight_loss_kg_per_week": {
+      "min": 0.5,
+      "max": 1
+    },
+    "safe_weight_loss_note": "The cited NHS material expresses this as 1 to 2 lb a week.",
+    "kcal_per_kg_body_fat": 7700,
+    "kcal_per_kg_derivation": "The conventional figure used in dietetics for the energy content of a kilogram of body fat, equivalent to the widely quoted 3,500 kcal per pound. It is an approximation: real weight change also involves water, glycogen and lean mass, and the calculators say so."
+  },
+  "bank_holidays": {
+    "england-and-wales": {
+      "2026": [
+        "2026-01-01",
+        "2026-04-03",
+        "2026-04-06",
+        "2026-05-04",
+        "2026-05-25",
+        "2026-08-31",
+        "2026-12-25",
+        "2026-12-28"
+      ],
+      "2027": [
+        "2027-01-01",
+        "2027-03-26",
+        "2027-03-29",
+        "2027-05-03",
+        "2027-05-31",
+        "2027-08-30",
+        "2027-12-27",
+        "2027-12-28"
+      ]
+    },
+    "scotland": {
+      "2026": [
+        "2026-01-01",
+        "2026-01-02",
+        "2026-04-03",
+        "2026-05-04",
+        "2026-05-25",
+        "2026-06-15",
+        "2026-08-03",
+        "2026-11-30",
+        "2026-12-25",
+        "2026-12-28"
+      ],
+      "2027": [
+        "2027-01-01",
+        "2027-01-04",
+        "2027-03-26",
+        "2027-05-03",
+        "2027-05-31",
+        "2027-08-02",
+        "2027-11-30",
+        "2027-12-27",
+        "2027-12-28"
+      ]
+    },
+    "northern-ireland": {
+      "2026": [
+        "2026-01-01",
+        "2026-03-17",
+        "2026-04-03",
+        "2026-04-06",
+        "2026-05-04",
+        "2026-05-25",
+        "2026-07-13",
+        "2026-08-31",
+        "2026-12-25",
+        "2026-12-28"
+      ],
+      "2027": [
+        "2027-01-01",
+        "2027-03-17",
+        "2027-03-26",
+        "2027-03-29",
+        "2027-05-03",
+        "2027-05-31",
+        "2027-07-12",
+        "2027-08-30",
+        "2027-12-27",
+        "2027-12-28"
+      ]
+    },
+    "covered_years": [
+      2026,
+      2027
+    ],
+    "note": "The three divisions genuinely differ. Scotland has 2nd January and St Andrew Day, a summer bank holiday in early August rather than late, and NO Easter Monday. Northern Ireland has St Patrick Day and the Battle of the Boyne. Treating the UK as one list is wrong for two of the three divisions."
+  },
+  "motoring": {
+    "approved_mileage_allowance_payments": {
+      "note": "HMRC Approved Mileage Allowance Payments (AMAP) for the 2026 to 2027 tax year. The car and van rate rose to 55p from 6 April 2026; the widely quoted 45p applies only to earlier years.",
+      "car_or_van": {
+        "first_10000_miles_pence": 55,
+        "above_10000_miles_pence": 25,
+        "threshold_miles": 10000
+      },
+      "motorcycle_pence": 24,
+      "bicycle_pence": 20,
+      "passenger_pence_per_passenger_per_mile": 5
+    },
+    "national_insurance_mileage": {
+      "note": "For National Insurance the qualifying amount uses a single rate for ALL business miles with no 10,000 mile step, and there is no Mileage Allowance Relief.",
+      "car_or_van_pence": 55,
+      "motorcycle_pence": 24,
+      "bicycle_pence": 20,
+      "threshold_applies": false,
+      "mileage_allowance_relief_available": false
+    },
+    "units": {
+      "note": "Fixed physical conversions, stated here so every automotive calculator uses one definition. The imperial gallon is the UK definition; the US gallon is included only so a US-derived mpg figure can be identified and converted rather than silently mixed with a UK one.",
+      "imperial_gallon_litres": 4.54609,
+      "us_gallon_litres": 3.785411784,
+      "mile_kilometres": 1.609344,
+      "mechanical_horsepower_watts": 745.6998715822702,
+      "metric_horsepower_ps_watts": 735.49875
+    }
+  },
+  "engineering": {
+    "note": "Physical constants and published engineering limits used by the Science & Engineering calculators. Held here rather than in code so that no two calculators can disagree about them, and so each carries its provenance.",
+    "resistivity_ohm_metre_at_20c": {
+      "copper": 1.7241e-8,
+      "aluminium": 2.826e-8,
+      "note": "The copper figure is the International Annealed Copper Standard value at 20 degrees Celsius."
+    },
+    "temperature_coefficient_per_c_at_20c": {
+      "copper": 0.00393,
+      "aluminium": 0.00403
+    },
+    "voltage_drop_limits_bs7671": {
+      "lighting_pct": 3,
+      "other_circuits_pct": 5,
+      "applies_to": "Low voltage installations supplied from a public distribution network.",
+      "reference": "BS 7671 section 525 and Appendix 4 section 6.4",
+      "caveat": "Where the installation is supplied from the client own transformer or generator rather than a public supply, band control is the client responsibility and higher drops may be permitted."
+    },
+    "energy_conversions": {
+      "btu_it_joules": 1055.05585262,
+      "therm_joules": 105505585.262,
+      "calorie_it_joules": 4.1868,
+      "kwh_joules": 3600000,
+      "note": "The British thermal unit here is the International Table BTU, which is the definition used for gas billing and for heating appliance ratings. A therm is exactly 100,000 of them."
+    },
+    "standard_atomic_weights": {
+      "note": "IUPAC conventional atomic weights, sufficient for the elements a general-purpose molecular weight calculator meets. An element outside this list is refused by name rather than assumed.",
+      "H": 1.008,
+      "He": 4.0026,
+      "Li": 6.94,
+      "Be": 9.0122,
+      "B": 10.81,
+      "C": 12.011,
+      "N": 14.007,
+      "O": 15.999,
+      "F": 18.998,
+      "Ne": 20.18,
+      "Na": 22.99,
+      "Mg": 24.305,
+      "Al": 26.982,
+      "Si": 28.085,
+      "P": 30.974,
+      "S": 32.06,
+      "Cl": 35.45,
+      "Ar": 39.95,
+      "K": 39.098,
+      "Ca": 40.078,
+      "Sc": 44.956,
+      "Ti": 47.867,
+      "V": 50.942,
+      "Cr": 51.996,
+      "Mn": 54.938,
+      "Fe": 55.845,
+      "Co": 58.933,
+      "Ni": 58.693,
+      "Cu": 63.546,
+      "Zn": 65.38,
+      "Ga": 69.723,
+      "Ge": 72.63,
+      "As": 74.922,
+      "Se": 78.971,
+      "Br": 79.904,
+      "Kr": 83.798,
+      "Rb": 85.468,
+      "Sr": 87.62,
+      "Y": 88.906,
+      "Zr": 91.224,
+      "Nb": 92.906,
+      "Mo": 95.95,
+      "Ag": 107.87,
+      "Cd": 112.41,
+      "In": 114.82,
+      "Sn": 118.71,
+      "Sb": 121.76,
+      "Te": 127.6,
+      "I": 126.9,
+      "Xe": 131.29,
+      "Cs": 132.91,
+      "Ba": 137.33,
+      "La": 138.91,
+      "Ce": 140.12,
+      "W": 183.84,
+      "Pt": 195.08,
+      "Au": 196.97,
+      "Hg": 200.59,
+      "Tl": 204.38,
+      "Pb": 207.2,
+      "Bi": 208.98,
+      "Th": 232.04,
+      "U": 238.03
+    }
+  },
+  "building": {
+    "note": "Dimensional limits from the Approved Documents to the Building Regulations for England. Held here with provenance because they are regulatory rather than physical, and because Scotland, Wales and Northern Ireland publish their own equivalents.",
+    "private_stairs_approved_document_k": {
+      "max_rise_mm": 220,
+      "min_going_mm": 220,
+      "max_pitch_degrees": 42,
+      "two_rise_plus_going_min_mm": 550,
+      "two_rise_plus_going_max_mm": 700,
+      "min_headroom_mm": 2000,
+      "max_consecutive_risers": 36,
+      "handrail_height_min_mm": 900,
+      "handrail_height_max_mm": 1100,
+      "recommended_clear_width_mm": 900,
+      "applies_to": "A private stair, meaning one serving a single dwelling. Stairs in common areas, institutional and assembly buildings have different and tighter limits.",
+      "reference": "Approved Document K, Protection from falling, collision and impact"
+    }
+  },
+  "education": {
+    "note": "Figures for the 2026/27 academic year. Student finance is devolved, so these are the England arrangements and Scotland, Wales and Northern Ireland differ substantially.",
+    "ucas_tariff": {
+      "note": "Points under the UCAS Tariff. You cannot claim points for both an AS and the full A level in the same subject.",
+      "a_level": {
+        "A*": 56,
+        "A": 48,
+        "B": 40,
+        "C": 32,
+        "D": 24,
+        "E": 16
+      },
+      "as_level": {
+        "A": 20,
+        "B": 16,
+        "C": 12,
+        "D": 10,
+        "E": 6
+      },
+      "epq": {
+        "A*": 28,
+        "A": 24,
+        "B": 20,
+        "C": 16,
+        "D": 12,
+        "E": 8
+      }
+    },
+    "degree_classification_boundaries": {
+      "note": "The conventional UK honours boundaries. Every university sets its own weighting, borderline and discounting rules, so these are the classification bands rather than an algorithm for awarding a degree.",
+      "first": 70,
+      "upper_second": 60,
+      "lower_second": 50,
+      "third": 40
+    },
+    "student_finance_england": {
+      "academic_year": "2026/27",
+      "tuition_fee_loan_max": 9790,
+      "maintenance_loan_max_living_at_home": 9118,
+      "maintenance_loan_max_away_outside_london": 10830,
+      "maintenance_loan_max_away_in_london": 14135,
+      "note": "Maintenance loan maxima are means tested against household income, so most students receive less than the figure shown."
+    }
   }
 }
