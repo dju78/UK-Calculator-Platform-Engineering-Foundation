@@ -22,8 +22,10 @@ import {
   isa007Handler,
   tax013Handler,
   tax019Handler,
-  pen011Handler
+  pen011Handler,
+  type UKRulesetLike
 } from "../packages/calculation-engine/src/finance/wave3/index.js";
+import { getUKRuleset } from "../packages/rules-uk/src/index.js";
 
 const benchmarksPath = path.resolve("packages/test-fixtures/fixtures/wave3-benchmarks.json");
 const wave3Benchmarks = JSON.parse(fs.readFileSync(benchmarksPath, "utf8"));
@@ -212,14 +214,15 @@ test("ISA-007: SIPP vs ISA Tax Arbitrage", () => {
 });
 
 test("TAX-013: GIA Tax Allowances Ordering", () => {
+  const rules = getUKRuleset() as unknown as UKRulesetLike;
   const r = calculateGiaTax({
     annual_dividends: 1000,
     realised_capital_gains: 5000,
     interest_income: 1500,
     other_taxable_income: 60000
-  });
+  }, rules);
   assert.equal(r.taxpayer_band, "higher");
-  assert.equal(r.dividend_tax_due, (1000 - 500) * 0.3375);
+  assert.equal(r.dividend_tax_due, (1000 - 500) * rules.dividends.rates.higher);
   assert.equal(r.capital_gains_tax_due, (5000 - 3000) * 0.24);
   assert.equal(r.interest_tax_due, (1500 - 500) * 0.40);
 });

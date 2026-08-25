@@ -815,15 +815,15 @@
       },
       "expected": {
         "taxpayer_band": "higher",
-        "dividend_tax_due": 675,
+        "dividend_tax_due": 715,
         "capital_gains_tax_due": 720,
         "interest_tax_due": 120,
-        "total_gia_tax_due": 1515,
-        "net_investment_income_after_tax": 7785
+        "total_gia_tax_due": 1555,
+        "net_investment_income_after_tax": 7745
       },
       "tolerance": "±£0.01",
       "ruleset": "uk-2026-27-v1",
-      "derivation": "Higher band: Div = (2500 - 500)*33.75% = £675. CGT = (6000 - 3000)*24% = £720. Int = (800 - 500)*40% = £120. Total = £1,515."
+      "derivation": "Higher band: Div = (2500 - 500)*35.75% = £715. CGT = (6000 - 3000)*24% = £720. Int = (800 - 500)*40% = £120. Total = £1,555. Net = 9,300 - 1,555 = £7,745."
     },
     {
       "scenario": "Basic rate taxpayer within all statutory allowances",
@@ -877,14 +877,14 @@
       },
       "expected": {
         "taxpayer_band": "basic",
-        "dividend_tax_due": 393.75,
+        "dividend_tax_due": 483.75,
         "capital_gains_tax_due": 0,
         "interest_tax_due": 0,
-        "total_gia_tax_due": 393.75
+        "total_gia_tax_due": 483.75
       },
       "tolerance": "±£0.01",
       "ruleset": "uk-2026-27-v1",
-      "derivation": "Net gain = 12000 - 10000 = £2,000 (within £3k AEA -> £0 CGT). Div = (5000 - 500)*8.75% = £393.75."
+      "derivation": "Net gain = 12000 - 10000 = £2,000 (within £3k AEA -> £0 CGT). Div = (5000 - 500)*10.75% = £483.75."
     },
     {
       "scenario": "Pure dividend income portfolio at higher rate",
@@ -897,14 +897,14 @@
       },
       "expected": {
         "taxpayer_band": "higher",
-        "dividend_tax_due": 2531.25,
+        "dividend_tax_due": 2681.25,
         "capital_gains_tax_due": 0,
         "interest_tax_due": 0,
-        "total_gia_tax_due": 2531.25
+        "total_gia_tax_due": 2681.25
       },
       "tolerance": "±£0.01",
       "ruleset": "uk-2026-27-v1",
-      "derivation": "Higher rate: Div = (8000 - 500)*33.75% = £2,531.25."
+      "derivation": "Higher rate: Div = (8000 - 500)*35.75% = £2,681.25."
     }
   ],
   "TAX-019": [
