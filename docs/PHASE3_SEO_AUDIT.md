@@ -153,3 +153,27 @@ Rendered on all calculator routes, category hubs, and legal compliance pages:
   3. Same category tools.
   4. Cross-category adjacent domain tools.
 - **Consumer Cleanliness**: All cards display user-friendly names, category badges, subcategory badges, and 0 raw IDs or engineering wave badges.
+
+---
+
+## 7. Final Verification Evidence & Accessibility Model
+
+### 7.1 Post-Code Verification
+- **Root TypeScript Check**: PASS (`npx tsc -p tsconfig.json --noEmit`, 0 errors)
+- **Web Workspace TypeScript Check**: PASS (`npx tsc -p apps/web/tsconfig.json --noEmit`, 0 errors)
+- **Next.js Production Build**: PASS (282 / 282 static/generated routes prerendered)
+- **Reference Benchmarks**: 1489 / 1489 PASS (0 regressions)
+- **Playwright Browser Tests**: 1642 / 1642 PASS
+
+### 7.2 Accessibility Coverage Model
+- **AXE EXPECTED**: 48
+- **AXE EXECUTED**: 48
+- **AXE SERIOUS**: 0
+- **AXE CRITICAL**: 0
+- **Coverage Model Distinction**: The 48 scans provide representative, template, and high-complexity family coverage (19 category representatives calculated with results rendered, 19 category landing pages, 4 legal compliance pages, and 6 core interactive finance workflows) rather than 253 individual calculator Axe scans.
+
+### 7.3 CURATED_RELATED Authoritative Contract
+- **Contract Format**: Supports both canonical Calculator IDs (e.g. `"TAX-001"`) and canonical Slugs (e.g. `"take-home-pay-calculator"`).
+- **Resolution**: Dynamically resolved against the live calculator registry.
+- **Validation**: Enforced via `validateCuratedRelationships()` to guarantee zero broken references.
+

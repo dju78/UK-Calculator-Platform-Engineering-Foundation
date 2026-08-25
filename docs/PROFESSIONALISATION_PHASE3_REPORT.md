@@ -34,13 +34,13 @@ Phase 3 has successfully executed all 18 requirements specified in the mission b
 
 | Verification Suite | Real Count | Status | Notes |
 | :--- | :---: | :---: | :--- |
+| **Root TypeScript Check (`npx tsc -p tsconfig.json --noEmit`)** | **PASS** | **PASS** | 0 type errors across root workspace |
+| **Web Workspace TypeScript Check (`npx tsc -p apps/web/tsconfig.json --noEmit`)** | **PASS** | **PASS** | 0 type errors across web workspace |
+| **Next.js Production Build (`npm --workspace=web run build`)** | **PASS** | **PASS** | 282/282 static/generated routes prerendered in 7.3s (Turbopack SSG) |
 | **Unit & SEO Suite (`npm test`)** | **929 / 929 PASSED** | **PASS** | 100% pass rate across 7 test suites |
 | **Reference Benchmarks (`npm run bench:reference`)** | **1489 / 1489 PASSED** | **PASS** | Wave 1: 275, Wave 2: 1164, Wave 3: 50 |
 | **Playwright Browser Suite (`npm --workspace=web run test:e2e`)** | **1642 / 1642 PASSED** | **PASS** | Full suite run (13.4m duration, 0 fails) |
-| **Axe Accessibility Scans** | **48 / 48 PASSED** | **PASS** | Axe Serious: 0, Axe Critical: 0 |
-| **Typecheck Root (`npx tsc -p tsconfig.json --noEmit`)** | **PASS** | **PASS** | 0 type errors |
-| **Typecheck Web (`npx tsc -p apps/web/tsconfig.json --noEmit`)** | **PASS** | **PASS** | 0 type errors |
-| **Next.js Production Build (`npm --workspace=web run build`)** | **282 / 282 SSG Pages** | **PASS** | Prerendered in 7.3s (Turbopack) |
+| **Axe Accessibility Scans** | **48 / 48 PASSED** | **PASS** | AXE EXPECTED: 48, AXE EXECUTED: 48, SERIOUS: 0, CRITICAL: 0 |
 | **Linter (`npm run lint`)** | **0 Errors, 0 Warnings** | **PASS** | ESLint clean across workspace |
 | **Phase 3 Dedicated SEO Suite (`tests/seo-professionalisation.test.ts`)** | **12 / 12 Suites PASSED** | **PASS** | Covers IA, metadata, canonicals, schema, related graph |
 
@@ -48,15 +48,29 @@ Phase 3 has successfully executed all 18 requirements specified in the mission b
 
 ## 3. Accessibility Evidence & Coverage Model
 
-- **Axe Scans Executed**: 48 full-page automated scans executed with calculations triggered and results rendered in live DOM.
-- **Axe Serious Violations**: 0
-- **Axe Critical Violations**: 0
-- **Coverage Model**:
-  1. **All 19 Category Representatives**: 1 representative calculator per category (lowest ID per category) scanned with outputs rendered.
-  2. **All 19 Category Landing Hubs**: Scanned at `/category/[category]`.
-  3. **All 4 Legal Pages**: Scanned at `/privacy`, `/terms`, `/disclaimer`, `/accessibility`.
-  4. **Dedicated Deep-Dive Scans**: High-complexity families (Take-Home, Tax, Mortgage, Pension, Statistics, Utilities, Loans).
-  5. **Narrow Mobile Viewport (320px)**: Evaluated for zero horizontal overflow (`scrollWidth <= clientWidth + 1`).
+- **AXE EXPECTED**: 48
+- **AXE EXECUTED**: 48
+- **AXE SERIOUS**: 0
+- **AXE CRITICAL**: 0
+
+### Coverage Model Scope:
+The 48 automated Axe scans represent a structured **representative / template / family coverage model** across the platform rather than 253 individual calculator scans:
+1. **19 Category Representatives (19 Scans)**: Exactly 1 representative calculator per canonical category (lowest ID per category) scanned with form inputs filled, calculation triggered, and results actively rendered in the live DOM (verifying output regions, live alerts, warning contrast, and tables).
+2. **19 Category Landing Hubs (19 Scans)**: All 19 category index routes at `/category/[category]` scanned for accessible headings, badges, and navigation chips.
+3. **4 Legal Compliance Routes (4 Scans)**: All 4 public legal routes (`/privacy`, `/terms`, `/disclaimer`, `/accessibility`) scanned for structured article accessibility and breadcrumbs.
+4. **6 High-Complexity Calculator Families (6 Scans)**: Deep-dive interactive scans on core UK finance tools: Take-Home Pay, UK Salary, Income Tax, National Insurance, Student Loan Repayment, and Loan Calculator.
+5. **Mobile Viewport Sweep (320px)**: Evaluates narrow-screen horizontal overflow (`scrollWidth <= clientWidth + 1`) across all representative templates.
+
+---
+
+## 4. CURATED_RELATED Authoritative Contract
+
+**File Location**: `apps/web/src/lib/relatedCalculators.ts`
+
+- **Identifier Contract**: Both canonical **Calculator IDs** (e.g. `"TAX-001"`) and canonical **Slugs** (e.g. `"take-home-pay-calculator"`) are supported as source keys and target items.
+- **Registry Resolution**: Both ID and slug references resolve dynamically through the live calculator registry (`liveCalculators`).
+- **Validation & Safety**: The function `validateCuratedRelationships()` rigorously verifies every source and target relationship; invalid or unmapped relationships are rejected and caught during testing.
+- **Deterministic Fallback**: If fewer than the requested limit of curated tools are configured, the recommendation engine automatically supplements with subcategory, category, and adjacent domain tools without self-referencing.
 
 ---
 
