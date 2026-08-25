@@ -289,13 +289,26 @@ describe("Phase 2: calculator guide content validation", () => {
   });
 
   test("no guaranteed-outcome or advisory language is public", () => {
-    const forbidden =
-      /\b(guarantee[sd]?|risk-?free|100% accurate|always correct|you should invest|we recommend you)\b/i;
+    // This targets promissory claims, not caveats. "Returns are not
+    // guaranteed", and "a guaranteed income" as the correct description of an
+    // annuity, are honest and must survive. "Guaranteed returns" must not.
+    const forbidden = [
+      /\bguarantee(s|d)?\s+(returns?|growth|profits?|results?|outcomes?|gains?)\b/i,
+      /\bguaranteed\s+to\s+(grow|rise|increase|beat|outperform|succeed)\b/i,
+      /\bwe\s+guarantee\b/i,
+      /\brisk[-\s]?free\b/i,
+      /\b100%\s+accurate\b/i,
+      /\balways\s+correct\b/i,
+      /\byou\s+should\s+(invest|buy|sell|choose)\b/i,
+      /\bwe\s+recommend\b/i,
+      /\bbest\s+(investment|pension|mortgage)\s+for\s+you\b/i,
+    ];
     for (const guide of allGuides) {
       for (const text of readerFacingText(guide)) {
+        const hit = forbidden.find((pattern) => pattern.test(text));
         assert.ok(
-          !forbidden.test(text),
-          `${guide.calculatorId}: unsupported or advisory language: ${text.slice(0, 80)}`
+          hit === undefined,
+          `${guide.calculatorId}: unsupported or advisory language matching ${String(hit)}: ${text.slice(0, 100)}`
         );
       }
     }
