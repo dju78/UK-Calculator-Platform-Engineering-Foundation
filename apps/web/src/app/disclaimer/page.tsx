@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { SITE_NAME, absoluteUrl } from "@/lib/site";
+import { Breadcrumbs } from "@/components/layout/Breadcrumbs";
 
 export const metadata: Metadata = {
   title: `Disclaimer | ${SITE_NAME}`,
@@ -26,6 +27,7 @@ export const metadata: Metadata = {
 export default function Disclaimer() {
   return (
     <div className="prose max-w-none">
+      <Breadcrumbs items={[{ label: "Disclaimer" }]} className="mb-6 not-prose" />
       <h1>Disclaimer</h1>
       <p>Last updated: August 2026</p>
 
