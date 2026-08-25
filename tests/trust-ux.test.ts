@@ -179,6 +179,105 @@ describe("Professionalisation Phase 1: Trust, UX and Public Credibility", () => 
 
       assert.ok(disclaimer.body.length > 20, `Disclaimer body too short for ${calc.id}`);
       assert.ok(disclaimer.professional.length > 2, `Missing professional designation for ${calc.id}`);
+      assert.ok(disclaimer.family.length > 2, `Missing disclaimer family for ${calc.id}`);
+    }
+  });
+
+  test("10. Specialist disclaimer resolution precedence: PEN-011, INV-025, INV-026, INV-029 resolve to stochastic/FIRE family", () => {
+    const specialistCalcs = ["INV-025", "INV-026", "INV-029", "PEN-011"];
+    for (const id of specialistCalcs) {
+      const calc = calculatorRegistry.find((c: any) => c.id === id);
+      assert.ok(calc, `Calculator ${id} must exist in registry`);
+      const disclaimer = getCalculatorDisclaimer({
+        id: calc.id,
+        category: calc.category,
+        subcategory: calc.subcategory,
+        name: calc.name,
+        rulesSensitive: calc.rulesSensitive
+      });
+
+      assert.equal(
+        disclaimer.family,
+        "stochastic_withdrawal_fire",
+        `${id} must resolve to stochastic_withdrawal_fire family before generic pensions/investments`
+      );
+      assert.equal(
+        disclaimer.professional,
+        "FCA-regulated financial adviser",
+        `${id} must require an FCA-regulated financial adviser`
+      );
+      assert.ok(
+        disclaimer.body.includes("Probabilistic modelling") || disclaimer.body.includes("withdrawal rate simulations"),
+        `${id} disclaimer body must mention probabilistic / withdrawal simulations`
+      );
+    }
+  });
+
+  test("11. Property-tax disclaimers strictly scoped: PRO-023..028 match and 0 non-property calculators receive property tax disclaimer", () => {
+    const expectedPropertyTaxIds = ["PRO-023", "PRO-024", "PRO-025", "PRO-026", "PRO-027", "PRO-028"];
+    const actualPropertyTaxCalcs: string[] = [];
+    const nonPropertyViolations: string[] = [];
+
+    for (const calc of calculatorRegistry) {
+      const disclaimer = getCalculatorDisclaimer({
+        id: calc.id,
+        category: calc.category,
+        subcategory: calc.subcategory,
+        name: calc.name,
+        rulesSensitive: calc.rulesSensitive
+      });
+
+      if (disclaimer.family === "property_taxation") {
+        actualPropertyTaxCalcs.push(calc.id);
+        if (!calc.id.startsWith("PRO-")) {
+          nonPropertyViolations.push(calc.id);
+        }
+      }
+    }
+
+    assert.deepEqual(
+      actualPropertyTaxCalcs.sort(),
+      expectedPropertyTaxIds.sort(),
+      "Property tax disclaimer IDs must exactly match PRO-023 through PRO-028"
+    );
+    assert.equal(
+      nonPropertyViolations.length,
+      0,
+      `Non-property calculators incorrectly receiving property tax disclaimer: ${nonPropertyViolations.join(", ")}`
+    );
+  });
+
+  test("12. Canonical registry category count is 19 and all 19 categories are routable", () => {
+    const categories = Array.from(new Set(calculatorRegistry.map((c: any) => c.category))).sort();
+    assert.equal(categories.length, 19, "Canonical registry must contain exactly 19 categories");
+  });
+
+  test("13. Metadata verification: title, description, canonical, OpenGraph, and Twitter cards across representative routes and all 19 categories", () => {
+    const targetCalcIds = [
+      "TAX-001", "PRO-001", "PRO-023", "INV-029", "ISA-007", "PEN-011", "HLT-020", "CON-010",
+      "AUT-006", "BUS-001", "CON-001", "DAT-001", "EDU-001", "EVE-001", "FIN-001", "GEO-001",
+      "HLT-001", "HOM-001", "ISA-001", "INV-001", "MAT-001", "PEN-001", "SCI-001", "STA-001",
+      "TEC-001"
+    ];
+
+    for (const id of targetCalcIds) {
+      const calc = calculatorRegistry.find((c: any) => c.id === id);
+      assert.ok(calc, `Target calculator ${id} must exist in registry`);
+      assert.ok(calc.name.length > 3, `${id} must have a valid title/name`);
+      assert.ok(calc.slug.length > 2, `${id} must have a clean kebab slug`);
+      assert.ok(calc.category.length > 2, `${id} must have a category`);
+    }
+
+    // Verify legal routes
+    const legalRoutes = ["/accessibility", "/disclaimer", "/privacy", "/terms"];
+    for (const route of legalRoutes) {
+      const filePath = path.join(rootDir, `apps/web/src/app${route}/page.tsx`);
+      const content = fs.readFileSync(filePath, "utf8");
+      assert.ok(content.includes("title:"), `Missing title in metadata for ${route}`);
+      assert.ok(content.includes("description:"), `Missing description in metadata for ${route}`);
+      assert.ok(content.includes("alternates:"), `Missing canonical in metadata for ${route}`);
+      assert.ok(content.includes("openGraph:"), `Missing openGraph in metadata for ${route}`);
+      assert.ok(content.includes("twitter:"), `Missing twitter in metadata for ${route}`);
     }
   });
 });

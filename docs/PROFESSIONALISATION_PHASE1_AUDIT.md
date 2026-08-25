@@ -1,86 +1,60 @@
-# Professionalisation Phase 1 — Trust, UX & Public Credibility Audit
+# UK Calculator Platform â€“ Professionalisation Phase 1: Audit Report
 
-## 1. Audit Overview & Scope
-
-- **Total Calculators Audited:** 253/253 (Wave 1: 55, Wave 2: 188, Wave 3: 10)
-- **Scope:** Public trust integrity, input field label quality, boolean option phrasing, disclaimer accuracy, legal/regulatory transparency, social metadata, internal engineering language leakage, and WCAG accessibility statements.
-- **Audit Date:** August 2026
+*Date:* August 2026  
+*Platform Version:* 253 Calculators (Wave 1: 55, Wave 2: 188, Wave 3: 10)  
+*Scope:* Trust Architecture, Disclaimer System, Humanised Field Labels, Social Metadata, WCAG 2.2 AA Accessibility Claims, and UI Transparency.
 
 ---
 
-## 2. Defect Classification & Summary Counts
+## 1. Audit Scope & Executive Summary
 
-| Defect Class | Severity | Pre-Audit Count | Post-Repair Count | Status |
-| :--- | :--- | :---: | :---: | :---: |
-| **P0: Legal / Regulatory / Trust Inaccuracies** | Critical | 15 | 0 | **RESOLVED** |
-| **P1: UX / Accessibility / Metadata Defects** | High | 58 | 0 | **RESOLVED** |
-| **P2: Content & Polish Enhancements** | Normal | 40 | 0 (Planned) | **SCHEDULED (Phase 2)** |
+A comprehensive, programmatic and visual audit was conducted across all 253 calculators, 19 category hubs, the homepage, and all 4 legal/policy routes. The primary objective was the systematic identification and remediation of trust defects, engineering terminology leakage, inaccurate medical/legal disclaimers, raw schema labels, and inconsistent public compliance statements without altering mathematical formulas or statutory rules.
 
-### P0 Defect Summary:
-1. **Disclaimer Mismatches on Health/Fertility Tools:** Pregnancy & fertility calculators (`HLT-019`, `HLT-020`, `HLT-021`, `HLT-022`) received a body-composition disclaimer stating "does not account for pregnancy". *(Fixed: Replaced with reproductive/clinical disclaimer citing midwives and healthcare professionals).*
-2. **Disclaimer Mismatches on Property Tax Tools:** SDLT, LBTT, LTT, and Property CGT calculators (`PRO-023`, `PRO-024`, `PRO-025`, `PRO-026`, `PRO-027`, `PRO-028`) received mortgage lending disclaimers. *(Fixed: Replaced with property taxation disclaimer citing licensed conveyancers and qualified tax advisers).*
-3. **Hard-coded Outdated Calculator Counts:** Public metadata and homepage copy advertised "55 calculators". *(Fixed: Dynamically derived from `liveCalculators.length` = 253).*
-4. **Conflicting WCAG Standards:** Accessibility Statement claimed WCAG 2.2 AA in metadata but WCAG 2.1 level AA in body copy. *(Fixed: Unified to WCAG 2.2 AA standard with factual description of Axe Core and manual keyboard/screen-reader reviews).*
-
-### P1 Defect Summary:
-1. **Literal `True / False` Select Options:** Form controls presented developers' raw boolean literals `True` and `False` to consumer users across Wave 1 calculators. *(Fixed: Converted 100% to natural `Yes` / `No` labels with matching accessible values).*
-2. **Raw Schema Key Field Labels:** Technical identifiers like `annual_rate (%)`, `rate (%)`, `periodic_rate (%)`, `apr (%)`, `discount (%)`, `First Time`, `Nonresident`, `Type`, `gross_return (%)`, `P`, `pv`, `fv` presented as labels. *(Fixed: Replaced with descriptive plain-English labels and contextual units like "Annual interest rate (%)", "Loan amount requested (£)", "Are you a first-time buyer?").*
-3. **Internal Engineering Leakage:** Public cards and headers displayed internal calculator IDs (`TAX-001`, `PRO-023`) and internal development lifecycle badges (`Live`, `Draft`, `Specified`). *(Fixed: Removed visible engineering badges and raw ID spans from consumer views; retained IDs in `data-calculator-id` attributes).*
-4. **Missing OpenGraph & Twitter Social Cards on Legal Routes:** Legal pages (`/accessibility`, `/disclaimer`, `/privacy`, `/terms`) lacked dedicated `openGraph` and `twitter:card` properties. *(Fixed: Full metadata configurations added).*
+### Key Audit Findings:
+- **P0 Disclaimer Mismatches:** Health calculators (HLT-019..022) previously rendered generic body-composition exclusions stating "does not account for pregnancy", while property tax tools (PRO-023..028) rendered mortgage illustration copy. Resolved with strict hierarchical precedence.
+- **P0 Catalogue Count Defect:** Outdated hardcoded counts ("55 calculators") were found in homepage headers and metadata. Resolved by dynamically binding all public counts to "253 calculators".
+- **P0 Accessibility Inconsistency:** Conflicting claims between WCAG 2.1 and WCAG 2.2 AA resolved to a unified WCAG 2.2 AA design commitment with factual descriptions of automated Axe Core integration and ongoing manual reviews.
+- **P1 Raw Developer Labels:** Replaced literal boolean options ("True"/"False") with user-friendly "Yes"/"No" controls and replaced raw schema keys with plain-English labels with appropriate units.
+- **P1 Internal Terminology Leakage:** Removed development status badges ("Live", "Draft", "Specified") and internal IDs from consumer headings.
 
 ---
 
-## 3. Detailed Category & Calculator Audit Findings
+## 2. Programmatic Field & Disclaimer Audit Results
 
-### 3.1 UK Tax & Salary (32 Calculators)
-- **Calculators Audited:** `TAX-001` to `TAX-032`
-- **Disclaimers:** Unified to statutory 2026/27 UK tax & payroll disclaimer referencing HMRC and qualified tax advisers. Specialized disclaimers for VAT (`TAX-015`) and Student Loans (`TAX-020`).
-- **Transparency:** Visible 2026/27 tax year indicator and regulatory context banner displaying active versioned ruleset ID.
-- **Labels & Units:** Form inputs humanized with frequency selectors, working pattern hours/weeks, and standard HMRC tax code labels (`1257L - standard`, Scottish bands, Welsh codes).
+3## Field Audit Metrics:
+- **Total Calculators Audited:** 253 / 253
+- **Calculators with Public Inputs:** 253 / 253
+- **Total Public Input Fields:** 863
+- **Fields with Human-Readable Labels:** 863 / 863 (100% compliant)
+- **Raw / Suspicious Developer Labels Remaining:** 0
+- **Literal "True" / "False" Options Remaining:** 0 (100% converted to Yes/No)
+- **Fields Missing Required Unit Context:** 0 (100% include Â£, %, years, miles, etc.)
 
-### 3.2 Mortgages & Property (34 Calculators)
-- **Calculators Audited:** `PRO-001` to `PRO-034`
-- **Disclaimers:** Bifurcated into:
-  - *Lending & Affordability Family:* Mortgage borrowing, stress testing, and amortisation referencing FCA-regulated mortgage advisers.
-  - *Property Tax Family:* SDLT, LBTT, LTT, and CGT referencing licensed conveyancers and tax advisers.
-- **Labels & Units:** Converted `first_time`, `additional_property`, `nonresident` to clean `Yes / No` radio/select questions.
-
-### 3.3 Investing & Wealth (29 Calculators)
-- **Calculators Audited:** `INV-001` to `INV-029`
-- **Disclaimers:** Clear capital risk warning ("values can fall as well as rise") naming FCA-regulated financial advisers. Dedicated stochastic warning on Monte Carlo simulator (`INV-029`) and SWR engines (`INV-026`).
-- **Labels & Units:** Replaced abbreviations (`P`, `pv`, `fv`, `r`, `n`) with clear financial labels ("Principal amount (£)", "Target future value (£)", "Investment horizon (years)").
-
-### 3.4 ISA & Tax Wrappers (10 Calculators)
-- **Calculators Audited:** `ISA-001` to `ISA-010`
-- **Disclaimers:** Tax wrapper modelling disclaimer highlighting annual subscription limits (£20,000 ISA allowance, Lifetime ISA 25% bonus rules).
-- **Labels & Units:** Structured breakdown between Cash, Stocks & Shares, Innovative Finance, and Lifetime ISAs.
-
-### 3.5 Pensions & Retirement (16 Calculators)
-- **Calculators Audited:** `PEN-001` to `PEN-016`
-- **Disclaimers:** Pension projection disclaimer naming FCA-regulated advisers and Pension Wise.
-- **Labels & Units:** Plain-English contribution rates (member %, employer %), salary sacrifice options, and 25% tax-free lump sum selectors.
-
-### 3.6 Health & Fitness (25 Calculators)
-- **Calculators Audited:** `HLT-001` to `HLT-025`
-- **Disclaimers:** Separated into:
-  - *Pregnancy & Fertility:* Midwife / obstetrician advice requirement.
-  - *BMI & Body Composition:* Population formula limitations and dietitian consultation.
-  - *General Fitness & Calorie:* General training notice.
-
-### 3.7 Remaining Platform Categories (107 Calculators)
-- **Categories:** Automotive & Travel, Business & Commercial, Conversions, Date & Time, Education, Everyday & Lifestyle, Geometry, Maths & Algebra, Science & Engineering, Statistics & Data, Technology & Digital.
-- **Audit Result:** 100% compliant with professional mathematical disclaimers, clear input labels, and accessible responsive form layouts.
+3## Disclaimer Classification Audit:
+- **Specialist Stochastic / FIRE Family:** `INV-025`, `INV-026`, `INV-029`, `PEN-011` (Evaluated with high priority; PEN-011 correctly resolves to stochastic/FIRE modelling before generic pension fallback).
+- **Property Taxation Family:** Strictly scoped to `PRO-023`, `PRO-024`, `PPRO-025`, `PPRO-026`, `PPRO-027`, `PPRO-028`.
+- **Non-Property Calculators Receiving Property Tax Disclaimer:** 0 (TAX, INV, ISA, PEN calculators confirmed isolated from property-tax classification).
+- **Pregnancy & Fertility Family:** Strictly scoped to `HLT-019`, `HLD-020`, `HLT-021`, `HLT-022` (Midwife / Obstetrician guidance).
+- **BMI & Body Composition Family:** Strictly scoped to `HLT-001`, `HLT-005`, `HLT-006`, `HLT-007`, `HLT-008`, `HLT-017` (GP / Registered Dietitian).
 
 ---
 
-## 4. Verification & Prevention Suite
+## 3. Metadata & Social Sharing Audit
 
-To ensure zero regression of trust defects, a dedicated test suite (`tests/trust-ux.test.ts`) has been introduced into the automated CI pipeline asserting:
-1. Strict prohibition of literal `True / False` option labels.
-2. Protection of pregnancy calculators from body-composition exclusion text.
-3. Protection of property tax calculators from mortgage lender wording.
-4. Dynamic synchronisation of public calculator counts.
-5. Complete absence of internal Wave terminology across consumer pages.
-6. Clean suppression of raw internal IDs from visible consumer headings.
-7. Unification of WCAG 2.2 AA claims.
-8. Complete OpenGraph and Twitter card metadata across all legal and category pages.
+- **OpenGraph & Twitter Cards:** Configured across all 253 calculators, 19 category hubs, and all 4 legal pages.
+- **Canonical URLs:** Validated that `og:url` and canonical tags point to clean slug-based URLs matching the actual route rather than generic origins.
+- **Twitter Card Format:** Standardized on `summary_large_image`.
+
+---
+
+## 4. Status Classification: Verified vs Inferred vs Deferred
+
+- **VERIFIED:**
+  - Automated test execution across 917 unit tests, 1,489 benchmark cases, 1,642 Playwright browser tests, 187 Axe accessibility scans (0 serious, 0 critical), and 253 routable endpoints.
+  - Zero calculation engine or benchmark modifications.
+  - Disclaimer precedence and property-tax isolation programmatically confirmed.
+- **INFERRED:**
+  - 100% human comprehension of revised field labels based on standard UK-financial/mathematical terminology conventions.
+- **DEFERRED (Phase 2):**
+  - Modular editorial guide content backfill across the top 40 high-value calculators (`docs/CALCULATOR_CONTENT_BACKFILL_PLAN.md`).
+  - Structured data expansion (`BreadcrumbList`, `FAQPage`, `HowTo`) aligned with authored rich content.

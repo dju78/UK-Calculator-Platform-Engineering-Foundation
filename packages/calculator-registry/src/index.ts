@@ -144,5 +144,5 @@ export function listWave(wave: CalculatorDefinition["launchWave"]): CalculatorDe
   return calculatorRegistry.filter((c) => c.launchWave === wave);
 }
 
-export { getCalculatorDisclaimer, type DisclaimerResolutionContext } from "./disclaimers.js";
+export { getCalculatorDisclaimer, type DisclaimerResolutionContext, type CalculatorDisclaimer } from "./disclaimers.js";
 export type { CalculatorDefinition } from "./types.js";
