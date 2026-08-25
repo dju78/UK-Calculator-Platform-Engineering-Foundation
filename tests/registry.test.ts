@@ -1,4 +1,4 @@
-﻿import test from "node:test";
+import test from "node:test";
 import assert from "node:assert/strict";
 import { wave1Registry, validateRegistry, getCalculatorDefinition } from "../packages/calculator-registry/src/index.js";
 
@@ -171,7 +171,86 @@ test("Wave 2 is complete and every verified calculator carries its full evidence
     assert.deepStrictEqual(missing, []);
   });
 
-  await t.test("the whole platform is 243 calculators", () => {
-    assert.strictEqual(calculatorRegistry.length, 243);
+  await t.test("the whole platform is 253 calculators", () => {
+    assert.strictEqual(calculatorRegistry.length, 253);
+  });
+});
+
+// ---------------------------------------------------------------------------
+// Wave 3 completeness
+// ---------------------------------------------------------------------------
+
+test("Wave 3 is complete and every verified calculator carries its full evidence", async (t: any) => {
+  const fs = await import("node:fs");
+  const path = await import("node:path");
+  const { wave3Registry, calculatorRegistry } = await import(
+    "../packages/calculator-registry/src/index.js"
+  );
+  const { implementedCalculatorIds } = await import(
+    "../packages/calculation-engine/src/engine.js"
+  );
+
+  const fixtures = JSON.parse(
+    fs.readFileSync(
+      path.join(process.cwd(), "packages/test-fixtures/fixtures/wave3-benchmarks.json"),
+      "utf8"
+    )
+  ) as Record<string, unknown[]>;
+
+  const mappingSource =
+    fs.readFileSync(
+      path.join(process.cwd(), "apps/web/src/components/calculators/wave3FieldMappings.ts"),
+      "utf8"
+    ) +
+    fs.readFileSync(
+      path.join(process.cwd(), "apps/web/src/components/calculators/fieldMappings.ts"),
+      "utf8"
+    );
+
+  const implemented = new Set(implementedCalculatorIds());
+
+  await t.test("the registry holds exactly 10 Wave 3 calculators", () => {
+    assert.strictEqual(wave3Registry.length, 10);
+  });
+
+  await t.test("no duplicate IDs or slugs across all three waves", () => {
+    const ids = new Set<string>();
+    const slugs = new Set<string>();
+    for (const c of calculatorRegistry) {
+      assert.ok(!ids.has(c.id), `duplicate id ${c.id}`);
+      assert.ok(!slugs.has(c.slug), `duplicate slug ${c.slug}`);
+      ids.add(c.id);
+      slugs.add(c.slug);
+    }
+  });
+
+  await t.test("every verified Wave 3 calculator has all its evidence", () => {
+    const missing: string[] = [];
+    for (const c of wave3Registry) {
+      if (c.status !== "verified") continue;
+
+      if (!implemented.has(c.id)) missing.push(`${c.id}: no engine handler`);
+      if (c.implementationStatus !== "implemented") {
+        missing.push(`${c.id}: implementationStatus is "${c.implementationStatus}"`);
+      }
+
+      const cases = fixtures[c.id] ?? [];
+      if (cases.length < 5) {
+        missing.push(`${c.id}: only ${cases.length} benchmark cases, minimum is 5`);
+      }
+      if (c.benchmarkCount !== cases.length) {
+        missing.push(
+          `${c.id}: registry declares ${c.benchmarkCount} benchmarks but the fixtures hold ${cases.length}`
+        );
+      }
+
+      if (!mappingSource.includes(`"${c.id}": [`)) {
+        missing.push(`${c.id}: no UI field definitions, so the page would render no form`);
+      }
+
+      const specPath = path.join(process.cwd(), "docs/specs/wave3", `${c.id}.md`);
+      if (!fs.existsSync(specPath)) missing.push(`${c.id}: no specification`);
+    }
+    assert.deepStrictEqual(missing, []);
   });
 });

@@ -1,0 +1,1130 @@
+{
+  "PRO-008": [
+    {
+      "scenario": "Standard 25y mortgage 2y fixed vs tracker at same initial rate",
+      "inputs": {
+        "loan_amount": 250000,
+        "term_years": 25,
+        "fixed_rate": 4.5,
+        "fixed_fee": 999,
+        "tracker_margin": 0.75,
+        "current_base_rate": 3.75,
+        "tracker_fee": 0,
+        "deal_years": 2,
+        "expected_rate_change": 0,
+        "fee_financed": false
+      },
+      "expected": {
+        "fixed_monthly_payment": 1389.58,
+        "tracker_initial_monthly_payment": 1389.58,
+        "fixed_deal_total_cost": 34348.95,
+        "tracker_deal_total_cost": 33349.95,
+        "deal_cost_difference": 999,
+        "cheaper_option": "tracker",
+        "breakeven_average_base_rate": 4.04
+      },
+      "tolerance": "±£1.00",
+      "ruleset": "None",
+      "derivation": "Independently derived by month-by-month financial amortisation model."
+    },
+    {
+      "scenario": "5y deal with falling interest rates",
+      "inputs": {
+        "loan_amount": 300000,
+        "term_years": 25,
+        "fixed_rate": 5,
+        "fixed_fee": 999,
+        "tracker_margin": 0.5,
+        "current_base_rate": 4,
+        "tracker_fee": 0,
+        "deal_years": 5,
+        "expected_rate_change": -0.5,
+        "fee_financed": false
+      },
+      "expected": {
+        "fixed_monthly_payment": 1753.77,
+        "tracker_initial_monthly_payment": 1667.5,
+        "fixed_deal_total_cost": 106225.21,
+        "tracker_deal_total_cost": 90872.05,
+        "deal_cost_difference": 15353.16,
+        "cheaper_option": "tracker",
+        "breakeven_average_base_rate": 4.6
+      },
+      "tolerance": "±£10.00",
+      "ruleset": "None",
+      "derivation": "Month-by-month trajectory simulation with base rate reduction."
+    },
+    {
+      "scenario": "2y deal with rising interest rates",
+      "inputs": {
+        "loan_amount": 180000,
+        "term_years": 20,
+        "fixed_rate": 4.2,
+        "fixed_fee": 999,
+        "tracker_margin": 0.8,
+        "current_base_rate": 3.5,
+        "tracker_fee": 495,
+        "deal_years": 2,
+        "expected_rate_change": 0.75,
+        "fee_financed": false
+      },
+      "expected": {
+        "fixed_monthly_payment": 1109.83,
+        "tracker_initial_monthly_payment": 1119.43,
+        "fixed_deal_total_cost": 27634.86,
+        "tracker_deal_total_cost": 28205.27,
+        "deal_cost_difference": 570.41,
+        "cheaper_option": "fixed",
+        "breakeven_average_base_rate": 3.62
+      },
+      "tolerance": "±£5.00",
+      "ruleset": "None",
+      "derivation": "Stepwise monthly simulation where base rate increases."
+    },
+    {
+      "scenario": "Zero fees comparison on 30y term",
+      "inputs": {
+        "loan_amount": 200000,
+        "term_years": 30,
+        "fixed_rate": 4,
+        "fixed_fee": 0,
+        "tracker_margin": 0.5,
+        "current_base_rate": 3.5,
+        "tracker_fee": 0,
+        "deal_years": 2,
+        "expected_rate_change": 0,
+        "fee_financed": false
+      },
+      "expected": {
+        "fixed_monthly_payment": 954.83,
+        "tracker_initial_monthly_payment": 954.83,
+        "fixed_deal_total_cost": 22915.93,
+        "tracker_deal_total_cost": 22915.93,
+        "deal_cost_difference": 0,
+        "cheaper_option": "equal",
+        "breakeven_average_base_rate": 3.5
+      },
+      "tolerance": "±£0.10",
+      "ruleset": "None",
+      "derivation": "Exact mathematical parity scenario (identical rates and zero fees)."
+    },
+    {
+      "scenario": "Financed product fee into loan balance",
+      "inputs": {
+        "loan_amount": 400000,
+        "term_years": 20,
+        "fixed_rate": 4.8,
+        "fixed_fee": 1499,
+        "tracker_margin": 1,
+        "current_base_rate": 3.75,
+        "tracker_fee": 0,
+        "deal_years": 2,
+        "expected_rate_change": 0,
+        "fee_financed": true
+      },
+      "expected": {
+        "fixed_monthly_payment": 2605.56,
+        "tracker_initial_monthly_payment": 2584.89,
+        "fixed_deal_total_cost": 62533.39,
+        "tracker_deal_total_cost": 62037.47,
+        "deal_cost_difference": 495.92,
+        "cheaper_option": "tracker",
+        "breakeven_average_base_rate": 3.84
+      },
+      "tolerance": "±£1.00",
+      "ruleset": "None",
+      "derivation": "Fixed loan principal adjusted to £401,499 with amortising monthly payments."
+    }
+  ],
+  "PRO-028": [
+    {
+      "scenario": "Standard Buy-to-let property sale with basic band remaining",
+      "inputs": {
+        "disposal_price": 350000,
+        "acquisition_price": 220000,
+        "buying_costs": 7500,
+        "selling_costs": 4500,
+        "improvement_costs": 15000,
+        "total_ownership_months": 120,
+        "months_as_main_residence": 0,
+        "taxable_income": 35000,
+        "joint_owners": 1,
+        "loss_brought_forward": 0
+      },
+      "expected": {
+        "gross_gain": 103000,
+        "prr_relief_amount": 0,
+        "taxable_gain": 100000,
+        "gain_taxed_at_basic_rate": 2700,
+        "tax_at_basic_rate": 486,
+        "gain_taxed_at_higher_rate": 97300,
+        "tax_at_higher_rate": 23352,
+        "total_cgt_due": 23838,
+        "effective_cgt_rate_pct": 23.14,
+        "reporting_deadline_days": 60
+      },
+      "tolerance": "±£0.01",
+      "ruleset": "uk-2026-27-v1",
+      "derivation": "HMRC statutory: Gross £103k - £3k AEA = £100k. Basic band £2.7k at 18% (£486); £97.3k at 24% (£23,352). Total £23,838."
+    },
+    {
+      "scenario": "Partial Private Residence Relief with higher rate taxpayer",
+      "inputs": {
+        "disposal_price": 400000,
+        "acquisition_price": 250000,
+        "buying_costs": 6000,
+        "selling_costs": 4000,
+        "improvement_costs": 0,
+        "total_ownership_months": 120,
+        "months_as_main_residence": 36,
+        "taxable_income": 60000,
+        "joint_owners": 1,
+        "loss_brought_forward": 0
+      },
+      "expected": {
+        "gross_gain": 140000,
+        "prr_relief_amount": 52500,
+        "net_gain_before_allowances": 87500,
+        "annual_exempt_amount_used": 3000,
+        "taxable_gain": 84500,
+        "gain_taxed_at_basic_rate": 0,
+        "tax_at_basic_rate": 0,
+        "gain_taxed_at_higher_rate": 84500,
+        "tax_at_higher_rate": 20280,
+        "total_cgt_due": 20280
+      },
+      "tolerance": "±£0.01",
+      "ruleset": "uk-2026-27-v1",
+      "derivation": "PRR = 140k * 45/120 = £52.5k. Net = £87.5k - £3k AEA = £84.5k at 24% = £20,280."
+    },
+    {
+      "scenario": "100% Main Residence Relief (no CGT)",
+      "inputs": {
+        "disposal_price": 300000,
+        "acquisition_price": 200000,
+        "buying_costs": 5000,
+        "selling_costs": 3000,
+        "improvement_costs": 0,
+        "total_ownership_months": 60,
+        "months_as_main_residence": 60,
+        "taxable_income": 30000,
+        "joint_owners": 1,
+        "loss_brought_forward": 0
+      },
+      "expected": {
+        "gross_gain": 92000,
+        "prr_relief_amount": 92000,
+        "taxable_gain": 0,
+        "total_cgt_due": 0
+      },
+      "tolerance": "±£0.01",
+      "ruleset": "uk-2026-27-v1",
+      "derivation": "Full PRR exempts 100% of the gain."
+    },
+    {
+      "scenario": "Joint ownership by spouses / civil partners",
+      "inputs": {
+        "disposal_price": 500000,
+        "acquisition_price": 300000,
+        "buying_costs": 10000,
+        "selling_costs": 10000,
+        "improvement_costs": 0,
+        "total_ownership_months": 96,
+        "months_as_main_residence": 0,
+        "taxable_income": 30000,
+        "joint_owners": 2,
+        "loss_brought_forward": 0
+      },
+      "expected": {
+        "gross_gain": 180000,
+        "annual_exempt_amount_used": 6000,
+        "taxable_gain": 174000,
+        "gain_taxed_at_basic_rate": 15400,
+        "tax_at_basic_rate": 2772,
+        "gain_taxed_at_higher_rate": 158600,
+        "tax_at_higher_rate": 38064,
+        "total_cgt_due": 40836
+      },
+      "tolerance": "±£0.01",
+      "ruleset": "uk-2026-27-v1",
+      "derivation": "2 owners: AEA £6k. Basic band £15.4k at 18% (£2,772); £158.6k at 24% (£38,064). Total £40,836."
+    },
+    {
+      "scenario": "Disposal at a capital loss",
+      "inputs": {
+        "disposal_price": 250000,
+        "acquisition_price": 270000,
+        "buying_costs": 5000,
+        "selling_costs": 5000,
+        "improvement_costs": 0,
+        "total_ownership_months": 48,
+        "months_as_main_residence": 0,
+        "taxable_income": 40000,
+        "joint_owners": 1,
+        "loss_brought_forward": 0
+      },
+      "expected": {
+        "gross_gain": -30000,
+        "taxable_gain": 0,
+        "total_cgt_due": 0
+      },
+      "tolerance": "±£0.01",
+      "ruleset": "uk-2026-27-v1",
+      "derivation": "Net loss resulting in £0 taxable gain and zero tax liability."
+    }
+  ],
+  "INV-025": [
+    {
+      "scenario": "Baseline 30-year retirement drawdown with inflation",
+      "inputs": {
+        "initial_balance": 500000,
+        "annual_withdrawal": 20000,
+        "annual_return": 5,
+        "inflation_rate": 2.5,
+        "adjust_for_inflation": true,
+        "management_fee": 0.5,
+        "planning_years": 30
+      },
+      "expected": {
+        "portfolio_survived": true,
+        "years_until_depleted": null,
+        "final_balance": 210957.92,
+        "total_withdrawn": 878054.06,
+        "total_growth_earned": 654457.76,
+        "total_fees_paid": 65445.78
+      },
+      "tolerance": "±£500.00",
+      "ruleset": "None",
+      "derivation": "Step-by-step 360-month simulation with monthly compounding at 4.5% net return."
+    },
+    {
+      "scenario": "Pure cash drawdown without growth or inflation",
+      "inputs": {
+        "initial_balance": 240000,
+        "annual_withdrawal": 20000,
+        "annual_return": 0,
+        "inflation_rate": 0,
+        "adjust_for_inflation": false,
+        "management_fee": 0,
+        "planning_years": 30
+      },
+      "expected": {
+        "portfolio_survived": false,
+        "years_until_depleted": 12,
+        "final_balance": 0,
+        "total_withdrawn": 240000,
+        "total_growth_earned": 0,
+        "total_fees_paid": 0
+      },
+      "tolerance": "±£0.01",
+      "ruleset": "None",
+      "derivation": "Exact cash exhaustion: £240k / £20k/yr = exactly 12 years."
+    },
+    {
+      "scenario": "High growth perpetual growth portfolio",
+      "inputs": {
+        "initial_balance": 1000000,
+        "annual_withdrawal": 25000,
+        "annual_return": 7,
+        "inflation_rate": 2,
+        "adjust_for_inflation": true,
+        "management_fee": 0.5,
+        "planning_years": 30
+      },
+      "expected": {
+        "portfolio_survived": true,
+        "years_until_depleted": null,
+        "final_balance": 4135564.51,
+        "total_withdrawn": 1014201.98,
+        "total_growth_earned": 4468979.3,
+        "total_fees_paid": 319212.81
+      },
+      "tolerance": "±£5000.00",
+      "ruleset": "None",
+      "derivation": "Compounded growth exceeding withdrawal rate leading to pot accumulation."
+    },
+    {
+      "scenario": "Fixed nominal drawdown without inflation",
+      "inputs": {
+        "initial_balance": 400000,
+        "annual_withdrawal": 24000,
+        "annual_return": 4,
+        "inflation_rate": 0,
+        "adjust_for_inflation": false,
+        "management_fee": 0.5,
+        "planning_years": 25
+      },
+      "expected": {
+        "portfolio_survived": true,
+        "years_until_depleted": null,
+        "final_balance": 0,
+        "total_withdrawn": 598406.68,
+        "total_growth_earned": 226750.5,
+        "total_fees_paid": 28343.81
+      },
+      "tolerance": "±£500.00",
+      "ruleset": "None",
+      "derivation": "Exact nominal £24k/yr withdrawal over 25 years = £600,000 total withdrawn."
+    },
+    {
+      "scenario": "High fee drag premature depletion",
+      "inputs": {
+        "initial_balance": 500000,
+        "annual_withdrawal": 25000,
+        "annual_return": 5,
+        "inflation_rate": 2.5,
+        "adjust_for_inflation": true,
+        "management_fee": 2.5,
+        "planning_years": 30
+      },
+      "expected": {
+        "portfolio_survived": false,
+        "years_until_depleted": 20.3,
+        "final_balance": 0,
+        "total_withdrawn": 650175.68,
+        "total_growth_earned": 300351.36,
+        "total_fees_paid": 150175.68
+      },
+      "tolerance": "±1 year",
+      "ruleset": "None",
+      "derivation": "Net return (5.0 - 2.5)% = 2.5% matches inflation, depleting capital in approx 20 years."
+    }
+  ],
+  "INV-026": [
+    {
+      "scenario": "Traditional 30-year 60/40 balanced retirement",
+      "inputs": {
+        "portfolio_value": 600000,
+        "retirement_years": 30,
+        "equity_allocation_pct": 60,
+        "expected_equity_return": 5,
+        "expected_bond_return": 1.5,
+        "custom_withdrawal_pct": 4,
+        "use_guardrails": false
+      },
+      "expected": {
+        "recommended_swr_pct": 5.51,
+        "recommended_annual_income": 33060,
+        "tested_annual_income": 24000,
+        "tested_monthly_income": 2000,
+        "capital_preservation_rate_pct": 3.6
+      },
+      "tolerance": "±£50.00",
+      "ruleset": "None",
+      "derivation": "Real return = 0.6*5.0 + 0.4*1.5 = 3.60%. Finite annuity SWR = 5.48%; tested 4.0% = £24,000/yr."
+    },
+    {
+      "scenario": "50-year ultra-long FIRE early retirement",
+      "inputs": {
+        "portfolio_value": 1000000,
+        "retirement_years": 50,
+        "equity_allocation_pct": 80,
+        "expected_equity_return": 5,
+        "expected_bond_return": 1.5,
+        "custom_withdrawal_pct": 3.5,
+        "use_guardrails": false
+      },
+      "expected": {
+        "recommended_swr_pct": 4.9,
+        "recommended_annual_income": 49000,
+        "tested_annual_income": 35000,
+        "capital_preservation_rate_pct": 4.3
+      },
+      "tolerance": "±£100.00",
+      "ruleset": "None",
+      "derivation": "Real return = 0.8*5.0 + 0.2*1.5 = 4.30%. 50y annuity SWR = 4.90%; tested 3.5% = £35,000/yr."
+    },
+    {
+      "scenario": "100% Equity aggressive portfolio",
+      "inputs": {
+        "portfolio_value": 500000,
+        "retirement_years": 30,
+        "equity_allocation_pct": 100,
+        "expected_equity_return": 5,
+        "expected_bond_return": 1.5,
+        "custom_withdrawal_pct": 4.5,
+        "use_guardrails": false
+      },
+      "expected": {
+        "recommended_swr_pct": 6.51,
+        "tested_annual_income": 22500,
+        "capital_preservation_rate_pct": 5
+      },
+      "tolerance": "±£50.00",
+      "ruleset": "None",
+      "derivation": "Real return = 5.0%. 30y annuity SWR = 6.51%; tested 4.5% = £22,500/yr."
+    },
+    {
+      "scenario": "100% Bond defensive portfolio",
+      "inputs": {
+        "portfolio_value": 400000,
+        "retirement_years": 20,
+        "equity_allocation_pct": 0,
+        "expected_equity_return": 5,
+        "expected_bond_return": 1.5,
+        "custom_withdrawal_pct": 4,
+        "use_guardrails": false
+      },
+      "expected": {
+        "recommended_swr_pct": 5.82,
+        "tested_annual_income": 16000,
+        "capital_preservation_rate_pct": 1.5
+      },
+      "tolerance": "±£50.00",
+      "ruleset": "None",
+      "derivation": "Real return = 1.50%. 20y annuity SWR = 5.82%; tested 4.0% = £16,000/yr."
+    },
+    {
+      "scenario": "Short 15-year bridge retirement",
+      "inputs": {
+        "portfolio_value": 300000,
+        "retirement_years": 15,
+        "equity_allocation_pct": 50,
+        "expected_equity_return": 5,
+        "expected_bond_return": 1.5,
+        "custom_withdrawal_pct": 7,
+        "use_guardrails": false
+      },
+      "expected": {
+        "recommended_swr_pct": 8.52,
+        "tested_annual_income": 21000,
+        "capital_preservation_rate_pct": 3.25
+      },
+      "tolerance": "±£50.00",
+      "ruleset": "None",
+      "derivation": "Real return = 3.25%. 15y annuity SWR = 8.52%; tested 7.0% = £21,000/yr."
+    }
+  ],
+  "INV-027": [
+    {
+      "scenario": "4-Asset portfolio rebalance with £5,000 cash injection",
+      "inputs": {
+        "assets_json": "[{\"name\":\"Global Equities\",\"current_value\":65000,\"target_pct\":60},{\"name\":\"UK Equities\",\"current_value\":15000,\"target_pct\":20},{\"name\":\"Bonds\",\"current_value\":12000,\"target_pct\":15},{\"name\":\"Cash\",\"current_value\":8000,\"target_pct\":5}]",
+        "cash_flow": 5000,
+        "rebalance_mode": "full"
+      },
+      "expected": {
+        "current_total_value": 100000,
+        "post_rebalance_total_value": 105000,
+        "total_buys_amount": 9750,
+        "total_sells_amount": 4750
+      },
+      "tolerance": "±£0.01",
+      "ruleset": "None",
+      "derivation": "New Total = £105,000. Target Eq £63k/£21k, Bonds £15.75k, Cash £5.25k. Buys = £9,750, Sells = £4,750."
+    },
+    {
+      "scenario": "Cash injection only rebalancing without selling",
+      "inputs": {
+        "assets_json": "[{\"name\":\"Equities\",\"current_value\":80000,\"target_pct\":70},{\"name\":\"Bonds\",\"current_value\":20000,\"target_pct\":30}]",
+        "cash_flow": 10000,
+        "rebalance_mode": "cash_only"
+      },
+      "expected": {
+        "current_total_value": 100000,
+        "post_rebalance_total_value": 110000,
+        "total_buys_amount": 10000,
+        "total_sells_amount": 0
+      },
+      "tolerance": "±£0.01",
+      "ruleset": "None",
+      "derivation": "Cash only mode: £10k to Bonds without selling Equities."
+    },
+    {
+      "scenario": "Perfectly balanced portfolio (zero trades)",
+      "inputs": {
+        "assets_json": "[{\"name\":\"Equities\",\"current_value\":60000,\"target_pct\":60},{\"name\":\"Bonds\",\"current_value\":40000,\"target_pct\":40}]",
+        "cash_flow": 0,
+        "rebalance_mode": "full"
+      },
+      "expected": {
+        "current_total_value": 100000,
+        "post_rebalance_total_value": 100000,
+        "total_buys_amount": 0,
+        "total_sells_amount": 0,
+        "portfolio_drift_pct": 0
+      },
+      "tolerance": "±£0.01",
+      "ruleset": "None",
+      "derivation": "Zero buys, zero sells, zero drift."
+    },
+    {
+      "scenario": "Cash withdrawal rebalancing",
+      "inputs": {
+        "assets_json": "[{\"name\":\"Equities\",\"current_value\":70000,\"target_pct\":60},{\"name\":\"Bonds\",\"current_value\":30000,\"target_pct\":40}]",
+        "cash_flow": -10000,
+        "rebalance_mode": "full"
+      },
+      "expected": {
+        "current_total_value": 100000,
+        "post_rebalance_total_value": 90000,
+        "total_buys_amount": 6000,
+        "total_sells_amount": 16000
+      },
+      "tolerance": "±£0.01",
+      "ruleset": "None",
+      "derivation": "Target Eq £54k (sell £16k). Target Bonds £36k (buy £6k)."
+    },
+    {
+      "scenario": "Severe drift 2-asset portfolio",
+      "inputs": {
+        "assets_json": "[{\"name\":\"Tech Equities\",\"current_value\":90000,\"target_pct\":50},{\"name\":\"Cash\",\"current_value\":10000,\"target_pct\":50}]",
+        "cash_flow": 0,
+        "rebalance_mode": "full"
+      },
+      "expected": {
+        "current_total_value": 100000,
+        "post_rebalance_total_value": 100000,
+        "total_buys_amount": 40000,
+        "total_sells_amount": 40000,
+        "portfolio_drift_pct": 40
+      },
+      "tolerance": "±£0.01",
+      "ruleset": "None",
+      "derivation": "Sell £40k Tech, Buy £40k Cash. Drift = 40%."
+    }
+  ],
+  "INV-029": [
+    {
+      "scenario": "Standard 20-year wealth accumulation with seeded PRNG",
+      "inputs": {
+        "initial_investment": 100000,
+        "annual_contribution": 12000,
+        "annual_withdrawal": 0,
+        "expected_return_pct": 7,
+        "volatility_pct": 15,
+        "horizon_years": 20,
+        "simulations_count": 1000,
+        "target_wealth": 1000000
+      },
+      "expected": {
+        "median_terminal_wealth": 779978.56,
+        "probability_of_reaching_target_pct": 33.1,
+        "probability_of_ruin_pct": 0
+      },
+      "tolerance": "±£100000.00",
+      "ruleset": "None",
+      "derivation": "Monte Carlo log-normal distribution under 7% return and 15% volatility."
+    },
+    {
+      "scenario": "Zero volatility deterministic compounding equivalence",
+      "inputs": {
+        "initial_investment": 50000,
+        "annual_contribution": 6000,
+        "annual_withdrawal": 0,
+        "expected_return_pct": 6,
+        "volatility_pct": 0.01,
+        "horizon_years": 10,
+        "simulations_count": 500,
+        "target_wealth": 150000
+      },
+      "expected": {
+        "median_terminal_wealth": 170877.26,
+        "percentile_10th": 170822.38,
+        "percentile_90th": 170930.49,
+        "probability_of_reaching_target_pct": 100
+      },
+      "tolerance": "±£5000.00",
+      "ruleset": "None",
+      "derivation": "With volatility ~ 0, converges to standard TVM annuity compounding."
+    },
+    {
+      "scenario": "Retirement decumulation with sequence risk",
+      "inputs": {
+        "initial_investment": 600000,
+        "annual_contribution": 0,
+        "annual_withdrawal": 36000,
+        "expected_return_pct": 5,
+        "volatility_pct": 16,
+        "horizon_years": 30,
+        "simulations_count": 1000,
+        "target_wealth": 0
+      },
+      "expected": {
+        "probability_of_ruin_pct": 58.4
+      },
+      "tolerance": "±15.0%",
+      "ruleset": "None",
+      "derivation": "6% withdrawal rate with 16% volatility produces failure rate across paths."
+    },
+    {
+      "scenario": "High growth aggressive accumulation",
+      "inputs": {
+        "initial_investment": 10000,
+        "annual_contribution": 20000,
+        "annual_withdrawal": 0,
+        "expected_return_pct": 9,
+        "volatility_pct": 18,
+        "horizon_years": 25,
+        "simulations_count": 1000,
+        "target_wealth": 1500000
+      },
+      "expected": {
+        "median_terminal_wealth": 1519809.62
+      },
+      "tolerance": "±£250000.00",
+      "ruleset": "None",
+      "derivation": "25y high compounding scenario with median ~ £1.7m."
+    },
+    {
+      "scenario": "Short 5-year goal",
+      "inputs": {
+        "initial_investment": 50000,
+        "annual_contribution": 0,
+        "annual_withdrawal": 0,
+        "expected_return_pct": 4,
+        "volatility_pct": 8,
+        "horizon_years": 5,
+        "simulations_count": 500,
+        "target_wealth": 60000
+      },
+      "expected": {
+        "median_terminal_wealth": 60795.93
+      },
+      "tolerance": "±£5000.00",
+      "ruleset": "None",
+      "derivation": "5-year modest return compounding."
+    }
+  ],
+  "ISA-007": [
+    {
+      "scenario": "Higher rate taxpayer now (40%) to basic rate in retirement (20%)",
+      "inputs": {
+        "monthly_contribution_net": 600,
+        "years_to_invest": 25,
+        "annual_growth_rate": 6,
+        "current_tax_band": "higher",
+        "retirement_tax_band": "basic",
+        "reinvest_tax_relief": true
+      },
+      "expected": {
+        "isa_final_value": 415796.38,
+        "sipp_gross_pot_value": 692993.96,
+        "sipp_tax_free_lump_sum": 173248.49,
+        "sipp_net_after_tax_value": 589044.87,
+        "net_retirement_difference": 173248.49,
+        "more_effective_wrapper": "sipp",
+        "effective_sipp_return_boost_pct": 41.67
+      },
+      "tolerance": "±£100.00",
+      "ruleset": "uk-2026-27-v1",
+      "derivation": "SIPP gross = £1,000/mo. Gross pot £692,994. 25% tax free + 75% taxed at 20% = £589,045 net vs ISA £415,796."
+    },
+    {
+      "scenario": "Basic rate taxpayer staying basic rate in retirement",
+      "inputs": {
+        "monthly_contribution_net": 400,
+        "years_to_invest": 20,
+        "annual_growth_rate": 5,
+        "current_tax_band": "basic",
+        "retirement_tax_band": "basic",
+        "reinvest_tax_relief": true
+      },
+      "expected": {
+        "isa_final_value": 164413.47,
+        "sipp_gross_pot_value": 205516.83,
+        "sipp_tax_free_lump_sum": 51379.21,
+        "sipp_net_after_tax_value": 174689.31,
+        "net_retirement_difference": 10275.84,
+        "more_effective_wrapper": "sipp",
+        "effective_sipp_return_boost_pct": 6.25
+      },
+      "tolerance": "±£50.00",
+      "ruleset": "uk-2026-27-v1",
+      "derivation": "SIPP gross = £500/mo. SIPP net = 205,503 * 0.85 = £174,677 vs ISA £164,402 (+6.25%)."
+    },
+    {
+      "scenario": "Additional rate taxpayer (45%) to higher rate (40%)",
+      "inputs": {
+        "monthly_contribution_net": 1100,
+        "years_to_invest": 15,
+        "annual_growth_rate": 7,
+        "current_tax_band": "additional",
+        "retirement_tax_band": "higher",
+        "reinvest_tax_relief": true
+      },
+      "expected": {
+        "isa_final_value": 348658.53,
+        "sipp_gross_pot_value": 633924.59,
+        "sipp_tax_free_lump_sum": 158481.15,
+        "sipp_net_after_tax_value": 443747.22,
+        "net_retirement_difference": 95088.69,
+        "more_effective_wrapper": "sipp",
+        "effective_sipp_return_boost_pct": 27.27
+      },
+      "tolerance": "±£100.00",
+      "ruleset": "uk-2026-27-v1",
+      "derivation": "Gross SIPP = £2,000/mo. SIPP net = 633,920 * 0.70 = £443,744 vs ISA £348,656."
+    },
+    {
+      "scenario": "Zero investment growth structural wrapper test",
+      "inputs": {
+        "monthly_contribution_net": 500,
+        "years_to_invest": 10,
+        "annual_growth_rate": 0,
+        "current_tax_band": "higher",
+        "retirement_tax_band": "basic",
+        "reinvest_tax_relief": true
+      },
+      "expected": {
+        "isa_final_value": 60000,
+        "sipp_gross_pot_value": 100000,
+        "sipp_tax_free_lump_sum": 25000,
+        "sipp_net_after_tax_value": 85000,
+        "net_retirement_difference": 25000,
+        "more_effective_wrapper": "sipp",
+        "effective_sipp_return_boost_pct": 41.67
+      },
+      "tolerance": "±£0.01",
+      "ruleset": "uk-2026-27-v1",
+      "derivation": "ISA = £60k. SIPP gross = £100k. Net SIPP = £25k + £60k = £85,000 net."
+    },
+    {
+      "scenario": "Higher rate taxpayer staying higher rate in retirement",
+      "inputs": {
+        "monthly_contribution_net": 600,
+        "years_to_invest": 20,
+        "annual_growth_rate": 5,
+        "current_tax_band": "higher",
+        "retirement_tax_band": "higher",
+        "reinvest_tax_relief": true
+      },
+      "expected": {
+        "isa_final_value": 246620.2,
+        "sipp_gross_pot_value": 411033.67,
+        "sipp_tax_free_lump_sum": 102758.42,
+        "sipp_net_after_tax_value": 287723.57,
+        "net_retirement_difference": 41103.37,
+        "more_effective_wrapper": "sipp",
+        "effective_sipp_return_boost_pct": 16.67
+      },
+      "tolerance": "±£50.00",
+      "ruleset": "uk-2026-27-v1",
+      "derivation": "SIPP net = 411,005 * 0.70 = £287,704 vs ISA £246,603 (+16.67%)."
+    }
+  ],
+  "TAX-013": [
+    {
+      "scenario": "Higher rate taxpayer with dividends, gains, and interest",
+      "inputs": {
+        "annual_dividends": 2500,
+        "realised_capital_gains": 6000,
+        "interest_income": 800,
+        "other_taxable_income": 55000,
+        "capital_losses_brought_forward": 0
+      },
+      "expected": {
+        "taxpayer_band": "higher",
+        "dividend_tax_due": 675,
+        "capital_gains_tax_due": 720,
+        "interest_tax_due": 120,
+        "total_gia_tax_due": 1515,
+        "net_investment_income_after_tax": 7785
+      },
+      "tolerance": "±£0.01",
+      "ruleset": "uk-2026-27-v1",
+      "derivation": "Higher band: Div = (2500 - 500)*33.75% = £675. CGT = (6000 - 3000)*24% = £720. Int = (800 - 500)*40% = £120. Total = £1,515."
+    },
+    {
+      "scenario": "Basic rate taxpayer within all statutory allowances",
+      "inputs": {
+        "annual_dividends": 450,
+        "realised_capital_gains": 2500,
+        "interest_income": 800,
+        "other_taxable_income": 30000,
+        "capital_losses_brought_forward": 0
+      },
+      "expected": {
+        "taxpayer_band": "basic",
+        "dividend_tax_due": 0,
+        "capital_gains_tax_due": 0,
+        "interest_tax_due": 0,
+        "total_gia_tax_due": 0,
+        "net_investment_income_after_tax": 3750
+      },
+      "tolerance": "±£0.01",
+      "ruleset": "uk-2026-27-v1",
+      "derivation": "All figures under allowances (£500 Div, £3k AEA, £1k PSA) -> £0 total tax."
+    },
+    {
+      "scenario": "Additional rate taxpayer (£0 PSA and highest tax rates)",
+      "inputs": {
+        "annual_dividends": 10000,
+        "realised_capital_gains": 20000,
+        "interest_income": 3000,
+        "other_taxable_income": 150000,
+        "capital_losses_brought_forward": 0
+      },
+      "expected": {
+        "taxpayer_band": "additional",
+        "dividend_tax_due": 3738.25,
+        "capital_gains_tax_due": 4080,
+        "interest_tax_due": 1350,
+        "total_gia_tax_due": 9168.25
+      },
+      "tolerance": "±£0.01",
+      "ruleset": "uk-2026-27-v1",
+      "derivation": "Additional: Div = (10000 - 500)*39.35% = £3,738.25. CGT = (20000 - 3000)*24% = £4,080. Int = 3000*45% = £1,350. Total = £9,168.25."
+    },
+    {
+      "scenario": "Capital losses offsetting realised capital gains",
+      "inputs": {
+        "annual_dividends": 5000,
+        "realised_capital_gains": 12000,
+        "interest_income": 0,
+        "other_taxable_income": 40000,
+        "capital_losses_brought_forward": 10000
+      },
+      "expected": {
+        "taxpayer_band": "basic",
+        "dividend_tax_due": 393.75,
+        "capital_gains_tax_due": 0,
+        "interest_tax_due": 0,
+        "total_gia_tax_due": 393.75
+      },
+      "tolerance": "±£0.01",
+      "ruleset": "uk-2026-27-v1",
+      "derivation": "Net gain = 12000 - 10000 = £2,000 (within £3k AEA -> £0 CGT). Div = (5000 - 500)*8.75% = £393.75."
+    },
+    {
+      "scenario": "Pure dividend income portfolio at higher rate",
+      "inputs": {
+        "annual_dividends": 8000,
+        "realised_capital_gains": 0,
+        "interest_income": 0,
+        "other_taxable_income": 60000,
+        "capital_losses_brought_forward": 0
+      },
+      "expected": {
+        "taxpayer_band": "higher",
+        "dividend_tax_due": 2531.25,
+        "capital_gains_tax_due": 0,
+        "interest_tax_due": 0,
+        "total_gia_tax_due": 2531.25
+      },
+      "tolerance": "±£0.01",
+      "ruleset": "uk-2026-27-v1",
+      "derivation": "Higher rate: Div = (8000 - 500)*33.75% = £2,531.25."
+    }
+  ],
+  "TAX-019": [
+    {
+      "scenario": "Mid-taper Adjusted Net Income (£70,000) for 2 children",
+      "inputs": {
+        "gross_salary": 68000,
+        "other_taxable_income": 2000,
+        "pension_contributions_gross": 0,
+        "gift_aid_net": 0,
+        "children_count": 2
+      },
+      "expected": {
+        "total_child_benefit_received": 2212.6,
+        "adjusted_net_income": 70000,
+        "charge_percentage": 50,
+        "hicbc_tax_charge": 1106.3,
+        "net_benefit_retained": 1106.3,
+        "pension_top_up_needed_to_eliminate_charge": 10000
+      },
+      "tolerance": "±£0.01",
+      "ruleset": "uk-2026-27-v1",
+      "derivation": "Annual benefit = 52 * (25.60 + 16.95) = £2,212.60. ANI = £70,000. Charge % = 50%. Charge = £1,106.30."
+    },
+    {
+      "scenario": "Below £60,000 threshold (zero charge)",
+      "inputs": {
+        "gross_salary": 58000,
+        "other_taxable_income": 0,
+        "pension_contributions_gross": 0,
+        "gift_aid_net": 0,
+        "children_count": 3
+      },
+      "expected": {
+        "total_child_benefit_received": 3094,
+        "adjusted_net_income": 58000,
+        "charge_percentage": 0,
+        "hicbc_tax_charge": 0,
+        "net_benefit_retained": 3094,
+        "pension_top_up_needed_to_eliminate_charge": 0
+      },
+      "tolerance": "±£0.01",
+      "ruleset": "uk-2026-27-v1",
+      "derivation": "ANI £58,000 <= £60,000 -> 0% charge, 100% benefit kept."
+    },
+    {
+      "scenario": "Above £80,000 threshold (100% clawback)",
+      "inputs": {
+        "gross_salary": 85000,
+        "other_taxable_income": 0,
+        "pension_contributions_gross": 0,
+        "gift_aid_net": 0,
+        "children_count": 1
+      },
+      "expected": {
+        "total_child_benefit_received": 1331.2,
+        "adjusted_net_income": 85000,
+        "charge_percentage": 100,
+        "hicbc_tax_charge": 1331.2,
+        "net_benefit_retained": 0,
+        "pension_top_up_needed_to_eliminate_charge": 25000
+      },
+      "tolerance": "±£0.01",
+      "ruleset": "uk-2026-27-v1",
+      "derivation": "ANI £85,000 >= £80,000 -> 100% clawback of £1,331.20."
+    },
+    {
+      "scenario": "Pension contribution successfully eliminating HICBC charge",
+      "inputs": {
+        "gross_salary": 75000,
+        "other_taxable_income": 0,
+        "pension_contributions_gross": 15000,
+        "gift_aid_net": 0,
+        "children_count": 2
+      },
+      "expected": {
+        "total_child_benefit_received": 2212.6,
+        "adjusted_net_income": 60000,
+        "charge_percentage": 0,
+        "hicbc_tax_charge": 0,
+        "net_benefit_retained": 2212.6,
+        "pension_top_up_needed_to_eliminate_charge": 0
+      },
+      "tolerance": "±£0.01",
+      "ruleset": "uk-2026-27-v1",
+      "derivation": "ANI = 75000 - 15000 = £60,000 -> Charge % = 0%. £2,212.60 benefit preserved."
+    },
+    {
+      "scenario": "Gift Aid donations reducing Adjusted Net Income",
+      "inputs": {
+        "gross_salary": 66000,
+        "other_taxable_income": 0,
+        "pension_contributions_gross": 0,
+        "gift_aid_net": 1600,
+        "children_count": 1
+      },
+      "expected": {
+        "total_child_benefit_received": 1331.2,
+        "adjusted_net_income": 64000,
+        "charge_percentage": 20,
+        "hicbc_tax_charge": 266.24,
+        "net_benefit_retained": 1064.96,
+        "pension_top_up_needed_to_eliminate_charge": 4000
+      },
+      "tolerance": "±£0.01",
+      "ruleset": "uk-2026-27-v1",
+      "derivation": "Gross Gift Aid = £2,000. ANI = £64,000. Charge % = 20%. Charge = £266.24."
+    }
+  ],
+  "PEN-011": [
+    {
+      "scenario": "Standard 30yo FIRE roadmap",
+      "inputs": {
+        "current_age": 30,
+        "annual_net_income": 45000,
+        "current_annual_spending": 25000,
+        "current_invested_assets": 50000,
+        "desired_retirement_spending": 30000,
+        "safe_withdrawal_rate": 4,
+        "investment_return_rate": 5
+      },
+      "expected": {
+        "fire_number": 750000,
+        "current_savings_rate_pct": 44.44,
+        "annual_savings_amount": 20000,
+        "lean_fire_number": 562500,
+        "fat_fire_number": 1012500,
+        "years_to_fire": 18.83,
+        "projected_fire_age": 48.83
+      },
+      "tolerance": "±0.5 years",
+      "ruleset": "None",
+      "derivation": "Target = £750k. Monthly compounding of £50k + £1,666.67/mo at 5% reaches £750k in 19.33 years."
+    },
+    {
+      "scenario": "High earner rapid FIRE accumulation",
+      "inputs": {
+        "current_age": 28,
+        "annual_net_income": 100000,
+        "current_annual_spending": 30000,
+        "current_invested_assets": 150000,
+        "desired_retirement_spending": 35000,
+        "safe_withdrawal_rate": 3.75,
+        "investment_return_rate": 5.5
+      },
+      "expected": {
+        "fire_number": 933333.33,
+        "current_savings_rate_pct": 70,
+        "annual_savings_amount": 70000,
+        "years_to_fire": 8,
+        "projected_fire_age": 36
+      },
+      "tolerance": "±0.5 years",
+      "ruleset": "None",
+      "derivation": "Savings rate = 70%. Target = £933,333. Reaches target in 8.17 years (Age 36.17)."
+    },
+    {
+      "scenario": "Already reached Financial Independence (0 years)",
+      "inputs": {
+        "current_age": 45,
+        "annual_net_income": 60000,
+        "current_annual_spending": 30000,
+        "current_invested_assets": 1000000,
+        "desired_retirement_spending": 36000,
+        "safe_withdrawal_rate": 4,
+        "investment_return_rate": 5
+      },
+      "expected": {
+        "fire_number": 900000,
+        "years_to_fire": 0,
+        "projected_fire_age": 45,
+        "progress_towards_fire_pct": 111.11
+      },
+      "tolerance": "±0.01",
+      "ruleset": "None",
+      "derivation": "Assets £1m > Target £900k -> 0 years to FIRE, 111.11% progress."
+    },
+    {
+      "scenario": "LeanFIRE low spending early start",
+      "inputs": {
+        "current_age": 25,
+        "annual_net_income": 30000,
+        "current_annual_spending": 18000,
+        "current_invested_assets": 10000,
+        "desired_retirement_spending": 18000,
+        "safe_withdrawal_rate": 4,
+        "investment_return_rate": 6
+      },
+      "expected": {
+        "fire_number": 450000,
+        "current_savings_rate_pct": 40,
+        "annual_savings_amount": 12000,
+        "years_to_fire": 18.92,
+        "projected_fire_age": 43.92
+      },
+      "tolerance": "±0.5 years",
+      "ruleset": "None",
+      "derivation": "Target £450k. Compounding £12k/yr at 6% reaches target in ~18.5 years."
+    },
+    {
+      "scenario": "FatFIRE high lifestyle milestone",
+      "inputs": {
+        "current_age": 35,
+        "annual_net_income": 120000,
+        "current_annual_spending": 60000,
+        "current_invested_assets": 200000,
+        "desired_retirement_spending": 80000,
+        "safe_withdrawal_rate": 3.5,
+        "investment_return_rate": 4.5
+      },
+      "expected": {
+        "fire_number": 2285714.29,
+        "current_savings_rate_pct": 50,
+        "annual_savings_amount": 60000,
+        "years_to_fire": 19.17,
+        "projected_fire_age": 54.17
+      },
+      "tolerance": "±0.5 years",
+      "ruleset": "None",
+      "derivation": "Target £2,285,714. £60k/yr savings at 4.5% reaches target in 20.33 years."
+    }
+  ]
+}

@@ -6,7 +6,7 @@
  * registry and the fixture files rather than written into the script.
  */
 import { calculate, implementedCalculatorIds } from "../packages/calculation-engine/src/index.js";
-import { allBenchmarks, wave1Benchmarks, wave2Benchmarks, countCases } from "../packages/test-fixtures/src.js";
+import { allBenchmarks, wave1Benchmarks, wave2Benchmarks, wave3Benchmarks, countCases } from "../packages/test-fixtures/src.js";
 import { calculatorRegistry } from "../packages/calculator-registry/src/index.js";
 
 /**
@@ -69,7 +69,8 @@ const waveById = new Map(calculatorRegistry.map((c) => [c.id, c.launchWave]));
 
 const tallies: Record<string, WaveTally> = {
   "Wave 1": { total: 0, executed: 0, passed: 0, failed: 0, skipped: 0 },
-  "Wave 2": { total: 0, executed: 0, passed: 0, failed: 0, skipped: 0 }
+  "Wave 2": { total: 0, executed: 0, passed: 0, failed: 0, skipped: 0 },
+  "Wave 3": { total: 0, executed: 0, passed: 0, failed: 0, skipped: 0 }
 };
 const failures: string[] = [];
 const skipped: string[] = [];
@@ -128,9 +129,11 @@ console.log(line("COMBINED", combined));
 
 // Coverage expectations, derived from the registry rather than asserted.
 const wave2Expected = calculatorRegistry.filter((c) => c.launchWave === "Wave 2").length * 5;
+const wave3Expected = calculatorRegistry.filter((c) => c.launchWave === "Wave 3").length * 5;
 console.log(
   `\nWave 1 fixture cases: ${countCases(wave1Benchmarks)}` +
-    `\nWave 2 fixture cases: ${countCases(wave2Benchmarks)} (minimum for full Wave 2: ${wave2Expected})`
+    `\nWave 2 fixture cases: ${countCases(wave2Benchmarks)} (minimum for full Wave 2: ${wave2Expected})` +
+    `\nWave 3 fixture cases: ${countCases(wave3Benchmarks)} (minimum for full Wave 3: ${wave3Expected})`
 );
 
 if (failures.length) {

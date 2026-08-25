@@ -35,7 +35,7 @@ const errors = validateRegistry(calculatorRegistry, {
 const byWave = (wave: string) => calculatorRegistry.filter((c) => c.launchWave === wave);
 const publishedByWave = (wave: string) => published.filter((c) => c.launchWave === wave);
 
-for (const wave of ["Wave 1", "Wave 2"]) {
+for (const wave of ["Wave 1", "Wave 2", "Wave 3"]) {
   const total = byWave(wave).length;
   const live = publishedByWave(wave).length;
   const verified = byWave(wave).filter((c) => c.status === "verified").length;

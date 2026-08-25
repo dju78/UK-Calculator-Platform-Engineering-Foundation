@@ -1,12 +1,14 @@
 import rawWave1 from "./wave1-registry.json" with { type: "json" };
 import rawWave2 from "./wave2-registry.json" with { type: "json" };
+import rawWave3 from "./wave3-registry.json" with { type: "json" };
 import type { CalculatorDefinition } from "./types.js";
 
 export const wave1Registry = rawWave1 as CalculatorDefinition[];
 export const wave2Registry = rawWave2 as CalculatorDefinition[];
+export const wave3Registry = rawWave3 as CalculatorDefinition[];
 
 /** Every calculator across all launch waves. */
-export const calculatorRegistry: CalculatorDefinition[] = [...wave1Registry, ...wave2Registry];
+export const calculatorRegistry: CalculatorDefinition[] = [...wave1Registry, ...wave2Registry, ...wave3Registry];
 
 /**
  * Calculators that should be publicly routable and listed.
@@ -47,7 +49,7 @@ export function getCalculatorDefinition(idOrSlug: string): CalculatorDefinition 
 const VALID_STATUS = ["specified", "planned", "verified"];
 const VALID_IMPLEMENTATION = ["specified", "implemented"];
 const VALID_RISK = ["low", "medium", "high"];
-const VALID_WAVES = ["Wave 1", "Wave 2"];
+const VALID_WAVES = ["Wave 1", "Wave 2", "Wave 3"];
 
 export interface RegistryIntegrityOptions {
   /** Calculator ids that have an engine handler. */

@@ -97,11 +97,12 @@ run('benchmarks', 'npm run bench:reference', (out) => {
   };
   const wave1 = line('Wave 1');
   const wave2 = line('Wave 2');
+  const wave3 = line('Wave 3');
   const combined = line('COMBINED');
-  if (!wave1 || !wave2 || !combined) throw new Error('could not parse the benchmark summary');
+  if (!wave1 || !wave2 || !wave3 || !combined) throw new Error('could not parse the benchmark summary');
   return {
     status: combined.failed === 0 && combined.skipped === 0 ? 'PASS' : 'FAIL',
-    wave1, wave2, combined
+    wave1, wave2, wave3, combined
   };
 });
 
@@ -109,12 +110,14 @@ run('benchmarks', 'npm run bench:reference', (out) => {
 run('routes', 'node dist/scripts/verify_routes.js', (out) => {
   const m1 = out.match(/Wave 1: (\d+)\/(\d+) routable, (\d+)\/(\d+) verified/);
   const m2 = out.match(/Wave 2: (\d+)\/(\d+) routable, (\d+)\/(\d+) verified/);
+  const m3 = out.match(/Wave 3: (\d+)\/(\d+) routable, (\d+)\/(\d+) verified/);
   const mt = out.match(/Total routable: (\d+)\/(\d+)/);
-  if (!m1 || !m2 || !mt) throw new Error('could not parse the route summary');
+  if (!m1 || !m2 || !m3 || !mt) throw new Error('could not parse the route summary');
   return {
     status: /verified\.$/m.test(out.trim()) && mt[1] === mt[2] ? 'PASS' : 'FAIL',
     wave1: `${m1[1]}/${m1[2]}`,
     wave2: `${m2[1]}/${m2[2]}`,
+    wave3: `${m3[1]}/${m3[2]}`,
     total: `${mt[1]}/${mt[2]}`
   };
 });
@@ -195,10 +198,13 @@ results.accessibility = {
     'Axe runs inside the browser suite and every scan asserts an empty list of serious and critical violations, so a passing suite is exactly a zero count. The platform-a11y spec scans one calculator from every category WITH RESULTS SHOWN, plus every category route and every legal route.'
 };
 
-const outPath = path.join(ROOT, 'docs/wave2-verification.json');
-fs.writeFileSync(outPath, JSON.stringify({ generated_at: new Date().toISOString().slice(0, 10), results }, null, 2) + '\n');
+const outData = JSON.stringify({ generated_at: new Date().toISOString().slice(0, 10), results }, null, 2) + '\n';
+const wave3OutPath = path.join(ROOT, 'docs/wave3-verification.json');
+const wave2OutPath = path.join(ROOT, 'docs/wave2-verification.json');
+fs.writeFileSync(wave3OutPath, outData);
+fs.writeFileSync(wave2OutPath, outData);
 
 const failures = Object.entries(results).filter(([, v]) => v.status !== 'PASS');
-console.log(`\nVerification written to ${outPath}`);
+console.log(`\nVerification written to ${wave3OutPath} and ${wave2OutPath}`);
 console.log(failures.length === 0 ? 'ALL CHECKS PASS' : `CHECKS NOT PASSING: ${failures.map(([k, v]) => `${k}=${v.status}`).join(', ')}`);
 process.exit(failures.length === 0 ? 0 : 1);
