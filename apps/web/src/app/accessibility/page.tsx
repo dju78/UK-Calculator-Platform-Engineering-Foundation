@@ -1,8 +1,26 @@
-export const metadata = {
-  title: "Accessibility Statement | UK Calculator Platform",
+import type { Metadata } from "next";
+import { SITE_NAME, absoluteUrl } from "@/lib/site";
+
+export const metadata: Metadata = {
+  title: `Accessibility Statement | ${SITE_NAME}`,
   description:
-    "Our commitment to WCAG 2.2 AA, how we test the UK Calculator Platform, known limitations, and how to report an accessibility barrier.",
+    "Our commitment to WCAG 2.2 AA standards, how we test the UK Calculator Platform, known limitations, and how to report an accessibility barrier.",
   alternates: { canonical: "/accessibility" },
+  openGraph: {
+    title: `Accessibility Statement | ${SITE_NAME}`,
+    description:
+      "Our commitment to WCAG 2.2 AA standards, how we test the UK Calculator Platform, known limitations, and how to report an accessibility barrier.",
+    url: absoluteUrl("/accessibility"),
+    siteName: SITE_NAME,
+    locale: "en_GB",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: `Accessibility Statement | ${SITE_NAME}`,
+    description:
+      "Our commitment to WCAG 2.2 AA standards, how we test the UK Calculator Platform, known limitations, and how to report an accessibility barrier.",
+  },
 };
 
 export default function AccessibilityStatement() {
@@ -17,7 +35,7 @@ export default function AccessibilityStatement() {
 
       <h2>1. Our Commitment</h2>
       <p>
-        We aim to conform to the Web Content Accessibility Guidelines (WCAG) 2.1 level AA standards. These guidelines explain how to make web content more accessible for people with disabilities and user-friendly for everyone.
+        The platform is designed to meet WCAG 2.2 AA requirements. Automated accessibility testing with Axe Core is integrated into development, alongside ongoing manual review of keyboard navigation, focus management, and screen reader compatibility.
       </p>
 
       <h2>2. Testing and Validation</h2>

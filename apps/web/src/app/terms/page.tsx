@@ -1,8 +1,26 @@
-export const metadata = {
-  title: "Terms of Use | UK Calculator Platform",
+import type { Metadata } from "next";
+import { SITE_NAME, absoluteUrl } from "@/lib/site";
+
+export const metadata: Metadata = {
+  title: `Terms of Use | ${SITE_NAME}`,
   description:
     "The terms governing use of the UK Calculator Platform, including the limits of the estimates it produces.",
   alternates: { canonical: "/terms" },
+  openGraph: {
+    title: `Terms of Use | ${SITE_NAME}`,
+    description:
+      "The terms governing use of the UK Calculator Platform, including the limits of the estimates it produces.",
+    url: absoluteUrl("/terms"),
+    siteName: SITE_NAME,
+    locale: "en_GB",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: `Terms of Use | ${SITE_NAME}`,
+    description:
+      "The terms governing use of the UK Calculator Platform, including the limits of the estimates it produces.",
+  },
 };
 
 export default function TermsOfUse() {

@@ -34,7 +34,7 @@ const TAX_YEAR = "2026/27";
 
 /**
  * A distinct, useful description per calculator. Generic boilerplate repeated
- * across 55 pages is treated as duplicate content by search engines, so the
+ * across pages is treated as duplicate content by search engines, so the
  * description names the calculator, its subject area and - for rules-sensitive
  * calculators - the tax year the figures apply to.
  */
