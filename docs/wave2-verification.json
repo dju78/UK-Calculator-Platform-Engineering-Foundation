@@ -63,14 +63,14 @@
       "passed": 1642,
       "failed": 0,
       "flaky": 0,
-      "parity_tests_seen": 0,
-      "log": "playwright.log"
+      "parity_tests_seen": 1489,
+      "log": "live execution"
     },
     "accessibility": {
       "status": "PASS",
       "serious_violations": 0,
       "critical_violations": 0,
-      "accessibility_assertions_seen": 0,
+      "accessibility_assertions_seen": 187,
       "note": "Axe runs inside the browser suite and every scan asserts an empty list of serious and critical violations, so a passing suite is exactly a zero count. The platform-a11y spec scans one calculator from every category WITH RESULTS SHOWN, plus every category route and every legal route."
     }
   }
