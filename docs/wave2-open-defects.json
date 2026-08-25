@@ -1,0 +1,13 @@
+{
+  "note": "Open defect register for Wave 2. Held as a file so the manifest cannot report 'none' merely because nobody recorded anything: an absent file is reported as UNKNOWN rather than as zero. Defects found and FIXED during the build are recorded in the tranche commit messages and in each calculator's specification methodology section, not here; this file lists only what remains open.",
+  "p0": [],
+  "p1": [],
+  "known_limitations_not_defects": [
+    "The engine is exercised against the 2026/27 ruleset only. Earlier tax years are not modelled, and resolveRules refuses an unknown year rather than falling back.",
+    "SCI-002 voltage drop is a resistive calculation. Above about 25 mm2 the cable's reactance matters and the calculator says so in a warning rather than modelling it; the BS 7671 tabulated mV/A/m figures should be used there.",
+    "HOM-006 checks Approved Document K dimensional limits for a private stair in England only. Headroom, handrails, guarding and landings are not checked, and the other three UK nations publish their own documents.",
+    "EDU-004 covers England student finance only. Scotland, Wales and Northern Ireland differ substantially and are not modelled.",
+    "TAX-003 reports K and W1/M1/X tax codes as unsupported rather than approximating them, which is deliberate.",
+    "Date-relative outputs are covered by unit tests with a fixed clock rather than by browser benchmarks, because the parity harness cannot pin the browser's clock."
+  ]
+}

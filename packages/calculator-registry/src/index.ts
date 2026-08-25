@@ -15,12 +15,25 @@ export const calculatorRegistry: CalculatorDefinition[] = [...wave1Registry, ...
  * (which auto-deploys) can never expose an unbuilt calculator as if it were
  * live. Wave 1 is always included - it is the production baseline.
  */
+/**
+ * The set of calculators the site is allowed to publish.
+ *
+ * A Wave 2 calculator must clear BOTH gates: an engine handler must exist, and
+ * the registry must record it as verified.
+ *
+ * Requiring only the handler is not enough, and that was a real hole. A
+ * handler is written first, before the benchmarks, the UI field definitions,
+ * the specification and the registry promotion. Publishing on the handler
+ * alone put a live page in front of users for a calculator with no input
+ * fields at all, the moment its engine code was wired up. Requiring `verified`
+ * as well means a calculator becomes public only once its evidence exists.
+ */
 export function publishedRegistry(
   implementedIds: readonly string[] = []
 ): CalculatorDefinition[] {
   const implemented = new Set(implementedIds);
   return calculatorRegistry.filter(
-    (c) => c.launchWave === "Wave 1" || implemented.has(c.id)
+    (c) => c.launchWave === "Wave 1" || (implemented.has(c.id) && c.status === "verified")
   );
 }
 

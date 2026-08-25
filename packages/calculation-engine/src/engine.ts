@@ -29,6 +29,71 @@ import {
   inv016Handler, inv017Handler, inv018Handler, inv019Handler, inv020Handler,
   inv021Handler, inv022Handler, inv023Handler, inv024Handler
 } from "./finance/wave2/investment-handlers.js";
+import {
+  isa003Handler, isa004Handler, isa005Handler, isa006Handler,
+  tax005Handler, tax006Handler, tax007Handler, tax008Handler, tax009Handler,
+  tax010Handler, tax011Handler, tax012Handler, tax014Handler,
+  tax016Handler, tax017Handler, tax018Handler
+} from "./finance/wave2/isa-tax-handlers.js";
+import {
+  pen004Handler, pen005Handler, pen007Handler, pen008Handler,
+  pen009Handler, pen010Handler, pen012Handler
+} from "./finance/wave2/pension-handlers.js";
+import {
+  bus002Handler, bus003Handler, bus004Handler, bus005Handler, bus007Handler,
+  bus009Handler, bus010Handler, bus011Handler, bus012Handler
+} from "./finance/wave2/business-handlers.js";
+import {
+  sta002Handler, sta004Handler, sta005Handler, sta007Handler, sta009Handler,
+  sta010Handler, sta011Handler, sta012Handler, sta013Handler, sta015Handler,
+  sta016Handler, sta017Handler, sta018Handler, sta019Handler, sta020Handler
+} from "./statistics/wave2-handlers.js";
+import {
+  mat001Handler, mat004Handler, mat007Handler, mat008Handler, mat009Handler,
+  mat010Handler, mat011Handler, mat012Handler, mat013Handler, mat014Handler,
+  mat015Handler, mat016Handler, mat017Handler, mat018Handler, mat019Handler,
+  mat021Handler, mat022Handler, mat023Handler
+} from "./math/wave2-handlers.js";
+import {
+  geo001Handler, geo002Handler, geo003Handler, geo004Handler, geo005Handler,
+  geo006Handler, geo007Handler, geo008Handler, geo009Handler
+} from "./geometry/handlers.js";
+import {
+  hlt002Handler, hlt003Handler, hlt004Handler, hlt005Handler, hlt006Handler,
+  hlt007Handler, hlt008Handler, hlt009Handler, hlt010Handler, hlt011Handler,
+  hlt012Handler, hlt013Handler, hlt014Handler, hlt015Handler, hlt016Handler,
+  hlt017Handler, hlt019Handler, hlt020Handler, hlt022Handler, hlt023Handler,
+  hlt025Handler
+} from "./health/wave2-handlers.js";
+import {
+  dat002Handler, dat003Handler, dat004Handler, dat005Handler,
+  dat006Handler, dat007Handler, dat008Handler, dat009Handler
+} from "./utilities/wave2-handlers.js";
+import {
+  aut001Handler, aut002Handler, aut003Handler, aut004Handler, aut005Handler,
+  aut007Handler, aut008Handler, aut009Handler, aut010Handler, aut011Handler,
+  aut012Handler
+} from "./automotive/wave2-handlers.js";
+import {
+  sci001Handler, sci002Handler, sci003Handler, sci004Handler, sci005Handler,
+  sci006Handler, sci007Handler, sci008Handler, sci009Handler, sci010Handler,
+  sci011Handler
+} from "./science/wave2-handlers.js";
+import {
+  hom001Handler, hom002Handler, hom003Handler,
+  hom004Handler, hom005Handler, hom006Handler
+} from "./home/wave2-handlers.js";
+import {
+  con002Handler, con003Handler, con004Handler, con005Handler,
+  con006Handler, con007Handler, con008Handler, con009Handler
+} from "./conversion/wave2-handlers.js";
+import {
+  tec001Handler, tec002Handler, tec003Handler, tec004Handler, tec005Handler
+} from "./technology/wave2-handlers.js";
+import {
+  edu001Handler, edu002Handler, edu003Handler, edu004Handler, edu005Handler,
+  eve001Handler, eve003Handler
+} from "./education/wave2-handlers.js";
 
 export const ENGINE_VERSION = "0.1.0";
 
@@ -104,6 +169,190 @@ const handlers: Record<string, CalculatorHandler> = {
   "INV-022": inv022Handler,
   "INV-023": inv023Handler,
   "INV-024": inv024Handler,
+
+  // --- Wave 2: ISA & tax wrappers ---
+  "ISA-003": isa003Handler,
+  "ISA-004": isa004Handler,
+  "ISA-005": isa005Handler,
+  "ISA-006": isa006Handler,
+
+  // --- Wave 2: UK Tax & Salary ---
+  "TAX-005": tax005Handler,
+  "TAX-006": tax006Handler,
+  "TAX-007": tax007Handler,
+  "TAX-008": tax008Handler,
+  "TAX-009": tax009Handler,
+  "TAX-010": tax010Handler,
+  "TAX-011": tax011Handler,
+  "TAX-012": tax012Handler,
+  "TAX-014": tax014Handler,
+  "TAX-016": tax016Handler,
+  "TAX-017": tax017Handler,
+  "TAX-018": tax018Handler,
+
+  // --- Wave 2: Pensions & Retirement ---
+  "PEN-004": pen004Handler,
+  "PEN-005": pen005Handler,
+  "PEN-007": pen007Handler,
+  "PEN-008": pen008Handler,
+  "PEN-009": pen009Handler,
+  "PEN-010": pen010Handler,
+  "PEN-012": pen012Handler,
+
+  // --- Wave 2: Business & Commercial ---
+  "BUS-002": bus002Handler,
+  "BUS-003": bus003Handler,
+  "BUS-004": bus004Handler,
+  "BUS-005": bus005Handler,
+  "BUS-007": bus007Handler,
+  "BUS-009": bus009Handler,
+  "BUS-010": bus010Handler,
+  "BUS-011": bus011Handler,
+  "BUS-012": bus012Handler,
+
+  // --- Wave 2: Statistics & Data ---
+  "STA-002": sta002Handler,
+  "STA-004": sta004Handler,
+  "STA-005": sta005Handler,
+  "STA-007": sta007Handler,
+  "STA-009": sta009Handler,
+  "STA-010": sta010Handler,
+  "STA-011": sta011Handler,
+  "STA-012": sta012Handler,
+  "STA-013": sta013Handler,
+  "STA-015": sta015Handler,
+  "STA-016": sta016Handler,
+  "STA-017": sta017Handler,
+  "STA-018": sta018Handler,
+  "STA-019": sta019Handler,
+  "STA-020": sta020Handler,
+
+  // --- Wave 2: Maths & Algebra ---
+  "MAT-001": mat001Handler,
+  "MAT-004": mat004Handler,
+  "MAT-007": mat007Handler,
+  "MAT-008": mat008Handler,
+  "MAT-009": mat009Handler,
+  "MAT-010": mat010Handler,
+  "MAT-011": mat011Handler,
+  "MAT-012": mat012Handler,
+  "MAT-013": mat013Handler,
+  "MAT-014": mat014Handler,
+  "MAT-015": mat015Handler,
+  "MAT-016": mat016Handler,
+  "MAT-017": mat017Handler,
+  "MAT-018": mat018Handler,
+  "MAT-019": mat019Handler,
+  "MAT-021": mat021Handler,
+  "MAT-022": mat022Handler,
+  "MAT-023": mat023Handler,
+
+  // --- Wave 2: Geometry ---
+  "GEO-001": geo001Handler,
+  "GEO-002": geo002Handler,
+  "GEO-003": geo003Handler,
+  "GEO-004": geo004Handler,
+  "GEO-005": geo005Handler,
+  "GEO-006": geo006Handler,
+  "GEO-007": geo007Handler,
+  "GEO-008": geo008Handler,
+  "GEO-009": geo009Handler,
+
+  // --- Wave 2: Health & Fitness ---
+  "HLT-002": hlt002Handler,
+  "HLT-003": hlt003Handler,
+  "HLT-004": hlt004Handler,
+  "HLT-005": hlt005Handler,
+  "HLT-006": hlt006Handler,
+  "HLT-007": hlt007Handler,
+  "HLT-008": hlt008Handler,
+  "HLT-009": hlt009Handler,
+  "HLT-010": hlt010Handler,
+  "HLT-011": hlt011Handler,
+  "HLT-012": hlt012Handler,
+  "HLT-013": hlt013Handler,
+  "HLT-014": hlt014Handler,
+  "HLT-015": hlt015Handler,
+  "HLT-016": hlt016Handler,
+  "HLT-017": hlt017Handler,
+  "HLT-019": hlt019Handler,
+  "HLT-020": hlt020Handler,
+  "HLT-022": hlt022Handler,
+  "HLT-023": hlt023Handler,
+  "HLT-025": hlt025Handler,
+
+  // --- Wave 2: Date & Time ---
+  "DAT-002": dat002Handler,
+  "DAT-003": dat003Handler,
+  "DAT-004": dat004Handler,
+  "DAT-005": dat005Handler,
+  "DAT-006": dat006Handler,
+  "DAT-007": dat007Handler,
+  "DAT-008": dat008Handler,
+  "DAT-009": dat009Handler,
+
+  // --- Wave 2: Automotive & Travel ---
+  "AUT-001": aut001Handler,
+  "AUT-002": aut002Handler,
+  "AUT-003": aut003Handler,
+  "AUT-004": aut004Handler,
+  "AUT-005": aut005Handler,
+  "AUT-007": aut007Handler,
+  "AUT-008": aut008Handler,
+  "AUT-009": aut009Handler,
+  "AUT-010": aut010Handler,
+  "AUT-011": aut011Handler,
+  "AUT-012": aut012Handler,
+
+  // --- Wave 2: Science & Engineering ---
+  "SCI-001": sci001Handler,
+  "SCI-002": sci002Handler,
+  "SCI-003": sci003Handler,
+  "SCI-004": sci004Handler,
+  "SCI-005": sci005Handler,
+  "SCI-006": sci006Handler,
+  "SCI-007": sci007Handler,
+  "SCI-008": sci008Handler,
+  "SCI-009": sci009Handler,
+  "SCI-010": sci010Handler,
+  "SCI-011": sci011Handler,
+
+  // --- Wave 2: Home & Construction ---
+  "HOM-001": hom001Handler,
+  "HOM-002": hom002Handler,
+  "HOM-003": hom003Handler,
+  "HOM-004": hom004Handler,
+  "HOM-005": hom005Handler,
+  "HOM-006": hom006Handler,
+
+  // --- Wave 2: Conversions ---
+  "CON-002": con002Handler,
+  "CON-003": con003Handler,
+  "CON-004": con004Handler,
+  "CON-005": con005Handler,
+  "CON-006": con006Handler,
+  "CON-007": con007Handler,
+  "CON-008": con008Handler,
+  "CON-009": con009Handler,
+
+  // --- Wave 2: Technology & Digital ---
+  "TEC-001": tec001Handler,
+  "TEC-002": tec002Handler,
+  "TEC-003": tec003Handler,
+  "TEC-004": tec004Handler,
+  "TEC-005": tec005Handler,
+
+  // --- Wave 2: Education ---
+  "EDU-001": edu001Handler,
+  "EDU-002": edu002Handler,
+  "EDU-003": edu003Handler,
+  "EDU-004": edu004Handler,
+  "EDU-005": edu005Handler,
+
+  // --- Wave 2: Everyday & Lifestyle ---
+  "EVE-001": eve001Handler,
+  "EVE-003": eve003Handler,
+
   "TAX-001": tax001Handler,
   "TAX-002": tax002Handler,
   "TAX-003": tax003Handler,

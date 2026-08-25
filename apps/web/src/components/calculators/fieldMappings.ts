@@ -508,5 +508,11 @@ export const NOTE_OUTPUT_KEYS = [
   "first_time_buyer_note",
   "icr_basis",
   "sdlt_basis",
-  "leap_day_convention"
+  "leap_day_convention",
+  // Wave 2 calculators return their model boundary and their "this is not
+  // advice" statement under `basis`. It is a paragraph of prose, so it belongs
+  // in the notes block rather than squeezed into a two-column value row.
+  "basis",
+  "eligibility_note",
+  "validation"
 ];

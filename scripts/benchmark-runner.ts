@@ -9,7 +9,26 @@ import { calculate, implementedCalculatorIds } from "../packages/calculation-eng
 import { allBenchmarks, wave1Benchmarks, wave2Benchmarks, countCases } from "../packages/test-fixtures/src.js";
 import { calculatorRegistry } from "../packages/calculator-registry/src/index.js";
 
-const TOLERANCE = 0.011;
+/**
+ * Money tolerance: a penny, plus a sliver for floating-point rounding.
+ */
+const MONEY_TOLERANCE = 0.011;
+
+/**
+ * Tolerance for small values - rates, ratios, proportions and probabilities.
+ *
+ * A flat penny tolerance is meaningless here: applied to an internal rate of
+ * return it accepts an answer 1.1 PERCENTAGE POINTS wrong, so a rate output
+ * was in effect declared benchmarked while being barely checked at all. Any
+ * expectation below 1 in magnitude is therefore held to a far tighter bound.
+ * This is a tightening, never a loosening: no expectation is given more slack
+ * than it had before.
+ */
+const SMALL_VALUE_TOLERANCE = 1e-6;
+
+function toleranceFor(expected: number): number {
+  return Math.abs(expected) < 1 ? SMALL_VALUE_TOLERANCE : MONEY_TOLERANCE;
+}
 
 /**
  * Compare one actual output against its expected value.
@@ -30,7 +49,11 @@ function matches(actual: unknown, expected: unknown): boolean {
   if (typeof expected === "boolean") return actual === expected;
 
   const actualNumber = Number(actual);
-  return Number.isFinite(actualNumber) && Math.abs(actualNumber - Number(expected)) <= TOLERANCE;
+  const expectedNumber = Number(expected);
+  return (
+    Number.isFinite(actualNumber) &&
+    Math.abs(actualNumber - expectedNumber) <= toleranceFor(expectedNumber)
+  );
 }
 
 interface WaveTally {
