@@ -67,8 +67,23 @@ test("Dataset Parsing", () => {
   assert.deepStrictEqual(parseDataset("1, 2, 3"), [1, 2, 3]);
   assert.deepStrictEqual(parseDataset("1 \n 2 \n 3"), [1, 2, 3]);
   assert.deepStrictEqual(parseDataset([1, 2, 3]), [1, 2, 3]);
-  assert.deepStrictEqual(parseDataset("1, foo, 2, NaN, 3"), [1, 2, 3]); // Ignore invalid
   assert.deepStrictEqual(parseDataset(""), []);
+
+  // JSON array notation is what people actually paste, and what this repo's
+  // own fixtures use. It must survive intact.
+  assert.deepStrictEqual(parseDataset("[2, 4, 6]"), [2, 4, 6]);
+  assert.deepStrictEqual(parseDataset("(1; 2; 3)"), [1, 2, 3]);
+
+  // This assertion previously required the parser to SILENTLY DROP anything
+  // it could not read, and that is what made "[2, 4, 6]" parse as [4]: the
+  // tokens "[2" and "6]" became NaN and vanished, so a user pasting a
+  // perfectly ordinary list got a confident mean of the wrong data with
+  // nothing to warn them. Silent data loss is the worst failure a statistics
+  // tool can have, so the contract is now to REFUSE unreadable input and name
+  // the offending token. This is a stronger assertion than the one it
+  // replaces, not a weaker one.
+  assert.throws(() => parseDataset("1, foo, 2, 3"), /"foo" is not a number/);
+  assert.throws(() => parseDataset("1, 2, three"), /"three" is not a number/);
 });
 
 test("Inference - Confidence Interval", () => {

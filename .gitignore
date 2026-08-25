@@ -9,3 +9,5 @@ test-results/
 playwright-report/
 .next/
 coverage/
+# Local cloud-sandbox Playwright config (never committed)
+apps/web/playwright.cloud.config.ts

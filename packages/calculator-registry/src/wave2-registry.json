@@ -6,7 +6,7 @@
     "category": "Automotive & Travel",
     "subcategory": "Vehicle Finance",
     "version": "1.0",
-    "status": "planned",
+    "status": "verified",
     "launchWave": "Wave 2",
     "rulesSensitive": false,
     "risk": "low",
@@ -14,9 +14,9 @@
     "aliases": [
       "auto loan"
     ],
-    "benchmarkCount": 0,
+    "benchmarkCount": 6,
     "specFile": "docs/specs/wave2/AUT-001.md",
-    "implementationStatus": "specified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "AUT-002",
@@ -25,7 +25,7 @@
     "category": "Automotive & Travel",
     "subcategory": "Vehicle Finance",
     "version": "1.0",
-    "status": "planned",
+    "status": "verified",
     "launchWave": "Wave 2",
     "rulesSensitive": false,
     "risk": "low",
@@ -33,9 +33,9 @@
     "aliases": [
       "auto lease calculator"
     ],
-    "benchmarkCount": 0,
+    "benchmarkCount": 6,
     "specFile": "docs/specs/wave2/AUT-002.md",
-    "implementationStatus": "specified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "AUT-003",
@@ -44,7 +44,7 @@
     "category": "Automotive & Travel",
     "subcategory": "Vehicle Finance",
     "version": "1.0",
-    "status": "planned",
+    "status": "verified",
     "launchWave": "Wave 2",
     "rulesSensitive": false,
     "risk": "medium",
@@ -52,9 +52,9 @@
     "aliases": [
       "personal contract purchase"
     ],
-    "benchmarkCount": 0,
+    "benchmarkCount": 6,
     "specFile": "docs/specs/wave2/AUT-003.md",
-    "implementationStatus": "specified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "AUT-004",
@@ -63,7 +63,7 @@
     "category": "Automotive & Travel",
     "subcategory": "Vehicle Finance",
     "version": "1.0",
-    "status": "planned",
+    "status": "verified",
     "launchWave": "Wave 2",
     "rulesSensitive": false,
     "risk": "medium",
@@ -71,9 +71,9 @@
     "aliases": [
       "hire purchase"
     ],
-    "benchmarkCount": 0,
+    "benchmarkCount": 6,
     "specFile": "docs/specs/wave2/AUT-004.md",
-    "implementationStatus": "specified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "AUT-005",
@@ -82,7 +82,7 @@
     "category": "Automotive & Travel",
     "subcategory": "Vehicle Finance",
     "version": "1.0",
-    "status": "planned",
+    "status": "verified",
     "launchWave": "Wave 2",
     "rulesSensitive": false,
     "risk": "low",
@@ -90,9 +90,9 @@
     "aliases": [
       "cash back or low interest calculator"
     ],
-    "benchmarkCount": 0,
+    "benchmarkCount": 6,
     "specFile": "docs/specs/wave2/AUT-005.md",
-    "implementationStatus": "specified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "AUT-007",
@@ -101,7 +101,7 @@
     "category": "Automotive & Travel",
     "subcategory": "Running Cost",
     "version": "1.0",
-    "status": "planned",
+    "status": "verified",
     "launchWave": "Wave 2",
     "rulesSensitive": false,
     "risk": "low",
@@ -110,9 +110,9 @@
       "MPG",
       "L/100km"
     ],
-    "benchmarkCount": 0,
+    "benchmarkCount": 6,
     "specFile": "docs/specs/wave2/AUT-007.md",
-    "implementationStatus": "specified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "AUT-008",
@@ -121,7 +121,7 @@
     "category": "Automotive & Travel",
     "subcategory": "Running Cost",
     "version": "1.0",
-    "status": "planned",
+    "status": "verified",
     "launchWave": "Wave 2",
     "rulesSensitive": false,
     "risk": "low",
@@ -129,9 +129,9 @@
     "aliases": [
       "mileage cost"
     ],
-    "benchmarkCount": 0,
+    "benchmarkCount": 8,
     "specFile": "docs/specs/wave2/AUT-008.md",
-    "implementationStatus": "specified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "AUT-009",
@@ -140,7 +140,7 @@
     "category": "Automotive & Travel",
     "subcategory": "Electric Vehicles",
     "version": "1.0",
-    "status": "planned",
+    "status": "verified",
     "launchWave": "Wave 2",
     "rulesSensitive": false,
     "risk": "low",
@@ -148,9 +148,9 @@
     "aliases": [
       "electric car charging"
     ],
-    "benchmarkCount": 0,
+    "benchmarkCount": 6,
     "specFile": "docs/specs/wave2/AUT-009.md",
-    "implementationStatus": "specified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "AUT-010",
@@ -159,7 +159,7 @@
     "category": "Automotive & Travel",
     "subcategory": "Electric Vehicles",
     "version": "1.0",
-    "status": "planned",
+    "status": "verified",
     "launchWave": "Wave 2",
     "rulesSensitive": false,
     "risk": "low",
@@ -167,9 +167,9 @@
     "aliases": [
       "electric range"
     ],
-    "benchmarkCount": 0,
+    "benchmarkCount": 6,
     "specFile": "docs/specs/wave2/AUT-010.md",
-    "implementationStatus": "specified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "AUT-011",
@@ -178,7 +178,7 @@
     "category": "Automotive & Travel",
     "subcategory": "Running Cost",
     "version": "1.0",
-    "status": "planned",
+    "status": "verified",
     "launchWave": "Wave 2",
     "rulesSensitive": false,
     "risk": "low",
@@ -186,9 +186,9 @@
     "aliases": [
       "car depreciation"
     ],
-    "benchmarkCount": 0,
+    "benchmarkCount": 6,
     "specFile": "docs/specs/wave2/AUT-011.md",
-    "implementationStatus": "specified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "AUT-012",
@@ -197,7 +197,7 @@
     "category": "Automotive & Travel",
     "subcategory": "Engineering",
     "version": "1.0",
-    "status": "planned",
+    "status": "verified",
     "launchWave": "Wave 2",
     "rulesSensitive": false,
     "risk": "low",
@@ -205,9 +205,9 @@
     "aliases": [
       "horsepower"
     ],
-    "benchmarkCount": 0,
+    "benchmarkCount": 6,
     "specFile": "docs/specs/wave2/AUT-012.md",
-    "implementationStatus": "specified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "BUS-002",
@@ -216,7 +216,7 @@
     "category": "Business & Commercial",
     "subcategory": "Pricing",
     "version": "1.0",
-    "status": "planned",
+    "status": "verified",
     "launchWave": "Wave 2",
     "rulesSensitive": false,
     "risk": "low",
@@ -224,9 +224,9 @@
     "aliases": [
       "markup percentage"
     ],
-    "benchmarkCount": 0,
+    "benchmarkCount": 7,
     "specFile": "docs/specs/wave2/BUS-002.md",
-    "implementationStatus": "specified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "BUS-003",
@@ -235,7 +235,7 @@
     "category": "Business & Commercial",
     "subcategory": "Profitability",
     "version": "1.0",
-    "status": "planned",
+    "status": "verified",
     "launchWave": "Wave 2",
     "rulesSensitive": false,
     "risk": "low",
@@ -243,9 +243,9 @@
     "aliases": [
       "gross profit"
     ],
-    "benchmarkCount": 0,
+    "benchmarkCount": 7,
     "specFile": "docs/specs/wave2/BUS-003.md",
-    "implementationStatus": "specified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "BUS-004",
@@ -254,7 +254,7 @@
     "category": "Business & Commercial",
     "subcategory": "Profitability",
     "version": "1.0",
-    "status": "planned",
+    "status": "verified",
     "launchWave": "Wave 2",
     "rulesSensitive": false,
     "risk": "low",
@@ -262,9 +262,9 @@
     "aliases": [
       "gross margin"
     ],
-    "benchmarkCount": 0,
+    "benchmarkCount": 7,
     "specFile": "docs/specs/wave2/BUS-004.md",
-    "implementationStatus": "specified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "BUS-005",
@@ -273,7 +273,7 @@
     "category": "Business & Commercial",
     "subcategory": "Profitability",
     "version": "1.0",
-    "status": "planned",
+    "status": "verified",
     "launchWave": "Wave 2",
     "rulesSensitive": false,
     "risk": "low",
@@ -281,9 +281,9 @@
     "aliases": [
       "net margin"
     ],
-    "benchmarkCount": 0,
+    "benchmarkCount": 7,
     "specFile": "docs/specs/wave2/BUS-005.md",
-    "implementationStatus": "specified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "BUS-007",
@@ -292,7 +292,7 @@
     "category": "Business & Commercial",
     "subcategory": "Payroll",
     "version": "1.0",
-    "status": "planned",
+    "status": "verified",
     "launchWave": "Wave 2",
     "rulesSensitive": false,
     "risk": "low",
@@ -300,9 +300,9 @@
     "aliases": [
       "sales commission"
     ],
-    "benchmarkCount": 0,
+    "benchmarkCount": 7,
     "specFile": "docs/specs/wave2/BUS-007.md",
-    "implementationStatus": "specified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "BUS-009",
@@ -311,7 +311,7 @@
     "category": "Business & Commercial",
     "subcategory": "Accounting",
     "version": "1.0",
-    "status": "planned",
+    "status": "verified",
     "launchWave": "Wave 2",
     "rulesSensitive": false,
     "risk": "low",
@@ -319,9 +319,9 @@
     "aliases": [
       "asset depreciation"
     ],
-    "benchmarkCount": 0,
+    "benchmarkCount": 7,
     "specFile": "docs/specs/wave2/BUS-009.md",
-    "implementationStatus": "specified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "BUS-010",
@@ -330,7 +330,7 @@
     "category": "Business & Commercial",
     "subcategory": "Finance",
     "version": "1.0",
-    "status": "planned",
+    "status": "verified",
     "launchWave": "Wave 2",
     "rulesSensitive": false,
     "risk": "low",
@@ -338,9 +338,9 @@
     "aliases": [
       "business cash flow"
     ],
-    "benchmarkCount": 0,
+    "benchmarkCount": 6,
     "specFile": "docs/specs/wave2/BUS-010.md",
-    "implementationStatus": "specified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "BUS-011",
@@ -349,17 +349,17 @@
     "category": "Business & Commercial",
     "subcategory": "Pricing",
     "version": "1.0",
-    "status": "planned",
+    "status": "verified",
     "launchWave": "Wave 2",
-    "rulesSensitive": false,
+    "rulesSensitive": true,
     "risk": "low",
     "jurisdiction": "UK/General",
     "aliases": [
       "selling price"
     ],
-    "benchmarkCount": 0,
+    "benchmarkCount": 7,
     "specFile": "docs/specs/wave2/BUS-011.md",
-    "implementationStatus": "specified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "BUS-012",
@@ -368,7 +368,7 @@
     "category": "Business & Commercial",
     "subcategory": "Planning",
     "version": "1.0",
-    "status": "planned",
+    "status": "verified",
     "launchWave": "Wave 2",
     "rulesSensitive": false,
     "risk": "low",
@@ -376,9 +376,9 @@
     "aliases": [
       "project ROI"
     ],
-    "benchmarkCount": 0,
+    "benchmarkCount": 7,
     "specFile": "docs/specs/wave2/BUS-012.md",
-    "implementationStatus": "specified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "CON-002",
@@ -387,7 +387,7 @@
     "category": "Conversions",
     "subcategory": "General Conversion",
     "version": "1.0",
-    "status": "planned",
+    "status": "verified",
     "launchWave": "Wave 2",
     "rulesSensitive": false,
     "risk": "low",
@@ -395,9 +395,9 @@
     "aliases": [
       "distance conversion"
     ],
-    "benchmarkCount": 0,
+    "benchmarkCount": 6,
     "specFile": "docs/specs/wave2/CON-002.md",
-    "implementationStatus": "specified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "CON-003",
@@ -406,7 +406,7 @@
     "category": "Conversions",
     "subcategory": "General Conversion",
     "version": "1.0",
-    "status": "planned",
+    "status": "verified",
     "launchWave": "Wave 2",
     "rulesSensitive": false,
     "risk": "low",
@@ -414,9 +414,9 @@
     "aliases": [
       "weight calculator"
     ],
-    "benchmarkCount": 0,
+    "benchmarkCount": 6,
     "specFile": "docs/specs/wave2/CON-003.md",
-    "implementationStatus": "specified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "CON-004",
@@ -425,7 +425,7 @@
     "category": "Conversions",
     "subcategory": "General Conversion",
     "version": "1.0",
-    "status": "planned",
+    "status": "verified",
     "launchWave": "Wave 2",
     "rulesSensitive": false,
     "risk": "low",
@@ -433,9 +433,9 @@
     "aliases": [
       "Celsius Fahrenheit"
     ],
-    "benchmarkCount": 0,
+    "benchmarkCount": 7,
     "specFile": "docs/specs/wave2/CON-004.md",
-    "implementationStatus": "specified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "CON-005",
@@ -444,7 +444,7 @@
     "category": "Conversions",
     "subcategory": "General Conversion",
     "version": "1.0",
-    "status": "planned",
+    "status": "verified",
     "launchWave": "Wave 2",
     "rulesSensitive": false,
     "risk": "low",
@@ -452,9 +452,9 @@
     "aliases": [
       "area conversion"
     ],
-    "benchmarkCount": 0,
+    "benchmarkCount": 6,
     "specFile": "docs/specs/wave2/CON-005.md",
-    "implementationStatus": "specified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "CON-006",
@@ -463,7 +463,7 @@
     "category": "Conversions",
     "subcategory": "General Conversion",
     "version": "1.0",
-    "status": "planned",
+    "status": "verified",
     "launchWave": "Wave 2",
     "rulesSensitive": false,
     "risk": "low",
@@ -471,9 +471,9 @@
     "aliases": [
       "volume conversion"
     ],
-    "benchmarkCount": 0,
+    "benchmarkCount": 6,
     "specFile": "docs/specs/wave2/CON-006.md",
-    "implementationStatus": "specified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "CON-007",
@@ -482,7 +482,7 @@
     "category": "Conversions",
     "subcategory": "General Conversion",
     "version": "1.0",
-    "status": "planned",
+    "status": "verified",
     "launchWave": "Wave 2",
     "rulesSensitive": false,
     "risk": "low",
@@ -490,9 +490,9 @@
     "aliases": [
       "speed conversion"
     ],
-    "benchmarkCount": 0,
+    "benchmarkCount": 6,
     "specFile": "docs/specs/wave2/CON-007.md",
-    "implementationStatus": "specified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "CON-008",
@@ -501,7 +501,7 @@
     "category": "Conversions",
     "subcategory": "General Conversion",
     "version": "1.0",
-    "status": "planned",
+    "status": "verified",
     "launchWave": "Wave 2",
     "rulesSensitive": false,
     "risk": "low",
@@ -509,9 +509,9 @@
     "aliases": [
       "MPG to L100km"
     ],
-    "benchmarkCount": 0,
+    "benchmarkCount": 7,
     "specFile": "docs/specs/wave2/CON-008.md",
-    "implementationStatus": "specified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "CON-009",
@@ -520,7 +520,7 @@
     "category": "Conversions",
     "subcategory": "Lifestyle Conversion",
     "version": "1.0",
-    "status": "planned",
+    "status": "verified",
     "launchWave": "Wave 2",
     "rulesSensitive": false,
     "risk": "low",
@@ -528,9 +528,9 @@
     "aliases": [
       "UK EU US shoe size"
     ],
-    "benchmarkCount": 0,
+    "benchmarkCount": 6,
     "specFile": "docs/specs/wave2/CON-009.md",
-    "implementationStatus": "specified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "DAT-002",
@@ -539,7 +539,7 @@
     "category": "Date & Time",
     "subcategory": "Date",
     "version": "1.0",
-    "status": "planned",
+    "status": "verified",
     "launchWave": "Wave 2",
     "rulesSensitive": false,
     "risk": "low",
@@ -547,9 +547,9 @@
     "aliases": [
       "date difference"
     ],
-    "benchmarkCount": 0,
+    "benchmarkCount": 7,
     "specFile": "docs/specs/wave2/DAT-002.md",
-    "implementationStatus": "specified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "DAT-003",
@@ -558,7 +558,7 @@
     "category": "Date & Time",
     "subcategory": "Date",
     "version": "1.0",
-    "status": "planned",
+    "status": "verified",
     "launchWave": "Wave 2",
     "rulesSensitive": false,
     "risk": "low",
@@ -566,9 +566,9 @@
     "aliases": [
       "days between dates"
     ],
-    "benchmarkCount": 0,
+    "benchmarkCount": 7,
     "specFile": "docs/specs/wave2/DAT-003.md",
-    "implementationStatus": "specified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "DAT-004",
@@ -577,7 +577,7 @@
     "category": "Date & Time",
     "subcategory": "Date",
     "version": "1.0",
-    "status": "planned",
+    "status": "verified",
     "launchWave": "Wave 2",
     "rulesSensitive": false,
     "risk": "low",
@@ -585,9 +585,9 @@
     "aliases": [
       "weekday"
     ],
-    "benchmarkCount": 0,
+    "benchmarkCount": 7,
     "specFile": "docs/specs/wave2/DAT-004.md",
-    "implementationStatus": "specified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "DAT-005",
@@ -596,7 +596,7 @@
     "category": "Date & Time",
     "subcategory": "Time",
     "version": "1.0",
-    "status": "planned",
+    "status": "verified",
     "launchWave": "Wave 2",
     "rulesSensitive": false,
     "risk": "low",
@@ -604,9 +604,9 @@
     "aliases": [
       "time arithmetic"
     ],
-    "benchmarkCount": 0,
+    "benchmarkCount": 6,
     "specFile": "docs/specs/wave2/DAT-005.md",
-    "implementationStatus": "specified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "DAT-006",
@@ -615,7 +615,7 @@
     "category": "Date & Time",
     "subcategory": "Time",
     "version": "1.0",
-    "status": "planned",
+    "status": "verified",
     "launchWave": "Wave 2",
     "rulesSensitive": false,
     "risk": "low",
@@ -623,9 +623,9 @@
     "aliases": [
       "duration"
     ],
-    "benchmarkCount": 0,
+    "benchmarkCount": 6,
     "specFile": "docs/specs/wave2/DAT-006.md",
-    "implementationStatus": "specified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "DAT-007",
@@ -634,7 +634,7 @@
     "category": "Date & Time",
     "subcategory": "Time",
     "version": "1.0",
-    "status": "planned",
+    "status": "verified",
     "launchWave": "Wave 2",
     "rulesSensitive": false,
     "risk": "low",
@@ -642,9 +642,9 @@
     "aliases": [
       "hours between"
     ],
-    "benchmarkCount": 0,
+    "benchmarkCount": 6,
     "specFile": "docs/specs/wave2/DAT-007.md",
-    "implementationStatus": "specified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "DAT-008",
@@ -653,7 +653,7 @@
     "category": "Date & Time",
     "subcategory": "Time",
     "version": "1.0",
-    "status": "planned",
+    "status": "verified",
     "launchWave": "Wave 2",
     "rulesSensitive": false,
     "risk": "low",
@@ -661,9 +661,9 @@
     "aliases": [
       "timezone"
     ],
-    "benchmarkCount": 0,
+    "benchmarkCount": 7,
     "specFile": "docs/specs/wave2/DAT-008.md",
-    "implementationStatus": "specified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "DAT-009",
@@ -672,7 +672,7 @@
     "category": "Date & Time",
     "subcategory": "Work",
     "version": "1.0",
-    "status": "planned",
+    "status": "verified",
     "launchWave": "Wave 2",
     "rulesSensitive": false,
     "risk": "low",
@@ -680,9 +680,9 @@
     "aliases": [
       "timesheet"
     ],
-    "benchmarkCount": 0,
+    "benchmarkCount": 6,
     "specFile": "docs/specs/wave2/DAT-009.md",
-    "implementationStatus": "specified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "EDU-001",
@@ -691,7 +691,7 @@
     "category": "Education",
     "subcategory": "Education",
     "version": "1.0",
-    "status": "planned",
+    "status": "verified",
     "launchWave": "Wave 2",
     "rulesSensitive": false,
     "risk": "low",
@@ -699,9 +699,9 @@
     "aliases": [
       "grade"
     ],
-    "benchmarkCount": 0,
+    "benchmarkCount": 6,
     "specFile": "docs/specs/wave2/EDU-001.md",
-    "implementationStatus": "specified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "EDU-002",
@@ -710,7 +710,7 @@
     "category": "Education",
     "subcategory": "Education",
     "version": "1.0",
-    "status": "planned",
+    "status": "verified",
     "launchWave": "Wave 2",
     "rulesSensitive": false,
     "risk": "low",
@@ -720,9 +720,9 @@
       "2:1",
       "2:2"
     ],
-    "benchmarkCount": 0,
+    "benchmarkCount": 6,
     "specFile": "docs/specs/wave2/EDU-002.md",
-    "implementationStatus": "specified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "EDU-003",
@@ -731,7 +731,7 @@
     "category": "Education",
     "subcategory": "Education",
     "version": "1.0",
-    "status": "planned",
+    "status": "verified",
     "launchWave": "Wave 2",
     "rulesSensitive": true,
     "risk": "medium",
@@ -739,9 +739,9 @@
     "aliases": [
       "UCAS tariff"
     ],
-    "benchmarkCount": 0,
+    "benchmarkCount": 6,
     "specFile": "docs/specs/wave2/EDU-003.md",
-    "implementationStatus": "specified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "EDU-004",
@@ -750,7 +750,7 @@
     "category": "Education",
     "subcategory": "Student Finance",
     "version": "1.0",
-    "status": "planned",
+    "status": "verified",
     "launchWave": "Wave 2",
     "rulesSensitive": true,
     "risk": "medium",
@@ -758,9 +758,9 @@
     "aliases": [
       "college cost calculator UK"
     ],
-    "benchmarkCount": 0,
+    "benchmarkCount": 6,
     "specFile": "docs/specs/wave2/EDU-004.md",
-    "implementationStatus": "specified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "EDU-005",
@@ -769,7 +769,7 @@
     "category": "Education",
     "subcategory": "Student Finance",
     "version": "1.0",
-    "status": "planned",
+    "status": "verified",
     "launchWave": "Wave 2",
     "rulesSensitive": false,
     "risk": "low",
@@ -777,9 +777,9 @@
     "aliases": [
       "student budget"
     ],
-    "benchmarkCount": 0,
+    "benchmarkCount": 6,
     "specFile": "docs/specs/wave2/EDU-005.md",
-    "implementationStatus": "specified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "EVE-001",
@@ -788,7 +788,7 @@
     "category": "Everyday & Lifestyle",
     "subcategory": "Everyday Money",
     "version": "1.0",
-    "status": "planned",
+    "status": "verified",
     "launchWave": "Wave 2",
     "rulesSensitive": false,
     "risk": "low",
@@ -796,9 +796,9 @@
     "aliases": [
       "gratuity"
     ],
-    "benchmarkCount": 0,
+    "benchmarkCount": 6,
     "specFile": "docs/specs/wave2/EVE-001.md",
-    "implementationStatus": "specified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "EVE-003",
@@ -807,7 +807,7 @@
     "category": "Everyday & Lifestyle",
     "subcategory": "Automotive Utility",
     "version": "1.0",
-    "status": "planned",
+    "status": "verified",
     "launchWave": "Wave 2",
     "rulesSensitive": false,
     "risk": "low",
@@ -815,9 +815,9 @@
     "aliases": [
       "tyre size calculator"
     ],
-    "benchmarkCount": 0,
+    "benchmarkCount": 6,
     "specFile": "docs/specs/wave2/EVE-003.md",
-    "implementationStatus": "specified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "FIN-003",
@@ -978,7 +978,7 @@
     "category": "Geometry",
     "subcategory": "Geometry",
     "version": "1.0",
-    "status": "planned",
+    "status": "verified",
     "launchWave": "Wave 2",
     "rulesSensitive": false,
     "risk": "low",
@@ -986,9 +986,9 @@
     "aliases": [
       "area"
     ],
-    "benchmarkCount": 0,
+    "benchmarkCount": 8,
     "specFile": "docs/specs/wave2/GEO-001.md",
-    "implementationStatus": "specified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "GEO-002",
@@ -997,7 +997,7 @@
     "category": "Geometry",
     "subcategory": "Geometry",
     "version": "1.0",
-    "status": "planned",
+    "status": "verified",
     "launchWave": "Wave 2",
     "rulesSensitive": false,
     "risk": "low",
@@ -1005,9 +1005,9 @@
     "aliases": [
       "volume"
     ],
-    "benchmarkCount": 0,
+    "benchmarkCount": 8,
     "specFile": "docs/specs/wave2/GEO-002.md",
-    "implementationStatus": "specified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "GEO-003",
@@ -1016,7 +1016,7 @@
     "category": "Geometry",
     "subcategory": "Geometry",
     "version": "1.0",
-    "status": "planned",
+    "status": "verified",
     "launchWave": "Wave 2",
     "rulesSensitive": false,
     "risk": "low",
@@ -1024,9 +1024,9 @@
     "aliases": [
       "surface area"
     ],
-    "benchmarkCount": 0,
+    "benchmarkCount": 8,
     "specFile": "docs/specs/wave2/GEO-003.md",
-    "implementationStatus": "specified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "GEO-004",
@@ -1035,7 +1035,7 @@
     "category": "Geometry",
     "subcategory": "Geometry",
     "version": "1.0",
-    "status": "planned",
+    "status": "verified",
     "launchWave": "Wave 2",
     "rulesSensitive": false,
     "risk": "low",
@@ -1043,9 +1043,9 @@
     "aliases": [
       "triangle"
     ],
-    "benchmarkCount": 0,
+    "benchmarkCount": 7,
     "specFile": "docs/specs/wave2/GEO-004.md",
-    "implementationStatus": "specified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "GEO-005",
@@ -1054,7 +1054,7 @@
     "category": "Geometry",
     "subcategory": "Geometry",
     "version": "1.0",
-    "status": "planned",
+    "status": "verified",
     "launchWave": "Wave 2",
     "rulesSensitive": false,
     "risk": "low",
@@ -1062,9 +1062,9 @@
     "aliases": [
       "right angle triangle"
     ],
-    "benchmarkCount": 0,
+    "benchmarkCount": 6,
     "specFile": "docs/specs/wave2/GEO-005.md",
-    "implementationStatus": "specified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "GEO-006",
@@ -1073,7 +1073,7 @@
     "category": "Geometry",
     "subcategory": "Geometry",
     "version": "1.0",
-    "status": "planned",
+    "status": "verified",
     "launchWave": "Wave 2",
     "rulesSensitive": false,
     "risk": "low",
@@ -1081,9 +1081,9 @@
     "aliases": [
       "circle"
     ],
-    "benchmarkCount": 0,
+    "benchmarkCount": 6,
     "specFile": "docs/specs/wave2/GEO-006.md",
-    "implementationStatus": "specified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "GEO-007",
@@ -1092,7 +1092,7 @@
     "category": "Geometry",
     "subcategory": "Geometry",
     "version": "1.0",
-    "status": "planned",
+    "status": "verified",
     "launchWave": "Wave 2",
     "rulesSensitive": false,
     "risk": "low",
@@ -1100,9 +1100,9 @@
     "aliases": [
       "Pythagoras"
     ],
-    "benchmarkCount": 0,
+    "benchmarkCount": 6,
     "specFile": "docs/specs/wave2/GEO-007.md",
-    "implementationStatus": "specified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "GEO-008",
@@ -1111,7 +1111,7 @@
     "category": "Geometry",
     "subcategory": "Geometry",
     "version": "1.0",
-    "status": "planned",
+    "status": "verified",
     "launchWave": "Wave 2",
     "rulesSensitive": false,
     "risk": "low",
@@ -1119,9 +1119,9 @@
     "aliases": [
       "distance formula"
     ],
-    "benchmarkCount": 0,
+    "benchmarkCount": 6,
     "specFile": "docs/specs/wave2/GEO-008.md",
-    "implementationStatus": "specified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "GEO-009",
@@ -1130,7 +1130,7 @@
     "category": "Geometry",
     "subcategory": "Geometry",
     "version": "1.0",
-    "status": "planned",
+    "status": "verified",
     "launchWave": "Wave 2",
     "rulesSensitive": false,
     "risk": "low",
@@ -1139,9 +1139,9 @@
       "square footage",
       "square metres"
     ],
-    "benchmarkCount": 0,
+    "benchmarkCount": 6,
     "specFile": "docs/specs/wave2/GEO-009.md",
-    "implementationStatus": "specified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "HLT-002",
@@ -1150,7 +1150,7 @@
     "category": "Health & Fitness",
     "subcategory": "Energy",
     "version": "1.0",
-    "status": "planned",
+    "status": "verified",
     "launchWave": "Wave 2",
     "rulesSensitive": false,
     "risk": "medium",
@@ -1158,9 +1158,9 @@
     "aliases": [
       "basal metabolic rate"
     ],
-    "benchmarkCount": 0,
+    "benchmarkCount": 6,
     "specFile": "docs/specs/wave2/HLT-002.md",
-    "implementationStatus": "specified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "HLT-003",
@@ -1169,7 +1169,7 @@
     "category": "Health & Fitness",
     "subcategory": "Energy",
     "version": "1.0",
-    "status": "planned",
+    "status": "verified",
     "launchWave": "Wave 2",
     "rulesSensitive": false,
     "risk": "medium",
@@ -1177,9 +1177,9 @@
     "aliases": [
       "total daily energy expenditure"
     ],
-    "benchmarkCount": 0,
+    "benchmarkCount": 6,
     "specFile": "docs/specs/wave2/HLT-003.md",
-    "implementationStatus": "specified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "HLT-004",
@@ -1188,17 +1188,17 @@
     "category": "Health & Fitness",
     "subcategory": "Energy",
     "version": "1.0",
-    "status": "planned",
+    "status": "verified",
     "launchWave": "Wave 2",
-    "rulesSensitive": false,
+    "rulesSensitive": true,
     "risk": "medium",
     "jurisdiction": "UK/General",
     "aliases": [
       "daily calories"
     ],
-    "benchmarkCount": 0,
+    "benchmarkCount": 7,
     "specFile": "docs/specs/wave2/HLT-004.md",
-    "implementationStatus": "specified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "HLT-005",
@@ -1207,7 +1207,7 @@
     "category": "Health & Fitness",
     "subcategory": "Body Metrics",
     "version": "1.0",
-    "status": "planned",
+    "status": "verified",
     "launchWave": "Wave 2",
     "rulesSensitive": false,
     "risk": "medium",
@@ -1215,9 +1215,9 @@
     "aliases": [
       "body fat percentage"
     ],
-    "benchmarkCount": 0,
+    "benchmarkCount": 6,
     "specFile": "docs/specs/wave2/HLT-005.md",
-    "implementationStatus": "specified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "HLT-006",
@@ -1226,7 +1226,7 @@
     "category": "Health & Fitness",
     "subcategory": "Body Metrics",
     "version": "1.0",
-    "status": "planned",
+    "status": "verified",
     "launchWave": "Wave 2",
     "rulesSensitive": false,
     "risk": "medium",
@@ -1234,9 +1234,9 @@
     "aliases": [
       "LBM"
     ],
-    "benchmarkCount": 0,
+    "benchmarkCount": 6,
     "specFile": "docs/specs/wave2/HLT-006.md",
-    "implementationStatus": "specified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "HLT-007",
@@ -1245,17 +1245,17 @@
     "category": "Health & Fitness",
     "subcategory": "Body Metrics",
     "version": "1.0",
-    "status": "planned",
+    "status": "verified",
     "launchWave": "Wave 2",
-    "rulesSensitive": false,
+    "rulesSensitive": true,
     "risk": "medium",
     "jurisdiction": "UK/General",
     "aliases": [
       "healthy weight"
     ],
-    "benchmarkCount": 0,
+    "benchmarkCount": 7,
     "specFile": "docs/specs/wave2/HLT-007.md",
-    "implementationStatus": "specified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "HLT-008",
@@ -1264,17 +1264,17 @@
     "category": "Health & Fitness",
     "subcategory": "Body Metrics",
     "version": "1.0",
-    "status": "planned",
+    "status": "verified",
     "launchWave": "Wave 2",
-    "rulesSensitive": false,
+    "rulesSensitive": true,
     "risk": "medium",
     "jurisdiction": "UK/General",
     "aliases": [
       "ideal body weight"
     ],
-    "benchmarkCount": 0,
+    "benchmarkCount": 6,
     "specFile": "docs/specs/wave2/HLT-008.md",
-    "implementationStatus": "specified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "HLT-009",
@@ -1283,7 +1283,7 @@
     "category": "Health & Fitness",
     "subcategory": "Nutrition",
     "version": "1.0",
-    "status": "planned",
+    "status": "verified",
     "launchWave": "Wave 2",
     "rulesSensitive": false,
     "risk": "medium",
@@ -1291,9 +1291,9 @@
     "aliases": [
       "protein intake"
     ],
-    "benchmarkCount": 0,
+    "benchmarkCount": 6,
     "specFile": "docs/specs/wave2/HLT-009.md",
-    "implementationStatus": "specified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "HLT-010",
@@ -1302,7 +1302,7 @@
     "category": "Health & Fitness",
     "subcategory": "Nutrition",
     "version": "1.0",
-    "status": "planned",
+    "status": "verified",
     "launchWave": "Wave 2",
     "rulesSensitive": false,
     "risk": "medium",
@@ -1310,9 +1310,9 @@
     "aliases": [
       "carb intake"
     ],
-    "benchmarkCount": 0,
+    "benchmarkCount": 6,
     "specFile": "docs/specs/wave2/HLT-010.md",
-    "implementationStatus": "specified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "HLT-011",
@@ -1321,7 +1321,7 @@
     "category": "Health & Fitness",
     "subcategory": "Nutrition",
     "version": "1.0",
-    "status": "planned",
+    "status": "verified",
     "launchWave": "Wave 2",
     "rulesSensitive": false,
     "risk": "medium",
@@ -1329,9 +1329,9 @@
     "aliases": [
       "fat intake"
     ],
-    "benchmarkCount": 0,
+    "benchmarkCount": 6,
     "specFile": "docs/specs/wave2/HLT-011.md",
-    "implementationStatus": "specified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "HLT-012",
@@ -1340,7 +1340,7 @@
     "category": "Health & Fitness",
     "subcategory": "Nutrition",
     "version": "1.0",
-    "status": "planned",
+    "status": "verified",
     "launchWave": "Wave 2",
     "rulesSensitive": false,
     "risk": "medium",
@@ -1348,9 +1348,9 @@
     "aliases": [
       "macros"
     ],
-    "benchmarkCount": 0,
+    "benchmarkCount": 6,
     "specFile": "docs/specs/wave2/HLT-012.md",
-    "implementationStatus": "specified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "HLT-013",
@@ -1359,17 +1359,17 @@
     "category": "Health & Fitness",
     "subcategory": "Exercise",
     "version": "1.0",
-    "status": "planned",
+    "status": "verified",
     "launchWave": "Wave 2",
-    "rulesSensitive": false,
+    "rulesSensitive": true,
     "risk": "medium",
     "jurisdiction": "UK/General",
     "aliases": [
       "calorie burn"
     ],
-    "benchmarkCount": 0,
+    "benchmarkCount": 6,
     "specFile": "docs/specs/wave2/HLT-013.md",
-    "implementationStatus": "specified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "HLT-014",
@@ -1378,7 +1378,7 @@
     "category": "Health & Fitness",
     "subcategory": "Exercise",
     "version": "1.0",
-    "status": "planned",
+    "status": "verified",
     "launchWave": "Wave 2",
     "rulesSensitive": false,
     "risk": "low",
@@ -1386,9 +1386,9 @@
     "aliases": [
       "running pace"
     ],
-    "benchmarkCount": 0,
+    "benchmarkCount": 6,
     "specFile": "docs/specs/wave2/HLT-014.md",
-    "implementationStatus": "specified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "HLT-015",
@@ -1397,7 +1397,7 @@
     "category": "Health & Fitness",
     "subcategory": "Exercise",
     "version": "1.0",
-    "status": "planned",
+    "status": "verified",
     "launchWave": "Wave 2",
     "rulesSensitive": false,
     "risk": "medium",
@@ -1405,9 +1405,9 @@
     "aliases": [
       "1RM"
     ],
-    "benchmarkCount": 0,
+    "benchmarkCount": 6,
     "specFile": "docs/specs/wave2/HLT-015.md",
-    "implementationStatus": "specified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "HLT-016",
@@ -1416,7 +1416,7 @@
     "category": "Health & Fitness",
     "subcategory": "Exercise",
     "version": "1.0",
-    "status": "planned",
+    "status": "verified",
     "launchWave": "Wave 2",
     "rulesSensitive": false,
     "risk": "medium",
@@ -1424,9 +1424,9 @@
     "aliases": [
       "heart rate zones"
     ],
-    "benchmarkCount": 0,
+    "benchmarkCount": 6,
     "specFile": "docs/specs/wave2/HLT-016.md",
-    "implementationStatus": "specified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "HLT-017",
@@ -1435,7 +1435,7 @@
     "category": "Health & Fitness",
     "subcategory": "Clinical",
     "version": "1.0",
-    "status": "planned",
+    "status": "verified",
     "launchWave": "Wave 2",
     "rulesSensitive": false,
     "risk": "high",
@@ -1443,9 +1443,9 @@
     "aliases": [
       "BSA"
     ],
-    "benchmarkCount": 0,
+    "benchmarkCount": 6,
     "specFile": "docs/specs/wave2/HLT-017.md",
-    "implementationStatus": "specified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "HLT-019",
@@ -1454,7 +1454,7 @@
     "category": "Health & Fitness",
     "subcategory": "Pregnancy",
     "version": "1.0",
-    "status": "planned",
+    "status": "verified",
     "launchWave": "Wave 2",
     "rulesSensitive": false,
     "risk": "high",
@@ -1462,9 +1462,9 @@
     "aliases": [
       "pregnancy dates"
     ],
-    "benchmarkCount": 0,
+    "benchmarkCount": 6,
     "specFile": "docs/specs/wave2/HLT-019.md",
-    "implementationStatus": "specified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "HLT-020",
@@ -1473,7 +1473,7 @@
     "category": "Health & Fitness",
     "subcategory": "Pregnancy",
     "version": "1.0",
-    "status": "planned",
+    "status": "verified",
     "launchWave": "Wave 2",
     "rulesSensitive": false,
     "risk": "high",
@@ -1481,9 +1481,9 @@
     "aliases": [
       "due date"
     ],
-    "benchmarkCount": 0,
+    "benchmarkCount": 6,
     "specFile": "docs/specs/wave2/HLT-020.md",
-    "implementationStatus": "specified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "HLT-022",
@@ -1492,7 +1492,7 @@
     "category": "Health & Fitness",
     "subcategory": "Pregnancy",
     "version": "1.0",
-    "status": "planned",
+    "status": "verified",
     "launchWave": "Wave 2",
     "rulesSensitive": false,
     "risk": "high",
@@ -1500,9 +1500,9 @@
     "aliases": [
       "ovulation"
     ],
-    "benchmarkCount": 0,
+    "benchmarkCount": 6,
     "specFile": "docs/specs/wave2/HLT-022.md",
-    "implementationStatus": "specified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "HLT-023",
@@ -1511,7 +1511,7 @@
     "category": "Health & Fitness",
     "subcategory": "Pregnancy",
     "version": "1.0",
-    "status": "planned",
+    "status": "verified",
     "launchWave": "Wave 2",
     "rulesSensitive": false,
     "risk": "high",
@@ -1519,9 +1519,9 @@
     "aliases": [
       "menstrual cycle"
     ],
-    "benchmarkCount": 0,
+    "benchmarkCount": 6,
     "specFile": "docs/specs/wave2/HLT-023.md",
-    "implementationStatus": "specified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "HLT-025",
@@ -1530,7 +1530,7 @@
     "category": "Health & Fitness",
     "subcategory": "Wellbeing",
     "version": "1.0",
-    "status": "planned",
+    "status": "verified",
     "launchWave": "Wave 2",
     "rulesSensitive": false,
     "risk": "medium",
@@ -1538,9 +1538,9 @@
     "aliases": [
       "sleep cycles"
     ],
-    "benchmarkCount": 0,
+    "benchmarkCount": 6,
     "specFile": "docs/specs/wave2/HLT-025.md",
-    "implementationStatus": "specified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "HOM-001",
@@ -1549,7 +1549,7 @@
     "category": "Home & Construction",
     "subcategory": "Construction",
     "version": "1.0",
-    "status": "planned",
+    "status": "verified",
     "launchWave": "Wave 2",
     "rulesSensitive": false,
     "risk": "low",
@@ -1557,9 +1557,9 @@
     "aliases": [
       "concrete volume"
     ],
-    "benchmarkCount": 0,
+    "benchmarkCount": 6,
     "specFile": "docs/specs/wave2/HOM-001.md",
-    "implementationStatus": "specified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "HOM-002",
@@ -1568,7 +1568,7 @@
     "category": "Home & Construction",
     "subcategory": "Construction",
     "version": "1.0",
-    "status": "planned",
+    "status": "verified",
     "launchWave": "Wave 2",
     "rulesSensitive": false,
     "risk": "low",
@@ -1576,9 +1576,9 @@
     "aliases": [
       "roofing"
     ],
-    "benchmarkCount": 0,
+    "benchmarkCount": 6,
     "specFile": "docs/specs/wave2/HOM-002.md",
-    "implementationStatus": "specified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "HOM-003",
@@ -1587,7 +1587,7 @@
     "category": "Home & Construction",
     "subcategory": "Construction",
     "version": "1.0",
-    "status": "planned",
+    "status": "verified",
     "launchWave": "Wave 2",
     "rulesSensitive": false,
     "risk": "low",
@@ -1595,9 +1595,9 @@
     "aliases": [
       "tiles"
     ],
-    "benchmarkCount": 0,
+    "benchmarkCount": 6,
     "specFile": "docs/specs/wave2/HOM-003.md",
-    "implementationStatus": "specified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "HOM-004",
@@ -1606,7 +1606,7 @@
     "category": "Home & Construction",
     "subcategory": "Construction",
     "version": "1.0",
-    "status": "planned",
+    "status": "verified",
     "launchWave": "Wave 2",
     "rulesSensitive": false,
     "risk": "low",
@@ -1614,9 +1614,9 @@
     "aliases": [
       "gravel"
     ],
-    "benchmarkCount": 0,
+    "benchmarkCount": 6,
     "specFile": "docs/specs/wave2/HOM-004.md",
-    "implementationStatus": "specified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "HOM-005",
@@ -1625,7 +1625,7 @@
     "category": "Home & Construction",
     "subcategory": "Garden",
     "version": "1.0",
-    "status": "planned",
+    "status": "verified",
     "launchWave": "Wave 2",
     "rulesSensitive": false,
     "risk": "low",
@@ -1633,9 +1633,9 @@
     "aliases": [
       "mulch"
     ],
-    "benchmarkCount": 0,
+    "benchmarkCount": 6,
     "specFile": "docs/specs/wave2/HOM-005.md",
-    "implementationStatus": "specified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "HOM-006",
@@ -1644,7 +1644,7 @@
     "category": "Home & Construction",
     "subcategory": "Construction",
     "version": "1.0",
-    "status": "planned",
+    "status": "verified",
     "launchWave": "Wave 2",
     "rulesSensitive": false,
     "risk": "low",
@@ -1652,9 +1652,9 @@
     "aliases": [
       "stairs"
     ],
-    "benchmarkCount": 0,
+    "benchmarkCount": 6,
     "specFile": "docs/specs/wave2/HOM-006.md",
-    "implementationStatus": "specified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "INV-004",
@@ -1932,7 +1932,7 @@
     "category": "ISA & Tax Wrappers",
     "subcategory": "ISA",
     "version": "1.0",
-    "status": "planned",
+    "status": "verified",
     "launchWave": "Wave 2",
     "rulesSensitive": true,
     "risk": "high",
@@ -1940,9 +1940,9 @@
     "aliases": [
       "ISA versus taxable account"
     ],
-    "benchmarkCount": 0,
+    "benchmarkCount": 6,
     "specFile": "docs/specs/wave2/ISA-003.md",
-    "implementationStatus": "specified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "ISA-004",
@@ -1951,7 +1951,7 @@
     "category": "ISA & Tax Wrappers",
     "subcategory": "ISA",
     "version": "1.0",
-    "status": "planned",
+    "status": "verified",
     "launchWave": "Wave 2",
     "rulesSensitive": true,
     "risk": "high",
@@ -1959,9 +1959,9 @@
     "aliases": [
       "LISA"
     ],
-    "benchmarkCount": 0,
+    "benchmarkCount": 6,
     "specFile": "docs/specs/wave2/ISA-004.md",
-    "implementationStatus": "specified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "ISA-005",
@@ -1970,7 +1970,7 @@
     "category": "ISA & Tax Wrappers",
     "subcategory": "ISA",
     "version": "1.0",
-    "status": "planned",
+    "status": "verified",
     "launchWave": "Wave 2",
     "rulesSensitive": true,
     "risk": "medium",
@@ -1978,9 +1978,9 @@
     "aliases": [
       "JISA"
     ],
-    "benchmarkCount": 0,
+    "benchmarkCount": 6,
     "specFile": "docs/specs/wave2/ISA-005.md",
-    "implementationStatus": "specified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "ISA-006",
@@ -1989,7 +1989,7 @@
     "category": "ISA & Tax Wrappers",
     "subcategory": "ISA",
     "version": "1.0",
-    "status": "planned",
+    "status": "verified",
     "launchWave": "Wave 2",
     "rulesSensitive": true,
     "risk": "medium",
@@ -1997,9 +1997,9 @@
     "aliases": [
       "cash ISA"
     ],
-    "benchmarkCount": 0,
+    "benchmarkCount": 6,
     "specFile": "docs/specs/wave2/ISA-006.md",
-    "implementationStatus": "specified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "MAT-001",
@@ -2008,7 +2008,7 @@
     "category": "Maths & Algebra",
     "subcategory": "Arithmetic",
     "version": "1.0",
-    "status": "planned",
+    "status": "verified",
     "launchWave": "Wave 2",
     "rulesSensitive": false,
     "risk": "low",
@@ -2016,9 +2016,9 @@
     "aliases": [
       "standard calculator"
     ],
-    "benchmarkCount": 0,
+    "benchmarkCount": 6,
     "specFile": "docs/specs/wave2/MAT-001.md",
-    "implementationStatus": "specified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "MAT-004",
@@ -2027,7 +2027,7 @@
     "category": "Maths & Algebra",
     "subcategory": "Arithmetic",
     "version": "1.0",
-    "status": "planned",
+    "status": "verified",
     "launchWave": "Wave 2",
     "rulesSensitive": false,
     "risk": "low",
@@ -2035,9 +2035,9 @@
     "aliases": [
       "percentage discount"
     ],
-    "benchmarkCount": 0,
+    "benchmarkCount": 6,
     "specFile": "docs/specs/wave2/MAT-004.md",
-    "implementationStatus": "specified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "MAT-007",
@@ -2046,7 +2046,7 @@
     "category": "Maths & Algebra",
     "subcategory": "Arithmetic",
     "version": "1.0",
-    "status": "planned",
+    "status": "verified",
     "launchWave": "Wave 2",
     "rulesSensitive": false,
     "risk": "low",
@@ -2054,9 +2054,9 @@
     "aliases": [
       "round numbers"
     ],
-    "benchmarkCount": 0,
+    "benchmarkCount": 7,
     "specFile": "docs/specs/wave2/MAT-007.md",
-    "implementationStatus": "specified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "MAT-008",
@@ -2065,7 +2065,7 @@
     "category": "Maths & Algebra",
     "subcategory": "Algebra",
     "version": "1.0",
-    "status": "planned",
+    "status": "verified",
     "launchWave": "Wave 2",
     "rulesSensitive": false,
     "risk": "low",
@@ -2073,9 +2073,9 @@
     "aliases": [
       "powers"
     ],
-    "benchmarkCount": 0,
+    "benchmarkCount": 6,
     "specFile": "docs/specs/wave2/MAT-008.md",
-    "implementationStatus": "specified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "MAT-009",
@@ -2084,7 +2084,7 @@
     "category": "Maths & Algebra",
     "subcategory": "Algebra",
     "version": "1.0",
-    "status": "planned",
+    "status": "verified",
     "launchWave": "Wave 2",
     "rulesSensitive": false,
     "risk": "low",
@@ -2093,9 +2093,9 @@
       "square root",
       "nth root"
     ],
-    "benchmarkCount": 0,
+    "benchmarkCount": 6,
     "specFile": "docs/specs/wave2/MAT-009.md",
-    "implementationStatus": "specified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "MAT-010",
@@ -2104,7 +2104,7 @@
     "category": "Maths & Algebra",
     "subcategory": "Algebra",
     "version": "1.0",
-    "status": "planned",
+    "status": "verified",
     "launchWave": "Wave 2",
     "rulesSensitive": false,
     "risk": "low",
@@ -2112,9 +2112,9 @@
     "aliases": [
       "logarithm"
     ],
-    "benchmarkCount": 0,
+    "benchmarkCount": 6,
     "specFile": "docs/specs/wave2/MAT-010.md",
-    "implementationStatus": "specified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "MAT-011",
@@ -2123,7 +2123,7 @@
     "category": "Maths & Algebra",
     "subcategory": "Algebra",
     "version": "1.0",
-    "status": "planned",
+    "status": "verified",
     "launchWave": "Wave 2",
     "rulesSensitive": false,
     "risk": "low",
@@ -2131,9 +2131,9 @@
     "aliases": [
       "scientific notation"
     ],
-    "benchmarkCount": 0,
+    "benchmarkCount": 6,
     "specFile": "docs/specs/wave2/MAT-011.md",
-    "implementationStatus": "specified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "MAT-012",
@@ -2142,7 +2142,7 @@
     "category": "Maths & Algebra",
     "subcategory": "Algebra",
     "version": "1.0",
-    "status": "planned",
+    "status": "verified",
     "launchWave": "Wave 2",
     "rulesSensitive": false,
     "risk": "low",
@@ -2150,9 +2150,9 @@
     "aliases": [
       "quadratic equation"
     ],
-    "benchmarkCount": 0,
+    "benchmarkCount": 7,
     "specFile": "docs/specs/wave2/MAT-012.md",
-    "implementationStatus": "specified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "MAT-013",
@@ -2161,7 +2161,7 @@
     "category": "Maths & Algebra",
     "subcategory": "Algebra",
     "version": "1.0",
-    "status": "planned",
+    "status": "verified",
     "launchWave": "Wave 2",
     "rulesSensitive": false,
     "risk": "low",
@@ -2169,9 +2169,9 @@
     "aliases": [
       "gradient"
     ],
-    "benchmarkCount": 0,
+    "benchmarkCount": 6,
     "specFile": "docs/specs/wave2/MAT-013.md",
-    "implementationStatus": "specified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "MAT-014",
@@ -2180,7 +2180,7 @@
     "category": "Maths & Algebra",
     "subcategory": "Number Theory",
     "version": "1.0",
-    "status": "planned",
+    "status": "verified",
     "launchWave": "Wave 2",
     "rulesSensitive": false,
     "risk": "low",
@@ -2188,9 +2188,9 @@
     "aliases": [
       "prime factorization"
     ],
-    "benchmarkCount": 0,
+    "benchmarkCount": 7,
     "specFile": "docs/specs/wave2/MAT-014.md",
-    "implementationStatus": "specified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "MAT-015",
@@ -2199,7 +2199,7 @@
     "category": "Maths & Algebra",
     "subcategory": "Number Theory",
     "version": "1.0",
-    "status": "planned",
+    "status": "verified",
     "launchWave": "Wave 2",
     "rulesSensitive": false,
     "risk": "low",
@@ -2207,9 +2207,9 @@
     "aliases": [
       "factors"
     ],
-    "benchmarkCount": 0,
+    "benchmarkCount": 7,
     "specFile": "docs/specs/wave2/MAT-015.md",
-    "implementationStatus": "specified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "MAT-016",
@@ -2218,7 +2218,7 @@
     "category": "Maths & Algebra",
     "subcategory": "Number Theory",
     "version": "1.0",
-    "status": "planned",
+    "status": "verified",
     "launchWave": "Wave 2",
     "rulesSensitive": false,
     "risk": "low",
@@ -2227,9 +2227,9 @@
       "GCF",
       "HCF"
     ],
-    "benchmarkCount": 0,
+    "benchmarkCount": 6,
     "specFile": "docs/specs/wave2/MAT-016.md",
-    "implementationStatus": "specified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "MAT-017",
@@ -2238,7 +2238,7 @@
     "category": "Maths & Algebra",
     "subcategory": "Number Theory",
     "version": "1.0",
-    "status": "planned",
+    "status": "verified",
     "launchWave": "Wave 2",
     "rulesSensitive": false,
     "risk": "low",
@@ -2246,9 +2246,9 @@
     "aliases": [
       "LCM"
     ],
-    "benchmarkCount": 0,
+    "benchmarkCount": 6,
     "specFile": "docs/specs/wave2/MAT-017.md",
-    "implementationStatus": "specified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "MAT-018",
@@ -2257,7 +2257,7 @@
     "category": "Maths & Algebra",
     "subcategory": "Arithmetic",
     "version": "1.0",
-    "status": "planned",
+    "status": "verified",
     "launchWave": "Wave 2",
     "rulesSensitive": false,
     "risk": "low",
@@ -2265,9 +2265,9 @@
     "aliases": [
       "division"
     ],
-    "benchmarkCount": 0,
+    "benchmarkCount": 6,
     "specFile": "docs/specs/wave2/MAT-018.md",
-    "implementationStatus": "specified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "MAT-019",
@@ -2276,7 +2276,7 @@
     "category": "Maths & Algebra",
     "subcategory": "Algebra",
     "version": "1.0",
-    "status": "planned",
+    "status": "verified",
     "launchWave": "Wave 2",
     "rulesSensitive": false,
     "risk": "low",
@@ -2284,9 +2284,9 @@
     "aliases": [
       "sequence"
     ],
-    "benchmarkCount": 0,
+    "benchmarkCount": 6,
     "specFile": "docs/specs/wave2/MAT-019.md",
-    "implementationStatus": "specified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "MAT-021",
@@ -2295,7 +2295,7 @@
     "category": "Maths & Algebra",
     "subcategory": "Algebra",
     "version": "1.0",
-    "status": "planned",
+    "status": "verified",
     "launchWave": "Wave 2",
     "rulesSensitive": false,
     "risk": "low",
@@ -2303,9 +2303,9 @@
     "aliases": [
       "matrix operations"
     ],
-    "benchmarkCount": 0,
+    "benchmarkCount": 7,
     "specFile": "docs/specs/wave2/MAT-021.md",
-    "implementationStatus": "specified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "MAT-022",
@@ -2314,7 +2314,7 @@
     "category": "Maths & Algebra",
     "subcategory": "Number Systems",
     "version": "1.0",
-    "status": "planned",
+    "status": "verified",
     "launchWave": "Wave 2",
     "rulesSensitive": false,
     "risk": "low",
@@ -2322,9 +2322,9 @@
     "aliases": [
       "binary arithmetic"
     ],
-    "benchmarkCount": 0,
+    "benchmarkCount": 6,
     "specFile": "docs/specs/wave2/MAT-022.md",
-    "implementationStatus": "specified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "MAT-023",
@@ -2333,7 +2333,7 @@
     "category": "Maths & Algebra",
     "subcategory": "Number Systems",
     "version": "1.0",
-    "status": "planned",
+    "status": "verified",
     "launchWave": "Wave 2",
     "rulesSensitive": false,
     "risk": "low",
@@ -2341,9 +2341,9 @@
     "aliases": [
       "hexadecimal"
     ],
-    "benchmarkCount": 0,
+    "benchmarkCount": 6,
     "specFile": "docs/specs/wave2/MAT-023.md",
-    "implementationStatus": "specified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "PEN-004",
@@ -2352,7 +2352,7 @@
     "category": "Pensions & Retirement",
     "subcategory": "Pension",
     "version": "1.0",
-    "status": "planned",
+    "status": "verified",
     "launchWave": "Wave 2",
     "rulesSensitive": true,
     "risk": "medium",
@@ -2360,9 +2360,9 @@
     "aliases": [
       "employer match"
     ],
-    "benchmarkCount": 0,
+    "benchmarkCount": 7,
     "specFile": "docs/specs/wave2/PEN-004.md",
-    "implementationStatus": "specified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "PEN-005",
@@ -2371,7 +2371,7 @@
     "category": "Pensions & Retirement",
     "subcategory": "Pension Tax",
     "version": "1.0",
-    "status": "planned",
+    "status": "verified",
     "launchWave": "Wave 2",
     "rulesSensitive": true,
     "risk": "high",
@@ -2379,9 +2379,9 @@
     "aliases": [
       "tax relief"
     ],
-    "benchmarkCount": 0,
+    "benchmarkCount": 9,
     "specFile": "docs/specs/wave2/PEN-005.md",
-    "implementationStatus": "specified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "PEN-007",
@@ -2390,7 +2390,7 @@
     "category": "Pensions & Retirement",
     "subcategory": "Retirement",
     "version": "1.0",
-    "status": "planned",
+    "status": "verified",
     "launchWave": "Wave 2",
     "rulesSensitive": true,
     "risk": "high",
@@ -2398,9 +2398,9 @@
     "aliases": [
       "retirement income"
     ],
-    "benchmarkCount": 0,
+    "benchmarkCount": 7,
     "specFile": "docs/specs/wave2/PEN-007.md",
-    "implementationStatus": "specified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "PEN-008",
@@ -2409,7 +2409,7 @@
     "category": "Pensions & Retirement",
     "subcategory": "Retirement",
     "version": "1.0",
-    "status": "planned",
+    "status": "verified",
     "launchWave": "Wave 2",
     "rulesSensitive": true,
     "risk": "high",
@@ -2418,9 +2418,9 @@
       "RMD concept",
       "retirement withdrawals"
     ],
-    "benchmarkCount": 0,
+    "benchmarkCount": 7,
     "specFile": "docs/specs/wave2/PEN-008.md",
-    "implementationStatus": "specified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "PEN-009",
@@ -2429,7 +2429,7 @@
     "category": "Pensions & Retirement",
     "subcategory": "Retirement",
     "version": "1.0",
-    "status": "planned",
+    "status": "verified",
     "launchWave": "Wave 2",
     "rulesSensitive": false,
     "risk": "high",
@@ -2438,9 +2438,9 @@
       "annuity payout calculator",
       "annuity income"
     ],
-    "benchmarkCount": 0,
+    "benchmarkCount": 7,
     "specFile": "docs/specs/wave2/PEN-009.md",
-    "implementationStatus": "specified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "PEN-010",
@@ -2449,7 +2449,7 @@
     "category": "Pensions & Retirement",
     "subcategory": "Retirement",
     "version": "1.0",
-    "status": "planned",
+    "status": "verified",
     "launchWave": "Wave 2",
     "rulesSensitive": true,
     "risk": "high",
@@ -2458,9 +2458,9 @@
       "social security concept",
       "UK state pension"
     ],
-    "benchmarkCount": 0,
+    "benchmarkCount": 8,
     "specFile": "docs/specs/wave2/PEN-010.md",
-    "implementationStatus": "specified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "PEN-012",
@@ -2469,7 +2469,7 @@
     "category": "Pensions & Retirement",
     "subcategory": "Retirement",
     "version": "1.0",
-    "status": "planned",
+    "status": "verified",
     "launchWave": "Wave 2",
     "rulesSensitive": false,
     "risk": "medium",
@@ -2477,9 +2477,9 @@
     "aliases": [
       "required pension pot"
     ],
-    "benchmarkCount": 0,
+    "benchmarkCount": 7,
     "specFile": "docs/specs/wave2/PEN-012.md",
-    "implementationStatus": "specified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "PRO-005",
@@ -2775,7 +2775,7 @@
     "category": "Science & Engineering",
     "subcategory": "Electrical",
     "version": "1.0",
-    "status": "planned",
+    "status": "verified",
     "launchWave": "Wave 2",
     "rulesSensitive": false,
     "risk": "low",
@@ -2783,9 +2783,9 @@
     "aliases": [
       "ohms law"
     ],
-    "benchmarkCount": 0,
+    "benchmarkCount": 7,
     "specFile": "docs/specs/wave2/SCI-001.md",
-    "implementationStatus": "specified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "SCI-002",
@@ -2794,7 +2794,7 @@
     "category": "Science & Engineering",
     "subcategory": "Electrical",
     "version": "1.0",
-    "status": "planned",
+    "status": "verified",
     "launchWave": "Wave 2",
     "rulesSensitive": false,
     "risk": "low",
@@ -2802,9 +2802,9 @@
     "aliases": [
       "voltage drop"
     ],
-    "benchmarkCount": 0,
+    "benchmarkCount": 7,
     "specFile": "docs/specs/wave2/SCI-002.md",
-    "implementationStatus": "specified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "SCI-003",
@@ -2813,7 +2813,7 @@
     "category": "Science & Engineering",
     "subcategory": "Electrical",
     "version": "1.0",
-    "status": "planned",
+    "status": "verified",
     "launchWave": "Wave 2",
     "rulesSensitive": false,
     "risk": "low",
@@ -2821,9 +2821,9 @@
     "aliases": [
       "electrical power"
     ],
-    "benchmarkCount": 0,
+    "benchmarkCount": 6,
     "specFile": "docs/specs/wave2/SCI-003.md",
-    "implementationStatus": "specified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "SCI-004",
@@ -2832,7 +2832,7 @@
     "category": "Science & Engineering",
     "subcategory": "Electrical",
     "version": "1.0",
-    "status": "planned",
+    "status": "verified",
     "launchWave": "Wave 2",
     "rulesSensitive": false,
     "risk": "low",
@@ -2840,9 +2840,9 @@
     "aliases": [
       "resistance"
     ],
-    "benchmarkCount": 0,
+    "benchmarkCount": 12,
     "specFile": "docs/specs/wave2/SCI-004.md",
-    "implementationStatus": "specified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "SCI-005",
@@ -2851,7 +2851,7 @@
     "category": "Science & Engineering",
     "subcategory": "Physics",
     "version": "1.0",
-    "status": "planned",
+    "status": "verified",
     "launchWave": "Wave 2",
     "rulesSensitive": false,
     "risk": "low",
@@ -2859,9 +2859,9 @@
     "aliases": [
       "density"
     ],
-    "benchmarkCount": 0,
+    "benchmarkCount": 6,
     "specFile": "docs/specs/wave2/SCI-005.md",
-    "implementationStatus": "specified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "SCI-006",
@@ -2870,7 +2870,7 @@
     "category": "Science & Engineering",
     "subcategory": "Chemistry",
     "version": "1.0",
-    "status": "planned",
+    "status": "verified",
     "launchWave": "Wave 2",
     "rulesSensitive": false,
     "risk": "low",
@@ -2878,9 +2878,9 @@
     "aliases": [
       "molarity"
     ],
-    "benchmarkCount": 0,
+    "benchmarkCount": 6,
     "specFile": "docs/specs/wave2/SCI-006.md",
-    "implementationStatus": "specified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "SCI-007",
@@ -2889,7 +2889,7 @@
     "category": "Science & Engineering",
     "subcategory": "Chemistry",
     "version": "1.0",
-    "status": "planned",
+    "status": "verified",
     "launchWave": "Wave 2",
     "rulesSensitive": false,
     "risk": "low",
@@ -2897,9 +2897,9 @@
     "aliases": [
       "molecular mass"
     ],
-    "benchmarkCount": 0,
+    "benchmarkCount": 7,
     "specFile": "docs/specs/wave2/SCI-007.md",
-    "implementationStatus": "specified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "SCI-008",
@@ -2908,7 +2908,7 @@
     "category": "Science & Engineering",
     "subcategory": "Weather",
     "version": "1.0",
-    "status": "planned",
+    "status": "verified",
     "launchWave": "Wave 2",
     "rulesSensitive": false,
     "risk": "low",
@@ -2916,9 +2916,9 @@
     "aliases": [
       "heat index"
     ],
-    "benchmarkCount": 0,
+    "benchmarkCount": 7,
     "specFile": "docs/specs/wave2/SCI-008.md",
-    "implementationStatus": "specified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "SCI-009",
@@ -2927,7 +2927,7 @@
     "category": "Science & Engineering",
     "subcategory": "Weather",
     "version": "1.0",
-    "status": "planned",
+    "status": "verified",
     "launchWave": "Wave 2",
     "rulesSensitive": false,
     "risk": "low",
@@ -2935,9 +2935,9 @@
     "aliases": [
       "wind chill"
     ],
-    "benchmarkCount": 0,
+    "benchmarkCount": 6,
     "specFile": "docs/specs/wave2/SCI-009.md",
-    "implementationStatus": "specified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "SCI-010",
@@ -2946,7 +2946,7 @@
     "category": "Science & Engineering",
     "subcategory": "Weather",
     "version": "1.0",
-    "status": "planned",
+    "status": "verified",
     "launchWave": "Wave 2",
     "rulesSensitive": false,
     "risk": "low",
@@ -2954,9 +2954,9 @@
     "aliases": [
       "dew point"
     ],
-    "benchmarkCount": 0,
+    "benchmarkCount": 6,
     "specFile": "docs/specs/wave2/SCI-010.md",
-    "implementationStatus": "specified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "SCI-011",
@@ -2965,7 +2965,7 @@
     "category": "Science & Engineering",
     "subcategory": "Energy",
     "version": "1.0",
-    "status": "planned",
+    "status": "verified",
     "launchWave": "Wave 2",
     "rulesSensitive": false,
     "risk": "low",
@@ -2973,9 +2973,9 @@
     "aliases": [
       "BTU"
     ],
-    "benchmarkCount": 0,
+    "benchmarkCount": 6,
     "specFile": "docs/specs/wave2/SCI-011.md",
-    "implementationStatus": "specified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "STA-002",
@@ -2984,7 +2984,7 @@
     "category": "Statistics & Data",
     "subcategory": "Descriptive Statistics",
     "version": "1.0",
-    "status": "planned",
+    "status": "verified",
     "launchWave": "Wave 2",
     "rulesSensitive": false,
     "risk": "low",
@@ -2992,9 +2992,9 @@
     "aliases": [
       "mean calculator"
     ],
-    "benchmarkCount": 0,
+    "benchmarkCount": 7,
     "specFile": "docs/specs/wave2/STA-002.md",
-    "implementationStatus": "specified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "STA-004",
@@ -3003,7 +3003,7 @@
     "category": "Statistics & Data",
     "subcategory": "Descriptive Statistics",
     "version": "1.0",
-    "status": "planned",
+    "status": "verified",
     "launchWave": "Wave 2",
     "rulesSensitive": false,
     "risk": "low",
@@ -3011,9 +3011,9 @@
     "aliases": [
       "variance"
     ],
-    "benchmarkCount": 0,
+    "benchmarkCount": 6,
     "specFile": "docs/specs/wave2/STA-004.md",
-    "implementationStatus": "specified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "STA-005",
@@ -3022,7 +3022,7 @@
     "category": "Statistics & Data",
     "subcategory": "Inference",
     "version": "1.0",
-    "status": "planned",
+    "status": "verified",
     "launchWave": "Wave 2",
     "rulesSensitive": false,
     "risk": "low",
@@ -3030,9 +3030,9 @@
     "aliases": [
       "standard score"
     ],
-    "benchmarkCount": 0,
+    "benchmarkCount": 6,
     "specFile": "docs/specs/wave2/STA-005.md",
-    "implementationStatus": "specified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "STA-007",
@@ -3041,7 +3041,7 @@
     "category": "Statistics & Data",
     "subcategory": "Inference",
     "version": "1.0",
-    "status": "planned",
+    "status": "verified",
     "launchWave": "Wave 2",
     "rulesSensitive": false,
     "risk": "low",
@@ -3049,9 +3049,9 @@
     "aliases": [
       "p value"
     ],
-    "benchmarkCount": 0,
+    "benchmarkCount": 7,
     "specFile": "docs/specs/wave2/STA-007.md",
-    "implementationStatus": "specified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "STA-009",
@@ -3060,7 +3060,7 @@
     "category": "Statistics & Data",
     "subcategory": "Research",
     "version": "1.0",
-    "status": "planned",
+    "status": "verified",
     "launchWave": "Wave 2",
     "rulesSensitive": false,
     "risk": "low",
@@ -3068,9 +3068,9 @@
     "aliases": [
       "MOE"
     ],
-    "benchmarkCount": 0,
+    "benchmarkCount": 6,
     "specFile": "docs/specs/wave2/STA-009.md",
-    "implementationStatus": "specified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "STA-010",
@@ -3079,7 +3079,7 @@
     "category": "Statistics & Data",
     "subcategory": "Research",
     "version": "1.0",
-    "status": "planned",
+    "status": "verified",
     "launchWave": "Wave 2",
     "rulesSensitive": false,
     "risk": "low",
@@ -3087,9 +3087,9 @@
     "aliases": [
       "power analysis"
     ],
-    "benchmarkCount": 0,
+    "benchmarkCount": 6,
     "specFile": "docs/specs/wave2/STA-010.md",
-    "implementationStatus": "specified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "STA-011",
@@ -3098,7 +3098,7 @@
     "category": "Statistics & Data",
     "subcategory": "Probability",
     "version": "1.0",
-    "status": "planned",
+    "status": "verified",
     "launchWave": "Wave 2",
     "rulesSensitive": false,
     "risk": "low",
@@ -3106,9 +3106,9 @@
     "aliases": [
       "probability"
     ],
-    "benchmarkCount": 0,
+    "benchmarkCount": 6,
     "specFile": "docs/specs/wave2/STA-011.md",
-    "implementationStatus": "specified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "STA-012",
@@ -3117,7 +3117,7 @@
     "category": "Statistics & Data",
     "subcategory": "Probability",
     "version": "1.0",
-    "status": "planned",
+    "status": "verified",
     "launchWave": "Wave 2",
     "rulesSensitive": false,
     "risk": "low",
@@ -3126,9 +3126,9 @@
       "nPr",
       "nCr"
     ],
-    "benchmarkCount": 0,
+    "benchmarkCount": 7,
     "specFile": "docs/specs/wave2/STA-012.md",
-    "implementationStatus": "specified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "STA-013",
@@ -3137,7 +3137,7 @@
     "category": "Statistics & Data",
     "subcategory": "Regression",
     "version": "1.0",
-    "status": "planned",
+    "status": "verified",
     "launchWave": "Wave 2",
     "rulesSensitive": false,
     "risk": "low",
@@ -3145,9 +3145,9 @@
     "aliases": [
       "Pearson correlation"
     ],
-    "benchmarkCount": 0,
+    "benchmarkCount": 6,
     "specFile": "docs/specs/wave2/STA-013.md",
-    "implementationStatus": "specified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "STA-015",
@@ -3156,7 +3156,7 @@
     "category": "Statistics & Data",
     "subcategory": "Regression",
     "version": "1.0",
-    "status": "planned",
+    "status": "verified",
     "launchWave": "Wave 2",
     "rulesSensitive": false,
     "risk": "low",
@@ -3164,9 +3164,9 @@
     "aliases": [
       "coefficient of determination"
     ],
-    "benchmarkCount": 0,
+    "benchmarkCount": 6,
     "specFile": "docs/specs/wave2/STA-015.md",
-    "implementationStatus": "specified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "STA-016",
@@ -3175,7 +3175,7 @@
     "category": "Statistics & Data",
     "subcategory": "Hypothesis Tests",
     "version": "1.0",
-    "status": "planned",
+    "status": "verified",
     "launchWave": "Wave 2",
     "rulesSensitive": false,
     "risk": "low",
@@ -3183,9 +3183,9 @@
     "aliases": [
       "t test"
     ],
-    "benchmarkCount": 0,
+    "benchmarkCount": 6,
     "specFile": "docs/specs/wave2/STA-016.md",
-    "implementationStatus": "specified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "STA-017",
@@ -3194,7 +3194,7 @@
     "category": "Statistics & Data",
     "subcategory": "Hypothesis Tests",
     "version": "1.0",
-    "status": "planned",
+    "status": "verified",
     "launchWave": "Wave 2",
     "rulesSensitive": false,
     "risk": "low",
@@ -3202,9 +3202,9 @@
     "aliases": [
       "chi square"
     ],
-    "benchmarkCount": 0,
+    "benchmarkCount": 6,
     "specFile": "docs/specs/wave2/STA-017.md",
-    "implementationStatus": "specified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "STA-018",
@@ -3213,7 +3213,7 @@
     "category": "Statistics & Data",
     "subcategory": "Hypothesis Tests",
     "version": "1.0",
-    "status": "planned",
+    "status": "verified",
     "launchWave": "Wave 2",
     "rulesSensitive": false,
     "risk": "low",
@@ -3221,9 +3221,9 @@
     "aliases": [
       "analysis of variance"
     ],
-    "benchmarkCount": 0,
+    "benchmarkCount": 6,
     "specFile": "docs/specs/wave2/STA-018.md",
-    "implementationStatus": "specified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "STA-019",
@@ -3232,7 +3232,7 @@
     "category": "Statistics & Data",
     "subcategory": "Experimentation",
     "version": "1.0",
-    "status": "planned",
+    "status": "verified",
     "launchWave": "Wave 2",
     "rulesSensitive": false,
     "risk": "low",
@@ -3240,9 +3240,9 @@
     "aliases": [
       "conversion test"
     ],
-    "benchmarkCount": 0,
+    "benchmarkCount": 6,
     "specFile": "docs/specs/wave2/STA-019.md",
-    "implementationStatus": "specified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "STA-020",
@@ -3251,7 +3251,7 @@
     "category": "Statistics & Data",
     "subcategory": "Research",
     "version": "1.0",
-    "status": "planned",
+    "status": "verified",
     "launchWave": "Wave 2",
     "rulesSensitive": false,
     "risk": "low",
@@ -3259,9 +3259,9 @@
     "aliases": [
       "percentage error"
     ],
-    "benchmarkCount": 0,
+    "benchmarkCount": 6,
     "specFile": "docs/specs/wave2/STA-020.md",
-    "implementationStatus": "specified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "TAX-005",
@@ -3270,7 +3270,7 @@
     "category": "UK Tax & Salary",
     "subcategory": "Salary",
     "version": "1.0",
-    "status": "planned",
+    "status": "verified",
     "launchWave": "Wave 2",
     "rulesSensitive": true,
     "risk": "high",
@@ -3278,9 +3278,9 @@
     "aliases": [
       "salary sacrifice"
     ],
-    "benchmarkCount": 0,
+    "benchmarkCount": 7,
     "specFile": "docs/specs/wave2/TAX-005.md",
-    "implementationStatus": "specified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "TAX-006",
@@ -3289,7 +3289,7 @@
     "category": "UK Tax & Salary",
     "subcategory": "Salary",
     "version": "1.0",
-    "status": "planned",
+    "status": "verified",
     "launchWave": "Wave 2",
     "rulesSensitive": false,
     "risk": "low",
@@ -3297,9 +3297,9 @@
     "aliases": [
       "hourly wage to annual"
     ],
-    "benchmarkCount": 0,
+    "benchmarkCount": 6,
     "specFile": "docs/specs/wave2/TAX-006.md",
-    "implementationStatus": "specified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "TAX-007",
@@ -3308,7 +3308,7 @@
     "category": "UK Tax & Salary",
     "subcategory": "Salary",
     "version": "1.0",
-    "status": "planned",
+    "status": "verified",
     "launchWave": "Wave 2",
     "rulesSensitive": false,
     "risk": "low",
@@ -3316,9 +3316,9 @@
     "aliases": [
       "annual salary to hourly"
     ],
-    "benchmarkCount": 0,
+    "benchmarkCount": 6,
     "specFile": "docs/specs/wave2/TAX-007.md",
-    "implementationStatus": "specified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "TAX-008",
@@ -3327,7 +3327,7 @@
     "category": "UK Tax & Salary",
     "subcategory": "Salary",
     "version": "1.0",
-    "status": "planned",
+    "status": "verified",
     "launchWave": "Wave 2",
     "rulesSensitive": false,
     "risk": "medium",
@@ -3335,9 +3335,9 @@
     "aliases": [
       "overtime"
     ],
-    "benchmarkCount": 0,
+    "benchmarkCount": 6,
     "specFile": "docs/specs/wave2/TAX-008.md",
-    "implementationStatus": "specified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "TAX-009",
@@ -3346,7 +3346,7 @@
     "category": "UK Tax & Salary",
     "subcategory": "Salary",
     "version": "1.0",
-    "status": "planned",
+    "status": "verified",
     "launchWave": "Wave 2",
     "rulesSensitive": true,
     "risk": "high",
@@ -3354,9 +3354,9 @@
     "aliases": [
       "bonus take home"
     ],
-    "benchmarkCount": 0,
+    "benchmarkCount": 7,
     "specFile": "docs/specs/wave2/TAX-009.md",
-    "implementationStatus": "specified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "TAX-010",
@@ -3365,7 +3365,7 @@
     "category": "UK Tax & Salary",
     "subcategory": "Income Tax",
     "version": "1.0",
-    "status": "planned",
+    "status": "verified",
     "launchWave": "Wave 2",
     "rulesSensitive": true,
     "risk": "high",
@@ -3373,9 +3373,9 @@
     "aliases": [
       "marriage tax calculator"
     ],
-    "benchmarkCount": 0,
+    "benchmarkCount": 7,
     "specFile": "docs/specs/wave2/TAX-010.md",
-    "implementationStatus": "specified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "TAX-011",
@@ -3384,7 +3384,7 @@
     "category": "UK Tax & Salary",
     "subcategory": "Investment Tax",
     "version": "1.0",
-    "status": "planned",
+    "status": "verified",
     "launchWave": "Wave 2",
     "rulesSensitive": true,
     "risk": "high",
@@ -3392,9 +3392,9 @@
     "aliases": [
       "dividend allowance"
     ],
-    "benchmarkCount": 0,
+    "benchmarkCount": 8,
     "specFile": "docs/specs/wave2/TAX-011.md",
-    "implementationStatus": "specified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "TAX-012",
@@ -3403,7 +3403,7 @@
     "category": "UK Tax & Salary",
     "subcategory": "Investment Tax",
     "version": "1.0",
-    "status": "planned",
+    "status": "verified",
     "launchWave": "Wave 2",
     "rulesSensitive": true,
     "risk": "high",
@@ -3411,9 +3411,9 @@
     "aliases": [
       "CGT calculator"
     ],
-    "benchmarkCount": 0,
+    "benchmarkCount": 7,
     "specFile": "docs/specs/wave2/TAX-012.md",
-    "implementationStatus": "specified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "TAX-014",
@@ -3422,7 +3422,7 @@
     "category": "UK Tax & Salary",
     "subcategory": "Wealth Tax",
     "version": "1.0",
-    "status": "planned",
+    "status": "verified",
     "launchWave": "Wave 2",
     "rulesSensitive": true,
     "risk": "high",
@@ -3431,9 +3431,9 @@
       "estate tax concept",
       "IHT"
     ],
-    "benchmarkCount": 0,
+    "benchmarkCount": 8,
     "specFile": "docs/specs/wave2/TAX-014.md",
-    "implementationStatus": "specified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "TAX-016",
@@ -3442,7 +3442,7 @@
     "category": "UK Tax & Salary",
     "subcategory": "Self-Employment",
     "version": "1.0",
-    "status": "planned",
+    "status": "verified",
     "launchWave": "Wave 2",
     "rulesSensitive": true,
     "risk": "high",
@@ -3450,9 +3450,9 @@
     "aliases": [
       "sole trader tax"
     ],
-    "benchmarkCount": 0,
+    "benchmarkCount": 7,
     "specFile": "docs/specs/wave2/TAX-016.md",
-    "implementationStatus": "specified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "TAX-017",
@@ -3461,7 +3461,7 @@
     "category": "UK Tax & Salary",
     "subcategory": "Self-Employment",
     "version": "1.0",
-    "status": "planned",
+    "status": "verified",
     "launchWave": "Wave 2",
     "rulesSensitive": true,
     "risk": "high",
@@ -3469,9 +3469,9 @@
     "aliases": [
       "sole trader calculator"
     ],
-    "benchmarkCount": 0,
+    "benchmarkCount": 7,
     "specFile": "docs/specs/wave2/TAX-017.md",
-    "implementationStatus": "specified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "TAX-018",
@@ -3480,7 +3480,7 @@
     "category": "UK Tax & Salary",
     "subcategory": "Business Tax",
     "version": "1.0",
-    "status": "planned",
+    "status": "verified",
     "launchWave": "Wave 2",
     "rulesSensitive": true,
     "risk": "high",
@@ -3488,9 +3488,9 @@
     "aliases": [
       "company tax"
     ],
-    "benchmarkCount": 0,
+    "benchmarkCount": 8,
     "specFile": "docs/specs/wave2/TAX-018.md",
-    "implementationStatus": "specified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "TEC-001",
@@ -3499,7 +3499,7 @@
     "category": "Technology & Digital",
     "subcategory": "Networking",
     "version": "1.0",
-    "status": "planned",
+    "status": "verified",
     "launchWave": "Wave 2",
     "rulesSensitive": false,
     "risk": "low",
@@ -3507,9 +3507,9 @@
     "aliases": [
       "subnet"
     ],
-    "benchmarkCount": 0,
+    "benchmarkCount": 8,
     "specFile": "docs/specs/wave2/TEC-001.md",
-    "implementationStatus": "specified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "TEC-002",
@@ -3518,7 +3518,7 @@
     "category": "Technology & Digital",
     "subcategory": "Networking",
     "version": "1.0",
-    "status": "planned",
+    "status": "verified",
     "launchWave": "Wave 2",
     "rulesSensitive": false,
     "risk": "low",
@@ -3526,9 +3526,9 @@
     "aliases": [
       "bandwidth"
     ],
-    "benchmarkCount": 0,
+    "benchmarkCount": 6,
     "specFile": "docs/specs/wave2/TEC-002.md",
-    "implementationStatus": "specified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "TEC-003",
@@ -3537,7 +3537,7 @@
     "category": "Technology & Digital",
     "subcategory": "Encoding",
     "version": "1.0",
-    "status": "planned",
+    "status": "verified",
     "launchWave": "Wave 2",
     "rulesSensitive": false,
     "risk": "low",
@@ -3545,9 +3545,9 @@
     "aliases": [
       "base64"
     ],
-    "benchmarkCount": 0,
+    "benchmarkCount": 12,
     "specFile": "docs/specs/wave2/TEC-003.md",
-    "implementationStatus": "specified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "TEC-004",
@@ -3556,7 +3556,7 @@
     "category": "Technology & Digital",
     "subcategory": "Encoding",
     "version": "1.0",
-    "status": "planned",
+    "status": "verified",
     "launchWave": "Wave 2",
     "rulesSensitive": false,
     "risk": "low",
@@ -3564,9 +3564,9 @@
     "aliases": [
       "URL encoder"
     ],
-    "benchmarkCount": 0,
+    "benchmarkCount": 6,
     "specFile": "docs/specs/wave2/TEC-004.md",
-    "implementationStatus": "specified"
+    "implementationStatus": "implemented"
   },
   {
     "id": "TEC-005",
@@ -3575,7 +3575,7 @@
     "category": "Technology & Digital",
     "subcategory": "Security Utility",
     "version": "1.0",
-    "status": "planned",
+    "status": "verified",
     "launchWave": "Wave 2",
     "rulesSensitive": false,
     "risk": "low",
@@ -3583,8 +3583,8 @@
     "aliases": [
       "password maker"
     ],
-    "benchmarkCount": 0,
+    "benchmarkCount": 6,
     "specFile": "docs/specs/wave2/TEC-005.md",
-    "implementationStatus": "specified"
+    "implementationStatus": "implemented"
   }
 ]
