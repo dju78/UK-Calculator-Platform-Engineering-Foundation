@@ -2,7 +2,7 @@ import fs from 'fs';
 
 const benchmarks = JSON.parse(fs.readFileSync('../../packages/test-fixtures/fixtures/wave1-benchmarks.json', 'utf8'));
 const calculators = Object.keys(benchmarks);
-const BASE_URL = 'https://uk-calculator-platform.onrender.com';
+const BASE_URL = 'https://ukcalc.jomovate.com';
 
 async function run() {
   console.log(`Starting smoke test for ${calculators.length} calculators on ${BASE_URL}...`);
