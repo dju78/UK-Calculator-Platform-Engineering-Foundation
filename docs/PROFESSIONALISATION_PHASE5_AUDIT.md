@@ -15,7 +15,12 @@ This audit document details the automated and manual verification results for Ph
 | **Rules Diffs** | 0 files modified in `packages/rules-uk` | 0 files modified | **PASS** |
 | **Fixture Diffs** | 0 files modified in `packages/test-fixtures` | 0 files modified | **PASS** |
 | **Registry Diffs** | 0 files modified in `packages/calculator-registry` | 0 files modified | **PASS** |
-| **Phase 4 Isolation** | No edits to Phase 4 governance/editorial routes | 0 edits to Phase 4 files | **PASS** |
+| **Full Playwright Suite** | >= 1,642 tests | **1,652 / 1,652 passed** | **PASS** |
+| **Unit & Content Suite** | 1,005 baseline | **1,014 / 1,014 passed** | **PASS** |
+| **Reference Benchmarks** | 1,489 cases | **1,489 / 1,489 passed** | **PASS** |
+| **TypeScript Typecheck** | Root & Web 0 errors | **0 errors** | **PASS** |
+| **Linter** | ESLint 0 errors / 0 warnings | **0 errors / 0 warnings** | **PASS** |
+| **SSG Build** | 282 static routes | **282 / 282 generated** | **PASS** |
 
 ---
 
@@ -64,6 +69,18 @@ This audit document details the automated and manual verification results for Ph
 
 ---
 
-## 4. Final Sign-Off
+## 4. Phase 4 Potential Overlap Files
+
+As Phase 4 is developed in parallel, the following files contain shared layout/navigation primitives that should be reviewed during eventual merge reconciliation:
+- `apps/web/src/components/layout/Header.tsx`
+- `apps/web/src/components/layout/Footer.tsx`
+- `apps/web/src/components/layout/Sidebar.tsx`
+- `apps/web/src/components/layout/Breadcrumbs.tsx`
+- `apps/web/src/app/calculators/[slug]/page.tsx`
+- `apps/web/src/app/globals.css`
+
+---
+
+## 5. Final Sign-Off
 
 Phase 5 has met all quality, performance, accessibility, and correctness criteria.

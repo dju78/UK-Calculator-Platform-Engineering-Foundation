@@ -15,9 +15,13 @@ This phase makes the platform materially more useful to real users without compr
 - **Base Commit**: `origin/main` at `28092228674c9e32023954c6d476b576b0538573`
 - **Public Domain**: `https://ukcalc.jomovate.com`
 - **Calculators**: 253 canonical calculators across 19 categories
-- **Unit & Content Tests**: 1,014 passing (1,005 baseline + 9 new Phase 5 tests)
+- **Unit & Content Tests**: 1,014 / 1,014 passing (1,005 baseline + 9 new Phase 5 tests)
 - **Reference Benchmarks**: 1,489 / 1,489 passing (275 Wave 1, 1,164 Wave 2, 50 Wave 3)
-- **Playwright E2E Tests**: 1,652 passing (including 10 new Phase 5 utility tests)
+- **Full Playwright E2E Suite**: **1,652 / 1,652 passing** (1,642 baseline + 10 new Phase 5 tests)
+- **Axe Serious Violations**: 0
+- **Axe Critical Violations**: 0
+- **TypeScript Typechecks**: PASS (Root & Web)
+- **ESLint**: PASS (0 errors, 0 warnings)
 - **Static Pages Generated**: 282 / 282 pages
 - **Engine / Rules / Fixtures Diffs**: **Zero (0) changes** (`packages/calculation-engine`, `packages/rules-uk`, `packages/test-fixtures`, `packages/calculator-registry`)
 
@@ -88,15 +92,20 @@ This phase makes the platform materially more useful to real users without compr
 
 ---
 
-## Test Evidence & Regression Pass
+## Complete Test Evidence & Regression Pass
 
 ```
+=== FULL PLAYWRIGHT / PARITY SUITE (1,652 / 1,652 Passing) ===
+Running 1652 tests using 4 workers
+  ...
+  1652 passed (39.2m)
+
 === UNIT TEST SUITE (1,014 / 1,014 Passing) ===
 ℹ tests 1014
 ℹ suites 16
 ℹ pass 1014
 ℹ fail 0
-ℹ duration_ms ~32000
+ℹ duration_ms ~44000
 
 === REFERENCE BENCHMARKS (1,489 / 1,489 Passing) ===
 Wave 1   total   275  executed   275  passed   275  failed    0  skipped     0
@@ -104,22 +113,23 @@ Wave 2   total  1164  executed  1164  passed  1164  failed    0  skipped     0
 Wave 3   total    50  executed    50  passed    50  failed    0  skipped     0
 COMBINED total  1489  executed  1489  passed  1489  failed    0  skipped     0
 
-=== PLAYWRIGHT E2E SUITE (10 / 10 Phase 5 Tests Passing) ===
-  ✔ Phase 5 Utility: Result Actions & Post-Calculation UX
-  ✔ Phase 5 Utility: Tracks recently visited calculator in localStorage
-  ✔ Phase 5 Utility: Zero serious/critical Axe violations on calculated state
-  ✔ Phase 5 Utility: Search Aliases & Colloquial Query Matching (PAYE, SDLT, HICBC, FIRE)
-  ✔ Phase 5 Utility: Favourites & Recently Used filter tabs
-  ✔ Phase 5 Utility: No-results guidance with suggestions & reset
-  ✔ Phase 5 Utility: Responsive viewport check 320px
-  ✔ Phase 5 Utility: Responsive viewport check 375px
-  ✔ Phase 5 Utility: Responsive viewport check 390px
-  ✔ Phase 5 Utility: Responsive viewport check 768px
-
 === NEXT.JS PRODUCTION BUILD (282 / 282 Pages Prerendered) ===
-✓ Compiled successfully in 1.9s
-✓ Generating static pages (282/282)
+✓ Compiled successfully in 1.6s
+✓ Generating static pages (282/282) in 10.0s
 ```
+
+---
+
+## Phase 4 Coordination & Likely Overlap Files
+
+Phase 4 (Governance & Editorial Metadata) is currently under active development on `professionalisation-phase-4-governance`. While Phase 5 made zero edits to Phase 4 governance routes (`/about`, `/contact`, `/editorial-policy`, etc.), the following shared layout and navigation files are identified as the most likely touchpoints during eventual merge reconciliation:
+
+1. `apps/web/src/components/layout/Header.tsx` (navigation landmarks / header links)
+2. `apps/web/src/components/layout/Footer.tsx` (legal / governance footer links)
+3. `apps/web/src/components/layout/Sidebar.tsx` (category navigation landmarks)
+4. `apps/web/src/components/layout/Breadcrumbs.tsx` (breadcrumb schema & a11y labels)
+5. `apps/web/src/app/calculators/[slug]/page.tsx` (calculator page client utility wrappers)
+6. `apps/web/src/app/globals.css` (print styling and layout constraints)
 
 ---
 

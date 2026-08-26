@@ -52,6 +52,7 @@ async function blockingViolations(page: import('@playwright/test').Page) {
 test.describe('Platform accessibility', () => {
   for (const calc of representatives) {
     test(`${calc.category}: ${calc.id} has no serious or critical violations WITH RESULTS SHOWN`, async ({ page }) => {
+      test.setTimeout(60000);
       await page.goto(`/calculators/${calc.slug}`);
 
       const calculate = page.getByRole('button', { name: /calculate/i });

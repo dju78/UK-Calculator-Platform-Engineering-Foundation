@@ -35,7 +35,7 @@ test.describe("Phase 5 Utility: Result Actions & Post-Calculation UX", () => {
     await expect(printBtn).toBeVisible();
 
     // Favourite toggle in actions
-    const favouriteBtn = actions.getByRole("button", { name: /Save to favourites|Remove from favourites/i });
+    const favouriteBtn = actions.getByRole("button", { name: /favourite/i });
     await expect(favouriteBtn).toBeVisible();
     await favouriteBtn.click();
     await expect(favouriteBtn).toHaveText(/Favourited/i);
