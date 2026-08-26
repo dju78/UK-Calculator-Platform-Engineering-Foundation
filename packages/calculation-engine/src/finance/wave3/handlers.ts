@@ -1,4 +1,5 @@
-﻿import type { CalculatorHandler } from "../../types.js";
+﻿import type { CalculationContext, CalculatorHandler } from "../../types.js";
+import { resolveRules } from "../../../../rules-uk/src/index.js";
 import { compareFixedVsTracker } from "./mortgage-comparison.js";
 import { calculatePropertyCgt } from "./property-cgt.js";
 import { simulatePortfolioDrawdown } from "./portfolio-drawdown.js";
@@ -119,15 +120,24 @@ export const isa007Handler: CalculatorHandler = (inputs) => {
   return { outputs: r as unknown as Record<string, number | string | null> };
 };
 
+/**
+ * The ruleset is a versioned JSON document, so its shape is validated at load
+ * time rather than by the compiler. Handlers read it structurally, exactly as
+ * the Wave 1 and Wave 2 tax handlers do.
+ */
+function rulesFor(context: CalculationContext): any {
+  return resolveRules({ taxYear: context.taxYear || "2026/27" }) as any;
+}
+
 /** TAX-013 General Investment Account Tax */
-export const tax013Handler: CalculatorHandler = (inputs) => {
+export const tax013Handler: CalculatorHandler = (inputs, context) => {
   const r = calculateGiaTax({
     annual_dividends: inputs.annual_dividends !== undefined ? Number(inputs.annual_dividends) : undefined,
     realised_capital_gains: inputs.realised_capital_gains !== undefined ? Number(inputs.realised_capital_gains) : undefined,
     interest_income: inputs.interest_income !== undefined ? Number(inputs.interest_income) : undefined,
     other_taxable_income: inputs.other_taxable_income !== undefined ? Number(inputs.other_taxable_income) : undefined,
     capital_losses_brought_forward: inputs.capital_losses_brought_forward !== undefined ? Number(inputs.capital_losses_brought_forward) : undefined
-  });
+  }, rulesFor(context));
   return { outputs: r as unknown as Record<string, number | string | null> };
 };
 

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { SITE_NAME, absoluteUrl } from "@/lib/site";
+import { Breadcrumbs } from "@/components/layout/Breadcrumbs";
 
 export const metadata: Metadata = {
   title: `Accessibility Statement | ${SITE_NAME}`,
@@ -26,6 +27,7 @@ export const metadata: Metadata = {
 export default function AccessibilityStatement() {
   return (
     <div className="prose max-w-none">
+      <Breadcrumbs items={[{ label: "Accessibility Statement" }]} className="mb-6 not-prose" />
       <h1>Accessibility Statement</h1>
       <p>Last updated: August 2026</p>
 

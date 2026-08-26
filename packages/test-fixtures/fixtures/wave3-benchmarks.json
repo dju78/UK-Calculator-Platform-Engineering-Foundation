@@ -815,15 +815,15 @@
       },
       "expected": {
         "taxpayer_band": "higher",
-        "dividend_tax_due": 675,
+        "dividend_tax_due": 715,
         "capital_gains_tax_due": 720,
         "interest_tax_due": 120,
-        "total_gia_tax_due": 1515,
-        "net_investment_income_after_tax": 7785
+        "total_gia_tax_due": 1555,
+        "net_investment_income_after_tax": 7745
       },
       "tolerance": "±£0.01",
       "ruleset": "uk-2026-27-v1",
-      "derivation": "Higher band: Div = (2500 - 500)*33.75% = £675. CGT = (6000 - 3000)*24% = £720. Int = (800 - 500)*40% = £120. Total = £1,515."
+      "derivation": "Higher band: Div = (2500 - 500)*35.75% = £715. CGT = (6000 - 3000)*24% = £720. Int = (800 - 500)*40% = £120. Total = £1,555. Net = 9,300 - 1,555 = £7,745."
     },
     {
       "scenario": "Basic rate taxpayer within all statutory allowances",
@@ -877,14 +877,14 @@
       },
       "expected": {
         "taxpayer_band": "basic",
-        "dividend_tax_due": 393.75,
+        "dividend_tax_due": 483.75,
         "capital_gains_tax_due": 0,
         "interest_tax_due": 0,
-        "total_gia_tax_due": 393.75
+        "total_gia_tax_due": 483.75
       },
       "tolerance": "±£0.01",
       "ruleset": "uk-2026-27-v1",
-      "derivation": "Net gain = 12000 - 10000 = £2,000 (within £3k AEA -> £0 CGT). Div = (5000 - 500)*8.75% = £393.75."
+      "derivation": "Net gain = 12000 - 10000 = £2,000 (within £3k AEA -> £0 CGT). Div = (5000 - 500)*10.75% = £483.75."
     },
     {
       "scenario": "Pure dividend income portfolio at higher rate",
@@ -897,14 +897,14 @@
       },
       "expected": {
         "taxpayer_band": "higher",
-        "dividend_tax_due": 2531.25,
+        "dividend_tax_due": 2681.25,
         "capital_gains_tax_due": 0,
         "interest_tax_due": 0,
-        "total_gia_tax_due": 2531.25
+        "total_gia_tax_due": 2681.25
       },
       "tolerance": "±£0.01",
       "ruleset": "uk-2026-27-v1",
-      "derivation": "Higher rate: Div = (8000 - 500)*33.75% = £2,531.25."
+      "derivation": "Higher rate: Div = (8000 - 500)*35.75% = £2,681.25."
     }
   ],
   "TAX-019": [
@@ -918,16 +918,16 @@
         "children_count": 2
       },
       "expected": {
-        "total_child_benefit_received": 2212.6,
+        "total_child_benefit_received": 2337.4,
         "adjusted_net_income": 70000,
         "charge_percentage": 50,
-        "hicbc_tax_charge": 1106.3,
-        "net_benefit_retained": 1106.3,
+        "hicbc_tax_charge": 1168.7,
+        "net_benefit_retained": 1168.7,
         "pension_top_up_needed_to_eliminate_charge": 10000
       },
       "tolerance": "±£0.01",
       "ruleset": "uk-2026-27-v1",
-      "derivation": "Annual benefit = 52 * (25.60 + 16.95) = £2,212.60. ANI = £70,000. Charge % = 50%. Charge = £1,106.30."
+      "derivation": "Annual benefit = 52 * (27.05 + 17.90) = £2,337.40. ANI = £70,000. Charge % = 50%. Charge = £1,168.70."
     },
     {
       "scenario": "Below £60,000 threshold (zero charge)",
@@ -939,16 +939,16 @@
         "children_count": 3
       },
       "expected": {
-        "total_child_benefit_received": 3094,
+        "total_child_benefit_received": 3268.2,
         "adjusted_net_income": 58000,
         "charge_percentage": 0,
         "hicbc_tax_charge": 0,
-        "net_benefit_retained": 3094,
+        "net_benefit_retained": 3268.2,
         "pension_top_up_needed_to_eliminate_charge": 0
       },
       "tolerance": "±£0.01",
       "ruleset": "uk-2026-27-v1",
-      "derivation": "ANI £58,000 <= £60,000 -> 0% charge, 100% benefit kept."
+      "derivation": "Annual benefit = 52 * (27.05 + 2*17.90) = £3,268.20. ANI £58,000 <= £60,000 -> 0% charge, 100% benefit kept."
     },
     {
       "scenario": "Above £80,000 threshold (100% clawback)",
@@ -960,16 +960,16 @@
         "children_count": 1
       },
       "expected": {
-        "total_child_benefit_received": 1331.2,
+        "total_child_benefit_received": 1406.6,
         "adjusted_net_income": 85000,
         "charge_percentage": 100,
-        "hicbc_tax_charge": 1331.2,
+        "hicbc_tax_charge": 1406.6,
         "net_benefit_retained": 0,
         "pension_top_up_needed_to_eliminate_charge": 25000
       },
       "tolerance": "±£0.01",
       "ruleset": "uk-2026-27-v1",
-      "derivation": "ANI £85,000 >= £80,000 -> 100% clawback of £1,331.20."
+      "derivation": "Annual benefit = 52 * 27.05 = £1,406.60. ANI £85,000 >= £80,000 -> 100% clawback of £1,406.60."
     },
     {
       "scenario": "Pension contribution successfully eliminating HICBC charge",
@@ -981,16 +981,16 @@
         "children_count": 2
       },
       "expected": {
-        "total_child_benefit_received": 2212.6,
+        "total_child_benefit_received": 2337.4,
         "adjusted_net_income": 60000,
         "charge_percentage": 0,
         "hicbc_tax_charge": 0,
-        "net_benefit_retained": 2212.6,
+        "net_benefit_retained": 2337.4,
         "pension_top_up_needed_to_eliminate_charge": 0
       },
       "tolerance": "±£0.01",
       "ruleset": "uk-2026-27-v1",
-      "derivation": "ANI = 75000 - 15000 = £60,000 -> Charge % = 0%. £2,212.60 benefit preserved."
+      "derivation": "Annual benefit = 52 * (27.05 + 17.90) = £2,337.40. ANI = 75000 - 15000 = £60,000 -> Charge % = 0%. Benefit preserved."
     },
     {
       "scenario": "Gift Aid donations reducing Adjusted Net Income",
@@ -1002,16 +1002,16 @@
         "children_count": 1
       },
       "expected": {
-        "total_child_benefit_received": 1331.2,
+        "total_child_benefit_received": 1406.6,
         "adjusted_net_income": 64000,
         "charge_percentage": 20,
-        "hicbc_tax_charge": 266.24,
-        "net_benefit_retained": 1064.96,
+        "hicbc_tax_charge": 281.32,
+        "net_benefit_retained": 1125.28,
         "pension_top_up_needed_to_eliminate_charge": 4000
       },
       "tolerance": "±£0.01",
       "ruleset": "uk-2026-27-v1",
-      "derivation": "Gross Gift Aid = £2,000. ANI = £64,000. Charge % = 20%. Charge = £266.24."
+      "derivation": "Annual benefit = 52 * 27.05 = £1,406.60. Gross Gift Aid = £2,000. ANI = £64,000. Charge % = 20%. Charge = £281.32."
     }
   ],
   "PEN-011": [

@@ -8,7 +8,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   // Calculators are addressed by SLUG. A previous revision emitted the internal
   // id (/calculators/TAX-001), so every one of the 55 canonical URLs in the
   // sitemap pointed somewhere other than the page users and links actually use.
-  const calculators = liveCalculators.map((calc) => ({
+  const calculators = liveCalculators.map((calc: any) => ({
     url: `${SITE_URL}${calculatorPath(calc.slug)}`,
     lastModified,
     changeFrequency: 'weekly' as const,
@@ -17,7 +17,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   // Category names contain spaces and ampersands, so they must be encoded to
   // be valid URLs inside the sitemap.
-  const categories = Array.from(new Set(liveCalculators.map((c) => c.category))).map((cat) => ({
+  const categories = Array.from(new Set(liveCalculators.map((c: any) => c.category))).map((cat) => ({
     url: `${SITE_URL}${categoryPath(cat)}`,
     lastModified,
     changeFrequency: 'weekly' as const,
