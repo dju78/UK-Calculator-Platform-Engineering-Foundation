@@ -6,6 +6,20 @@
   capital_losses_brought_forward?: number;
 }
 
+/**
+ * The slice of the versioned UK ruleset this calculator reads.
+ *
+ * Declared structurally rather than importing the full ruleset type, because
+ * the ruleset is a versioned JSON document validated at load time - the same
+ * approach the Wave 1 and Wave 2 tax handlers take.
+ */
+export interface UKRulesetLike {
+  dividends: {
+    allowance_gbp: number;
+    rates: { basic: number; higher: number; additional: number };
+  };
+}
+
 export interface GiaTaxResult {
   taxpayer_band: "basic" | "higher" | "additional";
   dividend_tax_due: number;
@@ -17,7 +31,17 @@ export interface GiaTaxResult {
   net_investment_income_after_tax: number;
 }
 
-export function calculateGiaTax(inputs: GiaTaxInputs): GiaTaxResult {
+/**
+ * Tax on an unwrapped general investment account.
+ *
+ * The dividend allowance and the dividend rates are read from the versioned UK
+ * ruleset rather than hardcoded here. They were previously hardcoded at 8.75%
+ * and 33.75%, which were the rates before 2026/27, so this calculator quietly
+ * disagreed with both the approved ruleset and TAX-011 on identical facts.
+ * Reading the statutory figures from the one place that owns them is what stops
+ * that happening again, rather than correcting two more constants in place.
+ */
+export function calculateGiaTax(inputs: GiaTaxInputs, rules: UKRulesetLike): GiaTaxResult {
   const dividends = Math.max(0, Number(inputs.annual_dividends ?? 0));
   const capitalGains = Math.max(0, Number(inputs.realised_capital_gains ?? 0));
   const interest = Math.max(0, Number(inputs.interest_income ?? 0));
@@ -32,14 +56,18 @@ export function calculateGiaTax(inputs: GiaTaxInputs): GiaTaxResult {
     band = "higher";
   }
 
-  // 1. Dividend Tax (Allowance = £500)
-  const dividendAllowance = 500;
+  // 1. Dividend Tax. The allowance and the rates come from the ruleset, which
+  // is the single place the statutory dividend figures are defined.
+  const dividendAllowance = rules.dividends.allowance_gbp;
   const divAllowanceUsed = Math.min(dividends, dividendAllowance);
   const taxableDividends = Math.max(0, dividends - divAllowanceUsed);
 
-  let divTaxRate = 0.0875; // basic
-  if (band === "higher") divTaxRate = 0.3375;
-  else if (band === "additional") divTaxRate = 0.3935;
+  const divTaxRate =
+    band === "additional"
+      ? rules.dividends.rates.additional
+      : band === "higher"
+        ? rules.dividends.rates.higher
+        : rules.dividends.rates.basic;
 
   const dividendTaxDue = taxableDividends * divTaxRate;
 
