@@ -18,3 +18,61 @@ body {
   background-color: var(--color-slate-50);
   color: var(--color-slate-900);
 }
+
+/* Print Experience */
+@media print {
+  @page {
+    margin: 1.5cm;
+    size: auto;
+  }
+
+  body {
+    background: #ffffff !important;
+    color: #000000 !important;
+    font-size: 11pt;
+    line-height: 1.4;
+  }
+
+  /* Hide navigation, sidebar, footer, search, and interactive actions in print */
+  header,
+  aside,
+  footer,
+  nav,
+  .no-print,
+  [data-no-print],
+  button,
+  form button[type="submit"],
+  [data-testid="result-actions"] {
+    display: none !important;
+  }
+
+  /* Expand main container to full print width */
+  .container,
+  main,
+  #root,
+  .grid {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    box-shadow: none !important;
+    border: none !important;
+    display: block !important;
+  }
+
+  /* Avoid page breaks inside cards, tables, and disclaimer banners */
+  section,
+  table,
+  tr,
+  .rounded-lg,
+  [role="alert"] {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  /* Force exact color reproduction for badges and statutory notes */
+  * {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+}

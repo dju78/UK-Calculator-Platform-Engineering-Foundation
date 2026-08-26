@@ -23,7 +23,7 @@ export function RelatedCalculators({
   if (related.length === 0) return null;
 
   return (
-    <section className="mt-8 border-t border-slate-200 pt-8">
+    <section className="mt-8 border-t border-slate-200 pt-8 no-print">
       <h2 className="text-xl font-bold text-slate-900 mb-4">
         Related Calculators
       </h2>

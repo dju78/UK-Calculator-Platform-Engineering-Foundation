@@ -1,12 +1,15 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useMemo, useState, useCallback } from "react";
 import { calculate } from "../../../../../dist/packages/calculation-engine/src/engine.js";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/Card";
 import { Input } from "@/components/ui/Input";
 import type { FieldDef, PeriodicResultConfig } from "./fieldTypes";
 import { NOTE_OUTPUT_KEYS } from "./fieldMappings";
 import { formatOutputValue } from "./outputFormats";
+import { getLiveCalculator } from "@/lib/calculators";
+import { generateResultSummaryText } from "@/lib/exportUtils";
+import { ResultActions } from "./ResultActions";
 
 export type { FieldDef };
 
@@ -68,8 +71,10 @@ export function DynamicCalculator({
   };
 
   // All presentation decisions live in the central registry.
-  const formatOutput = (key: string, value: unknown) =>
-    formatOutputValue(calculatorId, key, value);
+  const formatOutput = useCallback(
+    (key: string, value: unknown) => formatOutputValue(calculatorId, key, value),
+    [calculatorId]
+  );
 
   const handleCalculate = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -145,12 +150,34 @@ export function DynamicCalculator({
     return order.map(g => ({ name: g, fields: byGroup.get(g)! }));
   }, [visibleFields]);
 
-  const outputs: Record<string, any> = result?.outputs ?? {};
-  const primaryKeys = new Set(primaryResult?.rows.map(r => r.key) ?? []);
-  const noteEntries = NOTE_OUTPUT_KEYS.filter(k => typeof outputs[k] === "string");
-  const detailEntries = Object.entries(outputs).filter(
-    ([k]) => !primaryKeys.has(k) && !NOTE_OUTPUT_KEYS.includes(k)
+  const calcDef = useMemo(() => getLiveCalculator(calculatorId), [calculatorId]);
+  const calculatorSlug = calcDef?.slug || calculatorId.toLowerCase();
+  const calculatorName = calcDef?.name || "Calculator";
+  const rulesSensitive = calcDef?.rulesSensitive;
+
+  const outputs: Record<string, any> = useMemo(() => result?.outputs ?? {}, [result]);
+  const primaryKeys = useMemo(() => new Set(primaryResult?.rows.map(r => r.key) ?? []), [primaryResult]);
+  const noteEntries = useMemo(() => NOTE_OUTPUT_KEYS.filter(k => typeof outputs[k] === "string"), [outputs]);
+  const detailEntries = useMemo(
+    () => Object.entries(outputs).filter(
+      ([k]) => !primaryKeys.has(k) && !NOTE_OUTPUT_KEYS.includes(k)
+    ),
+    [outputs, primaryKeys]
   );
+
+  const summaryText = useMemo(() => {
+    if (!result) return "";
+    return generateResultSummaryText({
+      calculatorName,
+      calculatorSlug,
+      rulesSensitive,
+      inputs,
+      fields: visibleFields,
+      outputs,
+      primaryResult,
+      formatOutput
+    });
+  }, [result, calculatorName, calculatorSlug, rulesSensitive, inputs, visibleFields, outputs, primaryResult, formatOutput]);
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -201,6 +228,7 @@ export function DynamicCalculator({
                           name={field.name}
                           label={field.label}
                           type={field.type || "number"}
+                          inputMode={field.type === "text" ? undefined : "decimal"}
                           step={field.type === "text" ? undefined : "any"}
                           aria-describedby={helpId}
                           value={inputs[field.name] ?? ""}
@@ -352,6 +380,8 @@ export function DynamicCalculator({
                   </div>
                 </div>
               )}
+
+              <ResultActions calculatorSlug={calculatorSlug} summaryText={summaryText} />
             </div>
           )}
           </div>

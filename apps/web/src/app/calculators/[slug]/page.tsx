@@ -7,6 +7,7 @@ import { DisclaimerBanner } from "@/components/layout/DisclaimerBanner";
 import { CalculatorGuideSection } from "@/components/calculators/CalculatorGuide";
 import { Breadcrumbs } from "@/components/layout/Breadcrumbs";
 import { RelatedCalculators } from "@/components/calculators/RelatedCalculators";
+import { CalculatorPageUtility } from "@/components/calculators/CalculatorPageUtility";
 import { Metadata } from "next";
 import {
   SITE_NAME,
@@ -99,7 +100,13 @@ export default async function CalculatorPage(props: { params: Promise<{ slug: st
         ]}
       />
 
-      <div className="flex flex-col gap-3 border-b border-slate-200 pb-6">
+      <CalculatorPageUtility
+        slug={calc.slug}
+        name={calc.name}
+        rulesSensitive={calc.rulesSensitive}
+      />
+
+      <div className="flex flex-col gap-3 border-b border-slate-200 pb-6 no-print">
         <div className="flex items-center gap-2 flex-wrap">
           <Badge>{calc.category}</Badge>
           {calc.subcategory && <Badge variant="outline">{calc.subcategory}</Badge>}

@@ -6,6 +6,8 @@ import { liveCalculators, liveCategories } from "@/lib/calculators";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/Card";
 import { Badge } from "@/components/ui/Badge";
 import { Input } from "@/components/ui/Input";
+import { getCalculatorIdsForQuery } from "@/lib/searchAliases";
+import { useFavourites, useRecents, toggleFavourite } from "@/lib/storage";
 
 // High-value canonical entry points for featured discovery
 const FEATURED_IDS = [
@@ -23,9 +25,23 @@ const FEATURED_IDS = [
   "PRO-008", // Fixed vs Tracker
 ];
 
+const POPULAR_SUGGESTIONS = [
+  "Income Tax",
+  "Mortgage",
+  "Stamp Duty",
+  "Pension",
+  "Compound Interest",
+  "BMI",
+  "Salary"
+];
+
 export function CalculatorBrowser() {
   const [search, setSearch] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("All");
+  const [activeFilterTab, setActiveFilterTab] = useState<"all" | "favourites" | "recents">("all");
+  
+  const favouriteSlugs = useFavourites();
+  const recentSlugs = useRecents();
 
   const featuredCalculators = useMemo(() => {
     return FEATURED_IDS
@@ -35,23 +51,62 @@ export function CalculatorBrowser() {
 
   const filtered = useMemo(() => {
     const query = search.trim().toLowerCase();
+    const aliasMatchedIds = query ? getCalculatorIdsForQuery(query) : new Set<string>();
+    const queryTokens = query ? query.split(/\s+/).filter(Boolean) : [];
+
     return liveCalculators.filter((calc) => {
+      // 1. Tab filters (favourites / recents)
+      if (activeFilterTab === "favourites") {
+        if (!favouriteSlugs.includes(calc.slug.toLowerCase())) return false;
+      } else if (activeFilterTab === "recents") {
+        if (!recentSlugs.includes(calc.slug.toLowerCase())) return false;
+      }
+
+      // 2. Category filter
       const matchesCat =
         selectedCategory === "All" ||
         calc.category.toLowerCase() === selectedCategory.toLowerCase();
 
-      if (!query) return matchesCat;
+      if (!matchesCat) return false;
 
-      const matchesName = calc.name.toLowerCase().includes(query);
-      const matchesSubcat =
-        calc.subcategory && calc.subcategory.toLowerCase().includes(query);
-      const matchesCatName = calc.category.toLowerCase().includes(query);
+      // 3. Search query matching
+      if (!query) return true;
 
-      return matchesCat && (matchesName || matchesSubcat || matchesCatName);
+      const calcName = calc.name.toLowerCase();
+      const calcSlug = calc.slug.toLowerCase();
+      const calcSubcat = calc.subcategory ? calc.subcategory.toLowerCase() : "";
+      const calcCatName = calc.category.toLowerCase();
+
+      // Check alias dictionary match
+      if (aliasMatchedIds.has(calc.id)) return true;
+
+      // Check exact / substring matches
+      if (calcName.includes(query) || calcSlug.includes(query)) return true;
+      if (calcSubcat && calcSubcat.includes(query)) return true;
+      if (calcCatName.includes(query)) return true;
+
+      // Check all query tokens
+      if (queryTokens.length > 0 && queryTokens.every(tok => calcName.includes(tok) || calcSubcat.includes(tok) || calcCatName.includes(tok))) {
+        return true;
+      }
+
+      return false;
     });
-  }, [search, selectedCategory]);
+  }, [search, selectedCategory, activeFilterTab, favouriteSlugs, recentSlugs]);
 
-  const isFiltering = search.trim().length > 0 || selectedCategory !== "All";
+  const isFiltering = search.trim().length > 0 || selectedCategory !== "All" || activeFilterTab !== "all";
+
+  const handleCardFavouriteToggle = (e: React.MouseEvent, slug: string) => {
+    e.preventDefault();
+    e.stopPropagation();
+    toggleFavourite(slug);
+  };
+
+  const handleResetFilters = () => {
+    setSearch("");
+    setSelectedCategory("All");
+    setActiveFilterTab("all");
+  };
 
   return (
     <div className="flex flex-col gap-8">
@@ -63,6 +118,7 @@ export function CalculatorBrowser() {
       </div>
 
       <div className="flex flex-col gap-4">
+        {/* Search input bar */}
         <div className="max-w-md">
           <Input 
             placeholder="Search calculators..." 
@@ -72,6 +128,60 @@ export function CalculatorBrowser() {
           />
         </div>
 
+        {/* View Mode Filters: All / Favourites / Recents */}
+        <div className="flex flex-wrap items-center gap-2 pt-1 border-b border-slate-200 pb-3">
+          <button
+            type="button"
+            onClick={() => setActiveFilterTab("all")}
+            aria-pressed={activeFilterTab === "all"}
+            className={`px-3 py-1.5 rounded-md text-xs font-semibold transition-colors ${
+              activeFilterTab === "all"
+                ? "bg-slate-900 text-white"
+                : "bg-slate-100 text-slate-700 hover:bg-slate-200"
+            }`}
+          >
+            All Calculators
+          </button>
+
+          {favouriteSlugs.length > 0 && (
+            <button
+              type="button"
+              onClick={() => setActiveFilterTab("favourites")}
+              aria-pressed={activeFilterTab === "favourites"}
+              className={`inline-flex items-center gap-1 px-3 py-1.5 rounded-md text-xs font-semibold transition-colors ${
+                activeFilterTab === "favourites"
+                  ? "bg-amber-600 text-white"
+                  : "bg-amber-50 text-amber-900 border border-amber-200 hover:bg-amber-100"
+              }`}
+            >
+              <svg className="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+              </svg>
+              <span>Favourites ({favouriteSlugs.length})</span>
+            </button>
+          )}
+
+          {recentSlugs.length > 0 && (
+            <button
+              type="button"
+              onClick={() => setActiveFilterTab("recents")}
+              aria-pressed={activeFilterTab === "recents"}
+              className={`inline-flex items-center gap-1 px-3 py-1.5 rounded-md text-xs font-semibold transition-colors ${
+                activeFilterTab === "recents"
+                  ? "bg-blue-600 text-white"
+                  : "bg-blue-50 text-blue-900 border border-blue-200 hover:bg-blue-100"
+              }`}
+            >
+              <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <circle cx="12" cy="12" r="10" strokeWidth="2"/>
+                <polyline points="12 6 12 12 16 14" strokeWidth="2"/>
+              </svg>
+              <span>Recently Used ({recentSlugs.length})</span>
+            </button>
+          )}
+        </div>
+
+        {/* Category Filter Pills */}
         <div className="flex flex-wrap gap-2 items-center">
           <span className="text-xs font-medium text-slate-500 mr-1">Category:</span>
           <button
@@ -83,7 +193,7 @@ export function CalculatorBrowser() {
                 : "bg-slate-100 text-slate-700 hover:bg-slate-200"
             }`}
           >
-            All {!search && `(${liveCalculators.length})`}
+            All {!search && activeFilterTab === "all" && `(${liveCalculators.length})`}
           </button>
           {liveCategories.map((cat) => (
             <button
@@ -102,6 +212,7 @@ export function CalculatorBrowser() {
         </div>
       </div>
 
+      {/* Featured Calculators (Only shown when not searching/filtering) */}
       {!isFiltering && featuredCalculators.length > 0 && (
         <section aria-labelledby="featured-heading" className="flex flex-col gap-4">
           <div className="flex items-center justify-between border-b border-slate-200 pb-2">
@@ -113,17 +224,106 @@ export function CalculatorBrowser() {
             </span>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {featuredCalculators.map((calc) => (
-              <Link key={calc.id} href={`/calculators/${calc.slug}`} className="group">
-                <Card className="h-full hover:border-blue-300 hover:shadow-md transition-all cursor-pointer flex flex-col bg-gradient-to-b from-white to-slate-50/30" data-calculator-id={calc.id}>
-                  <CardHeader className="p-5 pb-2">
+            {featuredCalculators.map((calc) => {
+              const favourited = favouriteSlugs.includes(calc.slug.toLowerCase());
+              return (
+                <Link key={calc.id} href={`/calculators/${calc.slug}`} className="group relative">
+                  <Card className="h-full hover:border-blue-300 hover:shadow-md transition-all cursor-pointer flex flex-col bg-gradient-to-b from-white to-slate-50/30" data-calculator-id={calc.id}>
+                    <CardHeader className="p-5 pb-2 flex flex-row items-start justify-between gap-2">
+                      <CardTitle className="text-base font-semibold text-slate-900 group-hover:text-blue-600 transition-colors">
+                        {calc.name}
+                      </CardTitle>
+                      <button
+                        type="button"
+                        onClick={(e) => handleCardFavouriteToggle(e, calc.slug)}
+                        aria-label={favourited ? "Remove favourite" : "Add favourite"}
+                        className="p-1 text-slate-400 hover:text-amber-500 focus:outline-none focus-visible:ring-2 focus-visible:ring-slate-900 rounded"
+                      >
+                        <svg
+                          className={`w-4 h-4 ${favourited ? "text-amber-500 fill-amber-400" : "fill-none"}`}
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                          aria-hidden="true"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"
+                          />
+                        </svg>
+                      </button>
+                    </CardHeader>
+                    <CardContent className="p-5 pt-0 flex-1 flex flex-col justify-end gap-2">
+                      <div className="flex flex-wrap gap-2 mt-auto">
+                        <Badge>{calc.category}</Badge>
+                        {calc.subcategory && (
+                          <Badge variant="outline">{calc.subcategory}</Badge>
+                        )}
+                        {calc.rulesSensitive && (
+                          <Badge variant="outline">2026/27</Badge>
+                        )}
+                      </div>
+                    </CardContent>
+                  </Card>
+                </Link>
+              );
+            })}
+          </div>
+        </section>
+      )}
+
+      {/* Main Filtered Calculators Section */}
+      <section aria-labelledby="all-calculators-heading" className="flex flex-col gap-4">
+        <div className="flex items-center justify-between border-b border-slate-200 pb-2">
+          <h2 id="all-calculators-heading" className="text-xl font-bold text-slate-900">
+            {activeFilterTab === "favourites"
+              ? "Favourite Calculators"
+              : activeFilterTab === "recents"
+              ? "Recently Used Calculators"
+              : isFiltering
+              ? "Matching Calculators"
+              : "All Calculators"}
+          </h2>
+          <span className="text-xs font-medium text-slate-500" aria-live="polite">
+            Showing {filtered.length} {filtered.length === 1 ? "tool" : "tools"}
+          </span>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          {filtered.map(calc => {
+            const favourited = favouriteSlugs.includes(calc.slug.toLowerCase());
+            return (
+              <Link key={calc.id} href={`/calculators/${calc.slug}`} className="group relative">
+                <Card className="h-full hover:border-slate-300 hover:shadow-sm transition-all cursor-pointer flex flex-col" data-calculator-id={calc.id}>
+                  <CardHeader className="p-5 pb-3 flex flex-row items-start justify-between gap-2">
                     <CardTitle className="text-base font-semibold text-slate-900 group-hover:text-blue-600 transition-colors">
                       {calc.name}
                     </CardTitle>
+                    <button
+                      type="button"
+                      onClick={(e) => handleCardFavouriteToggle(e, calc.slug)}
+                      aria-label={favourited ? "Remove favourite" : "Add favourite"}
+                      className="p-1 text-slate-400 hover:text-amber-500 focus:outline-none focus-visible:ring-2 focus-visible:ring-slate-900 rounded"
+                    >
+                      <svg
+                        className={`w-4 h-4 ${favourited ? "text-amber-500 fill-amber-400" : "fill-none"}`}
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                        aria-hidden="true"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"
+                        />
+                      </svg>
+                    </button>
                   </CardHeader>
                   <CardContent className="p-5 pt-0 flex-1 flex flex-col justify-end gap-2">
                     <div className="flex flex-wrap gap-2 mt-auto">
-                      <Badge>{calc.category}</Badge>
+                      <Badge variant="neutral">{calc.category}</Badge>
                       {calc.subcategory && (
                         <Badge variant="outline">{calc.subcategory}</Badge>
                       )}
@@ -134,53 +334,39 @@ export function CalculatorBrowser() {
                   </CardContent>
                 </Card>
               </Link>
-            ))}
-          </div>
-        </section>
-      )}
+            );
+          })}
 
-      <section aria-labelledby="all-calculators-heading" className="flex flex-col gap-4">
-        <div className="flex items-center justify-between border-b border-slate-200 pb-2">
-          <h2 id="all-calculators-heading" className="text-xl font-bold text-slate-900">
-            {isFiltering ? "Matching Calculators" : "All Calculators"}
-          </h2>
-          <span className="text-xs font-medium text-slate-500">
-            Showing {filtered.length} {filtered.length === 1 ? "tool" : "tools"}
-          </span>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          {filtered.map(calc => (
-            <Link key={calc.id} href={`/calculators/${calc.slug}`} className="group">
-              <Card className="h-full hover:border-slate-300 hover:shadow-sm transition-all cursor-pointer flex flex-col" data-calculator-id={calc.id}>
-                <CardHeader className="p-5 pb-3">
-                  <CardTitle className="text-base font-semibold text-slate-900 group-hover:text-blue-600 transition-colors">
-                    {calc.name}
-                  </CardTitle>
-                </CardHeader>
-                <CardContent className="p-5 pt-0 flex-1 flex flex-col justify-end gap-2">
-                  <div className="flex flex-wrap gap-2 mt-auto">
-                    <Badge variant="neutral">{calc.category}</Badge>
-                    {calc.subcategory && (
-                      <Badge variant="outline">{calc.subcategory}</Badge>
-                    )}
-                    {calc.rulesSensitive && (
-                      <Badge variant="outline">2026/27</Badge>
-                    )}
-                  </div>
-                </CardContent>
-              </Card>
-            </Link>
-          ))}
           {filtered.length === 0 && (
-            <div className="col-span-full py-12 text-center bg-slate-50 border border-slate-200 rounded-lg">
-              <p className="text-slate-600 mb-4">
-                No calculators found matching &quot;{search}&quot;{selectedCategory !== "All" && ` in ${selectedCategory}`}.
-              </p>
+            <div className="col-span-full py-12 px-4 text-center bg-slate-50 border border-slate-200 rounded-lg flex flex-col items-center gap-4">
+              <div>
+                <p className="text-slate-700 font-medium mb-1">
+                  No calculators found matching &quot;{search}&quot;{selectedCategory !== "All" && ` in ${selectedCategory}`}.
+                </p>
+                <p className="text-xs text-slate-500">
+                  Try checking your spelling or search using keywords like &quot;PAYE&quot;, &quot;SDLT&quot;, or &quot;Pension&quot;.
+                </p>
+              </div>
+
+              {/* Suggestions */}
+              <div className="flex flex-wrap items-center justify-center gap-1.5 max-w-md">
+                <span className="text-xs text-slate-500 mr-1">Popular:</span>
+                {POPULAR_SUGGESTIONS.map(sug => (
+                  <button
+                    key={sug}
+                    type="button"
+                    onClick={() => { setSearch(sug); setSelectedCategory("All"); setActiveFilterTab("all"); }}
+                    className="px-2.5 py-1 bg-white border border-slate-300 rounded-full text-xs text-slate-700 hover:bg-slate-100 transition-colors"
+                  >
+                    {sug}
+                  </button>
+                ))}
+              </div>
+
               <button
                 type="button"
-                onClick={() => { setSearch(""); setSelectedCategory("All"); }}
-                className="px-4 py-2 bg-slate-900 text-white rounded-md text-sm font-medium hover:bg-slate-800 transition-colors"
+                onClick={handleResetFilters}
+                className="mt-2 px-4 py-2 bg-slate-900 text-white rounded-md text-sm font-medium hover:bg-slate-800 focus:outline-none focus-visible:ring-2 focus-visible:ring-slate-900 transition-colors"
               >
                 Reset Search &amp; Filters
               </button>
@@ -191,4 +377,3 @@ export function CalculatorBrowser() {
     </div>
   );
 }
-
