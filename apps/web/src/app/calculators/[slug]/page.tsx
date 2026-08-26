@@ -3,6 +3,8 @@ import { liveCalculators, getLiveCalculator } from "@/lib/calculators";
 import { Badge } from "@/components/ui/Badge";
 import { getCalculatorComponent } from "@/components/calculators/registry";
 import { DisclaimerBanner } from "@/components/layout/DisclaimerBanner";
+// Phase 2 rendering hook. See docs/PHASE2_INTEGRATION_NOTES.md.
+import { CalculatorGuideSection } from "@/components/calculators/CalculatorGuide";
 import { Breadcrumbs } from "@/components/layout/Breadcrumbs";
 import { RelatedCalculators } from "@/components/calculators/RelatedCalculators";
 import { Metadata } from "next";
@@ -128,6 +130,8 @@ export default async function CalculatorPage(props: { params: Promise<{ slug: st
         name={calc.name}
         rulesSensitive={calc.rulesSensitive}
       />
+
+      <CalculatorGuideSection calculatorId={calc.id} />
     </div>
   );
 }
