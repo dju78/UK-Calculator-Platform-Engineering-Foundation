@@ -35,7 +35,7 @@ export const VERIFICATION_SNAPSHOT: VerificationSnapshot = {
   categories: 19,
   referenceBenchmarkCases: 1489,
   unitAndContentTests: 1057,
-  browserChecks: 1662,
+  browserChecks: 1669,
   publishedGuides: 40,
 };
 
