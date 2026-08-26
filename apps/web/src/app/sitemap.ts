@@ -24,6 +24,23 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.7,
   }));
 
+  // Governance pages carry a higher priority than the legal boilerplate:
+  // /about, /how-we-check-our-figures and /editorial-policy are pages a reader
+  // - or a search engine assessing whether this site can be trusted - has an
+  // actual reason to read, whereas the terms are there because they must be.
+  const governancePages = [
+    '/about',
+    '/how-we-check-our-figures',
+    '/editorial-policy',
+    '/updates',
+    '/contact',
+  ].map((route) => ({
+    url: `${SITE_URL}${route}`,
+    lastModified,
+    changeFrequency: 'monthly' as const,
+    priority: 0.6,
+  }));
+
   const staticPages = ['', '/privacy', '/terms', '/disclaimer', '/accessibility'].map((route) => ({
     url: `${SITE_URL}${route}`,
     lastModified,
@@ -31,5 +48,5 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: route === '' ? 1.0 : 0.5,
   }));
 
-  return [...staticPages, ...categories, ...calculators];
+  return [...staticPages, ...governancePages, ...categories, ...calculators];
 }
