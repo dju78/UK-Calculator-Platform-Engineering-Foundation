@@ -5,7 +5,7 @@ import path from "node:path";
 import { calculatorRegistry, publishedRegistry } from "../packages/calculator-registry/src/index.js";
 import { implementedCalculatorIds } from "../packages/calculation-engine/src/engine.js";
 
-const SITE_URL = "https://uk-calculator-platform.onrender.com";
+const SITE_URL = "https://ukcalc.jomovate.com";
 const SITE_NAME = "UK Calculator Platform";
 
 function absoluteUrl(path: string): string {

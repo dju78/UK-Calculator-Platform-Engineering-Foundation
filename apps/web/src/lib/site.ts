@@ -7,7 +7,7 @@
  * all. Everything now derives from one value, overridable per environment.
  */
 export const SITE_URL = (
-  process.env.NEXT_PUBLIC_BASE_URL || "https://uk-calculator-platform.onrender.com"
+  process.env.NEXT_PUBLIC_BASE_URL || "https://ukcalc.jomovate.com"
 ).replace(/\/$/, "");
 
 export const SITE_NAME = "UK Calculator Platform";
