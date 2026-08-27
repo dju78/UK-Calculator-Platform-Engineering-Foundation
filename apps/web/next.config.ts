@@ -1,6 +1,6 @@
 import type { NextConfig } from "next";
 
-const securityHeaders = [
+const baseSecurityHeaders = [
   {
     key: 'X-DNS-Prefetch-Control',
     value: 'on'
@@ -14,16 +14,32 @@ const securityHeaders = [
     value: '1; mode=block'
   },
   {
-    key: 'X-Frame-Options',
-    value: 'SAMEORIGIN'
-  },
-  {
     key: 'X-Content-Type-Options',
     value: 'nosniff'
   },
   {
     key: 'Referrer-Policy',
     value: 'origin-when-cross-origin'
+  }
+];
+
+const standardHeaders = [
+  ...baseSecurityHeaders,
+  {
+    key: 'X-Frame-Options',
+    value: 'SAMEORIGIN'
+  },
+  {
+    key: 'Content-Security-Policy',
+    value: "frame-ancestors 'self';"
+  }
+];
+
+const embedHeaders = [
+  ...baseSecurityHeaders,
+  {
+    key: 'Content-Security-Policy',
+    value: "frame-ancestors *;"
   }
 ];
 
@@ -34,8 +50,12 @@ const nextConfig: NextConfig = {
   async headers() {
     return [
       {
-        source: '/(.*)',
-        headers: securityHeaders,
+        source: '/embed/:path*',
+        headers: embedHeaders,
+      },
+      {
+        source: '/((?!embed).*)',
+        headers: standardHeaders,
       },
     ];
   },

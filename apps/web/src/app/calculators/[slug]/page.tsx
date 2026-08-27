@@ -8,6 +8,7 @@ import { CalculatorGuideSection } from "@/components/calculators/CalculatorGuide
 import { Breadcrumbs } from "@/components/layout/Breadcrumbs";
 import { RelatedCalculators } from "@/components/calculators/RelatedCalculators";
 import { CalculatorPageUtility } from "@/components/calculators/CalculatorPageUtility";
+import { AdSlot } from "@/components/commercial/AdSlot";
 import { Metadata } from "next";
 import {
   SITE_NAME,
@@ -139,6 +140,12 @@ export default async function CalculatorPage(props: { params: Promise<{ slug: st
       />
 
       <CalculatorGuideSection calculatorId={calc.id} />
+
+      <AdSlot
+        slotId="calculator-bottom"
+        category={calc.category}
+        calculatorSlug={calc.slug}
+      />
     </div>
   );
 }
