@@ -24,7 +24,7 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
           id={inputId}
           // placeholder:text-slate-500 rather than slate-400: slate-400 on white
           // is 2.56:1, below the WCAG AA 4.5:1 minimum for text.
-          className={`flex h-10 w-full rounded-md border border-slate-300 bg-white px-3 py-2 text-sm placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-slate-900 focus:border-transparent disabled:cursor-not-allowed disabled:opacity-50 ${
+          className={`flex h-10 w-full rounded-lg border border-slate-300 bg-white px-3.5 py-2 text-sm placeholder:text-slate-500 shadow-2xs focus:outline-none focus:ring-2 focus:ring-slate-900 focus:border-transparent transition-colors disabled:cursor-not-allowed disabled:opacity-50 ${
             error ? "border-red-700 focus:ring-red-700" : ""
           } ${className}`}
           ref={ref}

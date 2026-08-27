@@ -14,11 +14,11 @@ export function DisclaimerBanner(props: DisclaimerResolutionContext = {}) {
   const { body } = getCalculatorDisclaimer(props);
 
   return (
-    <div className="bg-amber-50 border-l-4 border-amber-500 p-4 my-4" role="note">
-      <div className="flex">
-        <div className="flex-shrink-0">
+    <div className="bg-amber-50/90 border-l-4 border-amber-500 rounded-r-xl p-4.5 my-4 shadow-2xs" role="note">
+      <div className="flex items-start">
+        <div className="flex-shrink-0 mt-0.5">
           <svg
-            className="h-5 w-5 text-amber-400"
+            className="h-5 w-5 text-amber-600"
             viewBox="0 0 20 20"
             fill="currentColor"
             aria-hidden="true"
@@ -31,9 +31,9 @@ export function DisclaimerBanner(props: DisclaimerResolutionContext = {}) {
             />
           </svg>
         </div>
-        <div className="ml-3">
-          <p className="text-sm text-amber-800">
-            <strong>Disclaimer:</strong> {body}
+        <div className="ml-3.5">
+          <p className="text-sm text-amber-950 leading-relaxed">
+            <strong className="font-semibold text-amber-950">Disclaimer:</strong> {body}
           </p>
         </div>
       </div>

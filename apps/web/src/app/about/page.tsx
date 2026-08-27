@@ -47,13 +47,14 @@ export default function About() {
   };
 
   return (
-    <div className="prose max-w-none">
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
-      <Breadcrumbs items={[{ label: "About" }]} className="mb-6 not-prose" />
-      <h1>About the UK Calculator Platform</h1>
+    <div className="rounded-2xl border border-slate-200/80 bg-white p-6 md:p-10 shadow-2xs">
+      <div className="prose max-w-none">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
+        <Breadcrumbs items={[{ label: "About" }]} className="mb-6 not-prose" />
+        <h1>About the UK Calculator Platform</h1>
 
       <p>
         The UK Calculator Platform is a free collection of{" "}
@@ -181,5 +182,6 @@ export default function About() {
         that have already been made.
       </p>
     </div>
+  </div>
   );
 }

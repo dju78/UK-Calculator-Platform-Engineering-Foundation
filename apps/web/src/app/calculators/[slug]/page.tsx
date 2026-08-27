@@ -107,24 +107,24 @@ export default async function CalculatorPage(props: { params: Promise<{ slug: st
         rulesSensitive={calc.rulesSensitive}
       />
 
-      <div className="flex flex-col gap-3 border-b border-slate-200 pb-6 no-print">
+      <div className="flex flex-col gap-4 rounded-2xl border border-slate-200/80 bg-white p-6 md:p-8 shadow-2xs no-print">
         <div className="flex items-center gap-2 flex-wrap">
           <Badge>{calc.category}</Badge>
           {calc.subcategory && <Badge variant="outline">{calc.subcategory}</Badge>}
           {calc.rulesSensitive && <Badge variant="outline">2026/27 Tax Year</Badge>}
         </div>
-        <h1 className="text-3xl font-bold tracking-tight text-slate-900">{calc.name}</h1>
+        <h1 className="text-3xl md:text-4xl font-bold tracking-tight text-slate-950">{calc.name}</h1>
       </div>
 
       {calc.implementationStatus !== "implemented" ? (
-        <div className="bg-slate-50 border border-slate-200 rounded-lg p-8 text-center text-slate-700">
-          <p className="mb-2 font-semibold text-lg">Calculator implementation in progress</p>
-          <p className="text-sm text-slate-500">The user interface for this calculator is currently being prepared.</p>
+        <div className="bg-white border border-slate-200/90 rounded-2xl p-8 text-center text-slate-700 shadow-2xs">
+          <p className="mb-2 font-semibold text-lg text-slate-900">Calculator implementation in progress</p>
+          <p className="text-sm text-slate-600">The user interface for this calculator is currently being prepared.</p>
         </div>
       ) : UiComponent ? (
         UiComponent
       ) : (
-        <div className="bg-white border border-slate-200 rounded-lg p-6 text-center text-slate-500">
+        <div className="bg-white border border-slate-200/90 rounded-2xl p-6 text-center text-slate-600 shadow-2xs">
           <p>Calculator interface loading...</p>
         </div>
       )}
