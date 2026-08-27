@@ -7,15 +7,15 @@ export function Sidebar({ categories }: { categories: string[] }) {
   const pathname = usePathname();
 
   return (
-    <aside className="w-full md:w-64 shrink-0 px-4 py-6 md:border-r md:border-slate-200 min-h-[calc(100vh-4rem)] bg-slate-50 md:bg-transparent no-print">
-      <h2 className="mb-4 text-sm font-semibold tracking-tight text-slate-900 uppercase">
+    <aside className="w-full md:w-64 shrink-0 px-4 py-8 md:pr-6 md:border-r md:border-slate-200/90 min-h-[calc(100vh-4rem)] no-print">
+      <h2 className="mb-4 text-xs font-bold tracking-wider text-slate-700 uppercase">
         Categories
       </h2>
       <nav aria-label="Category Navigation" className="flex flex-col gap-1">
         <Link 
           href="/" 
-          className={`flex items-center rounded-md px-3 py-2 text-sm font-medium ${
-            pathname === "/" ? "bg-slate-900 text-white" : "text-slate-600 hover:bg-slate-100 hover:text-slate-900"
+          className={`flex items-center rounded-lg px-3 py-2 text-sm font-medium transition-colors ${
+            pathname === "/" ? "bg-slate-900 text-white shadow-xs" : "text-slate-700 hover:bg-slate-200/60 hover:text-slate-950"
           }`}
         >
           All Calculators
@@ -27,8 +27,8 @@ export function Sidebar({ categories }: { categories: string[] }) {
             <Link
               key={cat}
               href={href}
-              className={`flex items-center rounded-md px-3 py-2 text-sm font-medium ${
-                isActive ? "bg-slate-900 text-white" : "text-slate-600 hover:bg-slate-100 hover:text-slate-900"
+              className={`flex items-center rounded-lg px-3 py-2 text-sm font-medium transition-colors ${
+                isActive ? "bg-slate-900 text-white shadow-xs" : "text-slate-700 hover:bg-slate-200/60 hover:text-slate-950"
               }`}
             >
               {cat}

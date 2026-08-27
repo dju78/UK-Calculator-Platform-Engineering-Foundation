@@ -34,9 +34,10 @@ export default function Updates() {
   const updates = [...platformUpdates].sort((a, b) => b.date.localeCompare(a.date));
 
   return (
-    <div className="prose max-w-none">
-      <Breadcrumbs items={[{ label: "Updates" }]} className="mb-6 not-prose" />
-      <h1>Updates</h1>
+    <div className="rounded-2xl border border-slate-200/80 bg-white p-6 md:p-10 shadow-2xs">
+      <div className="prose max-w-none">
+        <Breadcrumbs items={[{ label: "Updates" }]} className="mb-6 not-prose" />
+        <h1>Updates</h1>
 
       <p>
         Changes that affect what you see or what you can rely on: statutory
@@ -125,6 +126,7 @@ export default function Updates() {
         </Link>
         .
       </p>
+      </div>
     </div>
   );
 }

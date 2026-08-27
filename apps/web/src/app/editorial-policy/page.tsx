@@ -28,30 +28,31 @@ export const metadata: Metadata = {
 
 export default function EditorialPolicy() {
   return (
-    <div className="prose max-w-none">
-      <Breadcrumbs items={[{ label: "Editorial Policy" }]} className="mb-6 not-prose" />
-      <h1>Editorial Policy</h1>
-      <p>Last updated: August 2026</p>
+    <div className="rounded-2xl border border-slate-200/80 bg-white p-6 md:p-10 shadow-2xs">
+      <div className="prose max-w-none">
+        <Breadcrumbs items={[{ label: "Editorial Policy" }]} className="mb-6 not-prose" />
+        <h1>Editorial Policy</h1>
+        <p>Last updated: August 2026</p>
 
-      <p>
-        This policy sets out the standards that calculator content on the UK
-        Calculator Platform is held to, and how those standards are enforced in
-        practice. It is written to be checkable: most of what follows is
-        something you could hold a specific page against and find it wanting.
-      </p>
+        <p>
+          This policy sets out the standards that calculator content on the UK
+          Calculator Platform is held to, and how those standards are enforced in
+          practice. It is written to be checkable: most of what follows is
+          something you could hold a specific page against and find it wanting.
+        </p>
 
-      <h2>1. Scope</h2>
-      <p>
-        This policy covers everything editorial on the platform — calculator
-        guides, methodology explanations, worked examples, assumptions,
-        limitations, category descriptions, FAQs and the governance pages
-        themselves. It does not cover the arithmetic itself, which is governed
-        by code and automated verification and is described in{" "}
-        <Link href="/how-we-check-our-figures">
-          how we check our figures
-        </Link>
-        .
-      </p>
+        <h2>1. Scope</h2>
+        <p>
+          This policy covers everything editorial on the platform — calculator
+          guides, methodology explanations, worked examples, assumptions,
+          limitations, category descriptions, FAQs and the governance pages
+          themselves. It does not cover the arithmetic itself, which is governed
+          by code and automated verification and is described in{" "}
+          <Link href="/how-we-check-our-figures">
+            how we check our figures
+          </Link>
+          .
+        </p>
 
       <h2>2. Content principles</h2>
       <ul>
@@ -372,6 +373,7 @@ export default function EditorialPolicy() {
       <p>
         Get in touch via the <Link href="/contact">contact page</Link>.
       </p>
+      </div>
     </div>
   );
 }

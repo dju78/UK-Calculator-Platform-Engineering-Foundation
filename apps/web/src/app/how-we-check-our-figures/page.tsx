@@ -49,12 +49,13 @@ export default function HowWeCheckOurFigures() {
   const number = new Intl.NumberFormat("en-GB");
 
   return (
-    <div className="prose max-w-none">
-      <Breadcrumbs
-        items={[{ label: "How We Check Our Figures" }]}
-        className="mb-6 not-prose"
-      />
-      <h1>How we check our figures</h1>
+    <div className="rounded-2xl border border-slate-200/80 bg-white p-6 md:p-10 shadow-2xs">
+      <div className="prose max-w-none">
+        <Breadcrumbs
+          items={[{ label: "How We Check Our Figures" }]}
+          className="mb-6 not-prose"
+        />
+        <h1>How we check our figures</h1>
 
       <p>
         Anyone can publish a calculator. The useful question is what stands
@@ -350,6 +351,7 @@ export default function HowWeCheckOurFigures() {
         Corrections already made are recorded on the{" "}
         <Link href="/updates">updates page</Link>.
       </p>
+      </div>
     </div>
   );
 }

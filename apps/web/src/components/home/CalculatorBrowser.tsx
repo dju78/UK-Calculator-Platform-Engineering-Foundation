@@ -136,135 +136,137 @@ export function CalculatorBrowser() {
   };
 
   return (
-    <div className="flex flex-col gap-8">
-      <div className="flex flex-col gap-2">
-        <h1 className="text-3xl font-bold tracking-tight">Calculators</h1>
-        <p className="text-slate-500">
-          Browse and search {liveCalculators.length} free UK calculators across {liveCategories.length} categories for tax, property, finance, investments and everyday calculations.
-        </p>
-      </div>
-
-      <div className="flex flex-col gap-4">
-        {/* Search input bar */}
-        <div className="max-w-md">
-          <Input 
-            placeholder="Search calculators..." 
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-            aria-label="Search calculators"
-          />
+    <div className="flex flex-col gap-10 md:gap-12">
+      <div className="flex flex-col gap-6 rounded-2xl border border-slate-200/80 bg-white p-6 md:p-8 shadow-2xs">
+        <div className="flex flex-col gap-2">
+          <h1 className="text-3xl md:text-4xl font-bold tracking-tight text-slate-950">Calculators</h1>
+          <p className="text-slate-600 text-base max-w-3xl leading-relaxed">
+            Browse and search {liveCalculators.length} free UK calculators across {liveCategories.length} categories for tax, property, finance, investments and everyday calculations.
+          </p>
         </div>
 
-        {/* View Mode Filters: All / Favourites / Recents */}
-        <div className="flex flex-wrap items-center gap-2 pt-1 border-b border-slate-200 pb-3">
-          <button
-            type="button"
-            onClick={() => setActiveFilterTab("all")}
-            aria-pressed={activeFilterTab === "all"}
-            className={`px-3 py-1.5 rounded-md text-xs font-semibold transition-colors ${
-              activeFilterTab === "all"
-                ? "bg-slate-900 text-white"
-                : "bg-slate-100 text-slate-700 hover:bg-slate-200"
-            }`}
-          >
-            All Calculators
-          </button>
+        <div className="flex flex-col gap-5">
+          {/* Search input bar */}
+          <div className="max-w-lg">
+            <Input
+              placeholder="Search calculators..."
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              aria-label="Search calculators"
+            />
+          </div>
 
-          {favouriteSlugs.length > 0 && (
+          {/* View Mode Filters: All / Favourites / Recents */}
+          <div className="flex flex-wrap items-center gap-2 pt-1 border-b border-slate-100 pb-4">
             <button
               type="button"
-              onClick={() => setActiveFilterTab("favourites")}
-              aria-pressed={activeFilterTab === "favourites"}
-              className={`inline-flex items-center gap-1 px-3 py-1.5 rounded-md text-xs font-semibold transition-colors ${
-                activeFilterTab === "favourites"
-                  ? "bg-amber-600 text-white"
-                  : "bg-amber-50 text-amber-900 border border-amber-200 hover:bg-amber-100"
+              onClick={() => setActiveFilterTab("all")}
+              aria-pressed={activeFilterTab === "all"}
+              className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-colors cursor-pointer ${
+                activeFilterTab === "all"
+                  ? "bg-slate-900 text-white shadow-xs"
+                  : "bg-slate-100 text-slate-700 hover:bg-slate-200/80 hover:text-slate-950"
               }`}
             >
-              <svg className="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24" aria-hidden="true">
-                <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
-              </svg>
-              <span>Favourites ({favouriteSlugs.length})</span>
+              All Calculators
             </button>
-          )}
 
-          {recentSlugs.length > 0 && (
+            {favouriteSlugs.length > 0 && (
+              <button
+                type="button"
+                onClick={() => setActiveFilterTab("favourites")}
+                aria-pressed={activeFilterTab === "favourites"}
+                className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold transition-colors cursor-pointer ${
+                  activeFilterTab === "favourites"
+                    ? "bg-amber-600 text-white shadow-xs"
+                    : "bg-amber-50 text-amber-900 border border-amber-200 hover:bg-amber-100/80"
+                }`}
+              >
+                <svg className="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+                </svg>
+                <span>Favourites ({favouriteSlugs.length})</span>
+              </button>
+            )}
+
+            {recentSlugs.length > 0 && (
+              <button
+                type="button"
+                onClick={() => setActiveFilterTab("recents")}
+                aria-pressed={activeFilterTab === "recents"}
+                className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold transition-colors cursor-pointer ${
+                  activeFilterTab === "recents"
+                    ? "bg-slate-800 text-white shadow-xs"
+                    : "bg-blue-50 text-blue-900 border border-blue-200 hover:bg-blue-100/80"
+                }`}
+              >
+                <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                  <circle cx="12" cy="12" r="10" strokeWidth="2"/>
+                  <polyline points="12 6 12 12 16 14" strokeWidth="2"/>
+                </svg>
+                <span>Recently Used ({recentSlugs.length})</span>
+              </button>
+            )}
+          </div>
+
+          {/* Category Filter Pills */}
+          <div className="flex flex-wrap gap-2 items-center">
+            <span className="text-xs font-bold uppercase tracking-wider text-slate-700 mr-1">Category:</span>
             <button
               type="button"
-              onClick={() => setActiveFilterTab("recents")}
-              aria-pressed={activeFilterTab === "recents"}
-              className={`inline-flex items-center gap-1 px-3 py-1.5 rounded-md text-xs font-semibold transition-colors ${
-                activeFilterTab === "recents"
-                  ? "bg-blue-600 text-white"
-                  : "bg-blue-50 text-blue-900 border border-blue-200 hover:bg-blue-100"
+              onClick={() => setSelectedCategory("All")}
+              className={`px-3 py-1 rounded-md text-xs font-medium transition-colors cursor-pointer ${
+                selectedCategory === "All"
+                  ? "bg-slate-900 text-white shadow-xs"
+                  : "bg-slate-100 text-slate-700 hover:bg-slate-200/80 hover:text-slate-950"
               }`}
             >
-              <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                <circle cx="12" cy="12" r="10" strokeWidth="2"/>
-                <polyline points="12 6 12 12 16 14" strokeWidth="2"/>
-              </svg>
-              <span>Recently Used ({recentSlugs.length})</span>
+              All {!search && activeFilterTab === "all" && `(${liveCalculators.length})`}
             </button>
-          )}
-        </div>
-
-        {/* Category Filter Pills */}
-        <div className="flex flex-wrap gap-2 items-center">
-          <span className="text-xs font-medium text-slate-500 mr-1">Category:</span>
-          <button
-            type="button"
-            onClick={() => setSelectedCategory("All")}
-            className={`px-3 py-1 rounded-full text-xs font-medium transition-colors ${
-              selectedCategory === "All"
-                ? "bg-slate-900 text-white"
-                : "bg-slate-100 text-slate-700 hover:bg-slate-200"
-            }`}
-          >
-            All {!search && activeFilterTab === "all" && `(${liveCalculators.length})`}
-          </button>
-          {liveCategories.map((cat) => (
-            <button
-              key={cat}
-              type="button"
-              onClick={() => setSelectedCategory(cat)}
-              className={`px-3 py-1 rounded-full text-xs font-medium transition-colors ${
-                selectedCategory === cat
-                  ? "bg-slate-900 text-white"
-                  : "bg-slate-100 text-slate-700 hover:bg-slate-200"
-              }`}
-            >
-              {cat}
-            </button>
-          ))}
+            {liveCategories.map((cat) => (
+              <button
+                key={cat}
+                type="button"
+                onClick={() => setSelectedCategory(cat)}
+                className={`px-3 py-1 rounded-md text-xs font-medium transition-colors cursor-pointer ${
+                  selectedCategory === cat
+                    ? "bg-slate-900 text-white shadow-xs"
+                    : "bg-slate-100 text-slate-700 hover:bg-slate-200/80 hover:text-slate-950"
+                }`}
+              >
+                {cat}
+              </button>
+            ))}
+          </div>
         </div>
       </div>
 
       {/* Featured Calculators (Only shown when not searching/filtering) */}
       {!isFiltering && featuredCalculators.length > 0 && (
-        <section aria-labelledby="featured-heading" className="flex flex-col gap-4">
-          <div className="flex items-center justify-between border-b border-slate-200 pb-2">
-            <h2 id="featured-heading" className="text-xl font-bold text-slate-900">
+        <section aria-labelledby="featured-heading" className="flex flex-col gap-5">
+          <div className="flex items-center justify-between border-b border-slate-200/80 pb-3">
+            <h2 id="featured-heading" className="text-xl font-bold text-slate-950 tracking-tight">
               Featured Calculators
             </h2>
-            <span className="text-xs text-slate-500">
+            <span className="text-xs text-slate-600">
               Popular UK calculators for tax, mortgages &amp; finance
             </span>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-6">
             {featuredCalculators.map((calc) => {
               const favourited = favouriteSlugs.includes(calc.slug.toLowerCase());
               return (
-                <Link key={calc.id} href={`/calculators/${calc.slug}`} className="group relative">
-                  <Card className="h-full hover:border-blue-300 hover:shadow-md transition-all cursor-pointer flex flex-col bg-gradient-to-b from-white to-slate-50/30" data-calculator-id={calc.id}>
-                    <CardHeader className="p-5 pb-2 flex flex-row items-start justify-between gap-2">
-                      <CardTitle className="text-base font-semibold text-slate-900 group-hover:text-blue-600 transition-colors">
+                <Link key={calc.id} href={`/calculators/${calc.slug}`} className="group relative block focus:outline-none focus-visible:ring-2 focus-visible:ring-slate-900 rounded-xl">
+                  <Card className="h-full border-slate-200/90 group-hover:border-slate-300 group-hover:shadow-sm transition-all duration-150 cursor-pointer flex flex-col bg-white" data-calculator-id={calc.id}>
+                    <CardHeader className="px-6 py-4.5 pb-2 flex flex-row items-start justify-between gap-2">
+                      <CardTitle className="text-base font-semibold text-slate-900 group-hover:text-slate-950 transition-colors">
                         {calc.name}
                       </CardTitle>
                       <button
                         type="button"
                         onClick={(e) => handleCardFavouriteToggle(e, calc.slug)}
                         aria-label={favourited ? "Remove favourite" : "Add favourite"}
-                        className="p-1 text-slate-400 hover:text-amber-500 focus:outline-none focus-visible:ring-2 focus-visible:ring-slate-900 rounded"
+                        className="p-1 text-slate-400 hover:text-amber-500 focus:outline-none focus-visible:ring-2 focus-visible:ring-slate-900 rounded cursor-pointer"
                       >
                         <svg
                           className={`w-4 h-4 ${favourited ? "text-amber-500 fill-amber-400" : "fill-none"}`}
@@ -281,7 +283,7 @@ export function CalculatorBrowser() {
                         </svg>
                       </button>
                     </CardHeader>
-                    <CardContent className="p-5 pt-0 flex-1 flex flex-col justify-end gap-2">
+                    <CardContent className="px-6 py-5 pt-0 flex-1 flex flex-col justify-end gap-3">
                       <div className="flex flex-wrap gap-2 mt-auto">
                         <Badge>{calc.category}</Badge>
                         {calc.subcategory && (
@@ -301,9 +303,9 @@ export function CalculatorBrowser() {
       )}
 
       {/* Main Filtered Calculators Section */}
-      <section aria-labelledby="all-calculators-heading" className="flex flex-col gap-4">
-        <div className="flex items-center justify-between border-b border-slate-200 pb-2">
-          <h2 id="all-calculators-heading" className="text-xl font-bold text-slate-900">
+      <section aria-labelledby="all-calculators-heading" className="flex flex-col gap-5">
+        <div className="flex items-center justify-between border-b border-slate-200/80 pb-3">
+          <h2 id="all-calculators-heading" className="text-xl font-bold text-slate-950 tracking-tight">
             {activeFilterTab === "favourites"
               ? "Favourite Calculators"
               : activeFilterTab === "recents"
@@ -312,26 +314,26 @@ export function CalculatorBrowser() {
               ? "Matching Calculators"
               : "All Calculators"}
           </h2>
-          <span className="text-xs font-medium text-slate-500" aria-live="polite">
+          <span className="text-xs font-semibold text-slate-600" aria-live="polite">
             Showing {filtered.length} {filtered.length === 1 ? "tool" : "tools"}
           </span>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-6">
           {filtered.map(calc => {
             const favourited = favouriteSlugs.includes(calc.slug.toLowerCase());
             return (
-              <Link key={calc.id} href={`/calculators/${calc.slug}`} className="group relative">
-                <Card className="h-full hover:border-slate-300 hover:shadow-sm transition-all cursor-pointer flex flex-col" data-calculator-id={calc.id}>
-                  <CardHeader className="p-5 pb-3 flex flex-row items-start justify-between gap-2">
-                    <CardTitle className="text-base font-semibold text-slate-900 group-hover:text-blue-600 transition-colors">
+              <Link key={calc.id} href={`/calculators/${calc.slug}`} className="group relative block focus:outline-none focus-visible:ring-2 focus-visible:ring-slate-900 rounded-xl">
+                <Card className="h-full border-slate-200/90 group-hover:border-slate-300 group-hover:shadow-sm transition-all duration-150 cursor-pointer flex flex-col bg-white" data-calculator-id={calc.id}>
+                  <CardHeader className="px-6 py-4.5 pb-2 flex flex-row items-start justify-between gap-2">
+                    <CardTitle className="text-base font-semibold text-slate-900 group-hover:text-slate-950 transition-colors">
                       {calc.name}
                     </CardTitle>
                     <button
                       type="button"
                       onClick={(e) => handleCardFavouriteToggle(e, calc.slug)}
                       aria-label={favourited ? "Remove favourite" : "Add favourite"}
-                      className="p-1 text-slate-400 hover:text-amber-500 focus:outline-none focus-visible:ring-2 focus-visible:ring-slate-900 rounded"
+                      className="p-1 text-slate-400 hover:text-amber-500 focus:outline-none focus-visible:ring-2 focus-visible:ring-slate-900 rounded cursor-pointer"
                     >
                       <svg
                         className={`w-4 h-4 ${favourited ? "text-amber-500 fill-amber-400" : "fill-none"}`}
@@ -348,7 +350,7 @@ export function CalculatorBrowser() {
                       </svg>
                     </button>
                   </CardHeader>
-                  <CardContent className="p-5 pt-0 flex-1 flex flex-col justify-end gap-2">
+                  <CardContent className="px-6 py-5 pt-0 flex-1 flex flex-col justify-end gap-3">
                     <div className="flex flex-wrap gap-2 mt-auto">
                       <Badge variant="neutral">{calc.category}</Badge>
                       {calc.subcategory && (
@@ -365,25 +367,25 @@ export function CalculatorBrowser() {
           })}
 
           {filtered.length === 0 && (
-            <div className="col-span-full py-12 px-4 text-center bg-slate-50 border border-slate-200 rounded-lg flex flex-col items-center gap-4">
+            <div className="col-span-full py-16 px-6 text-center bg-white border border-slate-200/80 rounded-2xl shadow-2xs flex flex-col items-center gap-5">
               <div>
-                <p className="text-slate-700 font-medium mb-1">
+                <p className="text-slate-800 font-semibold text-base mb-1.5">
                   No calculators found matching &quot;{search}&quot;{selectedCategory !== "All" && ` in ${selectedCategory}`}.
                 </p>
-                <p className="text-xs text-slate-500">
+                <p className="text-sm text-slate-600">
                   Try checking your spelling or search using keywords like &quot;PAYE&quot;, &quot;SDLT&quot;, or &quot;Pension&quot;.
                 </p>
               </div>
 
               {/* Suggestions */}
-              <div className="flex flex-wrap items-center justify-center gap-1.5 max-w-md">
-                <span className="text-xs text-slate-500 mr-1">Popular:</span>
+              <div className="flex flex-wrap items-center justify-center gap-2 max-w-md">
+                <span className="text-xs font-semibold text-slate-700 mr-1">Popular:</span>
                 {POPULAR_SUGGESTIONS.map(sug => (
                   <button
                     key={sug}
                     type="button"
                     onClick={() => { setSearch(sug); setSelectedCategory("All"); setActiveFilterTab("all"); }}
-                    className="px-2.5 py-1 bg-white border border-slate-300 rounded-full text-xs text-slate-700 hover:bg-slate-100 transition-colors"
+                    className="px-3 py-1 bg-slate-100 border border-slate-200/80 rounded-full text-xs font-medium text-slate-700 hover:bg-slate-200/80 hover:text-slate-950 transition-colors cursor-pointer"
                   >
                     {sug}
                   </button>
@@ -393,7 +395,7 @@ export function CalculatorBrowser() {
               <button
                 type="button"
                 onClick={handleResetFilters}
-                className="mt-2 px-4 py-2 bg-slate-900 text-white rounded-md text-sm font-medium hover:bg-slate-800 focus:outline-none focus-visible:ring-2 focus-visible:ring-slate-900 transition-colors"
+                className="mt-2 px-5 py-2.5 bg-slate-900 text-white rounded-lg text-sm font-medium hover:bg-slate-800 focus:outline-none focus-visible:ring-2 focus-visible:ring-slate-900 transition-colors shadow-2xs cursor-pointer"
               >
                 Reset Search &amp; Filters
               </button>

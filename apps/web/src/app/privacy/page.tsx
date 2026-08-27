@@ -27,8 +27,9 @@ export const metadata: Metadata = {
 
 export default function PrivacyPolicy() {
   return (
-    <div className="prose max-w-none">
-      <Breadcrumbs items={[{ label: "Privacy Policy" }]} className="mb-6 not-prose" />
+    <div className="rounded-2xl border border-slate-200/80 bg-white p-6 md:p-10 shadow-2xs">
+      <div className="prose max-w-none">
+        <Breadcrumbs items={[{ label: "Privacy Policy" }]} className="mb-6 not-prose" />
       <h1>Privacy Policy</h1>
       <p>Last updated: August 2026</p>
 
@@ -90,6 +91,7 @@ export default function PrivacyPolicy() {
       <p>
         If you have any questions or concerns about this Privacy Policy, please contact us at <a href="mailto:dju78@jomovate.com">dju78@jomovate.com</a>.
       </p>
+      </div>
     </div>
   );
 }

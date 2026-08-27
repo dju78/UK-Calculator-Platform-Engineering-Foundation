@@ -144,21 +144,22 @@ export function PasswordGenerator() {
             max={128}
             value={length}
             onChange={e => setLength(Math.max(4, Math.min(128, Number(e.target.value) || 4)))}
-            className="w-32 rounded border px-3 py-2"
+            className="w-32 rounded-lg border border-slate-300 px-3 py-2 text-sm shadow-2xs focus:outline-none focus:ring-2 focus:ring-slate-900"
           />
         </div>
 
         <fieldset className="mb-4">
-          <legend className="text-sm font-medium mb-2">Include</legend>
+          <legend className="text-sm font-semibold text-slate-900 mb-2">Include</legend>
           {checkboxes.map(([label, value, setter, id]) => (
-            <div key={id} className="flex items-center gap-2 mb-1">
+            <div key={id} className="flex items-center gap-2 mb-1.5">
               <input
                 id={id}
                 type="checkbox"
                 checked={value}
                 onChange={e => setter(e.target.checked)}
+                className="rounded border-slate-300 text-slate-900 focus:ring-slate-900"
               />
-              <label htmlFor={id} className="text-sm">{label}</label>
+              <label htmlFor={id} className="text-sm text-slate-700">{label}</label>
             </div>
           ))}
         </fieldset>
@@ -166,18 +167,18 @@ export function PasswordGenerator() {
         <button
           type="button"
           onClick={generate}
-          className="rounded bg-blue-600 px-4 py-2 text-white hover:bg-blue-700"
+          className="rounded-lg bg-slate-900 px-4 py-2 text-white font-medium hover:bg-slate-800 shadow-2xs transition-colors cursor-pointer"
         >
           Generate password
         </button>
 
         {error && (
-          <p role="alert" className="mt-4 text-sm text-red-700">{error}</p>
+          <p role="alert" className="mt-4 text-sm text-red-700 font-medium">{error}</p>
         )}
 
         {password && !error && (
           <div className="mt-4">
-            <label htmlFor="generated-password" className="block text-sm font-medium mb-1">
+            <label htmlFor="generated-password" className="block text-sm font-semibold text-slate-900 mb-1">
               Your password
             </label>
             <div className="flex flex-wrap gap-2 items-center">
@@ -189,12 +190,12 @@ export function PasswordGenerator() {
                 // to see it, and autocomplete must never offer to save this.
                 autoComplete="off"
                 spellCheck={false}
-                className="flex-1 min-w-0 rounded border px-3 py-2 font-mono text-sm"
+                className="flex-1 min-w-0 rounded-lg border border-slate-300 px-3 py-2 font-mono text-sm shadow-2xs"
               />
               <button
                 type="button"
                 onClick={copy}
-                className="rounded border px-3 py-2 text-sm"
+                className="rounded-lg border border-slate-300 bg-white px-3.5 py-2 text-sm font-medium hover:bg-slate-100 transition-colors shadow-2xs cursor-pointer"
               >
                 {copied ? "Copied" : "Copy"}
               </button>
@@ -202,7 +203,7 @@ export function PasswordGenerator() {
             <p aria-live="polite" className="sr-only">
               {copied ? "Password copied to the clipboard." : ""}
             </p>
-            <p className="mt-2 text-sm">
+            <p className="mt-2 text-sm text-slate-600">
               Use the strength calculator below to see what this length and
               character set is worth, then store the password in a password
               manager rather than reusing it.

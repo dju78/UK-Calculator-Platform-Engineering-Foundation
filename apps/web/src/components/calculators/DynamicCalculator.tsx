@@ -227,7 +227,7 @@ export function DynamicCalculator({
                             id={controlId}
                             name={field.name}
                             aria-describedby={helpId}
-                            className="flex h-10 w-full rounded-md border border-slate-300 bg-white px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-slate-900"
+                            className="flex h-10 w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm shadow-2xs focus:outline-none focus:ring-2 focus:ring-slate-900 transition-colors"
                             value={inputs[field.name] ?? ""}
                             onChange={e => updateField(field.name, e.target.value)}
                           >
@@ -263,13 +263,13 @@ export function DynamicCalculator({
             ))}
             <button
               type="submit"
-              className="mt-4 bg-slate-900 text-white rounded-md h-10 px-4 font-medium hover:bg-slate-800 transition-colors"
+              className="mt-4 bg-slate-900 text-white rounded-lg h-10 px-5 font-medium hover:bg-slate-800 transition-colors shadow-2xs cursor-pointer"
             >
               Calculate
             </button>
           </form>
           {error && (
-            <div role="alert" className="mt-4 p-3 bg-red-50 text-red-700 rounded-md text-sm">
+            <div role="alert" className="mt-4 p-3 bg-red-50 text-red-700 rounded-lg text-sm border border-red-200">
               {error}
             </div>
           )}
@@ -289,10 +289,10 @@ export function DynamicCalculator({
           ) : (
             <div className="flex flex-col gap-4">
               {result.rulesetId && (
-                <div className="bg-blue-50 text-blue-900 border border-blue-200 p-3 rounded text-sm mb-4">
+                <div className="bg-blue-50/90 text-blue-900 border border-blue-200/80 p-4 rounded-xl text-sm mb-4 shadow-2xs">
                   <strong>UK Statutory Basis:</strong> 2026/27 Tax Year (Ruleset <code>{result.rulesetId}</code>).
                   <br />
-                  <span className="text-xs text-blue-700 block mt-1">
+                  <span className="text-xs text-blue-800 block mt-1">
                     Calculated in accordance with published UK statutory rates and allowances (HMRC / devolved administrations).
                   </span>
                 </div>
@@ -302,19 +302,19 @@ export function DynamicCalculator({
                   four-column table, so it does not scroll sideways on mobile. */}
               {primaryResult && primaryResult.rows.some(r => outputs[r.key] !== undefined) && (
                 <section aria-label={primaryResult.title} className="mb-2">
-                  <h3 className="font-semibold text-slate-800 mb-3">{primaryResult.title}</h3>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  <h3 className="font-semibold text-slate-900 mb-3">{primaryResult.title}</h3>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
                     {primaryResult.rows
                       .filter(r => outputs[r.key] !== undefined)
                       .map(r => (
                         <div
                           key={r.key}
-                          className="flex flex-col gap-1 rounded-lg border border-slate-200 bg-slate-50 p-3 min-w-0"
+                          className="flex flex-col gap-1 rounded-xl border border-slate-200/90 bg-slate-50/80 p-3.5 shadow-2xs min-w-0"
                         >
-                          <span className="text-xs font-medium text-slate-600">{r.label}</span>
+                          <span className="text-xs font-semibold text-slate-600 uppercase tracking-wider">{r.label}</span>
                           <span
                             data-output-key={r.key}
-                            className="text-xl font-semibold text-slate-900 break-words"
+                            className="text-xl font-bold text-slate-950 break-words"
                           >
                             {formatOutput(r.key, outputs[r.key])}
                           </span>
@@ -327,11 +327,11 @@ export function DynamicCalculator({
                 </section>
               )}
 
-              <div className="grid grid-cols-1 gap-3">
+              <div className="grid grid-cols-1 gap-2">
                 {detailEntries.map(([k, v]) => (
                   <div
                     key={k}
-                    className="flex justify-between items-center gap-3 py-2 border-b border-slate-100 last:border-0 min-w-0"
+                    className="flex justify-between items-center gap-3 py-2.5 border-b border-slate-100 last:border-0 min-w-0"
                   >
                     <span className="text-sm font-medium text-slate-600 capitalize">
                       {k.replace(/_/g, " ")}
@@ -358,30 +358,30 @@ export function DynamicCalculator({
 
               {result.schedule && result.schedule.length > 0 && (
                 <div className="mt-6">
-                  <h3 className="font-semibold text-slate-800 mb-2">
+                  <h3 className="font-semibold text-slate-900 mb-3">
                     Amortisation Schedule (Sample)
                   </h3>
                   <div className="overflow-x-auto">
                     <table className="w-full text-sm text-left">
                       <thead>
-                        <tr className="border-b border-slate-200">
-                          <th className="py-2">Period</th>
-                          <th className="py-2">Payment</th>
-                          <th className="py-2">Interest</th>
-                          <th className="py-2">Principal</th>
-                          <th className="py-2 text-right">Balance</th>
+                        <tr className="border-b border-slate-200 text-xs font-semibold uppercase text-slate-600">
+                          <th className="py-2.5">Period</th>
+                          <th className="py-2.5">Payment</th>
+                          <th className="py-2.5">Interest</th>
+                          <th className="py-2.5">Principal</th>
+                          <th className="py-2.5 text-right">Balance</th>
                         </tr>
                       </thead>
                       <tbody>
                         {result.schedule.slice(0, 5).map((row: any, i: number) => (
-                          <tr key={i} className="border-b border-slate-100 last:border-0">
-                            <td className="py-1">{row.period || i + 1}</td>
-                            <td className="py-1">
+                          <tr key={i} className="border-b border-slate-100 last:border-0 hover:bg-slate-50/60 transition-colors">
+                            <td className="py-2">{row.period || i + 1}</td>
+                            <td className="py-2">
                               {scheduleGbp.format(row.payment || row.scheduled_payment || 0)}
                             </td>
-                            <td className="py-1">{scheduleGbp.format(row.interest || 0)}</td>
-                            <td className="py-1">{scheduleGbp.format(row.principal || 0)}</td>
-                            <td className="py-1 text-right">
+                            <td className="py-2">{scheduleGbp.format(row.interest || 0)}</td>
+                            <td className="py-2">{scheduleGbp.format(row.principal || 0)}</td>
+                            <td className="py-2 text-right font-medium">
                               {scheduleGbp.format(row.closing_balance || row.balance || 0)}
                             </td>
                           </tr>
@@ -389,7 +389,7 @@ export function DynamicCalculator({
                       </tbody>
                     </table>
                     {result.schedule.length > 5 && (
-                      <p className="text-xs text-slate-500 mt-2 italic">
+                      <p className="text-xs text-slate-600 mt-2 italic">
                         * Showing first 5 periods of {result.schedule.length}
                       </p>
                     )}

@@ -78,17 +78,17 @@ export default async function CategoryPage(props: { params: Promise<{ category: 
   const hasMultipleSubcats = subcategoriesMap.size > 1;
 
   return (
-    <div className="flex flex-col gap-6 max-w-6xl w-full mx-auto">
+    <div className="flex flex-col gap-8 md:gap-10 max-w-6xl w-full mx-auto">
       <Breadcrumbs items={[{ label: categoryLabel }]} />
 
-      <div className="flex flex-col gap-3 border-b border-slate-200 pb-6">
+      <div className="flex flex-col gap-4 rounded-2xl border border-slate-200/80 bg-white p-6 md:p-8 shadow-2xs">
         <div className="flex items-center gap-2">
           <Badge>{categoryLabel}</Badge>
-          <span className="text-sm font-medium text-slate-500">
+          <span className="text-xs font-semibold text-slate-700">
             {calculators.length} {calculators.length === 1 ? "Calculator" : "Calculators"}
           </span>
         </div>
-        <h1 className="text-3xl font-bold tracking-tight text-slate-900">
+        <h1 className="text-3xl md:text-4xl font-bold tracking-tight text-slate-950 capitalize">
           {decodedCategory} Calculators
         </h1>
         <p className="text-slate-600 max-w-3xl text-base leading-relaxed">
@@ -97,28 +97,28 @@ export default async function CategoryPage(props: { params: Promise<{ category: 
       </div>
 
       {hasMultipleSubcats ? (
-        <div className="flex flex-col gap-8">
+        <div className="flex flex-col gap-10">
           {Array.from(subcategoriesMap.entries()).map(([subcat, subCalcs]) => (
-            <section key={subcat} aria-labelledby={`subcat-${subcat.replace(/\s+/g, '-').toLowerCase()}`}>
+            <section key={subcat} aria-labelledby={`subcat-${subcat.replace(/\s+/g, '-').toLowerCase()}`} className="flex flex-col gap-5">
               <h2
                 id={`subcat-${subcat.replace(/\s+/g, '-').toLowerCase()}`}
-                className="text-xl font-bold text-slate-900 mb-4 pb-2 border-b border-slate-100 flex items-center justify-between"
+                className="text-xl font-bold text-slate-950 tracking-tight pb-3 border-b border-slate-200/80 flex items-center justify-between"
               >
                 <span>{subcat}</span>
-                <span className="text-xs font-normal text-slate-500">
+                <span className="text-xs font-semibold text-slate-600">
                   {subCalcs.length} {subCalcs.length === 1 ? "tool" : "tools"}
                 </span>
               </h2>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-6">
                 {subCalcs.map((calc) => (
-                  <Link key={calc.id} href={`/calculators/${calc.slug}`} className="group">
-                    <Card className="h-full hover:border-slate-300 hover:shadow-sm transition-all cursor-pointer flex flex-col" data-calculator-id={calc.id}>
-                      <CardHeader className="p-5 pb-3">
-                        <CardTitle className="text-base font-semibold text-slate-900 group-hover:text-blue-600 transition-colors">
+                  <Link key={calc.id} href={`/calculators/${calc.slug}`} className="group block focus:outline-none focus-visible:ring-2 focus-visible:ring-slate-900 rounded-xl">
+                    <Card className="h-full border-slate-200/90 group-hover:border-slate-300 group-hover:shadow-sm transition-all duration-150 cursor-pointer flex flex-col bg-white" data-calculator-id={calc.id}>
+                      <CardHeader className="px-6 py-4.5 pb-2">
+                        <CardTitle className="text-base font-semibold text-slate-900 group-hover:text-slate-950 transition-colors">
                           {calc.name}
                         </CardTitle>
                       </CardHeader>
-                      <CardContent className="p-5 pt-0 flex-1 flex flex-col justify-end gap-2">
+                      <CardContent className="px-6 py-5 pt-0 flex-1 flex flex-col justify-end gap-3">
                         <div className="flex flex-wrap gap-2 mt-auto">
                           <Badge variant="neutral">{calc.category}</Badge>
                           {calc.rulesSensitive && (
@@ -134,16 +134,16 @@ export default async function CategoryPage(props: { params: Promise<{ category: 
           ))}
         </div>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-6">
           {calculators.map((calc) => (
-            <Link key={calc.id} href={`/calculators/${calc.slug}`} className="group">
-              <Card className="h-full hover:border-slate-300 hover:shadow-sm transition-all cursor-pointer flex flex-col" data-calculator-id={calc.id}>
-                <CardHeader className="p-5 pb-3">
-                  <CardTitle className="text-base font-semibold text-slate-900 group-hover:text-blue-600 transition-colors">
+            <Link key={calc.id} href={`/calculators/${calc.slug}`} className="group block focus:outline-none focus-visible:ring-2 focus-visible:ring-slate-900 rounded-xl">
+              <Card className="h-full border-slate-200/90 group-hover:border-slate-300 group-hover:shadow-sm transition-all duration-150 cursor-pointer flex flex-col bg-white" data-calculator-id={calc.id}>
+                <CardHeader className="px-6 py-4.5 pb-2">
+                  <CardTitle className="text-base font-semibold text-slate-900 group-hover:text-slate-950 transition-colors">
                     {calc.name}
                   </CardTitle>
                 </CardHeader>
-                <CardContent className="p-5 pt-0 flex-1 flex flex-col justify-end gap-2">
+                <CardContent className="px-6 py-5 pt-0 flex-1 flex flex-col justify-end gap-3">
                   <div className="flex flex-wrap gap-2 mt-auto">
                     <Badge variant="neutral">{calc.category}</Badge>
                     {calc.subcategory && (
@@ -161,16 +161,16 @@ export default async function CategoryPage(props: { params: Promise<{ category: 
       )}
 
       {details.relatedCategories && details.relatedCategories.length > 0 && (
-        <section aria-labelledby="related-categories-heading" className="mt-8 border-t border-slate-200 pt-6">
-          <h2 id="related-categories-heading" className="text-lg font-bold text-slate-900 mb-3">
+        <section aria-labelledby="related-categories-heading" className="rounded-2xl border border-slate-200/80 bg-white p-6 md:p-8 shadow-2xs">
+          <h2 id="related-categories-heading" className="text-lg font-bold text-slate-950 mb-4">
             Explore Related Categories
           </h2>
-          <div className="flex flex-wrap gap-2">
+          <div className="flex flex-wrap gap-2.5">
             {details.relatedCategories.map((relCat) => (
               <Link
                 key={relCat}
                 href={categoryPath(relCat)}
-                className="px-3 py-1.5 rounded-md bg-slate-100 text-slate-700 hover:bg-slate-200 hover:text-slate-900 text-sm font-medium transition-colors"
+                className="px-3.5 py-1.5 rounded-lg bg-slate-100 border border-slate-200/80 text-slate-700 hover:bg-slate-200 hover:text-slate-950 text-sm font-medium transition-colors cursor-pointer"
               >
                 {relCat} Calculators &rarr;
               </Link>

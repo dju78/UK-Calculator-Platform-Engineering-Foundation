@@ -46,9 +46,10 @@ function MailtoLink({ subject, children }: { subject: string; children: React.Re
 
 export default function Contact() {
   return (
-    <div className="prose max-w-none">
-      <Breadcrumbs items={[{ label: "Contact" }]} className="mb-6 not-prose" />
-      <h1>Contact</h1>
+    <div className="rounded-2xl border border-slate-200/80 bg-white p-6 md:p-10 shadow-2xs">
+      <div className="prose max-w-none">
+        <Breadcrumbs items={[{ label: "Contact" }]} className="mb-6 not-prose" />
+        <h1>Contact</h1>
 
       <p>
         The UK Calculator Platform is operated by Jomovate. Email is the way to
@@ -196,6 +197,7 @@ export default function Contact() {
         barriers are prioritised, and we aim to acknowledge accessibility
         feedback within five business days.
       </p>
+      </div>
     </div>
   );
 }
