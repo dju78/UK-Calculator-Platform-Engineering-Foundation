@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState, useCallback } from "react";
+import { useMemo, useState, useCallback, useEffect } from "react";
 import { calculate } from "../../../../../dist/packages/calculation-engine/src/engine.js";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/Card";
 import { Input } from "@/components/ui/Input";
@@ -10,6 +10,7 @@ import { formatOutputValue } from "./outputFormats";
 import { getLiveCalculator } from "@/lib/calculators";
 import { generateResultSummaryText } from "@/lib/exportUtils";
 import { ResultActions } from "./ResultActions";
+import { trackCalculatorView, trackCalculationCompleted } from "@/lib/analytics";
 
 export type { FieldDef };
 
@@ -76,6 +77,18 @@ export function DynamicCalculator({
     [calculatorId]
   );
 
+  const calcDef = useMemo(() => getLiveCalculator(calculatorId), [calculatorId]);
+  const calculatorSlug = calcDef?.slug || calculatorId.toLowerCase();
+  const calculatorName = calcDef?.name || "Calculator";
+  const rulesSensitive = calcDef?.rulesSensitive;
+
+  useEffect(() => {
+    trackCalculatorView({
+      calculator_slug: calculatorSlug,
+      calculator_category: calcDef?.category || "",
+    });
+  }, [calculatorSlug, calcDef?.category]);
+
   const handleCalculate = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
@@ -129,6 +142,14 @@ export function DynamicCalculator({
 
       const res = await calculate(calculatorId, transformed);
       setResult(res);
+      if (res && res.outputs) {
+        trackCalculationCompleted({
+          calculator_slug: calculatorSlug,
+          calculator_category: calcDef?.category || "",
+          has_assumptions: Boolean(res.assumptions && res.assumptions.length > 0),
+          has_warnings: Boolean(res.warnings && res.warnings.length > 0),
+        });
+      }
     } catch (err: any) {
       setResult(null);
       setError(err.message || "Calculation failed");
@@ -149,11 +170,6 @@ export function DynamicCalculator({
     }
     return order.map(g => ({ name: g, fields: byGroup.get(g)! }));
   }, [visibleFields]);
-
-  const calcDef = useMemo(() => getLiveCalculator(calculatorId), [calculatorId]);
-  const calculatorSlug = calcDef?.slug || calculatorId.toLowerCase();
-  const calculatorName = calcDef?.name || "Calculator";
-  const rulesSensitive = calcDef?.rulesSensitive;
 
   const outputs: Record<string, any> = useMemo(() => result?.outputs ?? {}, [result]);
   const primaryKeys = useMemo(() => new Set(primaryResult?.rows.map(r => r.key) ?? []), [primaryResult]);

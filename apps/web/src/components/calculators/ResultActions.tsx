@@ -4,6 +4,13 @@ import { useState } from "react";
 import { copyToClipboard } from "@/lib/exportUtils";
 import { useIsFavourite, toggleFavourite } from "@/lib/storage";
 import { SITE_URL } from "@/lib/site";
+import {
+  trackCopyResult,
+  trackShareLink,
+  trackPrint,
+  trackCalculatorFavourited,
+  trackCalculatorUnfavourited,
+} from "@/lib/analytics";
 
 export interface ResultActionsProps {
   calculatorSlug: string;
@@ -19,6 +26,7 @@ export function ResultActions({ calculatorSlug, summaryText }: ResultActionsProp
   const handleCopyResult = async () => {
     const ok = await copyToClipboard(summaryText);
     if (ok) {
+      trackCopyResult({ calculator_slug: calculatorSlug });
       setCopyResultStatus("success");
       setAnnouncement("Calculation summary copied to clipboard.");
       setTimeout(() => {
@@ -37,6 +45,7 @@ export function ResultActions({ calculatorSlug, summaryText }: ResultActionsProp
     const url = `${SITE_URL}/calculators/${calculatorSlug}`;
     const ok = await copyToClipboard(url);
     if (ok) {
+      trackShareLink({ calculator_slug: calculatorSlug });
       setCopyLinkStatus("success");
       setAnnouncement("Calculator link copied to clipboard.");
       setTimeout(() => {
@@ -52,6 +61,7 @@ export function ResultActions({ calculatorSlug, summaryText }: ResultActionsProp
   };
 
   const handlePrint = () => {
+    trackPrint({ calculator_slug: calculatorSlug });
     if (typeof window !== "undefined") {
       window.print();
     }
@@ -59,7 +69,13 @@ export function ResultActions({ calculatorSlug, summaryText }: ResultActionsProp
 
   const handleToggleFavourite = () => {
     const newState = toggleFavourite(calculatorSlug);
-    setAnnouncement(newState ? "Calculator saved to favourites." : "Calculator removed from favourites.");
+    if (newState) {
+      trackCalculatorFavourited({ calculator_slug: calculatorSlug });
+      setAnnouncement("Calculator saved to favourites.");
+    } else {
+      trackCalculatorUnfavourited({ calculator_slug: calculatorSlug });
+      setAnnouncement("Calculator removed from favourites.");
+    }
   };
 
   return (

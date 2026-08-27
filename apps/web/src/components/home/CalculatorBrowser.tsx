@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import Link from "next/link";
 import { liveCalculators, liveCategories } from "@/lib/calculators";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/Card";
@@ -8,6 +8,7 @@ import { Badge } from "@/components/ui/Badge";
 import { Input } from "@/components/ui/Input";
 import { getCalculatorIdsForQuery } from "@/lib/searchAliases";
 import { useFavourites, useRecents, toggleFavourite } from "@/lib/storage";
+import { trackSearch, trackSearchNoResults } from "@/lib/analytics";
 
 // High-value canonical entry points for featured discovery
 const FEATURED_IDS = [
@@ -95,6 +96,32 @@ export function CalculatorBrowser() {
   }, [search, selectedCategory, activeFilterTab, favouriteSlugs, recentSlugs]);
 
   const isFiltering = search.trim().length > 0 || selectedCategory !== "All" || activeFilterTab !== "all";
+
+  // Privacy-Safe Search Analytics
+  useEffect(() => {
+    const trimmed = search.trim();
+    if (trimmed.length < 2) return;
+
+    const timer = setTimeout(() => {
+      const aliasMatched = getCalculatorIdsForQuery(trimmed.toLowerCase());
+      const aliasId = aliasMatched.size === 1 ? Array.from(aliasMatched)[0] : undefined;
+
+      if (filtered.length === 0) {
+        trackSearchNoResults({
+          query_length: trimmed.length,
+          category_filter: selectedCategory !== "All" ? selectedCategory : undefined,
+        });
+      } else {
+        trackSearch({
+          result_count: filtered.length,
+          category_filter: selectedCategory !== "All" ? selectedCategory : undefined,
+          alias_matched_id: aliasId,
+        });
+      }
+    }, 800);
+
+    return () => clearTimeout(timer);
+  }, [search, filtered.length, selectedCategory]);
 
   const handleCardFavouriteToggle = (e: React.MouseEvent, slug: string) => {
     e.preventDefault();
