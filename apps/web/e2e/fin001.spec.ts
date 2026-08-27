@@ -2,7 +2,7 @@ import { test, expect } from '@playwright/test';
 
 test.describe('FIN-001 Explicit E2E Test', () => {
   test('calculates correct values for 10000, 6%, 5 years', async ({ page }) => {
-    await page.goto('http://localhost:3000/calculators/fin-001');
+    await page.goto('/calculators/fin-001');
 
     await page.fill('input[name="principal"]', '10000');
     await page.fill('input[name="annual_rate"]', '6');

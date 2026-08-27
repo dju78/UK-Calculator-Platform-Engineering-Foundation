@@ -12,6 +12,24 @@ import { liveCalculators } from '../src/lib/calculators';
 const calculators = liveCalculators as Array<{ id: string; slug: string; name: string; category: string }>;
 const categories = [...new Set(calculators.map(c => c.category))];
 
+/**
+ * Every non-homepage standalone route the sitemap must advertise: the legal
+ * set, plus the Phase 4 governance pages. Listed explicitly rather than as a
+ * bare count, so adding a page means naming it here and the assertion below
+ * keeps meaning something.
+ */
+const standalonePages = [
+  '/privacy',
+  '/terms',
+  '/disclaimer',
+  '/accessibility',
+  '/about',
+  '/contact',
+  '/editorial-policy',
+  '/how-we-check-our-figures',
+  '/updates',
+];
+
 test.describe('Sitemap', () => {
   test('lists every calculator by slug, never by internal id', async ({ request }) => {
     const xml = await (await request.get('/sitemap.xml')).text();
@@ -28,12 +46,14 @@ test.describe('Sitemap', () => {
     for (const category of categories) {
       expect(xml).toContain(`/category/${encodeURIComponent(category.toLowerCase())}`);
     }
-    for (const page of ['/privacy', '/terms', '/disclaimer', '/accessibility']) {
+    for (const page of standalonePages) {
       expect(xml).toContain(page);
     }
     // Raw spaces and ampersands would make the sitemap invalid.
     const locs = xml.match(/<loc>([^<]*)<\/loc>/g) ?? [];
-    expect(locs.length).toBe(5 + categories.length + calculators.length);
+    // Homepage plus every standalone page, category and calculator, and
+    // nothing else - so an accidentally duplicated or orphaned entry fails.
+    expect(locs.length).toBe(1 + standalonePages.length + categories.length + calculators.length);
     for (const loc of locs) {
       expect(loc).not.toMatch(/<loc>[^<]* [^<]*<\/loc>/);
       expect(loc.replace(/<\/?loc>/g, '')).not.toContain('&');

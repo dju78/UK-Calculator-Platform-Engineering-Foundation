@@ -39,7 +39,7 @@ test.describe('Calculator UI Parity', () => {
     test.describe(calcId, () => {
       for (const [, fixture] of (fixtures as any).entries()) {
         test(`Scenario: ${fixture.scenario}`, async ({ page }) => {
-          await page.goto(`http://localhost:3000/calculators/${calcId.toLowerCase()}`);
+          await page.goto(`/calculators/${calcId.toLowerCase()}`);
           
           const aliases = FIXTURE_INPUT_ALIASES[calcId] ?? {};
           const entries: Array<[string, unknown]> = [
