@@ -18,6 +18,7 @@ export function Footer() {
             <h3 className="font-semibold mb-4">About</h3>
             <ul className="space-y-2 text-sm text-slate-600">
               <li><Link href="/about" className="hover:underline">About</Link></li>
+              <li><Link href="/for-organisations" className="hover:underline">For Organisations</Link></li>
               <li><Link href="/how-we-check-our-figures" className="hover:underline">How We Check Our Figures</Link></li>
               <li><Link href="/editorial-policy" className="hover:underline">Editorial Policy</Link></li>
               <li><Link href="/updates" className="hover:underline">Updates</Link></li>
@@ -30,6 +31,7 @@ export function Footer() {
               <li><Link href="/privacy" className="hover:underline">Privacy Policy</Link></li>
               <li><Link href="/terms" className="hover:underline">Terms of Use</Link></li>
               <li><Link href="/disclaimer" className="hover:underline">Disclaimer</Link></li>
+              <li><Link href="/commercial-disclosure" className="hover:underline">Commercial Disclosure</Link></li>
               <li><Link href="/accessibility" className="hover:underline">Accessibility Statement</Link></li>
             </ul>
           </div>

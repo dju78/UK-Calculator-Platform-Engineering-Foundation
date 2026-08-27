@@ -30,6 +30,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   // actual reason to read, whereas the terms are there because they must be.
   const governancePages = [
     '/about',
+    '/for-organisations',
     '/how-we-check-our-figures',
     '/editorial-policy',
     '/updates',
@@ -41,7 +42,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.6,
   }));
 
-  const staticPages = ['', '/privacy', '/terms', '/disclaimer', '/accessibility'].map((route) => ({
+  const staticPages = ['', '/privacy', '/terms', '/disclaimer', '/commercial-disclosure', '/accessibility'].map((route) => ({
     url: `${SITE_URL}${route}`,
     lastModified,
     changeFrequency: 'monthly' as const,

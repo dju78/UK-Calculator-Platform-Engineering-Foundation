@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
-import { Header } from "@/components/layout/Header";
-import { Sidebar } from "@/components/layout/Sidebar";
-import { Footer } from "@/components/layout/Footer";
+import { AppShell } from "@/components/layout/AppShell";
 import { liveCategories } from "@/lib/calculators";
 import { SITE_NAME, SITE_URL } from "@/lib/site";
 import "./globals.css";
+
+const googleVerification = process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION;
+const bingVerification = process.env.NEXT_PUBLIC_BING_SITE_VERIFICATION;
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -23,6 +24,10 @@ export const metadata: Metadata = {
     locale: 'en_GB',
     type: 'website',
   },
+  verification: {
+    google: googleVerification || undefined,
+    other: bingVerification ? { 'msvalidate.01': bingVerification } : undefined,
+  },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -31,16 +36,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en">
       <body>
-        <div className="flex min-h-screen flex-col bg-white">
-          <Header />
-          <div className="container mx-auto flex-1 items-start md:grid md:grid-cols-[256px_minmax(0,1fr)]">
-            <Sidebar categories={categories} />
-            <main className="flex w-full flex-col overflow-hidden px-4 py-6 md:px-8">
-              {children}
-            </main>
-          </div>
-          <Footer />
-        </div>
+        <AppShell categories={categories}>
+          {children}
+        </AppShell>
       </body>
     </html>
   );
