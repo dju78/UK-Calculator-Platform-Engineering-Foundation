@@ -4,7 +4,7 @@ import { useState, useMemo, useEffect } from "react";
 import Link from "next/link";
 import { liveCalculators, liveCategories } from "@/lib/calculators";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/Card";
-import { Badge } from "@/components/ui/Badge";
+import { Badge, getCategoryFilterClass } from "@/components/ui/Badge";
 import { Input } from "@/components/ui/Input";
 import { getCalculatorIdsForQuery } from "@/lib/searchAliases";
 import { useFavourites, useRecents, toggleFavourite } from "@/lib/storage";
@@ -228,11 +228,7 @@ export function CalculatorBrowser() {
                 key={cat}
                 type="button"
                 onClick={() => setSelectedCategory(cat)}
-                className={`px-3 py-1 rounded-md text-xs font-medium transition-colors cursor-pointer ${
-                  selectedCategory === cat
-                    ? "bg-slate-900 text-white shadow-xs"
-                    : "bg-slate-100 text-slate-700 hover:bg-slate-200/80 hover:text-slate-950"
-                }`}
+                className={`px-3 py-1 rounded-md text-xs font-medium transition-colors cursor-pointer ${getCategoryFilterClass(cat, selectedCategory === cat)}`}
               >
                 {cat}
               </button>

@@ -29,16 +29,16 @@ export function RelatedCalculators({
       </h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         {related.map((calc) => (
-          <Link key={calc.id} href={`/calculators/${calc.slug}`} className="group">
-            <Card className="h-full hover:border-slate-300 hover:shadow-sm transition-all flex flex-col">
-              <CardHeader className="p-4">
-                <CardTitle className="text-sm font-semibold text-slate-900 group-hover:text-blue-600 transition-colors">
+          <Link key={calc.id} href={`/calculators/${calc.slug}`} className="group block focus:outline-none focus-visible:ring-2 focus-visible:ring-slate-900 rounded-xl">
+            <Card className="h-full border-slate-200/90 group-hover:border-slate-300 group-hover:shadow-sm transition-all duration-150 cursor-pointer flex flex-col bg-white">
+              <CardHeader className="p-4 pb-2">
+                <CardTitle className="text-sm font-semibold text-slate-900 group-hover:text-slate-950 transition-colors">
                   {calc.name}
                 </CardTitle>
               </CardHeader>
               <CardContent className="p-4 pt-0 flex-1 flex flex-col justify-end">
                 <div className="flex flex-wrap gap-1.5 mt-auto">
-                  <Badge variant="neutral">
+                  <Badge>
                     {calc.category}
                   </Badge>
                   {calc.subcategory && (
