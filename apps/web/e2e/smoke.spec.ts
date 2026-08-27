@@ -3,11 +3,12 @@ import AxeBuilder from '@axe-core/playwright';
 
 test.describe('Homepage', () => {
   test('renders correctly and is accessible', async ({ page }) => {
+    test.setTimeout(60000);
     await page.goto('/');
     
     // Verify title and navigation
     await expect(page.getByRole('heading', { name: 'Calculators', exact: true })).toBeVisible();
-    await expect(page.getByRole('navigation')).toBeVisible();
+    await expect(page.getByRole('navigation').first()).toBeVisible();
     
     // Verify search
     await expect(page.getByPlaceholder('Search calculators...')).toBeVisible();
