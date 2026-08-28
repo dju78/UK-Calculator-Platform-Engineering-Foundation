@@ -7,7 +7,7 @@ import { getUKRuleset } from "../packages/rules-uk/src/index.js";
 import type { CalculatorDefinition } from "../packages/calculator-registry/src/types.js";
 
 test("Admin Console Data Integrity Suite", async (t: any) => {
-  const seoModulePath = pathToFileURL(join(process.cwd(), "apps/admin/src/lib/admin-data/seo-status.ts")).href;
+  const seoModulePath = pathToFileURL(join(process.cwd(), "dist/apps/admin/src/lib/admin-data/seo-status.js")).href;
   const {
     getSitemapRouteList,
     getSitemapEntryCount,
@@ -17,13 +17,13 @@ test("Admin Console Data Integrity Suite", async (t: any) => {
     generateCalculatorDescription,
   } = await import(seoModulePath);
 
-  const calcModulePath = pathToFileURL(join(process.cwd(), "apps/admin/src/lib/admin-data/calculator-registry.ts")).href;
+  const calcModulePath = pathToFileURL(join(process.cwd(), "dist/apps/admin/src/lib/admin-data/calculator-registry.js")).href;
   const { getAdminCalculatorDetail, getCalculatorSummary, listAdminCalculators, getMonorepoRootDir } = await import(calcModulePath);
 
-  const qaModulePath = pathToFileURL(join(process.cwd(), "apps/admin/src/lib/admin-data/qa-status.ts")).href;
+  const qaModulePath = pathToFileURL(join(process.cwd(), "dist/apps/admin/src/lib/admin-data/qa-status.js")).href;
   const { getAdminQAOverview, parseQAArtifact } = await import(qaModulePath);
 
-  const rulesModulePath = pathToFileURL(join(process.cwd(), "apps/admin/src/lib/admin-data/rules-governance.ts")).href;
+  const rulesModulePath = pathToFileURL(join(process.cwd(), "dist/apps/admin/src/lib/admin-data/rules-governance.js")).href;
   const { getAdminRulesOverview } = await import(rulesModulePath);
 
   await t.test("Calculator inventory counts derive exact platform figures", () => {

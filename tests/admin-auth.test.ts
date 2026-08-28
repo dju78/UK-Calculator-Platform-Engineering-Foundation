@@ -4,7 +4,7 @@ import { pathToFileURL } from "node:url";
 import { join } from "node:path";
 
 test("Admin Console Auth & Route Protection Suite", async (t: any) => {
-  const authModulePath = pathToFileURL(join(process.cwd(), "apps/admin/src/lib/auth.ts")).href;
+  const authModulePath = pathToFileURL(join(process.cwd(), "dist/apps/admin/src/lib/auth.js")).href;
   const {
     createSessionToken,
     verifySessionToken,
@@ -15,7 +15,7 @@ test("Admin Console Auth & Route Protection Suite", async (t: any) => {
   } = await import(authModulePath);
 
   const { NextRequest } = await import(pathToFileURL(join(process.cwd(), "node_modules/next/server.js")).href);
-  const middlewarePath = pathToFileURL(join(process.cwd(), "apps/admin/src/middleware.ts")).href;
+  const middlewarePath = pathToFileURL(join(process.cwd(), "dist/apps/admin/src/middleware.js")).href;
   const { middleware } = await import(middlewarePath);
 
   await t.test("Auth constants and cookie name", () => {
@@ -148,7 +148,7 @@ test("Admin Console Auth & Route Protection Suite", async (t: any) => {
     assert.strictEqual(loginDecision.redirectPath, "/");
   });
 
-  await t.test("Actual middleware integration: apps/admin/src/middleware.ts execution with NextRequest", async () => {
+  await t.test("Actual middleware integration: dist/apps/admin/src/middleware.js execution with NextRequest", async () => {
     const protectedRoutes = [
       "/",
       "/calculators",

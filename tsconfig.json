@@ -16,6 +16,19 @@
       "@admin/*": ["apps/admin/src/*"]
     }
   },
-  "include": ["packages/**/*.ts", "tests/**/*.ts", "scripts/**/*.ts", "types/**/*.d.ts"],
-  "exclude": ["dist", "node_modules", "apps/web", "apps/admin"]
+  "include": [
+    "packages/**/*.ts",
+    "tests/**/*.ts",
+    "scripts/**/*.ts",
+    "types/**/*.d.ts",
+    "apps/admin/src/lib/**/*.ts",
+    "apps/admin/src/middleware.ts"
+  ],
+  "exclude": [
+    "dist",
+    "node_modules",
+    "apps/web",
+    "apps/admin/src/app",
+    "apps/admin/src/components"
+  ]
 }

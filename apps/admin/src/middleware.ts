@@ -1,5 +1,5 @@
 import { NextResponse, type NextRequest } from "next/server.js";
-import { SESSION_COOKIE_NAME, evaluateRouteProtection } from "./lib/auth.ts";
+import { SESSION_COOKIE_NAME, evaluateRouteProtection } from "./lib/auth.js";
 
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
