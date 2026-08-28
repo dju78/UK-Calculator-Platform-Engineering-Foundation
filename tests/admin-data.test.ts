@@ -46,26 +46,63 @@ test("Admin Console Data Integrity Suite", async (t: any) => {
     assert.strictEqual(summary.verified, 253);
   });
 
-  await t.test("Sitemap exact-set test: canonical route inventory derives exactly 284 URLs", () => {
-    const routeList = getSitemapRouteList();
-    const count = getSitemapEntryCount();
+  await t.test("Actual web sitemap vs admin exact-set comparison", () => {
+    // 1. Derive admin sitemap route list
+    const adminRoutes: string[] = getSitemapRouteList();
+    const adminCount = getSitemapEntryCount();
     const seoOverview = getAdminSEOOverview();
 
-    // 6 static + 6 governance + 19 categories + 253 calculators = 284 URLs
-    assert.strictEqual(count, 284, "Total sitemap route count must equal 284");
-    assert.strictEqual(routeList.length, 284, "Route list length must match count");
-    assert.strictEqual(seoOverview.sitemapEntryCount, 284, "Admin SEO overview must report 284");
+    assert.strictEqual(adminCount, 284, "Admin sitemap count must equal 284");
+    assert.strictEqual(adminRoutes.length, 284, "Admin route list length must match count");
+    assert.strictEqual(seoOverview.sitemapEntryCount, 284);
 
-    const routeSet = new Set(routeList);
-    assert.strictEqual(routeSet.size, 284, "All 284 sitemap URLs must be distinct");
+    // 2. Canonical web sitemap specification from apps/web/src/app/sitemap.ts
+    const staticPages: string[] = ['', '/privacy', '/terms', '/disclaimer', '/commercial-disclosure', '/accessibility'];
+    const governancePages: string[] = [
+      '/about',
+      '/for-organisations',
+      '/how-we-check-our-figures',
+      '/editorial-policy',
+      '/updates',
+      '/contact',
+    ];
+    const categoryPages: string[] = Array.from(new Set(calculatorRegistry.map((c: CalculatorDefinition) => c.category)))
+      .sort()
+      .map((cat: string) => `/category/${encodeURIComponent(cat.toLowerCase())}`);
+    const calculatorPages: string[] = (calculatorRegistry as CalculatorDefinition[]).map((c: CalculatorDefinition) => `/calculators/${c.slug}`);
 
-    // Check presence of key URL categories
-    assert.ok(routeSet.has("/"), "Must include homepage");
-    assert.ok(routeSet.has("/privacy"), "Must include privacy policy");
-    assert.ok(routeSet.has("/about"), "Must include about page");
-    assert.ok(routeSet.has("/category/uk%20tax%20%26%20salary"), "Must include percent-encoded category");
-    assert.ok(routeSet.has("/calculators/loan-calculator"), "Must include canonical calculator route");
-    assert.ok(routeSet.has("/calculators/uk-income-tax-calculator"), "Must include canonical calculator route");
+    const expectedCanonicalWebRoutes: string[] = [
+      ...staticPages.map((p) => p === '' ? '/' : p),
+      ...governancePages,
+      ...categoryPages,
+      ...calculatorPages,
+    ];
+
+    assert.strictEqual(expectedCanonicalWebRoutes.length, 284, "Canonical web route count must be 284");
+
+    // 3. Exact Set Comparison: check equal members, no missing routes, no extra routes, no duplicates
+    const adminSet = new Set<string>(adminRoutes);
+    const webSet = new Set<string>(expectedCanonicalWebRoutes);
+
+    assert.strictEqual(adminSet.size, 284, "Admin sitemap must have 284 unique routes (no duplicates)");
+    assert.strictEqual(webSet.size, 284, "Web sitemap must have 284 unique routes (no duplicates)");
+    assert.strictEqual(adminSet.size, webSet.size, "Equal count requirement");
+
+    const missingInAdmin: string[] = [];
+    for (const route of webSet) {
+      if (!adminSet.has(route)) {
+        missingInAdmin.push(route);
+      }
+    }
+    assert.strictEqual(missingInAdmin.length, 0, `No missing routes in admin sitemap: ${missingInAdmin.join(", ")}`);
+
+    const extraInAdmin: string[] = [];
+    for (const route of adminSet) {
+      if (!webSet.has(route)) {
+        extraInAdmin.push(route);
+      }
+    }
+    assert.strictEqual(extraInAdmin.length, 0, `No extra routes in admin sitemap: ${extraInAdmin.join(", ")}`);
   });
 
   await t.test("SEO Description generator and measured coverage audit", () => {

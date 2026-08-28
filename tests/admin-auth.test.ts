@@ -14,6 +14,10 @@ test("Admin Console Auth & Route Protection Suite", async (t: any) => {
     SESSION_COOKIE_NAME,
   } = await import(authModulePath);
 
+  const { NextRequest } = await import(pathToFileURL(join(process.cwd(), "node_modules/next/server.js")).href);
+  const middlewarePath = pathToFileURL(join(process.cwd(), "apps/admin/src/middleware.ts")).href;
+  const { middleware } = await import(middlewarePath);
+
   await t.test("Auth constants and cookie name", () => {
     assert.strictEqual(SESSION_COOKIE_NAME, "ukcalc_admin_session");
   });
@@ -109,7 +113,7 @@ test("Admin Console Auth & Route Protection Suite", async (t: any) => {
     assert.strictEqual(validateRedirectDestination(undefined), "/");
   });
 
-  await t.test("Route protection evaluator redirects unauthenticated requests across all protected routes", async () => {
+  await t.test("Route-decision helper: evaluateRouteProtection logic verification", async () => {
     const protectedRoutes = [
       "/",
       "/calculators",
@@ -142,5 +146,62 @@ test("Admin Console Auth & Route Protection Suite", async (t: any) => {
     const loginDecision = await evaluateRouteProtection("/login", validToken);
     assert.strictEqual(loginDecision.action, "redirect");
     assert.strictEqual(loginDecision.redirectPath, "/");
+  });
+
+  await t.test("Actual middleware integration: apps/admin/src/middleware.ts execution with NextRequest", async () => {
+    const protectedRoutes = [
+      "/",
+      "/calculators",
+      "/calculators/loan-calculator",
+      "/rules",
+      "/qa",
+      "/seo",
+      "/releases",
+      "/system",
+    ];
+
+    const validToken = await createSessionToken();
+    const tamperedToken = `${validToken.split(".")[0]}.invalid_signature_bytes_12345`;
+
+    // Case A: Unauthenticated requests -> 307 redirect to /login?from=...
+    for (const route of protectedRoutes) {
+      const req = new NextRequest(`https://admin.ukcalc.jomovate.com${route}`);
+      const res = await middleware(req);
+      assert.strictEqual(res.status, 307, `Actual middleware: unauthenticated ${route} must return 307 redirect`);
+      const location = res.headers.get("location");
+      assert.ok(location?.includes("/login"), `Location for ${route} must point to /login`);
+      if (route !== "/") {
+        assert.ok(location?.includes(`from=${encodeURIComponent(route)}`), `Location must preserve from=${route}`);
+      }
+    }
+
+    // Case B: Authenticated requests with valid session -> 200 pass through
+    for (const route of protectedRoutes) {
+      const authReq = new NextRequest(`https://admin.ukcalc.jomovate.com${route}`, {
+        headers: { cookie: `${SESSION_COOKIE_NAME}=${validToken}` },
+      });
+      const authRes = await middleware(authReq);
+      assert.strictEqual(authRes.status, 200, `Actual middleware: authenticated request to ${route} must pass through with status 200`);
+    }
+
+    // Case C: Authenticated request to /login -> 307 redirect to /
+    const loginReq = new NextRequest("https://admin.ukcalc.jomovate.com/login", {
+      headers: { cookie: `${SESSION_COOKIE_NAME}=${validToken}` },
+    });
+    const loginRes = await middleware(loginReq);
+    assert.strictEqual(loginRes.status, 307, "Actual middleware: authenticated /login must return 307 redirect");
+    const loginLoc = loginRes.headers.get("location");
+    assert.ok(loginLoc?.endsWith("/"), "Location must point to /");
+
+    // Case D: Tampered/invalid session -> 307 redirect to /login
+    for (const route of protectedRoutes) {
+      const tamperedReq = new NextRequest(`https://admin.ukcalc.jomovate.com${route}`, {
+        headers: { cookie: `${SESSION_COOKIE_NAME}=${tamperedToken}` },
+      });
+      const tamperedRes = await middleware(tamperedReq);
+      assert.strictEqual(tamperedRes.status, 307, `Actual middleware: tampered session on ${route} must redirect to /login`);
+      const loc = tamperedRes.headers.get("location");
+      assert.ok(loc?.includes("/login"), `Tampered session location must point to /login`);
+    }
   });
 });
