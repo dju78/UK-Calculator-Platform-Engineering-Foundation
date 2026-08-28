@@ -252,11 +252,11 @@ test("IndexNow Integration Test Suite", async (t: any) => {
     delete process.env.INDEXNOW_KEY;
 
     const fileRes = resolveIndexNowKey();
-    assert.strictEqual(fileRes.key, "PASTE_YOUR_REAL_INDEXNOW_KEY_HERE");
-    assert.strictEqual(fileRes.source, "file:PASTE_YOUR_REAL_INDEXNOW_KEY_HERE.txt");
+    assert.strictEqual(fileRes.key, "ce8ca55ad5124f4bbf57355ed840f53f");
+    assert.strictEqual(fileRes.source, "file:ce8ca55ad5124f4bbf57355ed840f53f.txt");
     assert.strictEqual(
       fileRes.keyLocation,
-      "https://ukcalc.jomovate.com/PASTE_YOUR_REAL_INDEXNOW_KEY_HERE.txt"
+      "https://ukcalc.jomovate.com/ce8ca55ad5124f4bbf57355ed840f53f.txt"
     );
   });
 });
