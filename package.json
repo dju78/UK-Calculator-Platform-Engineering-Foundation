@@ -14,7 +14,8 @@
     "test": "npm run build && node --test dist/tests/*.test.js",
     "test:e2e": "npm --workspace=web run test:e2e",
     "bench:reference": "npm run build && node dist/scripts/benchmark-runner.js",
-    "serve:reference": "npm run build && node dist/apps/reference-server/src/server.js"
+    "serve:reference": "npm run build && node dist/apps/reference-server/src/server.js",
+    "indexnow": "node scripts/indexnow-submit.mjs"
   },
   "engines": {
     "node": ">=20"
