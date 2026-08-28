@@ -1,0 +1,47 @@
+{
+  "$schema": "./schema/platform-verification.schema.json",
+  "label": "LAST RECORDED VERIFICATION",
+  "recordedAt": "2026-08-28T15:30:26Z",
+  "gitBranch": "admin-console-phase-1",
+  "sourceCommit": "4f9f364",
+  "sourceCommitFull": "4f9f3649da3860c0de89d07bd788fb98404470b4",
+  "unitTests": {
+    "passed": 1118,
+    "total": 1118,
+    "suites": 30,
+    "status": "PASS"
+  },
+  "adminTests": {
+    "passed": 20,
+    "total": 20,
+    "suites": 2,
+    "status": "PASS"
+  },
+  "benchmarks": {
+    "passed": 1489,
+    "total": 1489,
+    "wave1": 275,
+    "wave2": 1164,
+    "wave3": 50,
+    "status": "PASS"
+  },
+  "browserTests": {
+    "passed": 1642,
+    "total": 1642,
+    "status": "PASS"
+  },
+  "accessibility": {
+    "violations": 0,
+    "standard": "WCAG 2.2 AA",
+    "status": "PASS"
+  },
+  "brokenNumbers": {
+    "count": 0,
+    "status": "PASS"
+  },
+  "webBuildRoutes": {
+    "prerenderedPages": 299,
+    "sitemapEntries": 284,
+    "status": "PASS"
+  }
+}

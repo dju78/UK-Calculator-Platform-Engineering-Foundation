@@ -15,7 +15,10 @@
     "test:e2e": "npm --workspace=web run test:e2e",
     "bench:reference": "npm run build && node dist/scripts/benchmark-runner.js",
     "serve:reference": "npm run build && node dist/apps/reference-server/src/server.js",
-    "indexnow": "node scripts/indexnow-submit.mjs"
+    "indexnow": "node scripts/indexnow-submit.mjs",
+    "build:admin": "npm --workspace=admin run build",
+    "lint:admin": "npm --workspace=admin run lint",
+    "test:admin": "npm run build && node --test dist/tests/admin-*.test.js"
   },
   "engines": {
     "node": ">=20"
