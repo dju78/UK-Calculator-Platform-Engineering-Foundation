@@ -1,8 +1,20 @@
 import { existsSync, readFileSync, readdirSync } from "node:fs";
-import { join, basename } from "node:path";
-import { getMonorepoRootDir } from "./calculator-registry";
+import { join, basename, resolve } from "node:path";
 import { calculatorRegistry } from "../../../../../dist/packages/calculator-registry/src/index.js";
 import type { CalculatorDefinition } from "../../../../../packages/calculator-registry/src/types";
+
+function getMonorepoRootDir(): string {
+  let cur = process.cwd();
+  for (let i = 0; i < 5; i++) {
+    if (existsSync(/* turbopackIgnore: true */ join(cur, "packages")) && existsSync(/* turbopackIgnore: true */ join(cur, "package.json"))) {
+      return cur;
+    }
+    const parent = resolve(cur, "..");
+    if (parent === cur) break;
+    cur = parent;
+  }
+  return process.cwd();
+}
 
 export type IndexNowStatusCode = "INTEGRATED" | "PENDING_PARTIAL" | "UNCONFIGURED";
 
@@ -103,6 +115,26 @@ export function evaluateIndexNowStatus(keyFileFound: boolean, submissionScriptFo
   return { status: "UNCONFIGURED", statusLabel: "Unconfigured" };
 }
 
+/**
+ * Authoritative description generator mirroring apps/web/src/lib/site.ts:calculatorDescription.
+ */
+export function generateCalculatorDescription(calc: {
+  name: string;
+  category: string;
+  subcategory?: string;
+  rulesSensitive?: boolean;
+}): string {
+  if (!calc.name || typeof calc.name !== "string" || calc.name.trim().length === 0) {
+    return "";
+  }
+  const TAX_YEAR = "2026/27";
+  const topic = calc.subcategory ? `${calc.subcategory.toLowerCase()} ` : "";
+  const base = `Free ${calc.name.replace(/ Calculator$/i, "")} calculator for the UK. Work out ${topic}figures in the ${calc.category ? calc.category.toLowerCase() : ""} category`;
+  return calc.rulesSensitive
+    ? `${base}, using ${TAX_YEAR} UK rules. Estimates only - not financial or tax advice.`
+    : `${base}. Estimates only - not financial or tax advice.`;
+}
+
 export function evaluateCalculatorSEOCoverage(calculators: CalculatorDefinition[]): AdminSEOCoverageAudit {
   const totalCalculators = calculators.length;
   const categories = Array.from(new Set(calculators.map((c) => c.category)));
@@ -115,7 +147,8 @@ export function evaluateCalculatorSEOCoverage(calculators: CalculatorDefinition[
     if (c.slug && typeof c.slug === "string" && c.slug.trim().length > 0) {
       withCanonical++;
     }
-    if (c.name && typeof c.name === "string" && c.name.trim().length > 0) {
+    const description = generateCalculatorDescription(c);
+    if (description && typeof description === "string" && description.trim().length > 0) {
       withCustomDescription++;
     }
     if (c.category && SCHEMA_CATEGORY_MAP[c.category]) {
@@ -181,13 +214,13 @@ export function getAdminSEOOverview(): AdminSEOOverview {
   let keyLocation: string | undefined;
   let maskedKey: string | undefined;
 
-  if (existsSync(publicDir)) {
+  if (existsSync(/* turbopackIgnore: true */ publicDir)) {
     try {
-      const files = readdirSync(publicDir);
+      const files = readdirSync(/* turbopackIgnore: true */ publicDir);
       for (const file of files) {
         if (file.endsWith(".txt") && !file.startsWith("robots") && file.length >= 12) {
           const keyCandidate = basename(file, ".txt");
-          const content = readFileSync(join(publicDir, file), "utf8").trim();
+          const content = readFileSync(/* turbopackIgnore: true */ join(publicDir, file), "utf8").trim();
           if (content === keyCandidate) {
             keyFileFound = true;
             keyFileName = file;
@@ -202,7 +235,7 @@ export function getAdminSEOOverview(): AdminSEOOverview {
     }
   }
 
-  const scriptFound = existsSync(join(rootDir, "scripts/indexnow-submit.mjs"));
+  const scriptFound = existsSync(/* turbopackIgnore: true */ join(rootDir, "scripts/indexnow-submit.mjs"));
   const { status, statusLabel } = evaluateIndexNowStatus(keyFileFound, scriptFound);
 
   const indexNow: IndexNowIntegrationStatus = {

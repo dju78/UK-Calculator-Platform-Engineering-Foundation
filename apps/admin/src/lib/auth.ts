@@ -149,3 +149,39 @@ export async function verifySessionToken(token: string | undefined | null): Prom
     return false;
   }
 }
+
+export interface RouteProtectionDecision {
+  action: "next" | "redirect";
+  redirectPath?: string;
+  statusCode?: number;
+}
+
+export async function evaluateRouteProtection(
+  pathname: string,
+  sessionToken: string | undefined | null
+): Promise<RouteProtectionDecision> {
+  // Static assets and auth endpoints bypass middleware
+  if (
+    pathname.startsWith("/_next") ||
+    pathname.startsWith("/api/auth") ||
+    pathname === "/favicon.ico"
+  ) {
+    return { action: "next" };
+  }
+
+  const isAuthenticated = await verifySessionToken(sessionToken);
+
+  if (pathname === "/login") {
+    if (isAuthenticated) {
+      return { action: "redirect", redirectPath: "/", statusCode: 307 };
+    }
+    return { action: "next" };
+  }
+
+  if (!isAuthenticated) {
+    const fromParam = pathname !== "/" ? `?from=${encodeURIComponent(pathname)}` : "";
+    return { action: "redirect", redirectPath: `/login${fromParam}`, statusCode: 307 };
+  }
+
+  return { action: "next" };
+}

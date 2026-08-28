@@ -6,7 +6,7 @@ import type { CalculatorDefinition } from "../../../../../packages/calculator-re
 export function getMonorepoRootDir(): string {
   let cur = process.cwd();
   for (let i = 0; i < 5; i++) {
-    if (existsSync(join(cur, "packages")) && existsSync(join(cur, "package.json"))) {
+    if (existsSync(/*turbopackIgnore: true*/ join(/*turbopackIgnore: true*/ cur, "packages")) && existsSync(/*turbopackIgnore: true*/ join(/*turbopackIgnore: true*/ cur, "package.json"))) {
       return cur;
     }
     const parent = resolve(cur, "..");
@@ -145,7 +145,7 @@ export function listAdminCalculators(filters?: {
     const canonicalRoute = `/calculators/${c.slug}`;
     const publicUrl = `${PUBLIC_BASE_URL}${canonicalRoute}`;
     const specRelative = c.specFile || `docs/specs/${c.launchWave === "Wave 3" ? "wave3" : "wave2"}/${c.id}.md`;
-    const hasSpec = existsSync(join(rootDir, specRelative));
+    const hasSpec = existsSync(/*turbopackIgnore: true*/ join(/*turbopackIgnore: true*/ rootDir, specRelative));
 
     return {
       id: c.id,
@@ -179,7 +179,7 @@ export function getAdminCalculatorDetail(slugOrId: string): AdminCalculatorDetai
   const publicUrl = `${PUBLIC_BASE_URL}${canonicalRoute}`;
   const specRelative = c.specFile || `docs/specs/${c.launchWave === "Wave 3" ? "wave3" : "wave2"}/${c.id}.md`;
   const rootDir = getMonorepoRootDir();
-  const specPath = join(rootDir, specRelative);
+  const specPath = join(/*turbopackIgnore: true*/ rootDir, specRelative);
 
   let purpose: string | undefined;
   let assumptions: string[] | undefined;
@@ -191,9 +191,9 @@ export function getAdminCalculatorDetail(slugOrId: string): AdminCalculatorDetai
   let seoTitle: string | undefined;
   let seoDescription: string | undefined;
 
-  if (existsSync(specPath)) {
+  if (existsSync(/*turbopackIgnore: true*/ specPath)) {
     try {
-      const content = readFileSync(specPath, "utf8");
+      const content = readFileSync(/*turbopackIgnore: true*/ specPath, "utf8");
 
       const purposeMatch = content.match(/## Purpose\s+([\s\S]*?)(?=\n## |\Z)/);
       if (purposeMatch) purpose = purposeMatch[1].trim();
@@ -245,7 +245,7 @@ export function getAdminCalculatorDetail(slugOrId: string): AdminCalculatorDetai
     jurisdiction: c.jurisdiction || "UK",
     publicUrl,
     canonicalRoute,
-    hasSpec: existsSync(specPath),
+    hasSpec: existsSync(/*turbopackIgnore: true*/ specPath),
     version: c.version || "1.0.0",
     specFile: specRelative,
     aliases: c.aliases || [],

@@ -3,13 +3,14 @@ import assert from "node:assert/strict";
 import { pathToFileURL } from "node:url";
 import { join } from "node:path";
 
-test("Admin Console Auth Suite", async (t: any) => {
+test("Admin Console Auth & Route Protection Suite", async (t: any) => {
   const authModulePath = pathToFileURL(join(process.cwd(), "apps/admin/src/lib/auth.ts")).href;
   const {
     createSessionToken,
     verifySessionToken,
     validateCredentials,
     validateRedirectDestination,
+    evaluateRouteProtection,
     SESSION_COOKIE_NAME,
   } = await import(authModulePath);
 
@@ -108,7 +109,7 @@ test("Admin Console Auth Suite", async (t: any) => {
     assert.strictEqual(validateRedirectDestination(undefined), "/");
   });
 
-  await t.test("Route Protection Logic redirects unauthenticated requests across all protected routes", async () => {
+  await t.test("Route protection evaluator redirects unauthenticated requests across all protected routes", async () => {
     const protectedRoutes = [
       "/",
       "/calculators",
@@ -120,38 +121,26 @@ test("Admin Console Auth Suite", async (t: any) => {
       "/system",
     ];
 
-    async function evaluateRouteAccess(pathname: string, sessionToken?: string) {
-      const isAuthenticated = await verifySessionToken(sessionToken);
-      if (pathname === "/login") {
-        if (isAuthenticated) return { status: 307, location: "/" };
-        return { status: 200 };
-      }
-      if (!isAuthenticated) {
-        const fromParam = pathname !== "/" ? `?from=${encodeURIComponent(pathname)}` : "";
-        return { status: 307, location: `/login${fromParam}` };
-      }
-      return { status: 200 };
-    }
-
     for (const route of protectedRoutes) {
-      const unauthResult = await evaluateRouteAccess(route, undefined);
-      assert.strictEqual(unauthResult.status, 307, `Unauthenticated ${route} must redirect 307`);
-      assert.ok(unauthResult.location?.startsWith("/login"), `Redirect location for ${route} must point to /login`);
+      const decision = await evaluateRouteProtection(route, undefined);
+      assert.strictEqual(decision.action, "redirect", `Unauthenticated request to ${route} must trigger redirect`);
+      assert.strictEqual(decision.statusCode, 307);
+      assert.ok(decision.redirectPath?.startsWith("/login"), `Redirect path for ${route} must start with /login`);
       if (route !== "/") {
-        assert.ok(unauthResult.location?.includes(`from=${encodeURIComponent(route)}`), `Redirect must preserve target route ${route}`);
+        assert.ok(decision.redirectPath?.includes(`from=${encodeURIComponent(route)}`), `Redirect must preserve target route for ${route}`);
       }
     }
 
-    // Authenticated request access granted
+    // Authenticated request passes through
     const validToken = await createSessionToken();
     for (const route of protectedRoutes) {
-      const authResult = await evaluateRouteAccess(route, validToken);
-      assert.strictEqual(authResult.status, 200, `Authenticated request to ${route} must be granted status 200`);
+      const authDecision = await evaluateRouteProtection(route, validToken);
+      assert.strictEqual(authDecision.action, "next", `Authenticated request to ${route} must pass through`);
     }
 
-    // Authenticated visit to /login redirects to /
-    const loginResult = await evaluateRouteAccess("/login", validToken);
-    assert.strictEqual(loginResult.status, 307);
-    assert.strictEqual(loginResult.location, "/");
+    // Authenticated user accessing /login is redirected to /
+    const loginDecision = await evaluateRouteProtection("/login", validToken);
+    assert.strictEqual(loginDecision.action, "redirect");
+    assert.strictEqual(loginDecision.redirectPath, "/");
   });
 });

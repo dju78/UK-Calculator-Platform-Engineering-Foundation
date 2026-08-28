@@ -14,14 +14,14 @@ test("Admin Console Data Integrity Suite", async (t: any) => {
     getAdminSEOOverview,
     evaluateIndexNowStatus,
     evaluateCalculatorSEOCoverage,
-    getMonorepoRootDir,
+    generateCalculatorDescription,
   } = await import(seoModulePath);
 
   const calcModulePath = pathToFileURL(join(process.cwd(), "apps/admin/src/lib/admin-data/calculator-registry.ts")).href;
-  const { getAdminCalculatorDetail, getCalculatorSummary, listAdminCalculators } = await import(calcModulePath);
+  const { getAdminCalculatorDetail, getCalculatorSummary, listAdminCalculators, getMonorepoRootDir } = await import(calcModulePath);
 
   const qaModulePath = pathToFileURL(join(process.cwd(), "apps/admin/src/lib/admin-data/qa-status.ts")).href;
-  const { getAdminQAOverview } = await import(qaModulePath);
+  const { getAdminQAOverview, parseQAArtifact } = await import(qaModulePath);
 
   const rulesModulePath = pathToFileURL(join(process.cwd(), "apps/admin/src/lib/admin-data/rules-governance.ts")).href;
   const { getAdminRulesOverview } = await import(rulesModulePath);
@@ -46,7 +46,7 @@ test("Admin Console Data Integrity Suite", async (t: any) => {
     assert.strictEqual(summary.verified, 253);
   });
 
-  await t.test("Sitemap count is derived dynamically and matches canonical route inventory (284 URLs)", () => {
+  await t.test("Sitemap exact-set test: canonical route inventory derives exactly 284 URLs", () => {
     const routeList = getSitemapRouteList();
     const count = getSitemapEntryCount();
     const seoOverview = getAdminSEOOverview();
@@ -55,22 +55,32 @@ test("Admin Console Data Integrity Suite", async (t: any) => {
     assert.strictEqual(count, 284, "Total sitemap route count must equal 284");
     assert.strictEqual(routeList.length, 284, "Route list length must match count");
     assert.strictEqual(seoOverview.sitemapEntryCount, 284, "Admin SEO overview must report 284");
-    assert.ok(routeList.includes("/"), "Must include homepage");
-    assert.ok(routeList.includes("/privacy"), "Must include privacy policy");
-    assert.ok(routeList.includes("/about"), "Must include about page");
-    assert.ok(routeList.includes("/category/uk%20tax%20%26%20salary"), "Must include encoded category");
-    assert.ok(routeList.includes("/calculators/loan-calculator"), "Must include calculator canonical route");
-    assert.ok(routeList.includes("/calculators/uk-income-tax-calculator"), "Must include calculator canonical route");
+
+    const routeSet = new Set(routeList);
+    assert.strictEqual(routeSet.size, 284, "All 284 sitemap URLs must be distinct");
+
+    // Check presence of key URL categories
+    assert.ok(routeSet.has("/"), "Must include homepage");
+    assert.ok(routeSet.has("/privacy"), "Must include privacy policy");
+    assert.ok(routeSet.has("/about"), "Must include about page");
+    assert.ok(routeSet.has("/category/uk%20tax%20%26%20salary"), "Must include percent-encoded category");
+    assert.ok(routeSet.has("/calculators/loan-calculator"), "Must include canonical calculator route");
+    assert.ok(routeSet.has("/calculators/uk-income-tax-calculator"), "Must include canonical calculator route");
   });
 
-  await t.test("SEO Coverage audit inspects actual data and detects incomplete fixtures", () => {
+  await t.test("SEO Description generator and measured coverage audit", () => {
     // 1. Full live registry test (all valid)
     const fullAudit = evaluateCalculatorSEOCoverage(calculatorRegistry as CalculatorDefinition[]);
     assert.strictEqual(fullAudit.totalCalculators, 253);
     assert.strictEqual(fullAudit.withCanonical, 253);
-    assert.strictEqual(fullAudit.withCustomDescription, 253);
+    assert.strictEqual(fullAudit.withCustomDescription, 253, "All 253 calculators must have custom descriptions");
     assert.strictEqual(fullAudit.withSchemaApplicationCategory, 253);
     assert.strictEqual(fullAudit.coverageComplete, true);
+
+    // Verify description formatting
+    const descSample = generateCalculatorDescription(calculatorRegistry[0]);
+    assert.ok(descSample.length > 20, "Generated description must be substantial");
+    assert.ok(descSample.includes("Estimates only"), "Must include regulatory disclaimer snippet");
 
     // 2. Deliberately incomplete fixture test
     const brokenFixture: CalculatorDefinition[] = [
@@ -87,7 +97,7 @@ test("Admin Console Data Integrity Suite", async (t: any) => {
       } as any,
       {
         id: "TEST-002",
-        name: "", // Missing name/description
+        name: "", // Missing name -> empty description
         slug: "", // Missing slug
         category: "Non-Existent-Category", // Unmapped category
         launchWave: "Wave 1",
@@ -124,33 +134,64 @@ test("Admin Console Data Integrity Suite", async (t: any) => {
     assert.strictEqual(s4.status, "UNCONFIGURED");
   });
 
-  await t.test("Vercel monorepo root resolver works from simulated apps/admin directory", () => {
-    const root = getMonorepoRootDir();
-    assert.ok(root.length > 0);
-    assert.ok(!root.endsWith("apps/admin"), "Monorepo root must resolve repository base");
+  await t.test("QA Missing-Evidence Test: parseQAArtifact handles missing and corrupt files without fabricated fallbacks", () => {
+    // Missing file returns UNVERIFIED with zero counts
+    const missing = parseQAArtifact("/non/existent/path/docs/platform-verification.json");
+    assert.strictEqual(missing.overallStatus, "UNVERIFIED");
+    assert.strictEqual(missing.evidenceLabel, "NO VERIFICATION ARTIFACT RECORDED");
+    assert.strictEqual(missing.summary.unitTests.passed, 0);
+    assert.strictEqual(missing.summary.benchmarks.passed, 0);
+    assert.strictEqual(missing.metrics.length, 0);
 
-    // Calculator detail loads spec cleanly for Wave 3 and Wave 2 calculators
-    const detailW3 = getAdminCalculatorDetail("PRO-008");
-    assert.ok(detailW3 !== null);
-    assert.strictEqual(detailW3.id, "PRO-008");
-    assert.strictEqual(detailW3.hasSpec, true);
-    assert.ok(detailW3.purpose && detailW3.purpose.length > 0);
-
-    const detailW2 = getAdminCalculatorDetail("AUT-001");
-    assert.ok(detailW2 !== null);
-    assert.strictEqual(detailW2.id, "AUT-001");
-    assert.strictEqual(detailW2.hasSpec, true);
-    assert.ok(detailW2.purpose && detailW2.purpose.length > 0);
+    // Live file returns VERIFIED with 1117 unit tests
+    const live = getAdminQAOverview();
+    assert.strictEqual(live.overallStatus, "VERIFIED");
+    assert.strictEqual(live.evidenceLabel, "LAST RECORDED VERIFICATION");
+    assert.strictEqual(live.summary.unitTests.passed, 1117, "Must truthfully report 1117 passed unit tests");
+    assert.strictEqual(live.summary.benchmarks.passed, 1489, "Must truthfully report 1489 passed benchmarks");
+    assert.strictEqual(live.summary.browserTests.passed, 1642, "Must report 1642 passed browser tests");
+    assert.strictEqual(live.summary.accessibility.violations, 0);
   });
 
-  await t.test("QA Evidence reflects LAST RECORDED VERIFICATION without stale assumptions", () => {
-    const qa = getAdminQAOverview();
-    assert.strictEqual(qa.overallStatus, "VERIFIED");
-    assert.strictEqual(qa.evidenceLabel, "LAST RECORDED VERIFICATION");
-    assert.strictEqual(qa.summary.unitTests.passed, 1112, "Unit test count must reflect 1112 passed");
-    assert.strictEqual(qa.summary.benchmarks.passed, 1489, "Benchmark count must reflect 1489 passed");
-    assert.strictEqual(qa.summary.browserTests.passed, 1642, "Browser test count must reflect 1642 passed");
-    assert.strictEqual(qa.summary.accessibility.violations, 0, "A11y violations must equal 0");
+  await t.test("Vercel monorepo root resolver works from real apps/admin working directory", () => {
+    const originalCwd = process.cwd();
+    const adminCwd = join(originalCwd, "apps/admin");
+
+    try {
+      // Switch process working directory to apps/admin
+      process.chdir(adminCwd);
+      assert.strictEqual(process.cwd(), adminCwd, "Must have real cwd set to apps/admin");
+
+      const rootDir = getMonorepoRootDir();
+      assert.strictEqual(rootDir, originalCwd, "getMonorepoRootDir must resolve to repository root from apps/admin");
+
+      const summary = getCalculatorSummary();
+      assert.strictEqual(summary.total, 253);
+
+      const qa = getAdminQAOverview();
+      assert.strictEqual(qa.overallStatus, "VERIFIED");
+      assert.strictEqual(qa.summary.unitTests.passed, 1117);
+
+      const seo = getAdminSEOOverview();
+      assert.strictEqual(seo.sitemapEntryCount, 284);
+      assert.strictEqual(seo.indexNow.status, "INTEGRATED");
+
+      // Calculator detail loads spec cleanly for Wave 3 and Wave 2 calculators
+      const detailW3 = getAdminCalculatorDetail("PRO-008");
+      assert.ok(detailW3 !== null);
+      assert.strictEqual(detailW3.id, "PRO-008");
+      assert.strictEqual(detailW3.hasSpec, true);
+      assert.ok(detailW3.purpose && detailW3.purpose.length > 0);
+
+      const detailW2 = getAdminCalculatorDetail("AUT-001");
+      assert.ok(detailW2 !== null);
+      assert.strictEqual(detailW2.id, "AUT-001");
+      assert.strictEqual(detailW2.hasSpec, true);
+      assert.ok(detailW2.purpose && detailW2.purpose.length > 0);
+    } finally {
+      process.chdir(originalCwd);
+      assert.strictEqual(process.cwd(), originalCwd, "Restored original cwd");
+    }
   });
 
   await t.test("Ruleset uk-2026-27-v1 parameters are derived from rules-uk and rules-sensitive count is 51", () => {

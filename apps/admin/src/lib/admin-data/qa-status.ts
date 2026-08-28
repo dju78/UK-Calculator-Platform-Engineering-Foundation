@@ -1,6 +1,18 @@
 import { existsSync, readFileSync } from "node:fs";
-import { join } from "node:path";
-import { getMonorepoRootDir } from "./calculator-registry";
+import { join, resolve } from "node:path";
+
+function getMonorepoRootDir(): string {
+  let cur = process.cwd();
+  for (let i = 0; i < 5; i++) {
+    if (existsSync(/* turbopackIgnore: true */ join(cur, "packages")) && existsSync(/* turbopackIgnore: true */ join(cur, "package.json"))) {
+      return cur;
+    }
+    const parent = resolve(cur, "..");
+    if (parent === cur) break;
+    cur = parent;
+  }
+  return process.cwd();
+}
 
 export interface QualityMetricRecord {
   title: string;
@@ -16,7 +28,7 @@ export interface QualityMetricRecord {
 }
 
 export interface AdminQAOverview {
-  overallStatus: string;
+  overallStatus: "VERIFIED" | "UNVERIFIED" | "CORRUPT_ARTIFACT";
   evidenceLabel: string;
   recordedAt: string;
   gitBranch: string;
@@ -33,34 +45,89 @@ export interface AdminQAOverview {
   metrics: QualityMetricRecord[];
 }
 
-export function getAdminQAOverview(): AdminQAOverview {
-  const rootDir = getMonorepoRootDir();
-  const artifactPath = join(rootDir, "docs/platform-verification-latest.json");
-
-  let rawData: any = null;
-  if (existsSync(artifactPath)) {
-    try {
-      rawData = JSON.parse(readFileSync(artifactPath, "utf8"));
-    } catch {
-      // Fallback
-    }
+export function parseQAArtifact(artifactPath: string): AdminQAOverview {
+  if (!existsSync(/* turbopackIgnore: true */ artifactPath)) {
+    return {
+      overallStatus: "UNVERIFIED",
+      evidenceLabel: "NO VERIFICATION ARTIFACT RECORDED",
+      recordedAt: "Not available",
+      gitBranch: "Not available",
+      sourceCommit: "Not available",
+      summary: {
+        unitTests: { passed: 0, total: 0, status: "Not available" },
+        benchmarks: { passed: 0, total: 0, wave1: 0, wave2: 0, wave3: 0, status: "Not available" },
+        browserTests: { passed: 0, total: 0, status: "Not available" },
+        accessibility: { violations: -1, standard: "WCAG 2.2 AA", status: "Not available" },
+        brokenNumbers: { count: -1, status: "Not available" },
+        prerenderedPages: 0,
+        sitemapEntries: 0,
+      },
+      metrics: [],
+    };
   }
 
-  const recordedAt = rawData?.recordedAt || "2026-08-28T15:46:00Z";
-  const gitBranch = rawData?.gitBranch || "admin-console-phase-1";
-  const sourceCommit = rawData?.sourceCommit || "2f51734";
-  const evidenceLabel = rawData?.label || "LAST RECORDED VERIFICATION";
+  let rawData: any;
+  try {
+    const fileContent = readFileSync(/* turbopackIgnore: true */ artifactPath, "utf8");
+    rawData = JSON.parse(fileContent);
+  } catch {
+    return {
+      overallStatus: "CORRUPT_ARTIFACT",
+      evidenceLabel: "VERIFICATION ARTIFACT CORRUPT",
+      recordedAt: "Not available",
+      gitBranch: "Not available",
+      sourceCommit: "Not available",
+      summary: {
+        unitTests: { passed: 0, total: 0, status: "Not available" },
+        benchmarks: { passed: 0, total: 0, wave1: 0, wave2: 0, wave3: 0, status: "Not available" },
+        browserTests: { passed: 0, total: 0, status: "Not available" },
+        accessibility: { violations: -1, standard: "WCAG 2.2 AA", status: "Not available" },
+        brokenNumbers: { count: -1, status: "Not available" },
+        prerenderedPages: 0,
+        sitemapEntries: 0,
+      },
+      metrics: [],
+    };
+  }
 
-  const unitTotal = rawData?.unitTests?.total ?? 1112;
-  const unitPassed = rawData?.unitTests?.passed ?? 1112;
-  const benchTotal = rawData?.benchmarks?.total ?? 1489;
-  const benchPassed = rawData?.benchmarks?.passed ?? 1489;
-  const browserTotal = rawData?.browserTests?.total ?? 1642;
-  const browserPassed = rawData?.browserTests?.passed ?? 1642;
-  const a11yViolations = rawData?.accessibility?.violations ?? 0;
-  const brokenCount = rawData?.brokenNumbers?.count ?? 0;
-  const prerenderedPages = rawData?.webBuildRoutes?.prerenderedPages ?? 299;
-  const sitemapEntries = rawData?.webBuildRoutes?.sitemapEntries ?? 284;
+  if (!rawData || typeof rawData !== "object" || !rawData.unitTests || !rawData.benchmarks) {
+    return {
+      overallStatus: "CORRUPT_ARTIFACT",
+      evidenceLabel: "MALFORMED VERIFICATION METRICS",
+      recordedAt: "Not available",
+      gitBranch: "Not available",
+      sourceCommit: "Not available",
+      summary: {
+        unitTests: { passed: 0, total: 0, status: "Not available" },
+        benchmarks: { passed: 0, total: 0, wave1: 0, wave2: 0, wave3: 0, status: "Not available" },
+        browserTests: { passed: 0, total: 0, status: "Not available" },
+        accessibility: { violations: -1, standard: "WCAG 2.2 AA", status: "Not available" },
+        brokenNumbers: { count: -1, status: "Not available" },
+        prerenderedPages: 0,
+        sitemapEntries: 0,
+      },
+      metrics: [],
+    };
+  }
+
+  const recordedAt = rawData.recordedAt || "Not available";
+  const gitBranch = rawData.gitBranch || "Not available";
+  const sourceCommit = rawData.sourceCommit || "Not available";
+  const evidenceLabel = rawData.label || "LAST RECORDED VERIFICATION";
+
+  const unitTotal = Number(rawData.unitTests?.total ?? 0);
+  const unitPassed = Number(rawData.unitTests?.passed ?? 0);
+  const benchTotal = Number(rawData.benchmarks?.total ?? 0);
+  const benchPassed = Number(rawData.benchmarks?.passed ?? 0);
+  const benchWave1 = Number(rawData.benchmarks?.wave1 ?? 0);
+  const benchWave2 = Number(rawData.benchmarks?.wave2 ?? 0);
+  const benchWave3 = Number(rawData.benchmarks?.wave3 ?? 0);
+  const browserTotal = Number(rawData.browserTests?.total ?? 0);
+  const browserPassed = Number(rawData.browserTests?.passed ?? 0);
+  const a11yViolations = Number(rawData.accessibility?.violations ?? 0);
+  const brokenCount = Number(rawData.brokenNumbers?.count ?? 0);
+  const prerenderedPages = Number(rawData.webBuildRoutes?.prerenderedPages ?? 0);
+  const sitemapEntries = Number(rawData.webBuildRoutes?.sitemapEntries ?? 0);
 
   const metrics: QualityMetricRecord[] = [
     {
@@ -68,7 +135,7 @@ export function getAdminQAOverview(): AdminQAOverview {
       category: "unit",
       recordedCount: unitPassed,
       totalTarget: unitTotal,
-      passRate: unitTotal ? `${((unitPassed / unitTotal) * 100).toFixed(0)}%` : "Not available",
+      passRate: unitTotal > 0 ? `${((unitPassed / unitTotal) * 100).toFixed(0)}%` : "Not available",
       status: unitPassed === unitTotal && unitTotal > 0 ? "PASS" : "FAIL",
       verificationMethod: "Node.js Native Test Runner (`npm test`)",
       sourceArtifact: "tests/*.test.ts (30 test suites)",
@@ -80,19 +147,19 @@ export function getAdminQAOverview(): AdminQAOverview {
       category: "benchmark",
       recordedCount: benchPassed,
       totalTarget: benchTotal,
-      passRate: benchTotal ? `${((benchPassed / benchTotal) * 100).toFixed(0)}%` : "Not available",
+      passRate: benchTotal > 0 ? `${((benchPassed / benchTotal) * 100).toFixed(0)}%` : "Not available",
       status: benchPassed === benchTotal && benchTotal > 0 ? "PASS" : "FAIL",
       verificationMethod: "Deterministic Reference Runner (`npm run bench:reference`)",
       sourceArtifact: "packages/test-fixtures/src/fixtures/*.ts",
       lastVerified: recordedAt,
-      notes: `Wave 1: ${rawData?.benchmarks?.wave1 ?? 275}, Wave 2: ${rawData?.benchmarks?.wave2 ?? 1164}, Wave 3: ${rawData?.benchmarks?.wave3 ?? 50} verified fixture cases.`,
+      notes: `Wave 1: ${benchWave1}, Wave 2: ${benchWave2}, Wave 3: ${benchWave3} verified fixture cases.`,
     },
     {
       title: "Playwright End-to-End User Journeys",
       category: "browser",
       recordedCount: browserPassed,
       totalTarget: browserTotal,
-      passRate: browserTotal ? `${((browserPassed / browserTotal) * 100).toFixed(0)}%` : "Not available",
+      passRate: browserTotal > 0 ? `${((browserPassed / browserTotal) * 100).toFixed(0)}%` : "Not available",
       status: browserPassed === browserTotal && browserTotal > 0 ? "PASS" : "FAIL",
       verificationMethod: "Playwright Chromium/Firefox/WebKit Automated Runner",
       sourceArtifact: "apps/web/e2e/*.spec.ts",
@@ -132,21 +199,27 @@ export function getAdminQAOverview(): AdminQAOverview {
     gitBranch,
     sourceCommit,
     summary: {
-      unitTests: { passed: unitPassed, total: unitTotal, status: "PASS" },
+      unitTests: { passed: unitPassed, total: unitTotal, status: unitPassed === unitTotal ? "PASS" : "FAIL" },
       benchmarks: {
         passed: benchPassed,
         total: benchTotal,
-        wave1: rawData?.benchmarks?.wave1 ?? 275,
-        wave2: rawData?.benchmarks?.wave2 ?? 1164,
-        wave3: rawData?.benchmarks?.wave3 ?? 50,
-        status: "PASS",
+        wave1: benchWave1,
+        wave2: benchWave2,
+        wave3: benchWave3,
+        status: benchPassed === benchTotal ? "PASS" : "FAIL",
       },
-      browserTests: { passed: browserPassed, total: browserTotal, status: "PASS" },
-      accessibility: { violations: a11yViolations, standard: "WCAG 2.2 AA", status: "PASS" },
-      brokenNumbers: { count: brokenCount, status: "PASS" },
+      browserTests: { passed: browserPassed, total: browserTotal, status: browserPassed === browserTotal ? "PASS" : "FAIL" },
+      accessibility: { violations: a11yViolations, standard: "WCAG 2.2 AA", status: a11yViolations === 0 ? "PASS" : "FAIL" },
+      brokenNumbers: { count: brokenCount, status: brokenCount === 0 ? "PASS" : "FAIL" },
       prerenderedPages,
       sitemapEntries,
     },
     metrics,
   };
+}
+
+export function getAdminQAOverview(): AdminQAOverview {
+  const rootDir = getMonorepoRootDir();
+  const artifactPath = join(rootDir, "docs/platform-verification-latest.json");
+  return parseQAArtifact(artifactPath);
 }
