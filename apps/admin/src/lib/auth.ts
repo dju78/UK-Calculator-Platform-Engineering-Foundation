@@ -2,14 +2,73 @@ export const SESSION_COOKIE_NAME = "ukcalc_admin_session";
 export const SESSION_DURATION_SECONDS = 8 * 60 * 60; // 8 hours
 
 function getSecretKey(): string {
-  const secret = process.env.ADMIN_SESSION_SECRET || process.env.ADMIN_PASSWORD;
-  if (secret && secret.length >= 8) {
-    return secret;
+  const isProduction = process.env.NODE_ENV === "production";
+  const sessionSecret = process.env.ADMIN_SESSION_SECRET;
+
+  if (isProduction) {
+    if (!sessionSecret || sessionSecret.trim().length < 32) {
+      throw new Error(
+        "[FATAL AUTH CONFIG] ADMIN_SESSION_SECRET is required in production and must be at least 32 characters long."
+      );
+    }
+    return sessionSecret.trim();
   }
-  if (process.env.NODE_ENV === "production") {
-    throw new Error("ADMIN_PASSWORD or ADMIN_SESSION_SECRET environment variable is required in production.");
+
+  // Development environment only
+  if (sessionSecret && sessionSecret.trim().length >= 8) {
+    return sessionSecret.trim();
   }
-  return "ukcalc-admin-dev-fallback-session-key-only";
+  return "ukcalc-dev-only-session-secret-must-be-32-chars-or-longer";
+}
+
+export function validateRedirectDestination(from: string | null | undefined): string {
+  if (!from || typeof from !== "string") {
+    return "/";
+  }
+  const trimmed = from.trim();
+
+  // Must begin with exactly one forward slash, not // (protocol-relative), not contain colons (schemes)
+  if (!trimmed.startsWith("/") || trimmed.startsWith("//") || trimmed.startsWith("/\\") || trimmed.includes(":") || trimmed.includes("\0")) {
+    return "/";
+  }
+
+  // Safe internal path
+  return trimmed;
+}
+
+export function validateCredentials(password: string): boolean {
+  if (typeof password !== "string" || password.trim() === "") {
+    return false;
+  }
+
+  const isProduction = process.env.NODE_ENV === "production";
+  const expectedPassword = process.env.ADMIN_PASSWORD;
+
+  if (isProduction) {
+    if (!expectedPassword || expectedPassword.trim() === "") {
+      console.error("[AUTH ERROR] ADMIN_PASSWORD is not configured in production environment.");
+      return false;
+    }
+    if (password.length !== expectedPassword.length) {
+      return false;
+    }
+    let result = 0;
+    for (let i = 0; i < password.length; i++) {
+      result |= password.charCodeAt(i) ^ expectedPassword.charCodeAt(i);
+    }
+    return result === 0;
+  }
+
+  // Development fallback
+  const devPassword = expectedPassword || "admin";
+  if (password.length !== devPassword.length) {
+    return false;
+  }
+  let devResult = 0;
+  for (let i = 0; i < password.length; i++) {
+    devResult |= password.charCodeAt(i) ^ devPassword.charCodeAt(i);
+  }
+  return devResult === 0;
 }
 
 function base64UrlEncode(buffer: Uint8Array): string {
@@ -34,32 +93,6 @@ function base64UrlDecode(str: string): Uint8Array {
     bytes[i] = binary.charCodeAt(i);
   }
   return bytes;
-}
-
-export function validateCredentials(password: string): boolean {
-  if (typeof password !== "string" || password.trim() === "") {
-    return false;
-  }
-
-  const expectedPassword = process.env.ADMIN_PASSWORD;
-
-  if (!expectedPassword) {
-    if (process.env.NODE_ENV === "production") {
-      console.error("[AUTH ERROR] ADMIN_PASSWORD environment variable is not configured in production.");
-      return false;
-    }
-    return password === "admin";
-  }
-
-  if (password.length !== expectedPassword.length) {
-    return false;
-  }
-
-  let result = 0;
-  for (let i = 0; i < password.length; i++) {
-    result |= password.charCodeAt(i) ^ expectedPassword.charCodeAt(i);
-  }
-  return result === 0;
 }
 
 async function signData(data: string, secret: string): Promise<string> {

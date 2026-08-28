@@ -1,0 +1,43 @@
+{
+  "label": "LAST RECORDED VERIFICATION",
+  "status": "VERIFIED",
+  "recordedAt": "2026-08-28T15:46:00Z",
+  "gitBranch": "admin-console-phase-1",
+  "sourceCommit": "2f51734",
+  "unitTests": {
+    "total": 1112,
+    "passed": 1112,
+    "failed": 0,
+    "suites": 30,
+    "status": "PASS"
+  },
+  "benchmarks": {
+    "total": 1489,
+    "passed": 1489,
+    "failed": 0,
+    "wave1": 275,
+    "wave2": 1164,
+    "wave3": 50,
+    "status": "PASS"
+  },
+  "browserTests": {
+    "total": 1642,
+    "passed": 1642,
+    "failed": 0,
+    "status": "PASS"
+  },
+  "accessibility": {
+    "standard": "WCAG 2.2 AA",
+    "violations": 0,
+    "status": "PASS"
+  },
+  "webBuildRoutes": {
+    "prerenderedPages": 299,
+    "sitemapEntries": 284,
+    "status": "PASS"
+  },
+  "brokenNumbers": {
+    "count": 0,
+    "status": "PASS"
+  }
+}

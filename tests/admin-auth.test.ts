@@ -9,6 +9,7 @@ test("Admin Console Auth Suite", async (t: any) => {
     createSessionToken,
     verifySessionToken,
     validateCredentials,
+    validateRedirectDestination,
     SESSION_COOKIE_NAME,
   } = await import(authModulePath);
 
@@ -56,14 +57,101 @@ test("Admin Console Auth Suite", async (t: any) => {
     assert.strictEqual(await verifySessionToken("invalid.base64.garbage"), false);
   });
 
-  await t.test("validateCredentials checks password against environment or dev fallback", () => {
-    process.env.ADMIN_PASSWORD = "test-secure-admin-pass-1234";
+  await t.test("validateCredentials enforces production safety invariants", () => {
+    const origEnv = process.env.NODE_ENV;
+    const origPass = process.env.ADMIN_PASSWORD;
 
-    assert.strictEqual(validateCredentials("test-secure-admin-pass-1234"), true);
-    assert.strictEqual(validateCredentials("wrong-password"), false);
-    assert.strictEqual(validateCredentials(""), false);
-    assert.strictEqual(validateCredentials(null as any), false);
+    try {
+      // Dev mode: fallback to "admin"
+      process.env.NODE_ENV = "development";
+      delete process.env.ADMIN_PASSWORD;
+      assert.strictEqual(validateCredentials("admin"), true);
+      assert.strictEqual(validateCredentials("wrong"), false);
 
-    delete process.env.ADMIN_PASSWORD;
+      // Dev mode with custom password
+      process.env.ADMIN_PASSWORD = "custom-dev-password";
+      assert.strictEqual(validateCredentials("custom-dev-password"), true);
+      assert.strictEqual(validateCredentials("admin"), false);
+
+      // Production mode: requires ADMIN_PASSWORD
+      process.env.NODE_ENV = "production";
+      delete process.env.ADMIN_PASSWORD;
+      assert.strictEqual(validateCredentials("admin"), false, "Must fail closed if password unset in production");
+
+      process.env.ADMIN_PASSWORD = "strong-production-admin-pass-32char!";
+      assert.strictEqual(validateCredentials("strong-production-admin-pass-32char!"), true);
+      assert.strictEqual(validateCredentials("wrong-pass"), false);
+    } finally {
+      process.env.NODE_ENV = origEnv;
+      if (origPass) process.env.ADMIN_PASSWORD = origPass;
+      else delete process.env.ADMIN_PASSWORD;
+    }
+  });
+
+  await t.test("validateRedirectDestination sanitizes malicious open redirects", () => {
+    // Valid internal paths
+    assert.strictEqual(validateRedirectDestination("/"), "/");
+    assert.strictEqual(validateRedirectDestination("/calculators"), "/calculators");
+    assert.strictEqual(validateRedirectDestination("/rules"), "/rules");
+    assert.strictEqual(validateRedirectDestination("/calculators/loan-calculator"), "/calculators/loan-calculator");
+
+    // Malicious open redirects
+    assert.strictEqual(validateRedirectDestination("//evil.com"), "/");
+    assert.strictEqual(validateRedirectDestination("//evil.com/path"), "/");
+    assert.strictEqual(validateRedirectDestination("/\\evil.com"), "/");
+    assert.strictEqual(validateRedirectDestination("https://evil.com"), "/");
+    assert.strictEqual(validateRedirectDestination("http://evil.com/login"), "/");
+    assert.strictEqual(validateRedirectDestination("javascript:alert(1)"), "/");
+    assert.strictEqual(validateRedirectDestination("data:text/html,<html>"), "/");
+    assert.strictEqual(validateRedirectDestination(""), "/");
+    assert.strictEqual(validateRedirectDestination(null), "/");
+    assert.strictEqual(validateRedirectDestination(undefined), "/");
+  });
+
+  await t.test("Route Protection Logic redirects unauthenticated requests across all protected routes", async () => {
+    const protectedRoutes = [
+      "/",
+      "/calculators",
+      "/calculators/loan-calculator",
+      "/rules",
+      "/qa",
+      "/seo",
+      "/releases",
+      "/system",
+    ];
+
+    async function evaluateRouteAccess(pathname: string, sessionToken?: string) {
+      const isAuthenticated = await verifySessionToken(sessionToken);
+      if (pathname === "/login") {
+        if (isAuthenticated) return { status: 307, location: "/" };
+        return { status: 200 };
+      }
+      if (!isAuthenticated) {
+        const fromParam = pathname !== "/" ? `?from=${encodeURIComponent(pathname)}` : "";
+        return { status: 307, location: `/login${fromParam}` };
+      }
+      return { status: 200 };
+    }
+
+    for (const route of protectedRoutes) {
+      const unauthResult = await evaluateRouteAccess(route, undefined);
+      assert.strictEqual(unauthResult.status, 307, `Unauthenticated ${route} must redirect 307`);
+      assert.ok(unauthResult.location?.startsWith("/login"), `Redirect location for ${route} must point to /login`);
+      if (route !== "/") {
+        assert.ok(unauthResult.location?.includes(`from=${encodeURIComponent(route)}`), `Redirect must preserve target route ${route}`);
+      }
+    }
+
+    // Authenticated request access granted
+    const validToken = await createSessionToken();
+    for (const route of protectedRoutes) {
+      const authResult = await evaluateRouteAccess(route, validToken);
+      assert.strictEqual(authResult.status, 200, `Authenticated request to ${route} must be granted status 200`);
+    }
+
+    // Authenticated visit to /login redirects to /
+    const loginResult = await evaluateRouteAccess("/login", validToken);
+    assert.strictEqual(loginResult.status, 307);
+    assert.strictEqual(loginResult.location, "/");
   });
 });

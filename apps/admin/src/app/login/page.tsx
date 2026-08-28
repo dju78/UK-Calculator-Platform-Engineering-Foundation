@@ -3,10 +3,20 @@
 import React, { useState, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 
+function sanitizeDestination(url: string | null): string {
+  if (!url || typeof url !== "string") return "/";
+  const trimmed = url.trim();
+  if (!trimmed.startsWith("/") || trimmed.startsWith("//") || trimmed.startsWith("/\\") || trimmed.includes(":")) {
+    return "/";
+  }
+  return trimmed;
+}
+
 function LoginForm() {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const from = searchParams.get("from") || "/";
+  const rawFrom = searchParams.get("from");
+  const from = sanitizeDestination(rawFrom);
 
   const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
@@ -109,7 +119,7 @@ export default function LoginPage() {
 
           <div className="mt-6 border-t border-slate-100 pt-4 text-center">
             <p className="text-xs text-slate-500">
-              Access restricted to authorized personnel. All administrative sessions are logged and monitored.
+              Access restricted to authorised administrative users.
             </p>
           </div>
         </div>

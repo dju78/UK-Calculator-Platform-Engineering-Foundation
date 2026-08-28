@@ -35,6 +35,18 @@ export function getAdminRulesOverview(): AdminRulesOverview {
   const calcs = calculatorRegistry as CalculatorDefinition[];
   const rulesSensitiveCalculators = calcs.filter((c: CalculatorDefinition) => c.rulesSensitive);
 
+  const itEWN = rules.income_tax_england_wales_ni;
+  const itScot = rules.income_tax_scotland;
+  const niEmp = rules.national_insurance_employee_class1_category_a;
+  const pen = rules.pension;
+  const isa = rules.isa;
+  const sdlt = rules.property_transaction_tax?.england_northern_ireland;
+  const lbtt = rules.property_transaction_tax?.scotland;
+  const ltt = rules.property_transaction_tax?.wales;
+  const cgt = rules.capital_gains;
+  const sl = rules.student_loans;
+  const ct = rules.corporation_tax;
+
   const ruleFamilies: RuleFamilySummary[] = [
     {
       key: "income_tax_england_wales_ni",
@@ -52,11 +64,11 @@ export function getAdminRulesOverview(): AdminRulesOverview {
         c.category === "UK Tax & Salary" || c.id.startsWith("TAX-") || c.id.startsWith("SAL-")
       ).length,
       sampleParameters: {
-        "Personal Allowance": `£${rules.income_tax_england_wales_ni?.personal_allowance_gbp?.toLocaleString() || "12,570"}`,
-        "Basic Rate": "20% (up to £37,700 taxable)",
-        "Higher Rate": "40% (£37,701 - £125,140)",
-        "Additional Rate": "45% (above £125,140)",
-        "Allowance Taper Start": `£${rules.income_tax_england_wales_ni?.personal_allowance_taper_start_gbp?.toLocaleString() || "100,000"}`,
+        "Personal Allowance": itEWN?.personal_allowance_gbp ? `£${itEWN.personal_allowance_gbp.toLocaleString()}` : "Not available",
+        "Basic Rate": itEWN?.bands_taxable_income_gbp?.[0] ? `${(itEWN.bands_taxable_income_gbp[0].rate * 100).toFixed(0)}% (up to £${itEWN.bands_taxable_income_gbp[0].to?.toLocaleString()} taxable)` : "Not available",
+        "Higher Rate": itEWN?.bands_taxable_income_gbp?.[1] ? `${(itEWN.bands_taxable_income_gbp[1].rate * 100).toFixed(0)}% (£${itEWN.bands_taxable_income_gbp[1].from?.toLocaleString()} - £${itEWN.bands_taxable_income_gbp[1].to?.toLocaleString()})` : "Not available",
+        "Additional Rate": itEWN?.bands_taxable_income_gbp?.[2] ? `${(itEWN.bands_taxable_income_gbp[2].rate * 100).toFixed(0)}% (above £${(itEWN.bands_taxable_income_gbp[2].from - 1)?.toLocaleString()})` : "Not available",
+        "Allowance Taper Start": itEWN?.personal_allowance_taper_start_gbp ? `£${itEWN.personal_allowance_taper_start_gbp.toLocaleString()}` : "Not available",
       },
       notes: "Personal Allowance tapered by £1 for every £2 of Adjusted Net Income above £100,000.",
     },
@@ -77,12 +89,12 @@ export function getAdminRulesOverview(): AdminRulesOverview {
         (c.jurisdiction === "Scotland" || !c.jurisdiction || c.jurisdiction === "UK")
       ).length,
       sampleParameters: {
-        "Starter Rate": "19% (£12,571 - £16,537)",
-        "Basic Rate": "20% (£16,538 - £29,526)",
-        "Intermediate Rate": "21% (£29,527 - £43,662)",
-        "Higher Rate": "42% (£43,663 - £75,000)",
-        "Advanced Rate": "45% (£75,001 - £125,140)",
-        "Top Rate": "48% (above £125,140)",
+        "Starter Rate": itScot?.bands_taxable_income_gbp?.[0] ? `${(itScot.bands_taxable_income_gbp[0].rate * 100).toFixed(0)}% (£12,571 - £${(12570 + itScot.bands_taxable_income_gbp[0].to).toLocaleString()})` : "Not available",
+        "Basic Rate": itScot?.bands_taxable_income_gbp?.[1] ? `${(itScot.bands_taxable_income_gbp[1].rate * 100).toFixed(0)}% (£${(12570 + itScot.bands_taxable_income_gbp[1].from).toLocaleString()} - £${(12570 + itScot.bands_taxable_income_gbp[1].to).toLocaleString()})` : "Not available",
+        "Intermediate Rate": itScot?.bands_taxable_income_gbp?.[2] ? `${(itScot.bands_taxable_income_gbp[2].rate * 100).toFixed(0)}% (£${(12570 + itScot.bands_taxable_income_gbp[2].from).toLocaleString()} - £${(12570 + itScot.bands_taxable_income_gbp[2].to).toLocaleString()})` : "Not available",
+        "Higher Rate": itScot?.bands_taxable_income_gbp?.[3] ? `${(itScot.bands_taxable_income_gbp[3].rate * 100).toFixed(0)}% (£${(12570 + itScot.bands_taxable_income_gbp[3].from).toLocaleString()} - £${(12570 + itScot.bands_taxable_income_gbp[3].to).toLocaleString()})` : "Not available",
+        "Advanced Rate": itScot?.bands_taxable_income_gbp?.[4] ? `${(itScot.bands_taxable_income_gbp[4].rate * 100).toFixed(0)}% (£${(12570 + itScot.bands_taxable_income_gbp[4].from).toLocaleString()} - £${(12570 + itScot.bands_taxable_income_gbp[4].to).toLocaleString()})` : "Not available",
+        "Top Rate": itScot?.bands_taxable_income_gbp?.[5] ? `${(itScot.bands_taxable_income_gbp[5].rate * 100).toFixed(0)}% (above £${(12570 + itScot.bands_taxable_income_gbp[5].from - 1).toLocaleString()})` : "Not available",
       },
       notes: "Applies to non-savings, non-dividend earned income for Scottish resident taxpayers.",
     },
@@ -102,13 +114,12 @@ export function getAdminRulesOverview(): AdminRulesOverview {
         c.category === "UK Tax & Salary" || c.id.startsWith("TAX-") || c.id.startsWith("BUS-")
       ).length,
       sampleParameters: {
-        "Class 1 Primary Threshold": "£242/week (£12,570/year)",
-        "Class 1 Main Employee Rate": "8%",
-        "Class 1 Upper Earnings Limit": "£967/week (£50,270/year)",
-        "Class 1 Additional Employee Rate": "2%",
-        "Class 1 Employer Secondary Rate": "15.0% (above £5,000 threshold)",
+        "Class 1 Primary Threshold": niEmp?.period_thresholds_gbp?.primary_threshold ? `£${niEmp.period_thresholds_gbp.primary_threshold.weekly}/week (£${niEmp.period_thresholds_gbp.primary_threshold.annual?.toLocaleString()}/year)` : "Not available",
+        "Class 1 Main Employee Rate": niEmp?.main_rate !== undefined ? `${(niEmp.main_rate * 100).toFixed(0)}%` : "Not available",
+        "Class 1 Upper Earnings Limit": niEmp?.period_thresholds_gbp?.upper_earnings_limit ? `£${niEmp.period_thresholds_gbp.upper_earnings_limit.weekly}/week (£${niEmp.period_thresholds_gbp.upper_earnings_limit.annual?.toLocaleString()}/year)` : "Not available",
+        "Class 1 Additional Employee Rate": niEmp?.upper_rate !== undefined ? `${(niEmp.upper_rate * 100).toFixed(0)}%` : "Not available",
       },
-      notes: "Updated employer NI threshold and rate per Autumn Budget statutory schedule.",
+      notes: "Class 1 employee National Insurance calculated on annualised primary earnings basis.",
     },
     {
       key: "pensions",
@@ -126,13 +137,12 @@ export function getAdminRulesOverview(): AdminRulesOverview {
         c.category === "Pensions & Retirement" || c.id.startsWith("PEN-")
       ).length,
       sampleParameters: {
-        "Standard Annual Allowance": "£60,000",
-        "Money Purchase Annual Allowance (MPAA)": "£10,000",
-        "Lump Sum Allowance (LSA)": "£268,275 (25% tax-free cap)",
-        "Lump Sum & Death Benefit Allowance (LSDBA)": "£1,073,100",
-        "Tapered Annual Allowance Minimum": "£10,000 (Adjusted Income > £260k)",
+        "Standard Annual Allowance": pen?.annual_allowance_gbp ? `£${pen.annual_allowance_gbp.toLocaleString()}` : "Not available",
+        "Money Purchase Annual Allowance (MPAA)": pen?.money_purchase_annual_allowance_gbp ? `£${pen.money_purchase_annual_allowance_gbp.toLocaleString()}` : "Not available",
+        "Lump Sum Allowance (LSA)": pen?.lump_sum_allowance_gbp ? `£${pen.lump_sum_allowance_gbp.toLocaleString()} (25% tax-free cap)` : "Not available",
+        "Tapered Annual Allowance Minimum": pen?.minimum_tapered_annual_allowance_gbp ? `£${pen.minimum_tapered_annual_allowance_gbp.toLocaleString()} (Adjusted Income > £${pen.adjusted_income_taper_gbp?.toLocaleString()})` : "Not available",
       },
-      notes: "Lifetime Allowance abolished; replaced by Lump Sum Allowance (LSA) and LSDBA.",
+      notes: "Lifetime Allowance abolished; replaced by Lump Sum Allowance (LSA).",
     },
     {
       key: "isa",
@@ -150,11 +160,11 @@ export function getAdminRulesOverview(): AdminRulesOverview {
         c.category === "ISA & Tax Wrappers" || c.id.startsWith("ISA-") || c.id.startsWith("INV-")
       ).length,
       sampleParameters: {
-        "Annual ISA Limit": `£${rules.isa?.overall_subscription_limit_gbp?.toLocaleString() || "20,000"}`,
-        "Lifetime ISA (LISA) Limit": `£${rules.isa?.lifetime_isa_subscription_limit_gbp?.toLocaleString() || "4,000"}`,
-        "LISA Government Bonus": "25% (up to £1,000/year)",
-        "Junior ISA Limit": `£${rules.isa?.junior_isa_subscription_limit_gbp?.toLocaleString() || "9,000"}`,
-        "LISA Unauthorized Withdrawal Charge": "25%",
+        "Annual ISA Limit": isa?.overall_subscription_limit_gbp ? `£${isa.overall_subscription_limit_gbp.toLocaleString()}` : "Not available",
+        "Lifetime ISA (LISA) Limit": isa?.lifetime_isa_subscription_limit_gbp ? `£${isa.lifetime_isa_subscription_limit_gbp.toLocaleString()}` : "Not available",
+        "LISA Government Bonus": isa?.lifetime_isa_bonus_rate !== undefined ? `${(isa.lifetime_isa_bonus_rate * 100).toFixed(0)}% (up to £${isa.lifetime_isa_maximum_bonus_gbp?.toLocaleString()}/year)` : "Not available",
+        "Junior ISA Limit": isa?.junior_isa_subscription_limit_gbp ? `£${isa.junior_isa_subscription_limit_gbp.toLocaleString()}` : "Not available",
+        "LISA Unauthorized Withdrawal Charge": isa?.lifetime_isa_withdrawal_charge_rate !== undefined ? `${(isa.lifetime_isa_withdrawal_charge_rate * 100).toFixed(0)}%` : "Not available",
       },
       notes: "LISA property price cap is £450,000 across all UK regions.",
     },
@@ -174,14 +184,14 @@ export function getAdminRulesOverview(): AdminRulesOverview {
         c.id === "PRO-004" || c.id === "PRO-023" || c.id === "PRO-024"
       ).length,
       sampleParameters: {
-        "Nil Rate Band (Standard Residential)": "£0 - £125,000 (0%)",
-        "Band 1 (£125,001 - £250,000)": "2%",
-        "Band 2 (£250,001 - £925,000)": "5%",
-        "Band 3 (£925,001 - £1,500,000)": "10%",
-        "Additional Property Surcharge": "5% across all slices",
-        "FTB Relief Threshold": "£300,000 at 0% (max purchase £500,000)",
+        "Nil Rate Band (Standard Residential)": sdlt?.standard_bands?.[0] ? `£0 - £${sdlt.standard_bands[0].to?.toLocaleString()} (${(sdlt.standard_bands[0].rate * 100).toFixed(0)}%)` : "Not available",
+        "Band 1 (£125,001 - £250,000)": sdlt?.standard_bands?.[1] ? `${(sdlt.standard_bands[1].rate * 100).toFixed(0)}%` : "Not available",
+        "Band 2 (£250,001 - £925,000)": sdlt?.standard_bands?.[2] ? `${(sdlt.standard_bands[2].rate * 100).toFixed(0)}%` : "Not available",
+        "Band 3 (£925,001 - £1,500,000)": sdlt?.standard_bands?.[3] ? `${(sdlt.standard_bands[3].rate * 100).toFixed(0)}%` : "Not available",
+        "Additional Property Surcharge": sdlt?.additional_property_surcharge_rate !== undefined ? `${(sdlt.additional_property_surcharge_rate * 100).toFixed(0)}% across all slices` : "Not available",
+        "FTB Relief Threshold": sdlt?.first_time_buyer_relief ? `£${sdlt.first_time_buyer_relief.bands?.[0]?.to?.toLocaleString()} at 0% (max purchase £${sdlt.first_time_buyer_relief.maximum_qualifying_property_value_gbp?.toLocaleString()})` : "Not available",
       },
-      notes: "Post-March 2025 sunset thresholds applied. Additional property surcharge reflects 5% rate.",
+      notes: "Post-March 2025 sunset thresholds applied. Additional property surcharge reflects statutory rate.",
     },
     {
       key: "lbtt",
@@ -199,12 +209,12 @@ export function getAdminRulesOverview(): AdminRulesOverview {
         c.id === "PRO-025" || c.id === "PRO-026"
       ).length,
       sampleParameters: {
-        "Nil Rate Band": "£0 - £145,000 (0%)",
-        "Band 1 (£145,001 - £250,000)": "2%",
-        "Band 2 (£250,001 - £325,000)": "5%",
-        "Band 3 (£325,001 - £750,000)": "10%",
-        "Band 4 (Over £750,000)": "12%",
-        "Additional Dwelling Supplement (ADS)": "6%",
+        "Nil Rate Band": lbtt?.standard_bands?.[0] ? `£0 - £${lbtt.standard_bands[0].to?.toLocaleString()} (${(lbtt.standard_bands[0].rate * 100).toFixed(0)}%)` : "Not available",
+        "Band 1 (£145,001 - £250,000)": lbtt?.standard_bands?.[1] ? `${(lbtt.standard_bands[1].rate * 100).toFixed(0)}%` : "Not available",
+        "Band 2 (£250,001 - £325,000)": lbtt?.standard_bands?.[2] ? `${(lbtt.standard_bands[2].rate * 100).toFixed(0)}%` : "Not available",
+        "Band 3 (£325,001 - £750,000)": lbtt?.standard_bands?.[3] ? `${(lbtt.standard_bands[3].rate * 100).toFixed(0)}%` : "Not available",
+        "Band 4 (Over £750,000)": lbtt?.standard_bands?.[4] ? `${(lbtt.standard_bands[4].rate * 100).toFixed(0)}%` : "Not available",
+        "Additional Dwelling Supplement (ADS)": lbtt?.additional_dwelling_supplement_rate !== undefined ? `${(lbtt.additional_dwelling_supplement_rate * 100).toFixed(0)}%` : "Not available",
       },
       notes: "Administered independently by Revenue Scotland.",
     },
@@ -222,11 +232,10 @@ export function getAdminRulesOverview(): AdminRulesOverview {
       statutoryBasis: "Land Transaction Tax and Anti-avoidance of Devolved Taxes (Wales) Act 2017",
       dependentCalculatorsCount: calcs.filter((c: CalculatorDefinition) => c.id === "PRO-027").length,
       sampleParameters: {
-        "Nil Rate Band": "£0 - £225,000 (0%)",
-        "Band 1 (£225,001 - £400,000)": "6%",
-        "Band 2 (£400,001 - £750,000)": "7.5%",
-        "Band 3 (£750,001 - £1,500,000)": "10%",
-        "Higher Residential Rates Surcharge": "Tiered additional property rates",
+        "Nil Rate Band": ltt?.main_bands?.[0] ? `£0 - £${ltt.main_bands[0].to?.toLocaleString()} (${(ltt.main_bands[0].rate * 100).toFixed(0)}%)` : "Not available",
+        "Band 1 (£225,001 - £400,000)": ltt?.main_bands?.[1] ? `${(ltt.main_bands[1].rate * 100).toFixed(1)}%` : "Not available",
+        "Band 2 (£400,001 - £750,000)": ltt?.main_bands?.[2] ? `${(ltt.main_bands[2].rate * 100).toFixed(1)}%` : "Not available",
+        "Band 3 (£750,001 - £1,500,000)": ltt?.main_bands?.[3] ? `${(ltt.main_bands[3].rate * 100).toFixed(0)}%` : "Not available",
       },
       notes: "Administered by Welsh Revenue Authority.",
     },
@@ -246,13 +255,11 @@ export function getAdminRulesOverview(): AdminRulesOverview {
         c.id === "INV-004" || c.id === "INV-028" || c.id === "PRO-028" || c.id === "TAX-013"
       ).length,
       sampleParameters: {
-        "Annual Exempt Amount": "£3,000",
-        "Basic Rate Assets": "18%",
-        "Higher/Additional Rate Assets": "24%",
-        "Residential Property Basic Rate": "18%",
-        "Residential Property Higher Rate": "24%",
+        "Annual Exempt Amount": cgt?.annual_exempt_amount_gbp ? `£${cgt.annual_exempt_amount_gbp.toLocaleString()}` : "Not available",
+        "Basic Rate Assets": cgt?.standard_rates?.basic_band !== undefined ? `${(cgt.standard_rates.basic_band * 100).toFixed(0)}%` : "Not available",
+        "Higher/Additional Rate Assets": cgt?.standard_rates?.higher_band !== undefined ? `${(cgt.standard_rates.higher_band * 100).toFixed(0)}%` : "Not available",
       },
-      notes: "Rates harmonised at 18% basic / 24% higher following Autumn Budget adjustments.",
+      notes: "Rates harmonised at statutory rates following Autumn Budget adjustments.",
     },
     {
       key: "student_loans",
@@ -270,33 +277,35 @@ export function getAdminRulesOverview(): AdminRulesOverview {
         c.id === "TAX-004" || c.id === "TAX-001" || c.id === "TAX-002"
       ).length,
       sampleParameters: {
-        "Plan 1 Threshold": "£26,065 (9%)",
-        "Plan 2 Threshold": "£28,470 (9%)",
-        "Plan 4 (Scotland) Threshold": "£32,745 (9%)",
-        "Plan 5 Threshold": "£25,000 (9%)",
-        "Postgraduate Loan Threshold": "£21,000 (6%)",
+        "Plan 1 Threshold": sl?.["Plan 1"]?.annual_threshold_gbp ? `£${sl["Plan 1"].annual_threshold_gbp.toLocaleString()} (${(sl["Plan 1"].rate * 100).toFixed(0)}%)` : "Not available",
+        "Plan 2 Threshold": sl?.["Plan 2"]?.annual_threshold_gbp ? `£${sl["Plan 2"].annual_threshold_gbp.toLocaleString()} (${(sl["Plan 2"].rate * 100).toFixed(0)}%)` : "Not available",
+        "Plan 4 (Scotland) Threshold": sl?.["Plan 4"]?.annual_threshold_gbp ? `£${sl["Plan 4"].annual_threshold_gbp.toLocaleString()} (${(sl["Plan 4"].rate * 100).toFixed(0)}%)` : "Not available",
+        "Plan 5 Threshold": sl?.["Plan 5"]?.annual_threshold_gbp ? `£${sl["Plan 5"].annual_threshold_gbp.toLocaleString()} (${(sl["Plan 5"].rate * 100).toFixed(0)}%)` : "Not available",
+        "Postgraduate Loan Threshold": sl?.["Postgraduate"]?.annual_threshold_gbp ? `£${sl["Postgraduate"].annual_threshold_gbp.toLocaleString()} (${(sl["Postgraduate"].rate * 100).toFixed(0)}%)` : "Not available",
       },
       notes: "Repayments deducted via PAYE alongside Income Tax and NICs.",
     },
     {
-      key: "child_benefit_hicbc",
-      name: "High Income Child Benefit Charge (HICBC)",
-      category: "UK Tax & Salary",
+      key: "corporation_tax",
+      name: "Corporation Tax Rates",
+      category: "Business & Commercial",
       jurisdiction: "UK",
       status: "approved",
       taxYear: rules.tax_year,
       effectiveFrom: rules.effective_from,
       effectiveTo: rules.effective_to,
       lastChecked: rules.checked_at,
-      primarySource: "HMRC Child Benefit statutory guidance",
-      statutoryBasis: "Income Tax (Earnings and Pensions) Act 2003",
-      dependentCalculatorsCount: calcs.filter((c: CalculatorDefinition) => c.id === "TAX-019").length,
+      primarySource: "HMRC Corporation Tax guidance",
+      statutoryBasis: "Corporation Tax Act 2010",
+      dependentCalculatorsCount: calcs.filter((c: CalculatorDefinition) =>
+        c.category === "Business & Commercial" || c.id.startsWith("BUS-")
+      ).length,
       sampleParameters: {
-        "Threshold (Taper Start)": "£60,000 Adjusted Net Income",
-        "Taper End (100% Clawback)": "£80,000 Adjusted Net Income",
-        "Clawback Rate": "1% of benefit per £200 income above £60,000",
+        "Small Profits Rate": ct?.small_profits_rate !== undefined ? `${(ct.small_profits_rate * 100).toFixed(0)}% (up to £${ct.small_profits_limit_gbp?.toLocaleString()})` : "Not available",
+        "Main Rate": ct?.main_rate !== undefined ? `${(ct.main_rate * 100).toFixed(0)}% (above £${ct.main_rate_limit_gbp?.toLocaleString()})` : "Not available",
+        "Marginal Relief Fraction": ct?.marginal_relief_standard_fraction !== undefined ? `${ct.marginal_relief_standard_fraction} (3/200)` : "Not available",
       },
-      notes: "Threshold increased to £60k-£80k range with halved taper rate.",
+      notes: "Marginal relief applies between small profits and main rate thresholds.",
     },
   ];
 

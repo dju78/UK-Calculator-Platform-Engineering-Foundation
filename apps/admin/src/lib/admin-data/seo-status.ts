@@ -1,10 +1,14 @@
 import { existsSync, readFileSync, readdirSync } from "node:fs";
 import { join, basename } from "node:path";
+import { getMonorepoRootDir } from "./calculator-registry";
 import { calculatorRegistry } from "../../../../../dist/packages/calculator-registry/src/index.js";
 import type { CalculatorDefinition } from "../../../../../packages/calculator-registry/src/types";
 
+export type IndexNowStatusCode = "INTEGRATED" | "PENDING_PARTIAL" | "UNCONFIGURED";
+
 export interface IndexNowIntegrationStatus {
-  status: "INTEGRATED" | "PENDING_KEY" | "UNCONFIGURED";
+  status: IndexNowStatusCode;
+  statusLabel: string;
   endpoint: string;
   keyFileFound: boolean;
   keyFileName?: string;
@@ -14,22 +18,26 @@ export interface IndexNowIntegrationStatus {
   documentationPath: string;
 }
 
+export interface AdminSEOCoverageAudit {
+  totalCalculators: number;
+  withCanonical: number;
+  withCustomDescription: number;
+  withSchemaApplicationCategory: number;
+  totalCategories: number;
+  categoriesWithMetadata: number;
+  coverageComplete: boolean;
+}
+
 export interface AdminSEOOverview {
   canonicalDomain: string;
   sitemapUrl: string;
   sitemapEntryCount: number;
+  sitemapRoutes: string[];
   robotsConfig: {
     allowAll: boolean;
     sitemapDeclared: boolean;
   };
-  metadataCoverage: {
-    totalCalculators: number;
-    withCanonical: number;
-    withCustomDescription: number;
-    withSchemaApplicationCategory: number;
-    totalCategories: number;
-    categoriesWithMetadata: number;
-  };
+  metadataCoverage: AdminSEOCoverageAudit;
   indexNow: IndexNowIntegrationStatus;
   apiIntegrations: Array<{
     service: string;
@@ -39,18 +47,135 @@ export interface AdminSEOOverview {
   }>;
 }
 
+const STATIC_SITEMAP_PAGES = [
+  "",
+  "/privacy",
+  "/terms",
+  "/disclaimer",
+  "/commercial-disclosure",
+  "/accessibility",
+];
+
+const GOVERNANCE_SITEMAP_PAGES = [
+  "/about",
+  "/for-organisations",
+  "/how-we-check-our-figures",
+  "/editorial-policy",
+  "/updates",
+  "/contact",
+];
+
+const SCHEMA_CATEGORY_MAP: Record<string, string> = {
+  "UK Tax & Salary": "FinanceApplication",
+  "Finance & Debt": "FinanceApplication",
+  "Mortgages & Property": "FinanceApplication",
+  "Investing & Wealth": "FinanceApplication",
+  "Pensions & Retirement": "FinanceApplication",
+  "ISA & Tax Wrappers": "FinanceApplication",
+  "Business & Commercial": "BusinessApplication",
+  "Health & Fitness": "HealthApplication",
+  "Education": "EducationalApplication",
+  "Maths & Algebra": "EducationalApplication",
+  "Geometry": "EducationalApplication",
+  "Statistics & Data": "EducationalApplication",
+  "Science & Engineering": "EducationalApplication",
+  "Automotive & Travel": "TravelApplication",
+  "Conversions": "UtilitiesApplication",
+  "Date & Time": "UtilitiesApplication",
+  "Everyday & Lifestyle": "UtilitiesApplication",
+  "Home & Construction": "UtilitiesApplication",
+  "Technology & Digital": "UtilitiesApplication",
+};
+
+export function evaluateIndexNowStatus(keyFileFound: boolean, submissionScriptFound: boolean): {
+  status: IndexNowStatusCode;
+  statusLabel: string;
+} {
+  if (keyFileFound && submissionScriptFound) {
+    return { status: "INTEGRATED", statusLabel: "Integrated & Verified" };
+  }
+  if (keyFileFound && !submissionScriptFound) {
+    return { status: "PENDING_PARTIAL", statusLabel: "Pending Submission Script" };
+  }
+  if (!keyFileFound && submissionScriptFound) {
+    return { status: "PENDING_PARTIAL", statusLabel: "Pending Key File" };
+  }
+  return { status: "UNCONFIGURED", statusLabel: "Unconfigured" };
+}
+
+export function evaluateCalculatorSEOCoverage(calculators: CalculatorDefinition[]): AdminSEOCoverageAudit {
+  const totalCalculators = calculators.length;
+  const categories = Array.from(new Set(calculators.map((c) => c.category)));
+
+  let withCanonical = 0;
+  let withCustomDescription = 0;
+  let withSchemaApplicationCategory = 0;
+
+  for (const c of calculators) {
+    if (c.slug && typeof c.slug === "string" && c.slug.trim().length > 0) {
+      withCanonical++;
+    }
+    if (c.name && typeof c.name === "string" && c.name.trim().length > 0) {
+      withCustomDescription++;
+    }
+    if (c.category && SCHEMA_CATEGORY_MAP[c.category]) {
+      withSchemaApplicationCategory++;
+    }
+  }
+
+  let categoriesWithMetadata = 0;
+  for (const cat of categories) {
+    if (SCHEMA_CATEGORY_MAP[cat]) {
+      categoriesWithMetadata++;
+    }
+  }
+
+  const coverageComplete =
+    totalCalculators > 0 &&
+    withCanonical === totalCalculators &&
+    withCustomDescription === totalCalculators &&
+    withSchemaApplicationCategory === totalCalculators &&
+    categoriesWithMetadata === categories.length;
+
+  return {
+    totalCalculators,
+    withCanonical,
+    withCustomDescription,
+    withSchemaApplicationCategory,
+    totalCategories: categories.length,
+    categoriesWithMetadata,
+    coverageComplete,
+  };
+}
+
+export function getSitemapRouteList(): string[] {
+  const calcs = calculatorRegistry as CalculatorDefinition[];
+  const categories = Array.from(new Set(calcs.map((c) => c.category))).sort();
+
+  const staticUrls = STATIC_SITEMAP_PAGES.map((p) => p === "" ? "/" : p);
+  const govUrls = GOVERNANCE_SITEMAP_PAGES;
+  const categoryUrls = categories.map((cat) => `/category/${encodeURIComponent(cat.toLowerCase())}`);
+  const calculatorUrls = calcs.map((c) => `/calculators/${c.slug}`);
+
+  return [...staticUrls, ...govUrls, ...categoryUrls, ...calculatorUrls];
+}
+
+export function getSitemapEntryCount(): number {
+  return getSitemapRouteList().length;
+}
+
 export function getAdminSEOOverview(): AdminSEOOverview {
   const canonicalDomain = "https://ukcalc.jomovate.com";
   const sitemapUrl = `${canonicalDomain}/sitemap.xml`;
+  const sitemapRoutes = getSitemapRouteList();
+  const sitemapEntryCount = sitemapRoutes.length;
 
   const calcs = calculatorRegistry as CalculatorDefinition[];
-  const totalCalculators = calcs.length;
-  const categories = Array.from(new Set(calcs.map((c: CalculatorDefinition) => c.category)));
-  const staticAndGovernanceRoutes = 5; // home + 4 legal/governance
-  const sitemapEntryCount = totalCalculators + categories.length + staticAndGovernanceRoutes;
+  const metadataCoverage = evaluateCalculatorSEOCoverage(calcs);
 
-  // Check IndexNow integration evidence
-  const publicDir = join(process.cwd(), "apps/web/public");
+  // Check IndexNow integration evidence via deterministic monorepo root resolver
+  const rootDir = getMonorepoRootDir();
+  const publicDir = join(rootDir, "apps/web/public");
   let keyFileFound = false;
   let keyFileName: string | undefined;
   let keyLocation: string | undefined;
@@ -77,10 +202,12 @@ export function getAdminSEOOverview(): AdminSEOOverview {
     }
   }
 
-  const scriptFound = existsSync(join(process.cwd(), "scripts/indexnow-submit.mjs"));
+  const scriptFound = existsSync(join(rootDir, "scripts/indexnow-submit.mjs"));
+  const { status, statusLabel } = evaluateIndexNowStatus(keyFileFound, scriptFound);
 
   const indexNow: IndexNowIntegrationStatus = {
-    status: keyFileFound && scriptFound ? "INTEGRATED" : keyFileFound ? "INTEGRATED" : "UNCONFIGURED",
+    status,
+    statusLabel,
     endpoint: "https://api.indexnow.org/indexnow",
     keyFileFound,
     keyFileName,
@@ -94,18 +221,12 @@ export function getAdminSEOOverview(): AdminSEOOverview {
     canonicalDomain,
     sitemapUrl,
     sitemapEntryCount,
+    sitemapRoutes,
     robotsConfig: {
       allowAll: true,
       sitemapDeclared: true,
     },
-    metadataCoverage: {
-      totalCalculators,
-      withCanonical: totalCalculators,
-      withCustomDescription: totalCalculators,
-      withSchemaApplicationCategory: totalCalculators,
-      totalCategories: categories.length,
-      categoriesWithMetadata: categories.length,
-    },
+    metadataCoverage,
     indexNow,
     apiIntegrations: [
       {

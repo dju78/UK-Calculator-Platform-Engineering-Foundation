@@ -7,16 +7,19 @@ export async function POST(request: NextRequest) {
     const { password } = body;
 
     if (!validateCredentials(password)) {
-      return NextResponse.json(
+      const resp = NextResponse.json(
         { error: "Invalid administrator credentials." },
         { status: 401 }
       );
+      resp.headers.set("Cache-Control", "no-store, max-age=0, must-revalidate");
+      return resp;
     }
 
     const token = await createSessionToken();
     const isProduction = process.env.NODE_ENV === "production";
 
     const response = NextResponse.json({ success: true, message: "Authenticated." });
+    response.headers.set("Cache-Control", "no-store, max-age=0, must-revalidate");
     response.cookies.set({
       name: SESSION_COOKIE_NAME,
       value: token,
@@ -29,9 +32,11 @@ export async function POST(request: NextRequest) {
 
     return response;
   } catch {
-    return NextResponse.json(
+    const resp = NextResponse.json(
       { error: "Malformed login request." },
       { status: 400 }
     );
+    resp.headers.set("Cache-Control", "no-store, max-age=0, must-revalidate");
+    return resp;
   }
 }

@@ -1,7 +1,20 @@
 import { existsSync, readFileSync } from "node:fs";
-import { join } from "node:path";
+import { join, resolve } from "node:path";
 import { calculatorRegistry } from "../../../../../dist/packages/calculator-registry/src/index.js";
 import type { CalculatorDefinition } from "../../../../../packages/calculator-registry/src/types";
+
+export function getMonorepoRootDir(): string {
+  let cur = process.cwd();
+  for (let i = 0; i < 5; i++) {
+    if (existsSync(join(cur, "packages")) && existsSync(join(cur, "package.json"))) {
+      return cur;
+    }
+    const parent = resolve(cur, "..");
+    if (parent === cur) break;
+    cur = parent;
+  }
+  return process.cwd();
+}
 
 export interface AdminCalculatorSummary {
   total: number;
@@ -126,11 +139,13 @@ export function listAdminCalculators(filters?: {
     }
   }
 
+  const rootDir = getMonorepoRootDir();
+
   return list.map((c: CalculatorDefinition) => {
     const canonicalRoute = `/calculators/${c.slug}`;
     const publicUrl = `${PUBLIC_BASE_URL}${canonicalRoute}`;
     const specRelative = c.specFile || `docs/specs/${c.launchWave === "Wave 3" ? "wave3" : "wave2"}/${c.id}.md`;
-    const hasSpec = existsSync(join(process.cwd(), specRelative));
+    const hasSpec = existsSync(join(rootDir, specRelative));
 
     return {
       id: c.id,
@@ -163,7 +178,8 @@ export function getAdminCalculatorDetail(slugOrId: string): AdminCalculatorDetai
   const canonicalRoute = `/calculators/${c.slug}`;
   const publicUrl = `${PUBLIC_BASE_URL}${canonicalRoute}`;
   const specRelative = c.specFile || `docs/specs/${c.launchWave === "Wave 3" ? "wave3" : "wave2"}/${c.id}.md`;
-  const specPath = join(process.cwd(), specRelative);
+  const rootDir = getMonorepoRootDir();
+  const specPath = join(rootDir, specRelative);
 
   let purpose: string | undefined;
   let assumptions: string[] | undefined;

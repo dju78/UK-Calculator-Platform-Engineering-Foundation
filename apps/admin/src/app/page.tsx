@@ -46,7 +46,7 @@ export default function OverviewPage() {
               1. Calculator Inventory
             </h2>
             <Link href="/calculators" className="text-xs font-semibold text-slate-900 hover:text-blue-600 hover:underline">
-              View All 253 Calculators →
+              View All {calcSummary.total} Calculators →
             </Link>
           </div>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
@@ -119,7 +119,7 @@ export default function OverviewPage() {
                 3. Quality Assurance Evidence
               </h2>
               <span className="text-[10px] font-mono bg-slate-200 text-slate-700 px-1.5 py-0.5 rounded">
-                LAST RECORDED VERIFICATION: {qaOverview.recordedAt}
+                {qaOverview.evidenceLabel}: {qaOverview.recordedAt}
               </span>
             </div>
             <Link href="/qa" className="text-xs font-semibold text-slate-900 hover:text-blue-600 hover:underline">
@@ -129,29 +129,29 @@ export default function OverviewPage() {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
             <MetricCard
               label="Unit Test Suite"
-              value="1098 / 1098 PASS"
+              value={`${qaOverview.summary.unitTests.passed} / ${qaOverview.summary.unitTests.total} PASS`}
               subtext="30 test suites, 0 failures"
               statusBadge="PASS"
               source="tests/*.test.ts"
             />
             <MetricCard
               label="Reference Benchmarks"
-              value="1489 / 1489 PASS"
+              value={`${qaOverview.summary.benchmarks.passed} / ${qaOverview.summary.benchmarks.total} PASS`}
               subtext="100% fixture equivalence"
               statusBadge="PASS"
               source="test-fixtures"
             />
             <MetricCard
               label="Browser E2E Parity"
-              value="1642 PASS"
+              value={`${qaOverview.summary.browserTests.passed} PASS`}
               subtext="0 failed, 0 flaky"
               statusBadge="PASS"
               source="Playwright E2E"
             />
             <MetricCard
               label="A11y (WCAG 2.2 AA)"
-              value="0 Violations"
-              subtext="187 Axe assertions across routes"
+              value={`${qaOverview.summary.accessibility.violations} Violations`}
+              subtext="WCAG 2.2 AA audit passed"
               statusBadge="PASS"
               source="Axe Core"
             />
@@ -178,14 +178,14 @@ export default function OverviewPage() {
             <MetricCard
               label="Sitemap Routes"
               value={`${seoOverview.sitemapEntryCount} Entries`}
-              subtext="Calculators, categories, and governance"
-              source="sitemap.xml"
+              subtext="Calculators, categories, and governance (derived)"
+              source="sitemap.xml (derived)"
             />
             <MetricCard
               label="IndexNow Status"
-              value={seoOverview.indexNow.status}
-              subtext={`Key: ${seoOverview.indexNow.maskedKey || "Configured"}`}
-              statusBadge="Current"
+              value={seoOverview.indexNow.statusLabel}
+              subtext={`Key: ${seoOverview.indexNow.maskedKey || "Not configured"}`}
+              statusBadge={seoOverview.indexNow.status === "INTEGRATED" ? "Verified" : "Warning"}
               source="IndexNow 1.0"
             />
           </div>
