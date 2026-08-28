@@ -1,6 +1,6 @@
-import { getUKRuleset } from "../../../../../packages/rules-uk/src/index.js";
-import { calculatorRegistry } from "../../../../../packages/calculator-registry/src/index.js";
-import type { CalculatorDefinition } from "../../../../../packages/calculator-registry/src/types.js";
+import { getUKRuleset } from "../../../../../dist/packages/rules-uk/src/index.js";
+import { calculatorRegistry } from "../../../../../dist/packages/calculator-registry/src/index.js";
+import type { CalculatorDefinition } from "../../../../../packages/calculator-registry/src/types";
 
 export interface RuleFamilySummary {
   key: string;

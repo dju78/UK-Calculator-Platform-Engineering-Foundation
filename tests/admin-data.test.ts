@@ -1,31 +1,26 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { pathToFileURL } from "node:url";
 import { join } from "node:path";
 import { calculatorRegistry } from "../packages/calculator-registry/src/index.js";
 import { getUKRuleset } from "../packages/rules-uk/src/index.js";
 import type { CalculatorDefinition } from "../packages/calculator-registry/src/types.js";
+import {
+  getSitemapRouteList,
+  getSitemapEntryCount,
+  getAdminSEOOverview,
+  evaluateIndexNowStatus,
+  evaluateCalculatorSEOCoverage,
+  generateCalculatorDescription,
+  getAdminCalculatorDetail,
+  getCalculatorSummary,
+  listAdminCalculators,
+  getAdminQAOverview,
+  parseQAArtifact,
+  getAdminRulesOverview,
+  getMonorepoRootDir,
+} from "./admin-data-helper.js";
 
 test("Admin Console Data Integrity Suite", async (t: any) => {
-  const seoModulePath = pathToFileURL(join(process.cwd(), "dist/apps/admin/src/lib/admin-data/seo-status.js")).href;
-  const {
-    getSitemapRouteList,
-    getSitemapEntryCount,
-    getAdminSEOOverview,
-    evaluateIndexNowStatus,
-    evaluateCalculatorSEOCoverage,
-    generateCalculatorDescription,
-  } = await import(seoModulePath);
-
-  const calcModulePath = pathToFileURL(join(process.cwd(), "dist/apps/admin/src/lib/admin-data/calculator-registry.js")).href;
-  const { getAdminCalculatorDetail, getCalculatorSummary, listAdminCalculators, getMonorepoRootDir } = await import(calcModulePath);
-
-  const qaModulePath = pathToFileURL(join(process.cwd(), "dist/apps/admin/src/lib/admin-data/qa-status.js")).href;
-  const { getAdminQAOverview, parseQAArtifact } = await import(qaModulePath);
-
-  const rulesModulePath = pathToFileURL(join(process.cwd(), "dist/apps/admin/src/lib/admin-data/rules-governance.js")).href;
-  const { getAdminRulesOverview } = await import(rulesModulePath);
-
   await t.test("Calculator inventory counts derive exact platform figures", () => {
     assert.strictEqual(calculatorRegistry.length, 253, "Total calculators must equal 253");
     const categories = new Set(calculatorRegistry.map((c) => c.category));
@@ -180,7 +175,7 @@ test("Admin Console Data Integrity Suite", async (t: any) => {
     assert.strictEqual(missing.summary.benchmarks.passed, 0);
     assert.strictEqual(missing.metrics.length, 0);
 
-    // Live file returns VERIFIED with 1117 unit tests
+    // Live file returns VERIFIED with 1118 unit tests
     const live = getAdminQAOverview();
     assert.strictEqual(live.overallStatus, "VERIFIED");
     assert.strictEqual(live.evidenceLabel, "LAST RECORDED VERIFICATION");

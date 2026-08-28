@@ -1,7 +1,7 @@
 import { existsSync, readFileSync, readdirSync } from "node:fs";
 import { join, basename, resolve } from "node:path";
-import { calculatorRegistry } from "../../../../../packages/calculator-registry/src/index.js";
-import type { CalculatorDefinition } from "../../../../../packages/calculator-registry/src/types.js";
+import { calculatorRegistry } from "../../../../../dist/packages/calculator-registry/src/index.js";
+import type { CalculatorDefinition } from "../../../../../packages/calculator-registry/src/types";
 
 function getMonorepoRootDir(): string {
   let cur = process.cwd();
