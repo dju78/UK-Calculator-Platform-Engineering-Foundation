@@ -104,8 +104,8 @@ export default function OverviewPage() {
           </div>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
             <MetricCard
-              label="Web Visitors (7d)"
-              value={trafficOverview.visitors !== null ? trafficOverview.visitors.toLocaleString() : "Not available"}
+              label="Web Visits (7d)"
+              value={trafficOverview.visits !== null ? trafficOverview.visits.toLocaleString() : "Not available"}
               subtext={trafficOverview.status === "CONNECTED" ? "Cloudflare Web Analytics" : "Live API not connected"}
               statusBadge={trafficOverview.status === "CONNECTED" ? "Verified" : (trafficOverview.isBeaconConfigured ? "Configured" : "Not available")}
               source="Cloudflare Analytics"

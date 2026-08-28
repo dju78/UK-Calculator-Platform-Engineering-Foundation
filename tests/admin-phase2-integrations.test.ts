@@ -1,5 +1,7 @@
 import test from "node:test";
 import assert from "node:assert/strict";
+import { readFileSync, existsSync } from "node:fs";
+import { join } from "node:path";
 import {
   buildEmptyTrafficOverview,
   mapCloudflareGraphQLResponse,
@@ -11,20 +13,32 @@ import {
   formatDuration,
   evaluateGovernanceReviewStatus,
   getAdminGovernanceCalendar,
+  getMonorepoRootDir,
 } from "./admin-data-helper.js";
 
 test("Admin Console Phase 2 Integrations & Growth Suite", async (t: any) => {
-  await t.test("Traffic Analytics: handles unconfigured and missing API gracefully without fake zeros", () => {
+  await t.test("Auth Contract: Phase 2 preserves ADMIN_PASSWORD and ADMIN_SESSION_SECRET without ADMIN_ACCESS_KEY", () => {
+    const rootDir = getMonorepoRootDir();
+    const authFile = join(rootDir, "apps/admin/src/lib/auth.ts");
+    assert.ok(existsSync(authFile), "apps/admin/src/lib/auth.ts must exist");
+
+    const authContent = readFileSync(authFile, "utf8");
+    assert.ok(authContent.includes("ADMIN_PASSWORD"), "auth.ts must use ADMIN_PASSWORD");
+    assert.ok(authContent.includes("ADMIN_SESSION_SECRET"), "auth.ts must use ADMIN_SESSION_SECRET");
+    assert.ok(!authContent.includes("ADMIN_ACCESS_KEY"), "auth.ts must NOT use ADMIN_ACCESS_KEY");
+  });
+
+  await t.test("Traffic Analytics: handles unconfigured and missing API gracefully with Visits terminology and no fake zeros", () => {
     const unconfigured = buildEmptyTrafficOverview("7d", "NOT_CONFIGURED");
     assert.strictEqual(unconfigured.status, "NOT_CONFIGURED");
-    assert.strictEqual(unconfigured.visitors, null, "Visitors must be null when unconfigured (never fake 0)");
+    assert.strictEqual(unconfigured.visits, null, "Visits must be null when unconfigured (never fake 0)");
     assert.strictEqual(unconfigured.pageViews, null, "Page views must be null when unconfigured");
     assert.strictEqual(unconfigured.topCountry, null);
     assert.strictEqual(unconfigured.topPage, null);
     assert.strictEqual(unconfigured.topPages.length, 0);
   });
 
-  await t.test("Traffic Analytics: correctly maps Cloudflare GraphQL response", () => {
+  await t.test("Traffic Analytics: correctly maps Cloudflare GraphQL response using Visits metric", () => {
     const mockGql = {
       data: {
         viewer: {
@@ -44,7 +58,7 @@ test("Admin Console Phase 2 Integrations & Growth Suite", async (t: any) => {
 
     const mapped = mapCloudflareGraphQLResponse(mockGql, "30d");
     assert.strictEqual(mapped.status, "CONNECTED");
-    assert.strictEqual(mapped.visitors, 1420);
+    assert.strictEqual(mapped.visits, 1420, "Visits metric accurately mapped from count");
     assert.strictEqual(mapped.pageViews, 3850);
     assert.strictEqual(mapped.topCountry, "United Kingdom");
     assert.strictEqual(mapped.period, "30d");

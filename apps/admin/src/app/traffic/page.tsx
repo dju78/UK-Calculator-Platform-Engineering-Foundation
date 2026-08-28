@@ -24,7 +24,7 @@ export default async function TrafficPage({
           <div>
             <h1 className="text-xl font-bold tracking-tight text-slate-900">Traffic & Audience</h1>
             <p className="text-xs text-slate-500 mt-0.5">
-              Privacy-conscious aggregate visitor analytics for the public UKCalc application via Cloudflare Web Analytics.
+              Privacy-first aggregate traffic analytics for the public UKCalc application via Cloudflare Web Analytics.
             </p>
           </div>
           <div className="flex items-center gap-2">
@@ -67,8 +67,8 @@ export default async function TrafficPage({
         {/* Top Summary Metrics */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
           <MetricCard
-            label="Total Visitors"
-            value={traffic.visitors !== null ? traffic.visitors.toLocaleString() : "Not available"}
+            label="Total Visits"
+            value={traffic.visits !== null ? traffic.visits.toLocaleString() : "Not available"}
             subtext={traffic.status === "CONNECTED" ? `Aggregated over last ${period}` : "Live API not connected"}
             statusBadge={traffic.status === "CONNECTED" ? "Verified" : "Not available"}
             source="Cloudflare Analytics"
@@ -109,7 +109,7 @@ export default async function TrafficPage({
                 />
               </div>
               <p className="text-xs text-slate-500 mt-0.5">
-                Free-tier, non-invasive analytics model running on the public application without cookies or personal tracking.
+                Free-tier, privacy-first aggregate measurement running on the public application without tracking cookies or personal profiling.
               </p>
             </div>
             <div className="flex items-center gap-1.5 text-xs font-mono text-emerald-800 bg-emerald-50 px-2.5 py-1 rounded border border-emerald-200">
@@ -143,12 +143,12 @@ export default async function TrafficPage({
             </div>
 
             <div className="p-3.5 rounded bg-slate-50 border border-slate-200 space-y-1">
-              <div className="text-slate-500 font-medium">Privacy & GDPR Safeguards</div>
+              <div className="text-slate-500 font-medium">Privacy Safeguards</div>
               <div className="font-mono text-emerald-700 font-semibold">
-                100% Privacy-Preserving
+                Privacy-First & Cookie-Free
               </div>
               <p className="text-[11px] text-slate-500">
-                Zero cookies, no IP harvesting, no user fingerprinting, and no personal data profiling.
+                Does not collect or use visitors&apos; personal data and does not track individual end users across sites.
               </p>
             </div>
           </div>
@@ -159,7 +159,7 @@ export default async function TrafficPage({
                 <span>ℹ Live Cloudflare API Ingestion Not Connected</span>
               </div>
               <p className="text-[11px] text-amber-800 leading-relaxed">
-                Public visitor measurement requires Cloudflare Web Analytics. To display live charts and breakdowns inside this admin console, provision <span className="font-mono font-semibold">CLOUDFLARE_ACCOUNT_ID</span> and <span className="font-mono font-semibold">CLOUDFLARE_API_TOKEN</span> in your server environment variables. The public website will collect aggregate page views without these tokens once the public beacon token is provisioned.
+                Public visit measurement requires Cloudflare Web Analytics. To display live charts and breakdowns inside this admin console, provision <span className="font-mono font-semibold">CLOUDFLARE_ACCOUNT_ID</span> and <span className="font-mono font-semibold">CLOUDFLARE_API_TOKEN</span> in your server environment variables. The public website will collect aggregate page views without these server tokens once the public beacon token is provisioned.
               </p>
             </div>
           )}
@@ -222,7 +222,7 @@ export default async function TrafficPage({
                 <thead className="bg-slate-50 text-slate-700 font-semibold uppercase tracking-wider text-[11px]">
                   <tr>
                     <th scope="col" className="px-4 py-2.5">Country / Territory</th>
-                    <th scope="col" className="px-4 py-2.5 text-right">Visitors</th>
+                    <th scope="col" className="px-4 py-2.5 text-right">Visits</th>
                     <th scope="col" className="px-4 py-2.5 text-right">Share</th>
                   </tr>
                 </thead>

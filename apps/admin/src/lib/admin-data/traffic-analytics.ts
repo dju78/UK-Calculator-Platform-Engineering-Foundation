@@ -33,7 +33,7 @@ export interface AdminTrafficOverview {
   period: TrafficTimePeriod;
   isBeaconConfigured: boolean;
   isApiConnected: boolean;
-  visitors: number | null;
+  visits: number | null;
   pageViews: number | null;
   topCountry: string | null;
   topPage: string | null;
@@ -76,7 +76,7 @@ export function mapCloudflareGraphQLResponse(
 
   const count = typeof siteData.count === "number" ? siteData.count : 0;
   const pageViews = typeof siteData.sum?.visits === "number" ? siteData.sum.visits : count;
-  const visitors = count;
+  const visits = count;
 
   return {
     provider: "Cloudflare Web Analytics",
@@ -85,18 +85,18 @@ export function mapCloudflareGraphQLResponse(
     period,
     isBeaconConfigured: true,
     isApiConnected: true,
-    visitors,
+    visits,
     pageViews,
     topCountry: "United Kingdom",
     topPage: "/",
-    topCountries: [{ country: "United Kingdom", code: "GB", visits: visitors, share: "100%" }],
+    topCountries: [{ country: "United Kingdom", code: "GB", visits, share: "100%" }],
     topPages: [{ path: "/", views: pageViews, share: "100%" }],
-    topReferrers: [{ source: "Direct / Organic Search", visits: visitors }],
-    deviceTypes: [{ device: "Desktop", visits: visitors, share: "100%" }],
+    topReferrers: [{ source: "Direct / Organic Search", visits }],
+    deviceTypes: [{ device: "Desktop", visits, share: "100%" }],
     browsers: [],
     operatingSystems: [],
     lastUpdated: new Date().toISOString(),
-    notes: "Aggregated privacy-first metrics from Cloudflare Web Analytics (no personal identifiers or IP logs).",
+    notes: "Aggregated privacy-first metrics from Cloudflare Web Analytics (cookie-free, does not collect personal data).",
   };
 }
 
@@ -127,7 +127,7 @@ export function buildEmptyTrafficOverview(
     period,
     isBeaconConfigured,
     isApiConnected: false,
-    visitors: null,
+    visits: null,
     pageViews: null,
     topCountry: null,
     topPage: null,
@@ -189,13 +189,13 @@ export async function fetchLiveCloudflareTraffic(
     clearTimeout(timeoutId);
 
     if (!res.ok) {
-      return buildEmptyTrafficOverview(period, "ERROR", `Cloudflare API returned HTTP ${res.status}`);
+      return buildEmptyTrafficOverview(period, "UNAVAILABLE", "Live analytics unavailable");
     }
 
     const json = await res.json();
     return mapCloudflareGraphQLResponse(json, period);
   } catch {
-    return buildEmptyTrafficOverview(period, "UNAVAILABLE", "Cloudflare Analytics API temporarily unavailable");
+    return buildEmptyTrafficOverview(period, "UNAVAILABLE", "Live analytics unavailable");
   }
 }
 
