@@ -186,7 +186,7 @@ export function parseQAArtifact(artifactPath: string): AdminQAOverview {
       passRate: "100%",
       status: brokenCount === 0 ? "PASS" : "FAIL",
       verificationMethod: "Domain Boundary Stress Suite (`tests/no-broken-numbers.test.ts`)",
-      sourceArtifact: "dist/tests/no-broken-numbers.test.js",
+      sourceArtifact: "tests/no-broken-numbers.test.ts",
       lastVerified: recordedAt,
       notes: "Zero instances of NaN, undefined, infinity, or negative currency across all 253 calculators.",
     },
