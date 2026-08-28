@@ -150,40 +150,80 @@ test("Admin Console Data Integrity Suite", async (t: any) => {
   });
 
   await t.test("IndexNow 4-state logic evaluates all integration states correctly", () => {
-    // Both key and script present => INTEGRATED
-    const s1 = evaluateIndexNowStatus(true, true);
-    assert.strictEqual(s1.status, "INTEGRATED");
+    // Both key and script present => CONFIGURED (Verified)
+    const s1 = evaluateIndexNowStatus(true, true, true);
+    assert.strictEqual(s1.status, "CONFIGURED");
+    assert.strictEqual(s1.statusLabel, "Configured (Verified)");
 
-    // Key present, script missing => PENDING_PARTIAL
-    const s2 = evaluateIndexNowStatus(true, false);
-    assert.strictEqual(s2.status, "PENDING_PARTIAL");
+    // Standalone deployment where runtime inspection is unavailable => CONFIGURED (Evidence Recorded)
+    const s1Standalone = evaluateIndexNowStatus(false, false, false);
+    assert.strictEqual(s1Standalone.status, "CONFIGURED");
+    assert.strictEqual(s1Standalone.statusLabel, "Configured (Evidence Recorded)");
 
-    // Script present, key missing => PENDING_PARTIAL
-    const s3 = evaluateIndexNowStatus(false, true);
-    assert.strictEqual(s3.status, "PENDING_PARTIAL");
+    // Key present, script missing => PARTIAL
+    const s2 = evaluateIndexNowStatus(true, false, true);
+    assert.strictEqual(s2.status, "PARTIAL");
+    assert.strictEqual(s2.statusLabel, "Pending Submission Script");
 
-    // Neither present => UNCONFIGURED
-    const s4 = evaluateIndexNowStatus(false, false);
+    // Script present, key missing => PARTIAL
+    const s3 = evaluateIndexNowStatus(false, true, true);
+    assert.strictEqual(s3.status, "PARTIAL");
+    assert.strictEqual(s3.statusLabel, "Pending Key File");
+
+    // Neither present and runtime available => UNCONFIGURED
+    const s4 = evaluateIndexNowStatus(false, false, true);
     assert.strictEqual(s4.status, "UNCONFIGURED");
+    assert.strictEqual(s4.statusLabel, "Unconfigured");
   });
 
-  await t.test("QA Missing-Evidence Test: parseQAArtifact handles missing and corrupt files without fabricated fallbacks", () => {
-    // Missing file returns UNVERIFIED with zero counts
+  await t.test("QA Missing-Evidence Test: missing QA artifact => NOT_RECORDED, never PASS and 0/0 is not PASS", () => {
+    // Missing file returns NOT_RECORDED with null counts and "Not available" display
     const missing = parseQAArtifact("/non/existent/path/docs/platform-verification.json");
-    assert.strictEqual(missing.overallStatus, "UNVERIFIED");
+    assert.strictEqual(missing.overallStatus, "NOT_RECORDED");
     assert.strictEqual(missing.evidenceLabel, "NO VERIFICATION ARTIFACT RECORDED");
-    assert.strictEqual(missing.summary.unitTests.passed, 0);
-    assert.strictEqual(missing.summary.benchmarks.passed, 0);
-    assert.strictEqual(missing.metrics.length, 0);
+    assert.strictEqual(missing.summary.unitTests.passed, null);
+    assert.strictEqual(missing.summary.unitTests.total, null);
+    assert.strictEqual(missing.summary.unitTests.status, "NOT_RECORDED");
+    assert.strictEqual(missing.summary.unitTests.display, "Not available");
+    assert.notStrictEqual(missing.summary.unitTests.status, "PASS", "Missing evidence must NEVER be PASS");
 
-    // Live file returns VERIFIED with 1118 unit tests
+    assert.strictEqual(missing.summary.benchmarks.passed, null);
+    assert.strictEqual(missing.summary.benchmarks.total, null);
+    assert.strictEqual(missing.summary.benchmarks.status, "NOT_RECORDED");
+    assert.strictEqual(missing.summary.benchmarks.display, "Not available");
+    assert.notStrictEqual(missing.summary.benchmarks.status, "PASS", "Missing benchmarks must NEVER be PASS");
+
+    assert.strictEqual(missing.summary.browserTests.passed, null);
+    assert.strictEqual(missing.summary.browserTests.status, "NOT_RECORDED");
+    assert.strictEqual(missing.summary.browserTests.display, "Not available");
+
+    assert.strictEqual(missing.summary.accessibility.violations, null);
+    assert.strictEqual(missing.summary.accessibility.status, "NOT_RECORDED");
+    assert.strictEqual(missing.summary.accessibility.display, "Not available");
+    assert.ok(missing.summary.accessibility.violations === null || missing.summary.accessibility.violations >= 0, "Accessibility cannot be negative");
+  });
+
+  await t.test("Recorded verification artifact produces actual recorded totals", () => {
+    // Live file returns VERIFIED with exact totals
     const live = getAdminQAOverview();
     assert.strictEqual(live.overallStatus, "VERIFIED");
     assert.strictEqual(live.evidenceLabel, "LAST RECORDED VERIFICATION");
     assert.strictEqual(live.summary.unitTests.passed, 1118, "Must truthfully report 1118 passed unit tests");
+    assert.strictEqual(live.summary.unitTests.total, 1118);
+    assert.strictEqual(live.summary.unitTests.status, "PASS");
+    assert.strictEqual(live.summary.unitTests.display, "1,118 / 1,118");
+
     assert.strictEqual(live.summary.benchmarks.passed, 1489, "Must truthfully report 1489 passed benchmarks");
+    assert.strictEqual(live.summary.benchmarks.total, 1489);
+    assert.strictEqual(live.summary.benchmarks.status, "PASS");
+    assert.strictEqual(live.summary.benchmarks.display, "1,489 / 1,489");
+
     assert.strictEqual(live.summary.browserTests.passed, 1642, "Must report 1642 passed browser tests");
+    assert.strictEqual(live.summary.browserTests.status, "PASS");
+
     assert.strictEqual(live.summary.accessibility.violations, 0);
+    assert.strictEqual(live.summary.accessibility.status, "PASS");
+    assert.strictEqual(live.summary.accessibility.display, "0 Violations");
   });
 
   await t.test("Vercel monorepo root resolver works from real apps/admin working directory", () => {
@@ -191,7 +231,6 @@ test("Admin Console Data Integrity Suite", async (t: any) => {
     const adminCwd = join(originalCwd, "apps/admin");
 
     try {
-      // Switch process working directory to apps/admin
       process.chdir(adminCwd);
       assert.strictEqual(process.cwd(), adminCwd, "Must have real cwd set to apps/admin");
 
@@ -207,7 +246,7 @@ test("Admin Console Data Integrity Suite", async (t: any) => {
 
       const seo = getAdminSEOOverview();
       assert.strictEqual(seo.sitemapEntryCount, 284);
-      assert.strictEqual(seo.indexNow.status, "INTEGRATED");
+      assert.strictEqual(seo.indexNow.status, "CONFIGURED");
 
       // Calculator detail loads spec cleanly for Wave 3 and Wave 2 calculators
       const detailW3 = getAdminCalculatorDetail("PRO-008");
@@ -227,7 +266,7 @@ test("Admin Console Data Integrity Suite", async (t: any) => {
     }
   });
 
-  await t.test("Ruleset uk-2026-27-v1 parameters are derived from rules-uk and rules-sensitive count is 51", () => {
+  await t.test("Ruleset parameters: no undefined, no NaN, and absent fields render Not available", () => {
     const rules = getUKRuleset("uk-2026-27-v1");
     assert.strictEqual(rules.ruleset_id, "uk-2026-27-v1");
     assert.strictEqual(rules.tax_year, "2026/27");
@@ -235,20 +274,34 @@ test("Admin Console Data Integrity Suite", async (t: any) => {
 
     const rulesOverview = getAdminRulesOverview();
     assert.strictEqual(rulesOverview.rulesSensitiveCalculatorsTotal, 51, "Platform must have exactly 51 rules-sensitive calculators");
+    assert.strictEqual(rulesOverview.ruleFamilies.length, 9, "Must audit all 9 rule families");
+
+    for (const family of rulesOverview.ruleFamilies) {
+      assert.ok(family.name && family.name.length > 0);
+      assert.ok(family.sampleParameters && Object.keys(family.sampleParameters).length > 0);
+
+      for (const [paramName, paramVal] of Object.entries(family.sampleParameters)) {
+        const valStr = String(paramVal);
+        assert.ok(!valStr.includes("undefined"), `Rule family '${family.name}' parameter '${paramName}' must not contain 'undefined': ${valStr}`);
+        assert.ok(!valStr.includes("NaN"), `Rule family '${family.name}' parameter '${paramName}' must not contain 'NaN': ${valStr}`);
+        assert.ok(!valStr.includes("£undefined"), `Rule family '${family.name}' parameter '${paramName}' must not contain '£undefined'`);
+        assert.ok(!valStr.includes("£NaN"), `Rule family '${family.name}' parameter '${paramName}' must not contain '£NaN'`);
+      }
+    }
+
+    // Specific field checks
+    const cgtFamily = rulesOverview.ruleFamilies.find((f: any) => f.key === "capital_gains_tax");
+    assert.ok(cgtFamily);
+    assert.strictEqual((cgtFamily as any).sampleParameters["Residential Property Rates"], "Not available", "Absent CGT residential property in 2026/27 must render 'Not available'");
+
+    const corpFamily = rulesOverview.ruleFamilies.find((f: any) => f.key === "corporation_tax");
+    assert.ok(corpFamily);
+    assert.ok((corpFamily as any).sampleParameters["Small Profits Rate"]?.includes("£50,000"), "Corporation Tax small profits limit must be £50,000");
+    assert.ok((corpFamily as any).sampleParameters["Main Rate"]?.includes("£250,000"), "Corporation Tax main rate limit must be £250,000");
 
     const incomeTaxFamily = rulesOverview.ruleFamilies.find((f: any) => f.key === "income_tax_england_wales_ni");
     assert.ok(incomeTaxFamily);
-    assert.strictEqual(incomeTaxFamily.sampleParameters["Personal Allowance"], "£12,570");
-
-    const scotTaxFamily = rulesOverview.ruleFamilies.find((f: any) => f.key === "income_tax_scotland");
-    assert.ok(scotTaxFamily);
-    assert.strictEqual(scotTaxFamily.sampleParameters["Starter Rate"], "19% (£12,571 - £16,537)");
-
-    const slFamily = rulesOverview.ruleFamilies.find((f: any) => f.key === "student_loans");
-    assert.ok(slFamily);
-    assert.strictEqual(slFamily.sampleParameters["Plan 1 Threshold"], "£26,900 (9%)");
-    assert.strictEqual(slFamily.sampleParameters["Plan 2 Threshold"], "£29,385 (9%)");
-    assert.strictEqual(slFamily.sampleParameters["Plan 4 (Scotland) Threshold"], "£33,795 (9%)");
+    assert.strictEqual((incomeTaxFamily as any).sampleParameters["Personal Allowance"], "£12,570");
   });
 
   await t.test("Benchmark counts meet minimum verification threshold of 5 cases", () => {

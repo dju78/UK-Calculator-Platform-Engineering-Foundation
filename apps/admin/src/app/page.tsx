@@ -20,6 +20,8 @@ export default function OverviewPage() {
   const releaseOverview = getAdminReleaseOverview();
   const systemOverview = getAdminSystemOverview();
 
+  const isQAVerified = qaOverview.overallStatus === "VERIFIED";
+
   return (
     <AdminLayout>
       <div className="space-y-6">
@@ -129,30 +131,54 @@ export default function OverviewPage() {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
             <MetricCard
               label="Unit Test Suite"
-              value={`${qaOverview.summary.unitTests.passed} / ${qaOverview.summary.unitTests.total} PASS`}
-              subtext="30 test suites, 0 failures"
-              statusBadge="PASS"
+              value={
+                isQAVerified
+                  ? `${qaOverview.summary.unitTests.display} PASS`
+                  : qaOverview.summary.unitTests.display
+              }
+              subtext={isQAVerified ? "30 test suites, 0 failures" : "Evidence not recorded"}
+              statusBadge={
+                qaOverview.summary.unitTests.status === "PASS"
+                  ? "PASS"
+                  : (qaOverview.summary.unitTests.status === "NOT_RECORDED" ? "Not available" : "Failed")
+              }
               source="tests/*.test.ts"
             />
             <MetricCard
               label="Reference Benchmarks"
-              value={`${qaOverview.summary.benchmarks.passed} / ${qaOverview.summary.benchmarks.total} PASS`}
-              subtext="100% fixture equivalence"
-              statusBadge="PASS"
+              value={
+                isQAVerified
+                  ? `${qaOverview.summary.benchmarks.display} PASS`
+                  : qaOverview.summary.benchmarks.display
+              }
+              subtext={isQAVerified ? "100% fixture equivalence" : "Evidence not recorded"}
+              statusBadge={
+                qaOverview.summary.benchmarks.status === "PASS"
+                  ? "PASS"
+                  : (qaOverview.summary.benchmarks.status === "NOT_RECORDED" ? "Not available" : "Failed")
+              }
               source="test-fixtures"
             />
             <MetricCard
               label="Browser E2E Parity"
-              value={`${qaOverview.summary.browserTests.passed} PASS`}
-              subtext="0 failed, 0 flaky"
-              statusBadge="PASS"
+              value={qaOverview.summary.browserTests.display}
+              subtext={isQAVerified ? "0 failed, 0 flaky" : "Evidence not recorded"}
+              statusBadge={
+                qaOverview.summary.browserTests.status === "PASS"
+                  ? "PASS"
+                  : (qaOverview.summary.browserTests.status === "NOT_RECORDED" ? "Not available" : "Failed")
+              }
               source="Playwright E2E"
             />
             <MetricCard
               label="A11y (WCAG 2.2 AA)"
-              value={`${qaOverview.summary.accessibility.violations} Violations`}
-              subtext="WCAG 2.2 AA audit passed"
-              statusBadge="PASS"
+              value={qaOverview.summary.accessibility.display}
+              subtext={isQAVerified ? "WCAG 2.2 AA audit passed" : "Evidence not recorded"}
+              statusBadge={
+                qaOverview.summary.accessibility.status === "PASS"
+                  ? "PASS"
+                  : (qaOverview.summary.accessibility.status === "NOT_RECORDED" ? "Not available" : "Failed")
+              }
               source="Axe Core"
             />
           </div>
@@ -185,7 +211,11 @@ export default function OverviewPage() {
               label="IndexNow Status"
               value={seoOverview.indexNow.statusLabel}
               subtext={`Key: ${seoOverview.indexNow.maskedKey || "Not configured"}`}
-              statusBadge={seoOverview.indexNow.status === "INTEGRATED" ? "Verified" : "Warning"}
+              statusBadge={
+                seoOverview.indexNow.status === "CONFIGURED"
+                  ? "Verified"
+                  : (seoOverview.indexNow.status === "PARTIAL" ? "Warning" : "Not available")
+              }
               source="IndexNow 1.0"
             />
           </div>

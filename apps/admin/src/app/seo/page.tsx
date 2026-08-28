@@ -44,7 +44,11 @@ export default function SEOPage() {
             label="IndexNow Protocol"
             value={seo.indexNow.statusLabel}
             subtext="Real-time search notification"
-            statusBadge={seo.indexNow.status === "INTEGRATED" ? "Verified" : "Warning"}
+            statusBadge={
+              seo.indexNow.status === "CONFIGURED"
+                ? "Verified"
+                : (seo.indexNow.status === "PARTIAL" ? "Warning" : "Not available")
+            }
             source="IndexNow 1.0"
           />
           <MetricCard
@@ -62,7 +66,13 @@ export default function SEOPage() {
             <div>
               <div className="flex items-center gap-2">
                 <h2 className="text-sm font-bold text-slate-900">IndexNow Protocol Configuration</h2>
-                <StatusBadge status={seo.indexNow.status === "INTEGRATED" ? "Verified" : seo.indexNow.status === "PENDING_PARTIAL" ? "Warning" : "Not available"} />
+                <StatusBadge
+                  status={
+                    seo.indexNow.status === "CONFIGURED"
+                      ? "Verified"
+                      : (seo.indexNow.status === "PARTIAL" ? "Warning" : "Not available")
+                  }
+                />
               </div>
               <p className="text-xs text-slate-500 mt-0.5">
                 Instant search engine indexation notifications for Bing, Yandex, Naver, and Seznam.

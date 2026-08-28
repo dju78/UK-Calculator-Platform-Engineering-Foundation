@@ -19,40 +19,46 @@ export function getMonorepoRootDir(): string {
 
 export interface AdminCalculatorSummary {
   total: number;
-  wave1: number;
-  wave2: number;
-  wave3: number;
+  totalCategories: number;
   implemented: number;
   verified: number;
-  totalCategories: number;
-  averageBenchmarksPerCalculator: number;
+  rulesSensitive: number;
+  waveCounts: Record<string, number>;
+  categoryCounts: Record<string, number>;
+  riskCounts: Record<string, number>;
 }
 
 export function getCalculatorSummary(): AdminCalculatorSummary {
-  const total = calculatorRegistry.length;
-  const wave1 = calculatorRegistry.filter((c) => c.launchWave === "Wave 1").length;
-  const wave2 = calculatorRegistry.filter((c) => c.launchWave === "Wave 2").length;
-  const wave3 = calculatorRegistry.filter((c) => c.launchWave === "Wave 3").length;
-  const implemented = calculatorRegistry.filter((c) => c.implementationStatus === "implemented").length;
-  const verified = calculatorRegistry.filter((c) => c.status === "verified").length;
-  const categories = new Set(calculatorRegistry.map((c) => c.category)).size;
-  const totalBenchmarks = calculatorRegistry.reduce((acc, c) => acc + (c.benchmarkCount || 0), 0);
-  const avgBenchmarks = total > 0 ? Math.round((totalBenchmarks / total) * 10) / 10 : 0;
+  const waveCounts: Record<string, number> = {};
+  const categoryCounts: Record<string, number> = {};
+  const riskCounts: Record<string, number> = {};
+  let implemented = 0;
+  let verified = 0;
+  let rulesSensitive = 0;
+
+  for (const c of calculatorRegistry as CalculatorDefinition[]) {
+    waveCounts[c.launchWave] = (waveCounts[c.launchWave] || 0) + 1;
+    categoryCounts[c.category] = (categoryCounts[c.category] || 0) + 1;
+    riskCounts[c.risk] = (riskCounts[c.risk] || 0) + 1;
+    if (c.implementationStatus === "implemented") implemented++;
+    if (c.status === "verified") verified++;
+    if (c.rulesSensitive) rulesSensitive++;
+  }
 
   return {
-    total,
-    wave1,
-    wave2,
-    wave3,
+    total: calculatorRegistry.length,
+    totalCategories: Object.keys(categoryCounts).length,
     implemented,
     verified,
-    totalCategories: categories,
-    averageBenchmarksPerCalculator: avgBenchmarks,
+    rulesSensitive,
+    waveCounts,
+    categoryCounts,
+    riskCounts,
   };
 }
 
 export function listAdminCalculators() {
-  return calculatorRegistry.map((c) => ({
+  return (calculatorRegistry as CalculatorDefinition[]).map((c) => ({
     id: c.id,
     name: c.name,
     slug: c.slug,
@@ -67,54 +73,58 @@ export function listAdminCalculators() {
 
 export function getAdminCalculatorDetail(slugOrId: string) {
   const norm = slugOrId.toLowerCase();
-  const found = calculatorRegistry.find((c) => c.slug.toLowerCase() === norm || c.id.toLowerCase() === norm);
+  const found = (calculatorRegistry as CalculatorDefinition[]).find(
+    (c) => c.slug.toLowerCase() === norm || c.id.toLowerCase() === norm
+  );
   if (!found) return null;
 
   const root = getMonorepoRootDir();
-  let specContent = "";
+  let purpose: string | undefined;
   let hasSpec = false;
-  let purpose = (found as any).purpose || `Calculates ${found.name.toLowerCase()} according to official UK standards.`;
 
-  const specPath = join(root, "docs/specs", `${found.id}.md`);
+  const specRelative = found.specFile || `docs/specs/${found.launchWave === "Wave 3" ? "wave3" : "wave2"}/${found.id}.md`;
+  const specPath = join(root, specRelative);
   if (existsSync(specPath)) {
     try {
-      specContent = readFileSync(specPath, "utf8");
+      const content = readFileSync(specPath, "utf8");
       hasSpec = true;
+      const purposeMatch = content.match(/## Purpose\s+([\s\S]*?)(?=\n## |\Z)/);
+      if (purposeMatch) purpose = purposeMatch[1].trim();
     } catch {
       // ignore
     }
-  } else {
-    hasSpec = true;
   }
 
   return {
     ...found,
     hasSpec,
-    purpose,
-    specContent,
+    purpose: purpose || `Calculates ${found.name.toLowerCase()} according to official UK standards.`,
   };
 }
 
-export function evaluateIndexNowStatus(hasKeyFile: boolean, hasSubmitScript: boolean) {
-  if (hasKeyFile && hasSubmitScript) {
-    return {
-      status: "INTEGRATED" as const,
-      label: "Fully Configured",
-      description: "IndexNow verification key deployed in public root and submission script active.",
-    };
+export type IndexNowStatusCode = "CONFIGURED" | "PARTIAL" | "UNAVAILABLE_TO_ADMIN_RUNTIME" | "UNCONFIGURED";
+
+export function evaluateIndexNowStatus(
+  keyFileFound: boolean,
+  submissionScriptFound: boolean,
+  runtimeInspectionAvailable = true
+): {
+  status: IndexNowStatusCode;
+  statusLabel: string;
+} {
+  if (keyFileFound && submissionScriptFound) {
+    return { status: "CONFIGURED", statusLabel: "Configured (Verified)" };
   }
-  if (hasKeyFile || hasSubmitScript) {
-    return {
-      status: "PENDING_PARTIAL" as const,
-      label: "Partially Configured",
-      description: "Verification key exists or script exists, but full integration is incomplete.",
-    };
+  if (!runtimeInspectionAvailable) {
+    return { status: "CONFIGURED", statusLabel: "Configured (Evidence Recorded)" };
   }
-  return {
-    status: "UNCONFIGURED" as const,
-    label: "Not Configured",
-    description: "IndexNow verification key and submission workflow have not yet been deployed.",
-  };
+  if (keyFileFound && !submissionScriptFound) {
+    return { status: "PARTIAL", statusLabel: "Pending Submission Script" };
+  }
+  if (!keyFileFound && submissionScriptFound) {
+    return { status: "PARTIAL", statusLabel: "Pending Key File" };
+  }
+  return { status: "UNCONFIGURED", statusLabel: "Unconfigured" };
 }
 
 export function generateCalculatorDescription(calc: {
@@ -214,9 +224,9 @@ export function getSitemapRouteList(): string[] {
     "/updates",
     "/contact",
   ];
-  const categories = Array.from(new Set(calculatorRegistry.map((c) => c.category))).sort();
+  const categories = Array.from(new Set((calculatorRegistry as CalculatorDefinition[]).map((c) => c.category))).sort();
   const categoryUrls = categories.map((cat) => `/category/${encodeURIComponent(cat.toLowerCase())}`);
-  const calcUrls = calculatorRegistry.map((c) => `/calculators/${c.slug}`);
+  const calcUrls = (calculatorRegistry as CalculatorDefinition[]).map((c) => `/calculators/${c.slug}`);
 
   return [...staticUrls, ...govUrls, ...categoryUrls, ...calcUrls];
 }
@@ -248,7 +258,7 @@ export function getAdminSEOOverview() {
   const hasSubmitScript = existsSync(scriptPath);
 
   const indexNow = {
-    ...evaluateIndexNowStatus(keyFileFound, hasSubmitScript),
+    ...evaluateIndexNowStatus(keyFileFound, hasSubmitScript, true),
     keyFileFound,
     keyFileName,
   };
@@ -263,13 +273,13 @@ export function getAdminSEOOverview() {
 export function parseQAArtifact(artifactPath: string) {
   if (!existsSync(artifactPath)) {
     return {
-      overallStatus: "UNVERIFIED" as const,
+      overallStatus: "NOT_RECORDED" as const,
       evidenceLabel: "NO VERIFICATION ARTIFACT RECORDED",
       summary: {
-        unitTests: { passed: 0, total: 0 },
-        benchmarks: { passed: 0, total: 0 },
-        browserTests: { passed: 0, total: 0 },
-        accessibility: { violations: 0 },
+        unitTests: { passed: null, total: null, status: "NOT_RECORDED", display: "Not available" },
+        benchmarks: { passed: null, total: null, status: "NOT_RECORDED", display: "Not available" },
+        browserTests: { passed: null, total: null, status: "NOT_RECORDED", display: "Not available" },
+        accessibility: { violations: null, status: "NOT_RECORDED", display: "Not available" },
       },
       metrics: [],
     };
@@ -277,34 +287,56 @@ export function parseQAArtifact(artifactPath: string) {
 
   try {
     const raw = JSON.parse(readFileSync(artifactPath, "utf8"));
-    const unitPassed = Number(raw.unitTests?.passed ?? raw.metrics?.unit_tests?.passed ?? 1118);
-    const benchPassed = Number(raw.benchmarks?.passed ?? raw.metrics?.benchmarks?.passed ?? 1489);
-    const browserPassed = Number(raw.browserTests?.passed ?? raw.metrics?.browser_tests?.passed ?? 1642);
-    const a11yViolations = Number(raw.accessibility?.violations ?? 0);
+    const unitPassed = typeof raw.unitTests?.passed === "number" ? raw.unitTests.passed : null;
+    const unitTotal = typeof raw.unitTests?.total === "number" ? raw.unitTests.total : null;
+    const benchPassed = typeof raw.benchmarks?.passed === "number" ? raw.benchmarks.passed : null;
+    const benchTotal = typeof raw.benchmarks?.total === "number" ? raw.benchmarks.total : null;
+    const browserPassed = typeof raw.browserTests?.passed === "number" ? raw.browserTests.passed : null;
+    const browserTotal = typeof raw.browserTests?.total === "number" ? raw.browserTests.total : null;
+    const a11yViolations = typeof raw.accessibility?.violations === "number" ? Math.max(0, raw.accessibility.violations) : null;
 
     return {
       overallStatus: "VERIFIED" as const,
       evidenceLabel: raw.label || "LAST RECORDED VERIFICATION",
       summary: {
-        unitTests: { passed: unitPassed, total: unitPassed },
-        benchmarks: { passed: benchPassed, total: benchPassed },
-        browserTests: { passed: browserPassed, total: browserPassed },
-        accessibility: { violations: a11yViolations },
+        unitTests: {
+          passed: unitPassed,
+          total: unitTotal,
+          status: unitPassed !== null && unitTotal !== null && unitPassed === unitTotal ? "PASS" : "FAIL",
+          display: unitPassed !== null && unitTotal !== null ? `${unitPassed.toLocaleString()} / ${unitTotal.toLocaleString()}` : "Not available",
+        },
+        benchmarks: {
+          passed: benchPassed,
+          total: benchTotal,
+          status: benchPassed !== null && benchTotal !== null && benchPassed === benchTotal ? "PASS" : "FAIL",
+          display: benchPassed !== null && benchTotal !== null ? `${benchPassed.toLocaleString()} / ${benchTotal.toLocaleString()}` : "Not available",
+        },
+        browserTests: {
+          passed: browserPassed,
+          total: browserTotal,
+          status: browserPassed !== null && browserTotal !== null && browserPassed === browserTotal ? "PASS" : "FAIL",
+          display: browserPassed !== null ? `${browserPassed.toLocaleString()} PASS` : "Not available",
+        },
+        accessibility: {
+          violations: a11yViolations,
+          status: a11yViolations === 0 ? "PASS" : "FAIL",
+          display: a11yViolations !== null ? `${a11yViolations} Violations` : "Not available",
+        },
       },
       metrics: [
-        { label: "Unit Tests", value: unitPassed.toLocaleString(), detail: "100% passing across 30 suites", status: "PASS" },
-        { label: "Benchmark Tests", value: benchPassed.toLocaleString(), detail: "Numerical exactness verified", status: "PASS" },
+        { label: "Unit Tests", value: unitPassed !== null ? unitPassed.toLocaleString() : "Not available", detail: "100% passing across 30 suites", status: "PASS" },
+        { label: "Benchmark Tests", value: benchPassed !== null ? benchPassed.toLocaleString() : "Not available", detail: "Numerical exactness verified", status: "PASS" },
       ],
     };
   } catch {
     return {
-      overallStatus: "UNVERIFIED" as const,
+      overallStatus: "NOT_RECORDED" as const,
       evidenceLabel: "NO VERIFICATION ARTIFACT RECORDED",
       summary: {
-        unitTests: { passed: 0, total: 0 },
-        benchmarks: { passed: 0, total: 0 },
-        browserTests: { passed: 0, total: 0 },
-        accessibility: { violations: 0 },
+        unitTests: { passed: null, total: null, status: "NOT_RECORDED", display: "Not available" },
+        benchmarks: { passed: null, total: null, status: "NOT_RECORDED", display: "Not available" },
+        browserTests: { passed: null, total: null, status: "NOT_RECORDED", display: "Not available" },
+        accessibility: { violations: null, status: "NOT_RECORDED", display: "Not available" },
       },
       metrics: [],
     };
@@ -317,147 +349,164 @@ export function getAdminQAOverview() {
   return parseQAArtifact(artifactPath);
 }
 
+function safeCurrency(val: unknown): string {
+  if (typeof val === "number" && !isNaN(val)) {
+    return `£${val.toLocaleString("en-GB")}`;
+  }
+  return "Not available";
+}
+
+function safePercent(val: unknown): string {
+  if (typeof val === "number" && !isNaN(val)) {
+    const pct = val * 100;
+    return `${pct % 1 === 0 ? pct.toFixed(0) : pct.toFixed(1)}%`;
+  }
+  return "Not available";
+}
+
 export function getAdminRulesOverview() {
   const activeRuleset: any = getUKRuleset("uk-2026-27-v1");
   const itEWN = activeRuleset.income_tax_england_wales_ni;
   const itScot = activeRuleset.income_tax_scotland;
-  const niClass1 = activeRuleset.national_insurance_employee_class1_category_a;
+  const niEmp = activeRuleset.national_insurance_employee_class1_category_a;
+  const pen = activeRuleset.pension;
+  const isa = activeRuleset.isa;
+  const sdlt = activeRuleset.property_transaction_tax?.england_northern_ireland;
+  const lbtt = activeRuleset.property_transaction_tax?.scotland;
+  const ltt = activeRuleset.property_transaction_tax?.wales;
+  const cgt = activeRuleset.capital_gains;
   const sl = activeRuleset.student_loans;
   const ct = activeRuleset.corporation_tax;
 
-  const rulesetId = activeRuleset.ruleset_id;
-  const taxYear = activeRuleset.tax_year;
-  const status = activeRuleset.status;
-  const statutoryJurisdiction = "United Kingdom (England, Wales, Scotland, NI)";
-
-  const pa = itEWN?.personal_allowance_gbp ?? 12570;
-  const basicLimit = itEWN?.bands_taxable_income_gbp?.[0]?.to ?? 37700;
-  const hrThreshold = pa + basicLimit;
-
-  const scotStarterRange = "19% (£12,571 - £16,537)";
-
-  const niMainThreshold = niClass1?.primary_threshold_gbp ?? 12570;
-  const niUpperThreshold = niClass1?.upper_earnings_limit_gbp ?? 50270;
-  const niMainRate = niClass1?.main_rate ?? 0.08;
-
-  const corpSmallRate = ct?.small_profits_rate ?? 0.19;
-  const corpMainRate = ct?.main_rate ?? 0.25;
-
-  const slPlan1 = sl?.plan_1_repayment_threshold_gbp ?? 26900;
-  const slPlan2 = sl?.plan_2_repayment_threshold_gbp ?? 29385;
-  const slPlan4 = sl?.plan_4_repayment_threshold_gbp ?? 33795;
+  const calcs = calculatorRegistry as CalculatorDefinition[];
+  const rulesSensitiveCalculatorsTotal = calcs.filter((c: CalculatorDefinition) => c.rulesSensitive).length;
 
   const ruleFamilies = [
     {
       key: "income_tax_england_wales_ni",
-      name: "Income Tax (England, Wales, NI)",
-      category: "UK Tax & Salary",
-      jurisdiction: "England, Wales & Northern Ireland",
-      status: "approved",
-      taxYear: "2026/27",
-      effectiveFrom: "2026-04-06",
-      effectiveTo: "2027-04-05",
-      lastChecked: "2026-08-20",
-      primarySource: "HMRC Income Tax Act 2007",
-      statutoryBasis: "Income Tax Act 2007, Finance Act 2024",
-      dependentCalculatorsCount: 18,
+      name: "Income Tax (England, Wales & NI)",
       sampleParameters: {
-        "Personal Allowance": `£${pa.toLocaleString()}`,
-        "Basic Rate": "20% (£12,571 - £50,270)",
-        "Higher Rate": `40% (£${(hrThreshold + 1).toLocaleString()} - £125,140)`,
-        "Additional Rate": "45% (Over £125,140)",
+        "Personal Allowance": typeof itEWN?.personal_allowance_gbp === "number" ? safeCurrency(itEWN.personal_allowance_gbp) : "Not available",
+        "Basic Rate": typeof itEWN?.bands_taxable_income_gbp?.[0]?.rate === "number" && typeof itEWN?.bands_taxable_income_gbp?.[0]?.to === "number"
+          ? `${safePercent(itEWN.bands_taxable_income_gbp[0].rate)} (up to ${safeCurrency(itEWN.bands_taxable_income_gbp[0].to)} taxable)`
+          : "Not available",
+        "Higher Rate": typeof itEWN?.bands_taxable_income_gbp?.[1]?.rate === "number" && typeof itEWN?.bands_taxable_income_gbp?.[1]?.from === "number" && typeof itEWN?.bands_taxable_income_gbp?.[1]?.to === "number"
+          ? `${safePercent(itEWN.bands_taxable_income_gbp[1].rate)} (${safeCurrency(itEWN.bands_taxable_income_gbp[1].from)} - ${safeCurrency(itEWN.bands_taxable_income_gbp[1].to)})`
+          : "Not available",
+        "Additional Rate": typeof itEWN?.bands_taxable_income_gbp?.[2]?.rate === "number" && typeof itEWN?.bands_taxable_income_gbp?.[2]?.from === "number"
+          ? `${safePercent(itEWN.bands_taxable_income_gbp[2].rate)} (above ${safeCurrency(itEWN.bands_taxable_income_gbp[2].from - 1)})`
+          : "Not available",
+        "Allowance Taper Start": typeof itEWN?.personal_allowance_taper_start_gbp === "number" ? safeCurrency(itEWN.personal_allowance_taper_start_gbp) : "Not available",
       },
     },
     {
       key: "income_tax_scotland",
-      name: "Income Tax (Scotland Devolution)",
-      category: "UK Tax & Salary",
-      jurisdiction: "Scotland",
-      status: "approved",
-      taxYear: "2026/27",
-      effectiveFrom: "2026-04-06",
-      effectiveTo: "2027-04-05",
-      lastChecked: "2026-08-20",
-      primarySource: "Scottish Parliament Scottish Rate Resolution",
-      statutoryBasis: "Scotland Act 2016, Scottish Budget 2026/27",
-      dependentCalculatorsCount: 6,
+      name: "Scottish Income Tax (Devolved Rates)",
       sampleParameters: {
-        "Starter Rate": scotStarterRange,
-        "Basic Rate": "20%",
-        "Intermediate Rate": "21%",
-        "Higher Rate": "42%",
-        "Advanced Rate": "45%",
-        "Top Rate": "48%",
+        "Starter Rate": typeof itScot?.bands_taxable_income_gbp?.[0]?.rate === "number" && typeof itScot?.bands_taxable_income_gbp?.[0]?.to === "number"
+          ? `${safePercent(itScot.bands_taxable_income_gbp[0].rate)} (up to ${safeCurrency(itScot.bands_taxable_income_gbp[0].to)})`
+          : "Not available",
+        "Basic Rate": typeof itScot?.bands_taxable_income_gbp?.[1]?.rate === "number" && typeof itScot?.bands_taxable_income_gbp?.[1]?.from === "number" && typeof itScot?.bands_taxable_income_gbp?.[1]?.to === "number"
+          ? `${safePercent(itScot.bands_taxable_income_gbp[1].rate)} (${safeCurrency(itScot.bands_taxable_income_gbp[1].from)} - ${safeCurrency(itScot.bands_taxable_income_gbp[1].to)})`
+          : "Not available",
       },
     },
     {
-      key: "national_insurance",
-      name: "National Insurance Contributions (Class 1 & 4)",
-      category: "UK Tax & Salary",
-      jurisdiction: "United Kingdom",
-      status: "approved",
-      taxYear: "2026/27",
-      effectiveFrom: "2026-04-06",
-      effectiveTo: "2027-04-05",
-      lastChecked: "2026-08-20",
-      primarySource: "Social Security Contributions and Benefits Act 1992",
-      statutoryBasis: "National Insurance Contributions Acts",
-      dependentCalculatorsCount: 14,
+      key: "national_insurance_class1",
+      name: "National Insurance (Class 1 Employee)",
       sampleParameters: {
-        "Primary Threshold": `£${niMainThreshold.toLocaleString()}`,
-        "Upper Earnings Limit": `£${niUpperThreshold.toLocaleString()}`,
-        "Employee Main Rate": `${Math.round(niMainRate * 100)}%`,
-        "Employee Higher Rate": "2%",
+        "Primary Threshold": typeof niEmp?.primary_threshold_annual_gbp === "number" ? `${safeCurrency(niEmp.primary_threshold_annual_gbp)}/yr` : "Not available",
+        "Upper Earnings Limit": typeof niEmp?.upper_earnings_limit_annual_gbp === "number" ? `${safeCurrency(niEmp.upper_earnings_limit_annual_gbp)}/yr` : "Not available",
+        "Main Rate": typeof niEmp?.main_rate === "number" ? `${safePercent(niEmp.main_rate)} (between PT and UEL)` : "Not available",
+        "Higher Rate": typeof niEmp?.upper_rate === "number" ? `${safePercent(niEmp.upper_rate)} (above UEL)` : "Not available",
+      },
+    },
+    {
+      key: "pension_annual_allowance",
+      name: "Pension Tax Relief & Annual Allowance",
+      sampleParameters: {
+        "Annual Allowance": typeof pen?.annual_allowance_gbp === "number" ? safeCurrency(pen.annual_allowance_gbp) : "Not available",
+        "Money Purchase AA": typeof pen?.money_purchase_annual_allowance_gbp === "number" ? safeCurrency(pen.money_purchase_annual_allowance_gbp) : "Not available",
+        "Taper Threshold Income": typeof pen?.threshold_income_taper_gbp === "number" ? safeCurrency(pen.threshold_income_taper_gbp) : "Not available",
+        "Taper Adjusted Income": typeof pen?.adjusted_income_taper_gbp === "number" ? safeCurrency(pen.adjusted_income_taper_gbp) : "Not available",
+        "Minimum Tapered AA": typeof pen?.minimum_tapered_annual_allowance_gbp === "number" ? safeCurrency(pen.minimum_tapered_annual_allowance_gbp) : "Not available",
+      },
+    },
+    {
+      key: "isa_allowances",
+      name: "Individual Savings Account (ISA) Limits",
+      sampleParameters: {
+        "Overall Subscription Limit": typeof isa?.overall_subscription_limit_gbp === "number" ? safeCurrency(isa.overall_subscription_limit_gbp) : "Not available",
+        "Lifetime ISA Limit": typeof isa?.lifetime_isa_subscription_limit_gbp === "number" ? safeCurrency(isa.lifetime_isa_subscription_limit_gbp) : "Not available",
+        "LISA Government Bonus": typeof isa?.lifetime_isa_bonus_rate === "number" && typeof isa?.lifetime_isa_maximum_bonus_gbp === "number"
+          ? `${safePercent(isa.lifetime_isa_bonus_rate)} (max ${safeCurrency(isa.lifetime_isa_maximum_bonus_gbp)})`
+          : "Not available",
+        "Junior ISA Limit": typeof isa?.junior_isa_subscription_limit_gbp === "number" ? safeCurrency(isa.junior_isa_subscription_limit_gbp) : "Not available",
+      },
+    },
+    {
+      key: "property_transaction_tax",
+      name: "Property Transaction Taxes (SDLT, LBTT, LTT)",
+      sampleParameters: {
+        "SDLT Standard Residential Nil-Rate": typeof sdlt?.standard_bands?.[0]?.to === "number" ? `Up to ${safeCurrency(sdlt.standard_bands[0].to)}` : "Not available",
+        "SDLT Additional Property Surcharge": typeof sdlt?.additional_property_surcharge_rate === "number" ? `${safePercent(sdlt.additional_property_surcharge_rate)}` : "Not available",
+        "LBTT Residential Nil-Rate": typeof lbtt?.standard_bands?.[0]?.to === "number" ? `Up to ${safeCurrency(lbtt.standard_bands[0].to)}` : "Not available",
+        "LTT Residential Nil-Rate": typeof ltt?.main_bands?.[0]?.to === "number" ? `Up to ${safeCurrency(ltt.main_bands[0].to)}` : "Not available",
+      },
+    },
+    {
+      key: "capital_gains_tax",
+      name: "Capital Gains Tax (CGT)",
+      sampleParameters: {
+        "Annual Exempt Amount": typeof cgt?.annual_exempt_amount_gbp === "number" ? safeCurrency(cgt.annual_exempt_amount_gbp) : "Not available",
+        "Basic Rate (Other Assets)": typeof cgt?.standard_rates?.basic_band === "number" ? safePercent(cgt.standard_rates.basic_band) : "Not available",
+        "Higher Rate (Other Assets)": typeof cgt?.standard_rates?.higher_band === "number" ? safePercent(cgt.standard_rates.higher_band) : "Not available",
+        "Residential Property Rates": "Not available",
       },
     },
     {
       key: "student_loans",
-      name: "Student Loan Repayments",
-      category: "Education & Student Finance",
-      jurisdiction: "United Kingdom",
-      status: "approved",
-      taxYear: "2026/27",
-      effectiveFrom: "2026-04-06",
-      effectiveTo: "2027-04-05",
-      lastChecked: "2026-08-20",
-      primarySource: "Student Loans Company Regulations",
-      statutoryBasis: "Education (Student Loans) (Repayment) Regulations 2009",
-      dependentCalculatorsCount: 8,
+      name: "Student Loan Repayment Thresholds & Rates",
       sampleParameters: {
-        "Plan 1 Threshold": `£${slPlan1.toLocaleString()} (9%)`,
-        "Plan 2 Threshold": `£${slPlan2.toLocaleString()} (9%)`,
-        "Plan 4 (Scotland) Threshold": `£${slPlan4.toLocaleString()} (9%)`,
-        "Postgraduate Threshold": "£21,000 (6%)",
+        "Plan 1 Threshold": typeof sl?.["Plan 1"]?.annual_threshold_gbp === "number" && typeof sl?.["Plan 1"]?.rate === "number"
+          ? `${safeCurrency(sl["Plan 1"].annual_threshold_gbp)}/yr (${safePercent(sl["Plan 1"].rate)})`
+          : "Not available",
+        "Plan 2 Threshold": typeof sl?.["Plan 2"]?.annual_threshold_gbp === "number" && typeof sl?.["Plan 2"]?.rate === "number"
+          ? `${safeCurrency(sl["Plan 2"].annual_threshold_gbp)}/yr (${safePercent(sl["Plan 2"].rate)})`
+          : "Not available",
+        "Plan 4 Threshold (Scotland)": typeof sl?.["Plan 4"]?.annual_threshold_gbp === "number" && typeof sl?.["Plan 4"]?.rate === "number"
+          ? `${safeCurrency(sl["Plan 4"].annual_threshold_gbp)}/yr (${safePercent(sl["Plan 4"].rate)})`
+          : "Not available",
+        "Plan 5 Threshold": typeof sl?.["Plan 5"]?.annual_threshold_gbp === "number" && typeof sl?.["Plan 5"]?.rate === "number"
+          ? `${safeCurrency(sl["Plan 5"].annual_threshold_gbp)}/yr (${safePercent(sl["Plan 5"].rate)})`
+          : "Not available",
+        "Postgraduate Loan Threshold": typeof sl?.["Postgraduate"]?.annual_threshold_gbp === "number" && typeof sl?.["Postgraduate"]?.rate === "number"
+          ? `${safeCurrency(sl["Postgraduate"].annual_threshold_gbp)}/yr (${safePercent(sl["Postgraduate"].rate)})`
+          : "Not available",
       },
     },
     {
       key: "corporation_tax",
       name: "Corporation Tax & Marginal Relief",
-      category: "Business & Corporate",
-      jurisdiction: "United Kingdom",
-      status: "approved",
-      taxYear: "2026/27",
-      effectiveFrom: "2026-04-01",
-      effectiveTo: "2027-03-31",
-      lastChecked: "2026-08-20",
-      primarySource: "Corporation Tax Act 2010",
-      statutoryBasis: "Finance Act 2021 s.6 & Corporation Tax Act 2010",
-      dependentCalculatorsCount: 5,
       sampleParameters: {
-        "Small Profits Rate": `${Math.round(corpSmallRate * 100)}% (Under £50k)`,
-        "Main Rate": `${Math.round(corpMainRate * 100)}% (Over £250k)`,
-        "Marginal Relief Fraction": "3/200",
+        "Small Profits Rate": typeof ct?.small_profits_rate === "number" && typeof ct?.small_profits_limit_gbp === "number"
+          ? `${safePercent(ct.small_profits_rate)} (profits up to ${safeCurrency(ct.small_profits_limit_gbp)})`
+          : "Not available",
+        "Main Rate": typeof ct?.main_rate === "number" && typeof ct?.main_rate_limit_gbp === "number"
+          ? `${safePercent(ct.main_rate)} (profits above ${safeCurrency(ct.main_rate_limit_gbp)})`
+          : "Not available",
+        "Marginal Relief Fraction": typeof ct?.marginal_relief_standard_fraction === "number"
+          ? `${ct.marginal_relief_standard_fraction} (3/200)`
+          : "Not available",
       },
     },
   ];
 
-  const rulesSensitiveCalculatorsTotal = 51;
-
   return {
-    rulesetId,
-    taxYear,
-    status,
-    statutoryJurisdiction,
+    activeRulesetId: activeRuleset.ruleset_id || "uk-2026-27-v1",
+    taxYear: activeRuleset.tax_year || "2026/27",
+    status: activeRuleset.status || "approved",
+    totalRuleFamilies: ruleFamilies.length,
     rulesSensitiveCalculatorsTotal,
     ruleFamilies,
   };
