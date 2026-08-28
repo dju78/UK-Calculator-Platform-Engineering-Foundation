@@ -41,17 +41,50 @@ export default function SystemPage() {
             source="dependencies"
           />
           <MetricCard
-            label="Public Target Host"
+            label="Target Public Host"
             value="ukcalc.jomovate.com"
-            subtext="apps/web application host"
-            source="Vercel"
+            subtext="Target production custom domain"
+            source="Vercel Production"
           />
           <MetricCard
-            label="Admin Target Host"
+            label="Target Admin Host"
             value="admin.ukcalc.jomovate.com"
-            subtext="apps/admin console host"
-            source="Vercel Subdomain"
+            subtext="Intended domain (pending DNS connection)"
+            source="Platform Target"
           />
+        </div>
+
+        {/* Hostname Architecture & Governance Status */}
+        <div className="bg-white rounded-lg border border-slate-200 shadow-xs p-5 space-y-3">
+          <h2 className="text-xs font-bold uppercase tracking-wider text-slate-700">
+            Domain & Serving Architecture
+          </h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
+            <div className="p-3.5 rounded bg-slate-50 border border-slate-200 space-y-1.5">
+              <div className="flex items-center justify-between">
+                <span className="font-semibold text-slate-900">Target Admin Host</span>
+                <span className="text-[10px] font-mono bg-amber-100 text-amber-800 px-1.5 py-0.5 rounded font-medium">
+                  Pending DNS Connection
+                </span>
+              </div>
+              <div className="font-mono text-slate-700 text-sm">admin.ukcalc.jomovate.com</div>
+              <p className="text-slate-500 text-[11px]">
+                Configured intended custom domain for the platform administration console. Active serving occurs on assigned Vercel deployment preview domains until apex/subdomain CNAME record delegation is finalized.
+              </p>
+            </div>
+            <div className="p-3.5 rounded bg-slate-50 border border-slate-200 space-y-1.5">
+              <div className="flex items-center justify-between">
+                <span className="font-semibold text-slate-900">Target Public Host</span>
+                <span className="text-[10px] font-mono bg-emerald-100 text-emerald-800 px-1.5 py-0.5 rounded font-medium">
+                  Active Canonical
+                </span>
+              </div>
+              <div className="font-mono text-slate-700 text-sm">ukcalc.jomovate.com</div>
+              <p className="text-slate-500 text-[11px]">
+                Authoritative canonical domain for public calculator pages, sitemap.xml, robots.txt, and IndexNow protocol verification.
+              </p>
+            </div>
+          </div>
         </div>
 
         {/* Monorepo Architecture Register */}

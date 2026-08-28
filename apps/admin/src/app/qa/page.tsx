@@ -6,6 +6,7 @@ import { getAdminQAOverview } from "../../lib/admin-data/index";
 
 export default function QAPage() {
   const qa = getAdminQAOverview();
+  const isQAVerified = qa.overallStatus === "VERIFIED";
 
   return (
     <AdminLayout>
@@ -29,30 +30,54 @@ export default function QAPage() {
         <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
           <MetricCard
             label="Unit Test Suite"
-            value={`${qa.summary.unitTests.passed} / ${qa.summary.unitTests.total}`}
-            subtext="30 suites, 0 failures"
-            statusBadge="PASS"
+            value={
+              isQAVerified
+                ? `${qa.summary.unitTests.display} PASS`
+                : qa.summary.unitTests.display
+            }
+            subtext={isQAVerified ? "30 suites, 0 failures" : "Evidence not recorded"}
+            statusBadge={
+              qa.summary.unitTests.status === "PASS"
+                ? "PASS"
+                : (qa.summary.unitTests.status === "NOT_RECORDED" ? "Not available" : "Failed")
+            }
             source="tests/*.test.ts"
           />
           <MetricCard
             label="Reference Benchmarks"
-            value={`${qa.summary.benchmarks.passed} / ${qa.summary.benchmarks.total}`}
-            subtext="100% fixture coverage"
-            statusBadge="PASS"
+            value={
+              isQAVerified
+                ? `${qa.summary.benchmarks.display} PASS`
+                : qa.summary.benchmarks.display
+            }
+            subtext={isQAVerified ? "100% fixture coverage" : "Evidence not recorded"}
+            statusBadge={
+              qa.summary.benchmarks.status === "PASS"
+                ? "PASS"
+                : (qa.summary.benchmarks.status === "NOT_RECORDED" ? "Not available" : "Failed")
+            }
             source="packages/test-fixtures"
           />
           <MetricCard
             label="Browser E2E Parity"
-            value={`${qa.summary.browserTests.passed} PASS`}
-            subtext="0 failed, 0 flaky"
-            statusBadge="PASS"
+            value={qa.summary.browserTests.display}
+            subtext={isQAVerified ? "0 failed, 0 flaky" : "Evidence not recorded"}
+            statusBadge={
+              qa.summary.browserTests.status === "PASS"
+                ? "PASS"
+                : (qa.summary.browserTests.status === "NOT_RECORDED" ? "Not available" : "Failed")
+            }
             source="Playwright E2E"
           />
           <MetricCard
             label="Accessibility (WCAG 2.2 AA)"
-            value={`${qa.summary.accessibility.violations} Violations`}
-            subtext="WCAG 2.2 AA audit passed"
-            statusBadge="PASS"
+            value={qa.summary.accessibility.display}
+            subtext={isQAVerified ? "WCAG 2.2 AA audit passed" : "Evidence not recorded"}
+            statusBadge={
+              qa.summary.accessibility.status === "PASS"
+                ? "PASS"
+                : (qa.summary.accessibility.status === "NOT_RECORDED" ? "Not available" : "Failed")
+            }
             source="Axe Core"
           />
         </div>
@@ -66,32 +91,38 @@ export default function QAPage() {
                 Every calculation is validated against independent statutory HMRC, NHS, and industry benchmark fixtures.
               </p>
             </div>
-            <StatusBadge status="Verified" />
+            <StatusBadge status={isQAVerified ? "Verified" : "Not available"} />
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
             <div className="p-3 rounded bg-slate-50 border border-slate-200">
               <div className="text-slate-500 font-medium">Wave 1 Fixtures</div>
               <div className="text-lg font-bold text-slate-900 font-mono mt-1">
-                {qa.summary.benchmarks.wave1} / {qa.summary.benchmarks.wave1}
+                {qa.summary.benchmarks.wave1 !== null ? `${qa.summary.benchmarks.wave1} / ${qa.summary.benchmarks.wave1}` : "Not available"}
               </div>
-              <div className="text-[11px] text-emerald-700 font-medium mt-0.5">100% passed (55 calculators)</div>
+              <div className="text-[11px] text-emerald-700 font-medium mt-0.5">
+                {qa.summary.benchmarks.wave1 !== null ? "100% passed (55 calculators)" : "Evidence not recorded"}
+              </div>
             </div>
 
             <div className="p-3 rounded bg-slate-50 border border-slate-200">
               <div className="text-slate-500 font-medium">Wave 2 Fixtures</div>
               <div className="text-lg font-bold text-slate-900 font-mono mt-1">
-                {qa.summary.benchmarks.wave2} / {qa.summary.benchmarks.wave2}
+                {qa.summary.benchmarks.wave2 !== null ? `${qa.summary.benchmarks.wave2} / ${qa.summary.benchmarks.wave2}` : "Not available"}
               </div>
-              <div className="text-[11px] text-emerald-700 font-medium mt-0.5">100% passed (188 calculators)</div>
+              <div className="text-[11px] text-emerald-700 font-medium mt-0.5">
+                {qa.summary.benchmarks.wave2 !== null ? "100% passed (188 calculators)" : "Evidence not recorded"}
+              </div>
             </div>
 
             <div className="p-3 rounded bg-slate-50 border border-slate-200">
               <div className="text-slate-500 font-medium">Wave 3 Fixtures</div>
               <div className="text-lg font-bold text-slate-900 font-mono mt-1">
-                {qa.summary.benchmarks.wave3} / {qa.summary.benchmarks.wave3}
+                {qa.summary.benchmarks.wave3 !== null ? `${qa.summary.benchmarks.wave3} / ${qa.summary.benchmarks.wave3}` : "Not available"}
               </div>
-              <div className="text-[11px] text-emerald-700 font-medium mt-0.5">100% passed (10 calculators)</div>
+              <div className="text-[11px] text-emerald-700 font-medium mt-0.5">
+                {qa.summary.benchmarks.wave3 !== null ? "100% passed (10 calculators)" : "Evidence not recorded"}
+              </div>
             </div>
           </div>
         </div>
@@ -123,28 +154,36 @@ export default function QAPage() {
                 </tr>
               </thead>
               <tbody className="divide-y divide-slate-100 bg-white">
-                {qa.metrics.map((m) => (
-                  <tr key={m.title} className="hover:bg-slate-50/80 transition-colors">
-                    <td className="px-4 py-3 font-semibold text-slate-900 whitespace-nowrap">
-                      {m.title}
-                    </td>
-                    <td className="px-4 py-3 text-slate-600 font-mono text-[11px] uppercase">
-                      {m.category}
-                    </td>
-                    <td className="px-4 py-3 font-mono font-medium text-slate-900 whitespace-nowrap">
-                      {m.recordedCount} / {m.totalTarget} ({m.passRate})
-                    </td>
-                    <td className="px-4 py-3 whitespace-nowrap">
-                      <StatusBadge status={m.status === "PASS" ? "Verified" : m.status} />
-                    </td>
-                    <td className="px-4 py-3 font-mono text-[11px] text-slate-600">
-                      {m.sourceArtifact}
-                    </td>
-                    <td className="px-4 py-3 text-slate-600 max-w-sm">
-                      {m.notes}
+                {qa.metrics.length === 0 ? (
+                  <tr>
+                    <td colSpan={6} className="px-4 py-6 text-center text-slate-500">
+                      No verification artifact recorded. Run automated verification suite to generate evidence.
                     </td>
                   </tr>
-                ))}
+                ) : (
+                  qa.metrics.map((m) => (
+                    <tr key={m.title} className="hover:bg-slate-50/80 transition-colors">
+                      <td className="px-4 py-3 font-semibold text-slate-900 whitespace-nowrap">
+                        {m.title}
+                      </td>
+                      <td className="px-4 py-3 text-slate-600 font-mono text-[11px] uppercase">
+                        {m.category}
+                      </td>
+                      <td className="px-4 py-3 font-mono font-medium text-slate-900 whitespace-nowrap">
+                        {m.recordedCount} / {m.totalTarget} ({m.passRate})
+                      </td>
+                      <td className="px-4 py-3 whitespace-nowrap">
+                        <StatusBadge status={m.status === "PASS" ? "Verified" : (m.status === "NOT_RECORDED" ? "Not available" : m.status)} />
+                      </td>
+                      <td className="px-4 py-3 font-mono text-[11px] text-slate-600">
+                        {m.sourceArtifact}
+                      </td>
+                      <td className="px-4 py-3 text-slate-600 max-w-sm">
+                        {m.notes}
+                      </td>
+                    </tr>
+                  ))
+                )}
               </tbody>
             </table>
           </div>
