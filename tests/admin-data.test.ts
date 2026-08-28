@@ -1,6 +1,7 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import { join } from "node:path";
+import { readdirSync, readFileSync, statSync } from "node:fs";
 import { calculatorRegistry } from "../packages/calculator-registry/src/index.js";
 import { getUKRuleset } from "../packages/rules-uk/src/index.js";
 import type { CalculatorDefinition } from "../packages/calculator-registry/src/types.js";
@@ -271,5 +272,48 @@ test("Admin Console Data Integrity Suite", async (t: any) => {
 
     assert.strictEqual(ids.size, 253);
     assert.strictEqual(slugs.size, 253);
+  });
+
+  await t.test("Regression Check: apps/admin/src contains zero runtime imports from dist/", () => {
+    const rootDir = getMonorepoRootDir();
+    const adminSrcDir = join(rootDir, "apps/admin/src");
+
+    function getAllSourceFiles(dir: string): string[] {
+      const results: string[] = [];
+      const entries = readdirSync(dir);
+      for (const entry of entries) {
+        const full = join(dir, entry);
+        const stat = statSync(full);
+        if (stat.isDirectory()) {
+          results.push(...getAllSourceFiles(full));
+        } else if (/\.(ts|tsx|js|jsx|mjs)$/.test(entry)) {
+          results.push(full);
+        }
+      }
+      return results;
+    }
+
+    const files = getAllSourceFiles(adminSrcDir);
+    assert.ok(files.length > 0, "Must find files in apps/admin/src");
+
+    const offendingImports: Array<{ file: string; line: string }> = [];
+    const distImportRegex = /(from\s+["'][^"']*dist\/[^"']*["']|import\s*\(["'][^"']*dist\/[^"']*["']\))/i;
+
+    for (const file of files) {
+      const content = readFileSync(file, "utf8");
+      const lines = content.split("\n");
+      for (let i = 0; i < lines.length; i++) {
+        const line = lines[i];
+        if (distImportRegex.test(line)) {
+          offendingImports.push({ file, line: line.trim() });
+        }
+      }
+    }
+
+    assert.strictEqual(
+      offendingImports.length,
+      0,
+      `apps/admin/src must not contain any runtime imports from dist/: ${JSON.stringify(offendingImports, null, 2)}`
+    );
   });
 });

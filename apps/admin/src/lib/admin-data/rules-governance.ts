@@ -1,6 +1,6 @@
-import { getUKRuleset } from "../../../../../dist/packages/rules-uk/src/index.js";
-import { calculatorRegistry } from "../../../../../dist/packages/calculator-registry/src/index.js";
-import type { CalculatorDefinition } from "../../../../../packages/calculator-registry/src/types";
+import rawRules from "@foundation/rules-uk/src/rulesets/uk-2026-27-v1.json";
+import type { CalculatorDefinition } from "@foundation/calculator-registry/src/types";
+import { calculatorRegistry } from "./calculator-registry";
 
 export interface RuleFamilySummary {
   key: string;
@@ -28,6 +28,13 @@ export interface AdminRulesOverview {
   totalRuleFamilies: number;
   rulesSensitiveCalculatorsTotal: number;
   ruleFamilies: RuleFamilySummary[];
+}
+
+export function getUKRuleset(id = "uk-2026-27-v1"): any {
+  if (rawRules.ruleset_id === id) {
+    return structuredClone(rawRules);
+  }
+  throw new Error(`Unknown UK ruleset: ${id}`);
 }
 
 export function getAdminRulesOverview(): AdminRulesOverview {
@@ -82,237 +89,190 @@ export function getAdminRulesOverview(): AdminRulesOverview {
       effectiveFrom: rules.effective_from,
       effectiveTo: rules.effective_to,
       lastChecked: rules.checked_at,
-      primarySource: "Scottish Government Budget 2026/27",
+      primarySource: "Scottish Government Budget Resolution",
       statutoryBasis: "Scotland Act 2016, Scottish Rate Resolution",
       dependentCalculatorsCount: calcs.filter((c: CalculatorDefinition) =>
-        (c.category === "UK Tax & Salary" || c.id.startsWith("TAX-")) &&
-        (c.jurisdiction === "Scotland" || !c.jurisdiction || c.jurisdiction === "UK")
+        c.category === "UK Tax & Salary" || c.id === "TAX-002" || c.id === "TAX-004"
       ).length,
       sampleParameters: {
-        "Starter Rate": itScot?.bands_taxable_income_gbp?.[0] ? `${(itScot.bands_taxable_income_gbp[0].rate * 100).toFixed(0)}% (£12,571 - £${(12570 + itScot.bands_taxable_income_gbp[0].to).toLocaleString()})` : "Not available",
-        "Basic Rate": itScot?.bands_taxable_income_gbp?.[1] ? `${(itScot.bands_taxable_income_gbp[1].rate * 100).toFixed(0)}% (£${(12570 + itScot.bands_taxable_income_gbp[1].from).toLocaleString()} - £${(12570 + itScot.bands_taxable_income_gbp[1].to).toLocaleString()})` : "Not available",
-        "Intermediate Rate": itScot?.bands_taxable_income_gbp?.[2] ? `${(itScot.bands_taxable_income_gbp[2].rate * 100).toFixed(0)}% (£${(12570 + itScot.bands_taxable_income_gbp[2].from).toLocaleString()} - £${(12570 + itScot.bands_taxable_income_gbp[2].to).toLocaleString()})` : "Not available",
-        "Higher Rate": itScot?.bands_taxable_income_gbp?.[3] ? `${(itScot.bands_taxable_income_gbp[3].rate * 100).toFixed(0)}% (£${(12570 + itScot.bands_taxable_income_gbp[3].from).toLocaleString()} - £${(12570 + itScot.bands_taxable_income_gbp[3].to).toLocaleString()})` : "Not available",
-        "Advanced Rate": itScot?.bands_taxable_income_gbp?.[4] ? `${(itScot.bands_taxable_income_gbp[4].rate * 100).toFixed(0)}% (£${(12570 + itScot.bands_taxable_income_gbp[4].from).toLocaleString()} - £${(12570 + itScot.bands_taxable_income_gbp[4].to).toLocaleString()})` : "Not available",
-        "Top Rate": itScot?.bands_taxable_income_gbp?.[5] ? `${(itScot.bands_taxable_income_gbp[5].rate * 100).toFixed(0)}% (above £${(12570 + itScot.bands_taxable_income_gbp[5].from - 1).toLocaleString()})` : "Not available",
+        "Starter Rate": itScot?.bands_taxable_income_gbp?.[0] ? `${(itScot.bands_taxable_income_gbp[0].rate * 100).toFixed(0)}% (up to £${itScot.bands_taxable_income_gbp[0].to?.toLocaleString()})` : "Not available",
+        "Basic Rate": itScot?.bands_taxable_income_gbp?.[1] ? `${(itScot.bands_taxable_income_gbp[1].rate * 100).toFixed(0)}% (£${itScot.bands_taxable_income_gbp[1].from?.toLocaleString()} - £${itScot.bands_taxable_income_gbp[1].to?.toLocaleString()})` : "Not available",
+        "Intermediate Rate": itScot?.bands_taxable_income_gbp?.[2] ? `${(itScot.bands_taxable_income_gbp[2].rate * 100).toFixed(0)}% (£${itScot.bands_taxable_income_gbp[2].from?.toLocaleString()} - £${itScot.bands_taxable_income_gbp[2].to?.toLocaleString()})` : "Not available",
+        "Higher Rate": itScot?.bands_taxable_income_gbp?.[3] ? `${(itScot.bands_taxable_income_gbp[3].rate * 100).toFixed(0)}% (£${itScot.bands_taxable_income_gbp[3].from?.toLocaleString()} - £${itScot.bands_taxable_income_gbp[3].to?.toLocaleString()})` : "Not available",
+        "Advanced Rate": itScot?.bands_taxable_income_gbp?.[4] ? `${(itScot.bands_taxable_income_gbp[4].rate * 100).toFixed(0)}% (£${itScot.bands_taxable_income_gbp[4].from?.toLocaleString()} - £${itScot.bands_taxable_income_gbp[4].to?.toLocaleString()})` : "Not available",
+        "Top Rate": itScot?.bands_taxable_income_gbp?.[5] ? `${(itScot.bands_taxable_income_gbp[5].rate * 100).toFixed(0)}% (above £${(itScot.bands_taxable_income_gbp[5].from - 1)?.toLocaleString()})` : "Not available",
       },
-      notes: "Applies to non-savings, non-dividend earned income for Scottish resident taxpayers.",
+      notes: "Six-band structure with Starter (19%), Basic (20%), Intermediate (21%), Higher (42%), Advanced (45%), and Top (48%) rates.",
     },
     {
-      key: "national_insurance",
-      name: "National Insurance Contributions (NICs)",
+      key: "national_insurance_class1",
+      name: "National Insurance (Class 1 Employee)",
       category: "UK Tax & Salary",
-      jurisdiction: "UK",
+      jurisdiction: "United Kingdom",
       status: "approved",
       taxYear: rules.tax_year,
       effectiveFrom: rules.effective_from,
       effectiveTo: rules.effective_to,
       lastChecked: rules.checked_at,
-      primarySource: "HMRC National Insurance manual",
+      primarySource: "HMRC National Insurance manual & statutory rates",
       statutoryBasis: "Social Security Contributions and Benefits Act 1992",
       dependentCalculatorsCount: calcs.filter((c: CalculatorDefinition) =>
-        c.category === "UK Tax & Salary" || c.id.startsWith("TAX-") || c.id.startsWith("BUS-")
+        c.category === "UK Tax & Salary" || c.id.startsWith("NIC-")
       ).length,
       sampleParameters: {
-        "Class 1 Primary Threshold": niEmp?.period_thresholds_gbp?.primary_threshold ? `£${niEmp.period_thresholds_gbp.primary_threshold.weekly}/week (£${niEmp.period_thresholds_gbp.primary_threshold.annual?.toLocaleString()}/year)` : "Not available",
-        "Class 1 Main Employee Rate": niEmp?.main_rate !== undefined ? `${(niEmp.main_rate * 100).toFixed(0)}%` : "Not available",
-        "Class 1 Upper Earnings Limit": niEmp?.period_thresholds_gbp?.upper_earnings_limit ? `£${niEmp.period_thresholds_gbp.upper_earnings_limit.weekly}/week (£${niEmp.period_thresholds_gbp.upper_earnings_limit.annual?.toLocaleString()}/year)` : "Not available",
-        "Class 1 Additional Employee Rate": niEmp?.upper_rate !== undefined ? `${(niEmp.upper_rate * 100).toFixed(0)}%` : "Not available",
+        "Primary Threshold": niEmp?.primary_threshold_gbp ? `£${niEmp.primary_threshold_gbp.toLocaleString()}/yr` : "Not available",
+        "Upper Earnings Limit": niEmp?.upper_earnings_limit_gbp ? `£${niEmp.upper_earnings_limit_gbp.toLocaleString()}/yr` : "Not available",
+        "Main Rate": niEmp?.main_rate !== undefined ? `${(niEmp.main_rate * 100).toFixed(0)}% (between PT and UEL)` : "Not available",
+        "Higher Rate": niEmp?.higher_rate !== undefined ? `${(niEmp.higher_rate * 100).toFixed(0)}% (above UEL)` : "Not available",
       },
-      notes: "Class 1 employee National Insurance calculated on annualised primary earnings basis.",
+      notes: "Class 1 Primary Threshold aligned with standard Personal Allowance (£12,570).",
     },
     {
-      key: "pensions",
-      name: "Pensions & Retirement Allowances",
+      key: "pension_annual_allowance",
+      name: "Pension Tax Relief & Annual Allowance",
       category: "Pensions & Retirement",
-      jurisdiction: "UK",
+      jurisdiction: "United Kingdom",
       status: "approved",
       taxYear: rules.tax_year,
       effectiveFrom: rules.effective_from,
       effectiveTo: rules.effective_to,
       lastChecked: rules.checked_at,
-      primarySource: "HMRC Pensions Tax Manual",
-      statutoryBasis: "Finance Act 2004, Pensions Act",
+      primarySource: "HMRC Pensions Tax Manual (PTM)",
+      statutoryBasis: "Finance Act 2004 Part 4",
       dependentCalculatorsCount: calcs.filter((c: CalculatorDefinition) =>
         c.category === "Pensions & Retirement" || c.id.startsWith("PEN-")
       ).length,
       sampleParameters: {
-        "Standard Annual Allowance": pen?.annual_allowance_gbp ? `£${pen.annual_allowance_gbp.toLocaleString()}` : "Not available",
-        "Money Purchase Annual Allowance (MPAA)": pen?.money_purchase_annual_allowance_gbp ? `£${pen.money_purchase_annual_allowance_gbp.toLocaleString()}` : "Not available",
-        "Lump Sum Allowance (LSA)": pen?.lump_sum_allowance_gbp ? `£${pen.lump_sum_allowance_gbp.toLocaleString()} (25% tax-free cap)` : "Not available",
-        "Tapered Annual Allowance Minimum": pen?.minimum_tapered_annual_allowance_gbp ? `£${pen.minimum_tapered_annual_allowance_gbp.toLocaleString()} (Adjusted Income > £${pen.adjusted_income_taper_gbp?.toLocaleString()})` : "Not available",
+        "Annual Allowance": pen?.annual_allowance_gbp ? `£${pen.annual_allowance_gbp.toLocaleString()}` : "Not available",
+        "Money Purchase AA": pen?.money_purchase_annual_allowance_gbp ? `£${pen.money_purchase_annual_allowance_gbp.toLocaleString()}` : "Not available",
+        "Taper Threshold Income": pen?.taper_threshold_income_gbp ? `£${pen.taper_threshold_income_gbp.toLocaleString()}` : "Not available",
+        "Taper Adjusted Income": pen?.taper_adjusted_income_gbp ? `£${pen.taper_adjusted_income_gbp.toLocaleString()}` : "Not available",
+        "Minimum Tapered AA": pen?.minimum_tapered_annual_allowance_gbp ? `£${pen.minimum_tapered_annual_allowance_gbp.toLocaleString()}` : "Not available",
       },
-      notes: "Lifetime Allowance abolished; replaced by Lump Sum Allowance (LSA).",
+      notes: "Annual Allowance tapered down to minimum £10,000 for high earners above adjusted income limits.",
     },
     {
-      key: "isa",
-      name: "ISA & Tax-Free Savings Wrappers",
+      key: "isa_allowances",
+      name: "Individual Savings Account (ISA) Limits",
       category: "ISA & Tax Wrappers",
-      jurisdiction: "UK",
+      jurisdiction: "United Kingdom",
       status: "approved",
       taxYear: rules.tax_year,
       effectiveFrom: rules.effective_from,
       effectiveTo: rules.effective_to,
       lastChecked: rules.checked_at,
-      primarySource: "Individual Savings Account Regulations",
-      statutoryBasis: "ISA Regulations 1998 (as amended)",
+      primarySource: "HMRC ISA Guidance for Managers",
+      statutoryBasis: "Individual Savings Account Regulations 1998",
       dependentCalculatorsCount: calcs.filter((c: CalculatorDefinition) =>
-        c.category === "ISA & Tax Wrappers" || c.id.startsWith("ISA-") || c.id.startsWith("INV-")
+        c.category === "ISA & Tax Wrappers" || c.id.startsWith("ISA-")
       ).length,
       sampleParameters: {
-        "Annual ISA Limit": isa?.overall_subscription_limit_gbp ? `£${isa.overall_subscription_limit_gbp.toLocaleString()}` : "Not available",
-        "Lifetime ISA (LISA) Limit": isa?.lifetime_isa_subscription_limit_gbp ? `£${isa.lifetime_isa_subscription_limit_gbp.toLocaleString()}` : "Not available",
-        "LISA Government Bonus": isa?.lifetime_isa_bonus_rate !== undefined ? `${(isa.lifetime_isa_bonus_rate * 100).toFixed(0)}% (up to £${isa.lifetime_isa_maximum_bonus_gbp?.toLocaleString()}/year)` : "Not available",
+        "Overall Subscription Limit": isa?.overall_subscription_limit_gbp ? `£${isa.overall_subscription_limit_gbp.toLocaleString()}` : "Not available",
+        "Lifetime ISA Limit": isa?.lifetime_isa_subscription_limit_gbp ? `£${isa.lifetime_isa_subscription_limit_gbp.toLocaleString()}` : "Not available",
+        "LISA Government Bonus": isa?.lifetime_isa_bonus_rate !== undefined ? `${(isa.lifetime_isa_bonus_rate * 100).toFixed(0)}% (max £${isa?.lifetime_isa_maximum_bonus_gbp?.toLocaleString()})` : "Not available",
         "Junior ISA Limit": isa?.junior_isa_subscription_limit_gbp ? `£${isa.junior_isa_subscription_limit_gbp.toLocaleString()}` : "Not available",
-        "LISA Unauthorized Withdrawal Charge": isa?.lifetime_isa_withdrawal_charge_rate !== undefined ? `${(isa.lifetime_isa_withdrawal_charge_rate * 100).toFixed(0)}%` : "Not available",
       },
-      notes: "LISA property price cap is £450,000 across all UK regions.",
+      notes: "Annual £20,000 allowance across all ISA types (Adult Stocks & Shares, Cash, Innovative Finance, LISA).",
     },
     {
-      key: "sdlt",
-      name: "Stamp Duty Land Tax (SDLT)",
+      key: "property_transaction_tax",
+      name: "Property Transaction Taxes (SDLT, LBTT, LTT)",
       category: "Mortgages & Property",
-      jurisdiction: "England & Northern Ireland",
+      jurisdiction: "England & NI (SDLT), Scotland (LBTT), Wales (LTT)",
       status: "approved",
       taxYear: rules.tax_year,
       effectiveFrom: rules.effective_from,
       effectiveTo: rules.effective_to,
       lastChecked: rules.checked_at,
-      primarySource: "HMRC Stamp Taxes / Finance Act",
-      statutoryBasis: "Finance Act 2003 (Part 4)",
+      primarySource: "HMRC SDLT Manual, Revenue Scotland, Welsh Revenue Authority",
+      statutoryBasis: "Finance Act 2003 (SDLT), Land and Buildings Transaction Tax (Scotland) Act 2013, Land Transaction Tax and Anti-avoidance of Devolved Taxes (Wales) Act 2017",
       dependentCalculatorsCount: calcs.filter((c: CalculatorDefinition) =>
-        c.id === "PRO-004" || c.id === "PRO-023" || c.id === "PRO-024"
+        c.category === "Mortgages & Property" || c.id.startsWith("MOR-") || c.id.startsWith("PRO-")
       ).length,
       sampleParameters: {
-        "Nil Rate Band (Standard Residential)": sdlt?.standard_bands?.[0] ? `£0 - £${sdlt.standard_bands[0].to?.toLocaleString()} (${(sdlt.standard_bands[0].rate * 100).toFixed(0)}%)` : "Not available",
-        "Band 1 (£125,001 - £250,000)": sdlt?.standard_bands?.[1] ? `${(sdlt.standard_bands[1].rate * 100).toFixed(0)}%` : "Not available",
-        "Band 2 (£250,001 - £925,000)": sdlt?.standard_bands?.[2] ? `${(sdlt.standard_bands[2].rate * 100).toFixed(0)}%` : "Not available",
-        "Band 3 (£925,001 - £1,500,000)": sdlt?.standard_bands?.[3] ? `${(sdlt.standard_bands[3].rate * 100).toFixed(0)}%` : "Not available",
-        "Additional Property Surcharge": sdlt?.additional_property_surcharge_rate !== undefined ? `${(sdlt.additional_property_surcharge_rate * 100).toFixed(0)}% across all slices` : "Not available",
-        "FTB Relief Threshold": sdlt?.first_time_buyer_relief ? `£${sdlt.first_time_buyer_relief.bands?.[0]?.to?.toLocaleString()} at 0% (max purchase £${sdlt.first_time_buyer_relief.maximum_qualifying_property_value_gbp?.toLocaleString()})` : "Not available",
+        "SDLT Standard Residential Nil-Rate": sdlt?.residential_standard?.bands_price_gbp?.[0]?.to ? `Up to £${sdlt.residential_standard.bands_price_gbp[0].to.toLocaleString()}` : "Not available",
+        "SDLT Additional Property Surcharge": sdlt?.additional_property_surcharge_rate !== undefined ? `${(sdlt.additional_property_surcharge_rate * 100).toFixed(0)}% (Higher Rates for Additional Dwellings)` : "Not available",
+        "LBTT Residential Nil-Rate": lbtt?.residential_standard?.bands_price_gbp?.[0]?.to ? `Up to £${lbtt.residential_standard.bands_price_gbp[0].to.toLocaleString()}` : "Not available",
+        "LTT Residential Nil-Rate": ltt?.residential_standard?.bands_price_gbp?.[0]?.to ? `Up to £${ltt.residential_standard.bands_price_gbp[0].to.toLocaleString()}` : "Not available",
       },
-      notes: "Post-March 2025 sunset thresholds applied. Additional property surcharge reflects statutory rate.",
-    },
-    {
-      key: "lbtt",
-      name: "Land & Buildings Transaction Tax (LBTT)",
-      category: "Mortgages & Property",
-      jurisdiction: "Scotland",
-      status: "approved",
-      taxYear: rules.tax_year,
-      effectiveFrom: rules.effective_from,
-      effectiveTo: rules.effective_to,
-      lastChecked: rules.checked_at,
-      primarySource: "Revenue Scotland LBTT statutory rates",
-      statutoryBasis: "Land and Buildings Transaction Tax (Scotland) Act 2013",
-      dependentCalculatorsCount: calcs.filter((c: CalculatorDefinition) =>
-        c.id === "PRO-025" || c.id === "PRO-026"
-      ).length,
-      sampleParameters: {
-        "Nil Rate Band": lbtt?.standard_bands?.[0] ? `£0 - £${lbtt.standard_bands[0].to?.toLocaleString()} (${(lbtt.standard_bands[0].rate * 100).toFixed(0)}%)` : "Not available",
-        "Band 1 (£145,001 - £250,000)": lbtt?.standard_bands?.[1] ? `${(lbtt.standard_bands[1].rate * 100).toFixed(0)}%` : "Not available",
-        "Band 2 (£250,001 - £325,000)": lbtt?.standard_bands?.[2] ? `${(lbtt.standard_bands[2].rate * 100).toFixed(0)}%` : "Not available",
-        "Band 3 (£325,001 - £750,000)": lbtt?.standard_bands?.[3] ? `${(lbtt.standard_bands[3].rate * 100).toFixed(0)}%` : "Not available",
-        "Band 4 (Over £750,000)": lbtt?.standard_bands?.[4] ? `${(lbtt.standard_bands[4].rate * 100).toFixed(0)}%` : "Not available",
-        "Additional Dwelling Supplement (ADS)": lbtt?.additional_dwelling_supplement_rate !== undefined ? `${(lbtt.additional_dwelling_supplement_rate * 100).toFixed(0)}%` : "Not available",
-      },
-      notes: "Administered independently by Revenue Scotland.",
-    },
-    {
-      key: "ltt",
-      name: "Land Transaction Tax (LTT)",
-      category: "Mortgages & Property",
-      jurisdiction: "Wales",
-      status: "approved",
-      taxYear: rules.tax_year,
-      effectiveFrom: rules.effective_from,
-      effectiveTo: rules.effective_to,
-      lastChecked: rules.checked_at,
-      primarySource: "Welsh Revenue Authority (WRA)",
-      statutoryBasis: "Land Transaction Tax and Anti-avoidance of Devolved Taxes (Wales) Act 2017",
-      dependentCalculatorsCount: calcs.filter((c: CalculatorDefinition) => c.id === "PRO-027").length,
-      sampleParameters: {
-        "Nil Rate Band": ltt?.main_bands?.[0] ? `£0 - £${ltt.main_bands[0].to?.toLocaleString()} (${(ltt.main_bands[0].rate * 100).toFixed(0)}%)` : "Not available",
-        "Band 1 (£225,001 - £400,000)": ltt?.main_bands?.[1] ? `${(ltt.main_bands[1].rate * 100).toFixed(1)}%` : "Not available",
-        "Band 2 (£400,001 - £750,000)": ltt?.main_bands?.[2] ? `${(ltt.main_bands[2].rate * 100).toFixed(1)}%` : "Not available",
-        "Band 3 (£750,001 - £1,500,000)": ltt?.main_bands?.[3] ? `${(ltt.main_bands[3].rate * 100).toFixed(0)}%` : "Not available",
-      },
-      notes: "Administered by Welsh Revenue Authority.",
+      notes: "Devolved transaction taxes reflect distinct threshold bands and surcharge structures across jurisdictions.",
     },
     {
       key: "capital_gains_tax",
       name: "Capital Gains Tax (CGT)",
       category: "Investing & Wealth",
-      jurisdiction: "UK",
+      jurisdiction: "United Kingdom",
       status: "approved",
       taxYear: rules.tax_year,
       effectiveFrom: rules.effective_from,
       effectiveTo: rules.effective_to,
       lastChecked: rules.checked_at,
-      primarySource: "HMRC Capital Gains manual",
-      statutoryBasis: "Taxation of Chargeable Gains Act 1992, Finance Act 2024",
+      primarySource: "HMRC Capital Gains Manual",
+      statutoryBasis: "Taxation of Chargeable Gains Act 1992 (TCGA 1992)",
       dependentCalculatorsCount: calcs.filter((c: CalculatorDefinition) =>
-        c.id === "INV-004" || c.id === "INV-028" || c.id === "PRO-028" || c.id === "TAX-013"
+        c.category === "Investing & Wealth" || c.id.startsWith("INV-") || c.id.startsWith("CGT-")
       ).length,
       sampleParameters: {
         "Annual Exempt Amount": cgt?.annual_exempt_amount_gbp ? `£${cgt.annual_exempt_amount_gbp.toLocaleString()}` : "Not available",
-        "Basic Rate Assets": cgt?.standard_rates?.basic_band !== undefined ? `${(cgt.standard_rates.basic_band * 100).toFixed(0)}%` : "Not available",
-        "Higher/Additional Rate Assets": cgt?.standard_rates?.higher_band !== undefined ? `${(cgt.standard_rates.higher_band * 100).toFixed(0)}%` : "Not available",
+        "Basic Rate (Other Assets)": cgt?.basic_rate_other !== undefined ? `${(cgt.basic_rate_other * 100).toFixed(0)}%` : "Not available",
+        "Higher Rate (Other Assets)": cgt?.higher_rate_other !== undefined ? `${(cgt.higher_rate_other * 100).toFixed(0)}%` : "Not available",
+        "Residential Property Basic Rate": cgt?.basic_rate_residential_property !== undefined ? `${(cgt.basic_rate_residential_property * 100).toFixed(0)}%` : "Not available",
+        "Residential Property Higher Rate": cgt?.higher_rate_residential_property !== undefined ? `${(cgt.higher_rate_residential_property * 100).toFixed(0)}%` : "Not available",
       },
-      notes: "Rates harmonised at statutory rates following Autumn Budget adjustments.",
+      notes: "CGT rates aligned per current statutory schedules, with residential property differential rates.",
     },
     {
       key: "student_loans",
-      name: "Student Loan Repayment Thresholds",
-      category: "UK Tax & Salary",
-      jurisdiction: "UK",
+      name: "Student Loan Repayment Thresholds & Rates",
+      category: "Education",
+      jurisdiction: "United Kingdom",
       status: "approved",
       taxYear: rules.tax_year,
       effectiveFrom: rules.effective_from,
       effectiveTo: rules.effective_to,
       lastChecked: rules.checked_at,
-      primarySource: "Student Loans Company (SLC) repayment guidance",
-      statutoryBasis: "Education (Student Loans) (Repayment) Regulations",
+      primarySource: "Student Loans Company / Department for Education",
+      statutoryBasis: "Education (Student Loans) (Repayment) Regulations 2009",
       dependentCalculatorsCount: calcs.filter((c: CalculatorDefinition) =>
-        c.id === "TAX-004" || c.id === "TAX-001" || c.id === "TAX-002"
+        c.category === "Education" || c.id.startsWith("EDU-") || c.id.startsWith("STU-")
       ).length,
       sampleParameters: {
-        "Plan 1 Threshold": sl?.["Plan 1"]?.annual_threshold_gbp ? `£${sl["Plan 1"].annual_threshold_gbp.toLocaleString()} (${(sl["Plan 1"].rate * 100).toFixed(0)}%)` : "Not available",
-        "Plan 2 Threshold": sl?.["Plan 2"]?.annual_threshold_gbp ? `£${sl["Plan 2"].annual_threshold_gbp.toLocaleString()} (${(sl["Plan 2"].rate * 100).toFixed(0)}%)` : "Not available",
-        "Plan 4 (Scotland) Threshold": sl?.["Plan 4"]?.annual_threshold_gbp ? `£${sl["Plan 4"].annual_threshold_gbp.toLocaleString()} (${(sl["Plan 4"].rate * 100).toFixed(0)}%)` : "Not available",
-        "Plan 5 Threshold": sl?.["Plan 5"]?.annual_threshold_gbp ? `£${sl["Plan 5"].annual_threshold_gbp.toLocaleString()} (${(sl["Plan 5"].rate * 100).toFixed(0)}%)` : "Not available",
-        "Postgraduate Loan Threshold": sl?.["Postgraduate"]?.annual_threshold_gbp ? `£${sl["Postgraduate"].annual_threshold_gbp.toLocaleString()} (${(sl["Postgraduate"].rate * 100).toFixed(0)}%)` : "Not available",
+        "Plan 1 Threshold": sl?.plan_1_repayment_threshold_gbp ? `£${sl.plan_1_repayment_threshold_gbp.toLocaleString()}/yr (${(sl.plan_1_rate * 100).toFixed(0)}%)` : "Not available",
+        "Plan 2 Threshold": sl?.plan_2_repayment_threshold_gbp ? `£${sl.plan_2_repayment_threshold_gbp.toLocaleString()}/yr (${(sl.plan_2_rate * 100).toFixed(0)}%)` : "Not available",
+        "Plan 4 Threshold (Scotland)": sl?.plan_4_repayment_threshold_gbp ? `£${sl.plan_4_repayment_threshold_gbp.toLocaleString()}/yr (${(sl.plan_4_rate * 100).toFixed(0)}%)` : "Not available",
+        "Plan 5 Threshold": sl?.plan_5_repayment_threshold_gbp ? `£${sl.plan_5_repayment_threshold_gbp.toLocaleString()}/yr (${(sl.plan_5_rate * 100).toFixed(0)}%)` : "Not available",
+        "Postgraduate Loan Threshold": sl?.postgraduate_loan_threshold_gbp ? `£${sl.postgraduate_loan_threshold_gbp.toLocaleString()}/yr (${(sl.postgraduate_rate * 100).toFixed(0)}%)` : "Not available",
       },
-      notes: "Repayments deducted via PAYE alongside Income Tax and NICs.",
+      notes: "Income-contingent repayments deducted through PAYE simultaneously with Income Tax and National Insurance.",
     },
     {
       key: "corporation_tax",
-      name: "Corporation Tax Rates",
+      name: "Corporation Tax & Marginal Relief",
       category: "Business & Commercial",
-      jurisdiction: "UK",
+      jurisdiction: "United Kingdom",
       status: "approved",
       taxYear: rules.tax_year,
       effectiveFrom: rules.effective_from,
       effectiveTo: rules.effective_to,
       lastChecked: rules.checked_at,
-      primarySource: "HMRC Corporation Tax guidance",
-      statutoryBasis: "Corporation Tax Act 2010",
+      primarySource: "HMRC Company Taxation Manual",
+      statutoryBasis: "Corporation Tax Act 2010 (CTA 2010)",
       dependentCalculatorsCount: calcs.filter((c: CalculatorDefinition) =>
-        c.category === "Business & Commercial" || c.id.startsWith("BUS-")
+        c.category === "Business & Commercial" || c.id.startsWith("BUS-") || c.id.startsWith("CORP-")
       ).length,
       sampleParameters: {
-        "Small Profits Rate": ct?.small_profits_rate !== undefined ? `${(ct.small_profits_rate * 100).toFixed(0)}% (up to £${ct.small_profits_limit_gbp?.toLocaleString()})` : "Not available",
-        "Main Rate": ct?.main_rate !== undefined ? `${(ct.main_rate * 100).toFixed(0)}% (above £${ct.main_rate_limit_gbp?.toLocaleString()})` : "Not available",
-        "Marginal Relief Fraction": ct?.marginal_relief_standard_fraction !== undefined ? `${ct.marginal_relief_standard_fraction} (3/200)` : "Not available",
+        "Small Profits Rate": ct?.small_profits_rate !== undefined ? `${(ct.small_profits_rate * 100).toFixed(0)}% (profits up to £${ct?.lower_profit_limit_gbp?.toLocaleString()})` : "Not available",
+        "Main Rate": ct?.main_rate !== undefined ? `${(ct.main_rate * 100).toFixed(0)}% (profits above £${ct?.upper_profit_limit_gbp?.toLocaleString()})` : "Not available",
+        "Marginal Relief Fraction": ct?.marginal_relief_fraction !== undefined ? `${ct.marginal_relief_fraction} (for profits £50k - £250k)` : "Not available",
       },
-      notes: "Marginal relief applies between small profits and main rate thresholds.",
+      notes: "Marginal relief provides a gradual transition between the Small Profits Rate and Main Rate.",
     },
   ];
 
   return {
-    activeRulesetId: rules.ruleset_id,
-    taxYear: rules.tax_year,
-    status: rules.status,
+    activeRulesetId: rules.ruleset_id || "uk-2026-27-v1",
+    taxYear: rules.tax_year || "2026/27",
+    status: rules.status || "approved",
     effectivePeriod: `${rules.effective_from} to ${rules.effective_to}`,
     lastChecked: rules.checked_at,
     totalRuleFamilies: ruleFamilies.length,
