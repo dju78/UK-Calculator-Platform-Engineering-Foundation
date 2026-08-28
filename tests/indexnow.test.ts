@@ -250,5 +250,13 @@ test("IndexNow Integration Test Suite", async (t: any) => {
     assert.strictEqual(envRes.key, "env-key-456");
     assert.strictEqual(envRes.source, "env");
     delete process.env.INDEXNOW_KEY;
+
+    const fileRes = resolveIndexNowKey();
+    assert.strictEqual(fileRes.key, "PASTE_YOUR_REAL_INDEXNOW_KEY_HERE");
+    assert.strictEqual(fileRes.source, "file:PASTE_YOUR_REAL_INDEXNOW_KEY_HERE.txt");
+    assert.strictEqual(
+      fileRes.keyLocation,
+      "https://ukcalc.jomovate.com/PASTE_YOUR_REAL_INDEXNOW_KEY_HERE.txt"
+    );
   });
 });
