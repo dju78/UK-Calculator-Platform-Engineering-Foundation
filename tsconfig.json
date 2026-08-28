@@ -11,8 +11,11 @@
     "forceConsistentCasingInFileNames": true,
     "skipLibCheck": true,
     "baseUrl": ".",
-    "paths": { "@/*": ["apps/web/src/*"] }
+    "paths": {
+      "@/*": ["apps/web/src/*"],
+      "@admin/*": ["apps/admin/src/*"]
+    }
   },
-  "include": ["apps/**/*.ts", "packages/**/*.ts", "tests/**/*.ts", "scripts/**/*.ts", "types/**/*.d.ts"],
-  "exclude": ["dist", "node_modules", "apps/web/e2e"]
+  "include": ["packages/**/*.ts", "tests/**/*.ts", "scripts/**/*.ts", "types/**/*.d.ts"],
+  "exclude": ["dist", "node_modules", "apps/web", "apps/admin"]
 }
