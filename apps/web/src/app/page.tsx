@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
 import { CalculatorBrowser } from "@/components/home/CalculatorBrowser";
 import { SITE_NAME, SITE_URL } from "@/lib/site";
-import { liveCalculators } from "@/lib/calculators";
 
-const calcCount = liveCalculators.length;
+// Dynamic catalogue rendered via CalculatorBrowser (liveCalculators.length)
 const homeTitle = `${SITE_NAME} | Free UK Tax, Mortgage and Savings Calculators`;
-const homeDesc = `Browse ${calcCount} free UK calculators for tax, salary, mortgages, pensions, savings and everyday sums, using 2026/27 UK rules where applicable. Estimates only - not financial or tax advice.`;
+const homeDesc =
+  "Free UK calculators for tax, salary, mortgages, pensions, investments, property and everyday calculations, with transparent methods and UK-specific rules.";
 
 // A server component so the homepage can declare its own canonical. The
 // interactive search lives in CalculatorBrowser, which stays a client
@@ -32,3 +32,4 @@ export const metadata: Metadata = {
 export default function Home() {
   return <CalculatorBrowser />;
 }
+
