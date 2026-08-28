@@ -46,15 +46,18 @@ export default function PrivacyPolicy() {
 
       <h3>B. Privacy-Safe Analytics & Measurement</h3>
       <p>
-        To understand which tools are useful and improve the platform, we may use privacy-friendly analytics to count aggregate page views and calculator usage.
+        To understand which tools are useful and improve platform performance, we may use privacy-first aggregate analytics provided by Cloudflare Web Analytics when configured.
       </p>
       <p>
-        Our analytics infrastructure operates under strict privacy safeguards:
+        Our analytics model operates under strict privacy safeguards:
       </p>
       <ul>
-        <li><strong>No sensitive data:</strong> We never collect salaries, tax amounts, debt figures, pension values, property values, investment balances, pregnancy dates, health measurements, or calculation results.</li>
-        <li><strong>No personal profiles:</strong> We do not track individuals across the web or build user dossiers.</li>
-        <li><strong>User control:</strong> Analytics is disabled by default until configured, and you can grant or revoke consent at any time using the preferences control below.</li>
+        <li><strong>Provider:</strong> Cloudflare Web Analytics (optional, aggregate measurement).</li>
+        <li><strong>Purpose:</strong> Measuring aggregate website usage, visits, and page views to maintain service reliability.</li>
+        <li><strong>Cookie-Free:</strong> Cloudflare Web Analytics does not use cookies or local storage to track visitors.</li>
+        <li><strong>No Personal Data:</strong> Does not collect or use visitors&apos; personal data and does not track individual end users across sites.</li>
+        <li><strong>No Sensitive Inputs:</strong> We never collect salaries, tax figures, loan values, pension amounts, property details, health information, or calculation results.</li>
+        <li><strong>Activation:</strong> The analytics beacon is loaded only when configured for the public application.</li>
       </ul>
 
       <ConsentManager />

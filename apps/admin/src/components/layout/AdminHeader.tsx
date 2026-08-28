@@ -10,6 +10,7 @@ const NAV_ITEMS = [
   { href: "/rules", label: "Rules & Governance", matchExact: false },
   { href: "/qa", label: "QA & Verification", matchExact: false },
   { href: "/seo", label: "Search & SEO", matchExact: false },
+  { href: "/traffic", label: "Traffic & Audience", matchExact: false },
   { href: "/releases", label: "Releases", matchExact: false },
   { href: "/system", label: "System", matchExact: false },
 ];
@@ -96,4 +97,3 @@ export function AdminHeader() {
     </header>
   );
 }
-
