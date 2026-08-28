@@ -184,7 +184,7 @@ test("Admin Console Data Integrity Suite", async (t: any) => {
     const live = getAdminQAOverview();
     assert.strictEqual(live.overallStatus, "VERIFIED");
     assert.strictEqual(live.evidenceLabel, "LAST RECORDED VERIFICATION");
-    assert.strictEqual(live.summary.unitTests.passed, 1117, "Must truthfully report 1117 passed unit tests");
+    assert.strictEqual(live.summary.unitTests.passed, 1118, "Must truthfully report 1118 passed unit tests");
     assert.strictEqual(live.summary.benchmarks.passed, 1489, "Must truthfully report 1489 passed benchmarks");
     assert.strictEqual(live.summary.browserTests.passed, 1642, "Must report 1642 passed browser tests");
     assert.strictEqual(live.summary.accessibility.violations, 0);
@@ -207,7 +207,7 @@ test("Admin Console Data Integrity Suite", async (t: any) => {
 
       const qa = getAdminQAOverview();
       assert.strictEqual(qa.overallStatus, "VERIFIED");
-      assert.strictEqual(qa.summary.unitTests.passed, 1117);
+      assert.strictEqual(qa.summary.unitTests.passed, 1118);
 
       const seo = getAdminSEOOverview();
       assert.strictEqual(seo.sitemapEntryCount, 284);
