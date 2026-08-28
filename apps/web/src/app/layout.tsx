@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { AppShell } from "@/components/layout/AppShell";
+import { CloudflareAnalytics } from "@/components/analytics/CloudflareAnalytics";
 import { liveCategories } from "@/lib/calculators";
 import { SITE_NAME, SITE_URL } from "@/lib/site";
 import "./globals.css";
@@ -39,6 +40,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <AppShell categories={categories}>
           {children}
         </AppShell>
+        <CloudflareAnalytics />
       </body>
     </html>
   );

@@ -2,10 +2,11 @@ import React from "react";
 import { AdminLayout } from "../../components/layout/AdminLayout";
 import { MetricCard } from "../../components/ui/MetricCard";
 import { StatusBadge } from "../../components/ui/StatusBadge";
-import { getAdminRulesOverview } from "../../lib/admin-data/index";
+import { getAdminRulesOverview, getAdminGovernanceCalendar } from "../../lib/admin-data/index";
 
 export default function RulesGovernancePage() {
   const rules = getAdminRulesOverview();
+  const calendar = getAdminGovernanceCalendar();
 
   return (
     <AdminLayout>
@@ -15,7 +16,7 @@ export default function RulesGovernancePage() {
           <div>
             <h1 className="text-xl font-bold tracking-tight text-slate-900">Rules & Governance</h1>
             <p className="text-xs text-slate-500 mt-0.5">
-              Statutory UK tax thresholds, allowances, bands, and regulatory parameters for the {rules.taxYear} tax year.
+              Statutory UK tax thresholds, allowances, bands, and regulatory review calendar for {rules.taxYear}.
             </p>
           </div>
           <div className="flex items-center gap-2">
@@ -48,15 +49,71 @@ export default function RulesGovernancePage() {
             source="Statutory Schedule"
           />
           <MetricCard
-            label="Source Audit Date"
-            value={rules.lastChecked}
-            subtext="HM Treasury / HMRC primary review"
-            statusBadge="Current"
-            source="Audit Register"
+            label="Governance Status"
+            value={calendar.overallAlertSummary}
+            subtext={`Last audit: ${rules.lastChecked}`}
+            statusBadge={calendar.dueCount === 0 && calendar.overdueCount === 0 ? "Current" : "Warning"}
+            source="Audit Calendar"
           />
         </div>
 
-        {/* Rule Families List */}
+        {/* Section 1: Statutory Governance Review Schedule (Calendar) */}
+        <div className="bg-white rounded-lg border border-slate-200 shadow-xs overflow-hidden">
+          <div className="p-4 border-b border-slate-200 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+            <div>
+              <h2 className="text-xs font-bold uppercase tracking-wider text-slate-700">
+                Statutory Governance Review Schedule ({calendar.totalRuleFamilies} Regimes)
+              </h2>
+              <p className="text-xs text-slate-500 mt-0.5">
+                Target fiscal event review windows based on statutory HM Treasury, Devolved Governments, and DfE timetables.
+              </p>
+            </div>
+            <div className="text-xs font-mono text-emerald-800 bg-emerald-50 px-2.5 py-1 rounded border border-emerald-200">
+              {calendar.currentCount} / {calendar.totalRuleFamilies} Current
+            </div>
+          </div>
+
+          <div className="overflow-x-auto table-scrollbar">
+            <table className="min-w-full divide-y divide-slate-200 text-left text-xs">
+              <thead className="bg-slate-50 text-slate-700 font-semibold uppercase tracking-wider text-[11px]">
+                <tr>
+                  <th scope="col" className="px-4 py-3">Rule Family</th>
+                  <th scope="col" className="px-4 py-3">Jurisdiction</th>
+                  <th scope="col" className="px-4 py-3">Next Review Target</th>
+                  <th scope="col" className="px-4 py-3">Fiscal Review Trigger</th>
+                  <th scope="col" className="px-4 py-3 text-right">Calculators</th>
+                  <th scope="col" className="px-4 py-3 text-right">Review Status</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-slate-100 bg-white">
+                {calendar.items.map((item) => (
+                  <tr key={item.key} className="hover:bg-slate-50/80 transition-colors">
+                    <td className="px-4 py-3 font-semibold text-slate-900 whitespace-nowrap">
+                      {item.name}
+                    </td>
+                    <td className="px-4 py-3 text-slate-600 font-mono text-[11px]">
+                      {item.jurisdiction}
+                    </td>
+                    <td className="px-4 py-3 font-mono font-medium text-slate-900 whitespace-nowrap">
+                      {item.nextScheduledReview}
+                    </td>
+                    <td className="px-4 py-3 text-slate-600 max-w-xs">
+                      {item.reviewTriggerEvent}
+                    </td>
+                    <td className="px-4 py-3 text-right font-mono text-slate-700">
+                      {item.dependentCalculatorsCount}
+                    </td>
+                    <td className="px-4 py-3 text-right whitespace-nowrap">
+                      <StatusBadge status={item.status === "Current" ? "Verified" : (item.status === "Review approaching" ? "Warning" : item.status)} />
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        {/* Section 2: Rule Families List & Parameters */}
         <div className="space-y-4">
           <h2 className="text-xs font-bold uppercase tracking-wider text-slate-700">
             Statutory Rule Regimes ({rules.ruleFamilies.length})
