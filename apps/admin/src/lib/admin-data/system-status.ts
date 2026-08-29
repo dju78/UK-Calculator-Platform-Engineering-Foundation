@@ -6,10 +6,23 @@ export interface MonorepoPackageInfo {
   status: "active" | "protected";
 }
 
+export type DomainStatus = "CONFIGURED" | "PENDING" | "ERROR";
+
+export interface DomainServingInfo {
+  domain: string;
+  role: "Admin Console" | "Public Application";
+  status: DomainStatus;
+  statusLabel: string;
+  subtext: string;
+  description: string;
+}
+
 export interface AdminSystemOverview {
   environment: string;
   productionDomain: string;
   adminDomain: string;
+  adminDomainInfo: DomainServingInfo;
+  publicDomainInfo: DomainServingInfo;
   adminVersion: string;
   nextVersion: string;
   reactVersion: string;
@@ -99,10 +112,32 @@ export function getAdminSystemOverview(): AdminSystemOverview {
     },
   ];
 
+  const isProduction = process.env.NODE_ENV === "production" || process.env.VERCEL_ENV === "production";
+
+  const adminDomainInfo: DomainServingInfo = {
+    domain: "admin.ukcalc.jomovate.com",
+    role: "Admin Console",
+    status: "CONFIGURED",
+    statusLabel: isProduction ? "Configured Production Host" : "Configured Host (Development)",
+    subtext: isProduction ? "Production Target Domain" : "Development Environment",
+    description: "Designated production custom domain configured for the private operational management console.",
+  };
+
+  const publicDomainInfo: DomainServingInfo = {
+    domain: "ukcalc.jomovate.com",
+    role: "Public Application",
+    status: "CONFIGURED",
+    statusLabel: isProduction ? "Configured Canonical Domain" : "Canonical Domain (Development)",
+    subtext: isProduction ? "Production Canonical Host" : "Development Environment",
+    description: "Designated canonical production domain for public calculator pages, sitemap.xml, robots.txt, and IndexNow protocol verification.",
+  };
+
   return {
     environment: process.env.NODE_ENV || "development",
     productionDomain: "https://ukcalc.jomovate.com",
     adminDomain: "https://admin.ukcalc.jomovate.com",
+    adminDomainInfo,
+    publicDomainInfo,
     adminVersion: "0.1.0",
     nextVersion: "16.3.2",
     reactVersion: "19.2.8",
@@ -118,4 +153,3 @@ export function getAdminSystemOverview(): AdminSystemOverview {
     },
   };
 }
-

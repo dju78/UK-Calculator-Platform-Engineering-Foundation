@@ -41,16 +41,18 @@ export default function SystemPage() {
             source="dependencies"
           />
           <MetricCard
-            label="Target Public Host"
-            value="ukcalc.jomovate.com"
-            subtext="Target production custom domain"
+            label="Public Host"
+            value={sys.publicDomainInfo.domain}
+            subtext={sys.publicDomainInfo.subtext}
+            statusBadge={sys.publicDomainInfo.status === "CONFIGURED" ? "Configured" : (sys.publicDomainInfo.status === "PENDING" ? "Pending" : "Not available")}
             source="Vercel Production"
           />
           <MetricCard
-            label="Target Admin Host"
-            value="admin.ukcalc.jomovate.com"
-            subtext="Intended domain (pending DNS connection)"
-            source="Platform Target"
+            label="Admin Host"
+            value={sys.adminDomainInfo.domain}
+            subtext={sys.adminDomainInfo.subtext}
+            statusBadge={sys.adminDomainInfo.status === "CONFIGURED" ? "Configured" : (sys.adminDomainInfo.status === "PENDING" ? "Pending" : "Not available")}
+            source="Vercel Production"
           />
         </div>
 
@@ -62,26 +64,38 @@ export default function SystemPage() {
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
             <div className="p-3.5 rounded bg-slate-50 border border-slate-200 space-y-1.5">
               <div className="flex items-center justify-between">
-                <span className="font-semibold text-slate-900">Target Admin Host</span>
-                <span className="text-[10px] font-mono bg-amber-100 text-amber-800 px-1.5 py-0.5 rounded font-medium">
-                  Pending DNS Connection
+                <span className="font-semibold text-slate-900">Admin Console Host</span>
+                <span className={`text-[10px] font-mono px-1.5 py-0.5 rounded font-medium ${
+                  sys.adminDomainInfo.status === "CONFIGURED"
+                    ? "bg-slate-200 text-slate-800"
+                    : sys.adminDomainInfo.status === "PENDING"
+                    ? "bg-amber-100 text-amber-800"
+                    : "bg-rose-100 text-rose-800"
+                }`}>
+                  {sys.adminDomainInfo.statusLabel}
                 </span>
               </div>
-              <div className="font-mono text-slate-700 text-sm">admin.ukcalc.jomovate.com</div>
+              <div className="font-mono text-slate-700 text-sm">{sys.adminDomainInfo.domain}</div>
               <p className="text-slate-500 text-[11px]">
-                Configured intended custom domain for the platform administration console. Active serving occurs on assigned Vercel deployment preview domains until apex/subdomain CNAME record delegation is finalized.
+                {sys.adminDomainInfo.description}
               </p>
             </div>
             <div className="p-3.5 rounded bg-slate-50 border border-slate-200 space-y-1.5">
               <div className="flex items-center justify-between">
-                <span className="font-semibold text-slate-900">Target Public Host</span>
-                <span className="text-[10px] font-mono bg-emerald-100 text-emerald-800 px-1.5 py-0.5 rounded font-medium">
-                  Active Canonical
+                <span className="font-semibold text-slate-900">Public Application Host</span>
+                <span className={`text-[10px] font-mono px-1.5 py-0.5 rounded font-medium ${
+                  sys.publicDomainInfo.status === "CONFIGURED"
+                    ? "bg-blue-100 text-blue-800"
+                    : sys.publicDomainInfo.status === "PENDING"
+                    ? "bg-amber-100 text-amber-800"
+                    : "bg-rose-100 text-rose-800"
+                }`}>
+                  {sys.publicDomainInfo.statusLabel}
                 </span>
               </div>
-              <div className="font-mono text-slate-700 text-sm">ukcalc.jomovate.com</div>
+              <div className="font-mono text-slate-700 text-sm">{sys.publicDomainInfo.domain}</div>
               <p className="text-slate-500 text-[11px]">
-                Authoritative canonical domain for public calculator pages, sitemap.xml, robots.txt, and IndexNow protocol verification.
+                {sys.publicDomainInfo.description}
               </p>
             </div>
           </div>
