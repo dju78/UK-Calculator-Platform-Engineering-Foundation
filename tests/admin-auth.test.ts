@@ -143,6 +143,8 @@ test("Admin Console Auth & Route Protection Suite", async (t: any) => {
       "/seo",
       "/releases",
       "/system",
+      "/traffic",
+      "/api/traffic",
     ];
 
     for (const route of protectedRoutes) {
@@ -182,6 +184,8 @@ test("Admin Console Auth & Route Protection Suite", async (t: any) => {
       "/seo",
       "/releases",
       "/system",
+      "/traffic",
+      "/api/traffic",
     ];
 
     const validToken = await createSessionToken();
