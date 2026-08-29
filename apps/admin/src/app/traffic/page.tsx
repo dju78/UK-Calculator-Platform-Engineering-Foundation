@@ -14,7 +14,7 @@ export default async function TrafficPage({
   const period: TrafficTimePeriod =
     periodParam === "24h" || periodParam === "30d" ? periodParam : "7d";
 
-  const traffic = getAdminTrafficOverview(period);
+  const traffic = await getAdminTrafficOverview(period);
 
   return (
     <AdminLayout>
@@ -138,7 +138,7 @@ export default async function TrafficPage({
               <p className="text-[11px] text-slate-500">
                 {traffic.isApiConnected
                   ? "Server-side Cloudflare API token active."
-                  : "Optional CLOUDFLARE_API_TOKEN not configured."}
+                  : (traffic.statusLabel || "Cloudflare Analytics API credentials are not configured.")}
               </p>
             </div>
 
@@ -156,10 +156,36 @@ export default async function TrafficPage({
           {traffic.status !== "CONNECTED" && (
             <div className="p-3 rounded bg-amber-50 border border-amber-200 text-xs text-amber-900 space-y-1">
               <div className="font-semibold flex items-center gap-1.5">
-                <span>ℹ Live Cloudflare API Ingestion Not Connected</span>
+                <span>
+                  {traffic.status === "AUTH_ERROR"
+                    ? "⚠️ Cloudflare Authentication Failed"
+                    : traffic.status === "PERMISSION_DENIED"
+                    ? "⚠️ Cloudflare Permission Denied"
+                    : traffic.status === "ERROR"
+                    ? "⚠️ Cloudflare GraphQL Query Failed"
+                    : traffic.status === "UNAVAILABLE"
+                    ? "⚠️ Cloudflare API Service Unavailable"
+                    : "ℹ Live Cloudflare API Ingestion Not Connected"}
+                </span>
               </div>
               <p className="text-[11px] text-amber-800 leading-relaxed">
-                Public visit measurement requires Cloudflare Web Analytics. To display live charts and breakdowns inside this admin console, provision <span className="font-mono font-semibold">CLOUDFLARE_ACCOUNT_ID</span> and <span className="font-mono font-semibold">CLOUDFLARE_API_TOKEN</span> in your server environment variables. The public website will collect aggregate page views without these server tokens once the public beacon token is provisioned.
+                {traffic.status === "AUTH_ERROR" ? (
+                  <>
+                    Cloudflare rejected the API token (HTTP 401). Verify that <span className="font-mono font-semibold">CLOUDFLARE_API_TOKEN</span> is valid and active in server environment variables.
+                  </>
+                ) : traffic.status === "PERMISSION_DENIED" ? (
+                  <>
+                    Cloudflare API token lacks required permissions (HTTP 403). Ensure the token has <span className="font-mono font-semibold">Account Analytics Read</span> permission for account <span className="font-mono font-semibold">CLOUDFLARE_ACCOUNT_ID</span>.
+                  </>
+                ) : traffic.status === "ERROR" || traffic.status === "UNAVAILABLE" ? (
+                  <>
+                    {traffic.errorMessage || traffic.statusLabel}
+                  </>
+                ) : (
+                  <>
+                    Public visit measurement requires Cloudflare Web Analytics. To display live charts and breakdowns inside this admin console, provision <span className="font-mono font-semibold">CLOUDFLARE_ACCOUNT_ID</span> and <span className="font-mono font-semibold">CLOUDFLARE_API_TOKEN</span> in your server environment variables. The public website will collect aggregate page views without these server tokens once the public beacon token is provisioned.
+                  </>
+                )}
               </p>
             </div>
           )}

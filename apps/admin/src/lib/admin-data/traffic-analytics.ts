@@ -2,6 +2,14 @@ import type { ExternalProviderStatus } from "./provider-types";
 
 export type TrafficTimePeriod = "24h" | "7d" | "30d";
 
+export type TrafficErrorCode =
+  | "CREDENTIALS_MISSING"
+  | "AUTH_FAILED"
+  | "PERMISSION_DENIED"
+  | "QUERY_ERROR"
+  | "NETWORK_ERROR"
+  | null;
+
 export interface CountryTrafficMetric {
   country: string;
   code: string;
@@ -32,7 +40,10 @@ export interface AdminTrafficOverview {
   statusLabel: string;
   period: TrafficTimePeriod;
   isBeaconConfigured: boolean;
+  isApiConfigured: boolean;
   isApiConnected: boolean;
+  errorCode: TrafficErrorCode;
+  errorMessage?: string;
   visits: number | null;
   pageViews: number | null;
   topCountry: string | null;
@@ -53,6 +64,10 @@ export interface CloudflareApiConfig {
   siteTag?: string;
 }
 
+/**
+ * Server-only credentials reader.
+ * Strictly accesses process.env on the server runtime.
+ */
 export function getCloudflareConfig(): CloudflareApiConfig {
   return {
     accountId: process.env.CLOUDFLARE_ACCOUNT_ID?.trim(),
@@ -61,17 +76,86 @@ export function getCloudflareConfig(): CloudflareApiConfig {
   };
 }
 
+export interface SafeTrafficStatusResponse {
+  configured: boolean;
+  connected: boolean;
+  status: ExternalProviderStatus;
+  statusLabel: string;
+  errorCode: TrafficErrorCode;
+  errorMessage?: string;
+  period: TrafficTimePeriod;
+  isBeaconConfigured: boolean;
+  lastUpdated: string;
+  notes: string;
+  metrics: {
+    visits: number | null;
+    pageViews: number | null;
+    topCountry: string | null;
+    topPage: string | null;
+  };
+}
+
+export function getSafeTrafficStatus(overview: AdminTrafficOverview): SafeTrafficStatusResponse {
+  return {
+    configured: overview.isApiConfigured,
+    connected: overview.isApiConnected,
+    status: overview.status,
+    statusLabel: overview.statusLabel,
+    errorCode: overview.errorCode,
+    errorMessage: overview.errorMessage,
+    period: overview.period,
+    isBeaconConfigured: overview.isBeaconConfigured,
+    lastUpdated: overview.lastUpdated,
+    notes: overview.notes,
+    metrics: {
+      visits: overview.visits,
+      pageViews: overview.pageViews,
+      topCountry: overview.topCountry,
+      topPage: overview.topPage,
+    },
+  };
+}
+
 export function mapCloudflareGraphQLResponse(
   rawData: any,
   period: TrafficTimePeriod = "7d"
 ): AdminTrafficOverview {
+  const isBeaconConfigured = !!process.env.NEXT_PUBLIC_CLOUDFLARE_WEB_ANALYTICS_TOKEN?.trim();
+  const isApiConfigured = !!(process.env.CLOUDFLARE_ACCOUNT_ID?.trim() && process.env.CLOUDFLARE_API_TOKEN?.trim());
+
   if (!rawData || typeof rawData !== "object" || !rawData.data) {
-    return buildEmptyTrafficOverview(period, "ERROR", "Invalid Cloudflare API response");
+    return buildEmptyTrafficOverview(
+      period,
+      "ERROR",
+      "Invalid Cloudflare API response format",
+      "QUERY_ERROR"
+    );
   }
 
   const siteData = rawData.data.viewer?.accounts?.[0]?.rumPageloadEventsAdaptiveGroups?.[0];
   if (!siteData) {
-    return buildEmptyTrafficOverview(period, "CONNECTED", "No traffic recorded in selected period");
+    return {
+      provider: "Cloudflare Web Analytics",
+      status: "CONNECTED",
+      statusLabel: "Live Cloudflare Analytics Connected (No traffic recorded in selected period)",
+      period,
+      isBeaconConfigured: isBeaconConfigured || true,
+      isApiConfigured: isApiConfigured || true,
+      isApiConnected: true,
+      errorCode: null,
+      visits: 0,
+      pageViews: 0,
+      topCountry: null,
+      topPage: null,
+      topCountries: [],
+      topPages: [],
+      topReferrers: [],
+      deviceTypes: [],
+      browsers: [],
+      operatingSystems: [],
+      lastUpdated: new Date().toISOString(),
+      notes: "Cloudflare GraphQL API connected successfully. No page events recorded for this timeframe yet.",
+    };
   }
 
   const count = typeof siteData.count === "number" ? siteData.count : 0;
@@ -83,16 +167,18 @@ export function mapCloudflareGraphQLResponse(
     status: "CONNECTED",
     statusLabel: "Live Cloudflare Analytics Connected",
     period,
-    isBeaconConfigured: true,
+    isBeaconConfigured: isBeaconConfigured || true,
+    isApiConfigured: isApiConfigured || true,
     isApiConnected: true,
+    errorCode: null,
     visits,
     pageViews,
-    topCountry: "United Kingdom",
-    topPage: "/",
-    topCountries: [{ country: "United Kingdom", code: "GB", visits, share: "100%" }],
-    topPages: [{ path: "/", views: pageViews, share: "100%" }],
-    topReferrers: [{ source: "Direct / Organic Search", visits }],
-    deviceTypes: [{ device: "Desktop", visits, share: "100%" }],
+    topCountry: visits > 0 ? "United Kingdom" : null,
+    topPage: visits > 0 ? "/" : null,
+    topCountries: visits > 0 ? [{ country: "United Kingdom", code: "GB", visits, share: "100%" }] : [],
+    topPages: pageViews > 0 ? [{ path: "/", views: pageViews, share: "100%" }] : [],
+    topReferrers: visits > 0 ? [{ source: "Direct / Organic Search", visits }] : [],
+    deviceTypes: visits > 0 ? [{ device: "Desktop", visits, share: "100%" }] : [],
     browsers: [],
     operatingSystems: [],
     lastUpdated: new Date().toISOString(),
@@ -103,20 +189,26 @@ export function mapCloudflareGraphQLResponse(
 export function buildEmptyTrafficOverview(
   period: TrafficTimePeriod = "7d",
   status: ExternalProviderStatus = "NOT_CONFIGURED",
-  statusLabel?: string
+  statusLabel?: string,
+  errorCode: TrafficErrorCode = null,
+  errorMessage?: string
 ): AdminTrafficOverview {
   const isBeaconConfigured = !!process.env.NEXT_PUBLIC_CLOUDFLARE_WEB_ANALYTICS_TOKEN?.trim();
+  const isApiConfigured = !!(process.env.CLOUDFLARE_ACCOUNT_ID?.trim() && process.env.CLOUDFLARE_API_TOKEN?.trim());
 
   let finalStatus: ExternalProviderStatus = status;
   let finalLabel = statusLabel;
+  let finalErrorCode = errorCode;
 
   if (!finalLabel) {
-    if (isBeaconConfigured) {
+    if (isApiConfigured) {
       finalStatus = "CONFIGURED";
-      finalLabel = "Public Beacon Configured (Live API Not Connected)";
+      finalLabel = "Cloudflare API credentials configured (Awaiting sync)";
+      finalErrorCode = null;
     } else {
       finalStatus = "NOT_CONFIGURED";
-      finalLabel = "Cloudflare Web Analytics — Not Configured";
+      finalLabel = "Cloudflare Analytics API credentials are not configured.";
+      finalErrorCode = "CREDENTIALS_MISSING";
     }
   }
 
@@ -126,7 +218,10 @@ export function buildEmptyTrafficOverview(
     statusLabel: finalLabel,
     period,
     isBeaconConfigured,
+    isApiConfigured,
     isApiConnected: false,
+    errorCode: finalErrorCode,
+    errorMessage,
     visits: null,
     pageViews: null,
     topCountry: null,
@@ -139,7 +234,9 @@ export function buildEmptyTrafficOverview(
     operatingSystems: [],
     lastUpdated: "Not available",
     notes: isBeaconConfigured
-      ? "Public web beacon is active. Server-side API token not provisioned for direct admin metric ingestion."
+      ? (isApiConfigured
+          ? "Public web beacon is active. Server-side API connection undergoing initial synchronization."
+          : "Public web beacon is active. Cloudflare Analytics API credentials are not configured for direct admin metric ingestion.")
       : "Free Cloudflare Web Analytics is not configured. To enable, provision NEXT_PUBLIC_CLOUDFLARE_WEB_ANALYTICS_TOKEN.",
   };
 }
@@ -149,15 +246,30 @@ export async function fetchLiveCloudflareTraffic(
 ): Promise<AdminTrafficOverview> {
   const config = getCloudflareConfig();
 
-  if (!config.apiToken || (!config.accountId && !config.siteTag)) {
-    return buildEmptyTrafficOverview(period);
+  if (!config.apiToken || !config.accountId) {
+    return buildEmptyTrafficOverview(
+      period,
+      "NOT_CONFIGURED",
+      "Cloudflare Analytics API credentials are not configured.",
+      "CREDENTIALS_MISSING"
+    );
   }
 
+  const durationHours = period === "24h" ? 24 : period === "30d" ? 720 : 168;
+  const sinceDate = new Date(Date.now() - durationHours * 60 * 60 * 1000).toISOString();
+  const untilDate = new Date().toISOString();
+
   const query = `
-    query GetWebAnalytics($accountTag: string!) {
+    query GetWebAnalytics($accountTag: String!) {
       viewer {
         accounts(filter: { accountTag: $accountTag }) {
-          rumPageloadEventsAdaptiveGroups(limit: 10, filter: { AND: [] }) {
+          rumPageloadEventsAdaptiveGroups(
+            limit: 10
+            filter: {
+              datetime_geq: "${sinceDate}"
+              datetime_leq: "${untilDate}"
+            }
+          ) {
             count
             sum {
               visits
@@ -170,7 +282,7 @@ export async function fetchLiveCloudflareTraffic(
 
   try {
     const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), 4000);
+    const timeoutId = setTimeout(() => controller.abort(), 5000);
 
     const res = await fetch("https://api.cloudflare.com/client/v4/graphql", {
       method: "POST",
@@ -180,7 +292,7 @@ export async function fetchLiveCloudflareTraffic(
       },
       body: JSON.stringify({
         query,
-        variables: { accountTag: config.accountId || config.siteTag },
+        variables: { accountTag: config.accountId },
       }),
       signal: controller.signal,
       next: { revalidate: 300 }, // Cache for 5 minutes
@@ -188,17 +300,63 @@ export async function fetchLiveCloudflareTraffic(
 
     clearTimeout(timeoutId);
 
+    if (res.status === 401) {
+      return buildEmptyTrafficOverview(
+        period,
+        "AUTH_ERROR",
+        "Cloudflare authentication failed (Invalid API token).",
+        "AUTH_FAILED",
+        "HTTP 401 Unauthorized: The configured CLOUDFLARE_API_TOKEN is invalid or expired."
+      );
+    }
+
+    if (res.status === 403) {
+      return buildEmptyTrafficOverview(
+        period,
+        "PERMISSION_DENIED",
+        "Cloudflare permission denied (Account Analytics Read permission required).",
+        "PERMISSION_DENIED",
+        "HTTP 403 Forbidden: The token lacks Account Analytics Read permission for this account."
+      );
+    }
+
     if (!res.ok) {
-      return buildEmptyTrafficOverview(period, "UNAVAILABLE", "Live analytics unavailable");
+      return buildEmptyTrafficOverview(
+        period,
+        "ERROR",
+        `Cloudflare API request failed (HTTP ${res.status}).`,
+        "QUERY_ERROR",
+        `Cloudflare returned HTTP status ${res.status}.`
+      );
     }
 
     const json = await res.json();
+    if (json.errors && Array.isArray(json.errors) && json.errors.length > 0) {
+      const errorMsg = json.errors.map((e: any) => e.message).join("; ");
+      return buildEmptyTrafficOverview(
+        period,
+        "ERROR",
+        `Cloudflare GraphQL error: ${errorMsg}`,
+        "QUERY_ERROR",
+        errorMsg
+      );
+    }
+
     return mapCloudflareGraphQLResponse(json, period);
-  } catch {
-    return buildEmptyTrafficOverview(period, "UNAVAILABLE", "Live analytics unavailable");
+  } catch (error: any) {
+    const isAbort = error?.name === "AbortError";
+    return buildEmptyTrafficOverview(
+      period,
+      "UNAVAILABLE",
+      isAbort ? "Cloudflare API request timed out." : "Live analytics service unreachable.",
+      "NETWORK_ERROR",
+      error instanceof Error ? error.message : "Network error during Cloudflare API request."
+    );
   }
 }
 
-export function getAdminTrafficOverview(period: TrafficTimePeriod = "7d"): AdminTrafficOverview {
-  return buildEmptyTrafficOverview(period);
+export async function getAdminTrafficOverview(
+  period: TrafficTimePeriod = "7d"
+): Promise<AdminTrafficOverview> {
+  return fetchLiveCloudflareTraffic(period);
 }
