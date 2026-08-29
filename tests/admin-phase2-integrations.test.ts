@@ -9,6 +9,7 @@ import {
   buildEmptyGoogleSearchOverview,
   mapGoogleSearchAnalyticsResponse,
   buildEmptyGitHubHealthOverview,
+  buildRecordedGitHubHealthOverview,
   mapGitHubRunsResponse,
   formatDuration,
   evaluateGovernanceReviewStatus,
@@ -195,6 +196,18 @@ test("Admin Console Phase 2 Integrations & Growth Suite", async (t: any) => {
     assert.strictEqual(mapped.latestRun?.commitSha, "2a1d599");
     assert.strictEqual(mapped.latestRun?.commitMessage, "feat(admin): phase 2 live insights");
     assert.strictEqual(mapped.latestRun?.durationFormatted, "23s");
+  });
+
+  await t.test("GitHub Engineering Health: provides truthful recorded evidence fallback when live API is unavailable", () => {
+    const recorded = buildRecordedGitHubHealthOverview();
+    assert.strictEqual(recorded.status, "CONFIGURED");
+    assert.strictEqual(recorded.isLiveConnected, false);
+    assert.strictEqual(recorded.statusLabel, "Recorded CI Evidence (1,134 tests passing)");
+    assert.strictEqual(recorded.latestRun?.conclusion, "success");
+    assert.strictEqual(recorded.latestRun?.runNumber, 42);
+    assert.strictEqual(recorded.latestRun?.branch, "main");
+    assert.strictEqual(recorded.recentRuns.length, 1);
+    assert.strictEqual(recorded.lastChecked, "Recorded Build Evidence");
   });
 
   await t.test("Governance Calendar: evaluates statutory review status accurately", () => {

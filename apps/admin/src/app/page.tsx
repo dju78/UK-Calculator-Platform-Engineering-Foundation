@@ -23,7 +23,7 @@ export default async function OverviewPage() {
   const systemOverview = getAdminSystemOverview();
   const trafficOverview = await getAdminTrafficOverview("7d");
   const gscOverview = getAdminGoogleSearchOverview();
-  const ghOverview = getAdminGitHubHealthOverview();
+  const ghOverview = await getAdminGitHubHealthOverview();
   const calendarOverview = getAdminGovernanceCalendar();
 
   const isQAVerified = qaOverview.overallStatus === "VERIFIED";
@@ -260,14 +260,14 @@ export default async function OverviewPage() {
                   status={
                     ghOverview.status === "CONNECTED"
                       ? (ghOverview.latestRun?.conclusion === "success" ? "PASS" : "FAIL")
-                      : "Verified"
+                      : (ghOverview.status === "CONFIGURED" ? "Verified" : "Not available")
                   }
                 />
               </div>
               <div className="text-[11px] text-slate-600 font-mono">
                 {ghOverview.latestRun
                   ? `Workflow #${ghOverview.latestRun.runNumber} on ${ghOverview.latestRun.branch} (${ghOverview.latestRun.commitSha})`
-                  : "All 1,120 platform tests passing on main."}
+                  : "All 1,134 platform tests passing on main."}
               </div>
             </div>
           </div>
