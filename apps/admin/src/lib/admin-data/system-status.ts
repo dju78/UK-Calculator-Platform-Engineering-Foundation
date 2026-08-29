@@ -6,7 +6,7 @@ export interface MonorepoPackageInfo {
   status: "active" | "protected";
 }
 
-export type DomainStatus = "ACTIVE" | "PENDING" | "ERROR";
+export type DomainStatus = "CONFIGURED" | "PENDING" | "ERROR";
 
 export interface DomainServingInfo {
   domain: string;
@@ -112,22 +112,24 @@ export function getAdminSystemOverview(): AdminSystemOverview {
     },
   ];
 
+  const isProduction = process.env.NODE_ENV === "production" || process.env.VERCEL_ENV === "production";
+
   const adminDomainInfo: DomainServingInfo = {
     domain: "admin.ukcalc.jomovate.com",
     role: "Admin Console",
-    status: "ACTIVE",
-    statusLabel: "Active Production Host",
-    subtext: "Connected & serving over HTTPS",
-    description: "Authoritative production custom domain serving the private operational management console over HTTPS.",
+    status: "CONFIGURED",
+    statusLabel: isProduction ? "Configured Production Host" : "Configured Host (Development)",
+    subtext: isProduction ? "Production Target Domain" : "Development Environment",
+    description: "Designated production custom domain configured for the private operational management console.",
   };
 
   const publicDomainInfo: DomainServingInfo = {
     domain: "ukcalc.jomovate.com",
     role: "Public Application",
-    status: "ACTIVE",
-    statusLabel: "Active Canonical",
-    subtext: "Connected & serving over HTTPS",
-    description: "Authoritative canonical domain for public calculator pages, sitemap.xml, robots.txt, and IndexNow protocol verification.",
+    status: "CONFIGURED",
+    statusLabel: isProduction ? "Configured Canonical Domain" : "Canonical Domain (Development)",
+    subtext: isProduction ? "Production Canonical Host" : "Development Environment",
+    description: "Designated canonical production domain for public calculator pages, sitemap.xml, robots.txt, and IndexNow protocol verification.",
   };
 
   return {

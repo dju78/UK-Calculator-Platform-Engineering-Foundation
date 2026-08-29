@@ -271,5 +271,18 @@ test("Admin Console Phase 2 Integrations & Growth Suite", async (t: any) => {
     };
     checkDir(adminSrc);
   });
+
+  await t.test("System Domain Architecture: does not contain hardcoded stale Pending DNS strings and uses evidence-based configured labels", () => {
+    const rootDir = getMonorepoRootDir();
+    const systemPageFile = join(rootDir, "apps/admin/src/app/system/page.tsx");
+    const systemPageContent = readFileSync(systemPageFile, "utf8");
+
+    // Ensure hardcoded "Pending DNS Connection" is removed from system page JSX
+    assert.strictEqual(
+      systemPageContent.includes("Pending DNS Connection"),
+      false,
+      "system/page.tsx must not contain hardcoded 'Pending DNS Connection'"
+    );
+  });
 });
 

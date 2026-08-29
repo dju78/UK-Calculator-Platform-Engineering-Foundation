@@ -44,14 +44,14 @@ export default function SystemPage() {
             label="Public Host"
             value={sys.publicDomainInfo.domain}
             subtext={sys.publicDomainInfo.subtext}
-            statusBadge={sys.publicDomainInfo.status === "ACTIVE" ? "Connected" : (sys.publicDomainInfo.status === "PENDING" ? "Pending" : "Not available")}
+            statusBadge={sys.publicDomainInfo.status === "CONFIGURED" ? "Configured" : (sys.publicDomainInfo.status === "PENDING" ? "Pending" : "Not available")}
             source="Vercel Production"
           />
           <MetricCard
             label="Admin Host"
             value={sys.adminDomainInfo.domain}
             subtext={sys.adminDomainInfo.subtext}
-            statusBadge={sys.adminDomainInfo.status === "ACTIVE" ? "Connected" : (sys.adminDomainInfo.status === "PENDING" ? "Pending" : "Not available")}
+            statusBadge={sys.adminDomainInfo.status === "CONFIGURED" ? "Configured" : (sys.adminDomainInfo.status === "PENDING" ? "Pending" : "Not available")}
             source="Vercel Production"
           />
         </div>
@@ -66,8 +66,8 @@ export default function SystemPage() {
               <div className="flex items-center justify-between">
                 <span className="font-semibold text-slate-900">Admin Console Host</span>
                 <span className={`text-[10px] font-mono px-1.5 py-0.5 rounded font-medium ${
-                  sys.adminDomainInfo.status === "ACTIVE"
-                    ? "bg-emerald-100 text-emerald-800"
+                  sys.adminDomainInfo.status === "CONFIGURED"
+                    ? "bg-slate-200 text-slate-800"
                     : sys.adminDomainInfo.status === "PENDING"
                     ? "bg-amber-100 text-amber-800"
                     : "bg-rose-100 text-rose-800"
@@ -84,8 +84,8 @@ export default function SystemPage() {
               <div className="flex items-center justify-between">
                 <span className="font-semibold text-slate-900">Public Application Host</span>
                 <span className={`text-[10px] font-mono px-1.5 py-0.5 rounded font-medium ${
-                  sys.publicDomainInfo.status === "ACTIVE"
-                    ? "bg-emerald-100 text-emerald-800"
+                  sys.publicDomainInfo.status === "CONFIGURED"
+                    ? "bg-blue-100 text-blue-800"
                     : sys.publicDomainInfo.status === "PENDING"
                     ? "bg-amber-100 text-amber-800"
                     : "bg-rose-100 text-rose-800"
