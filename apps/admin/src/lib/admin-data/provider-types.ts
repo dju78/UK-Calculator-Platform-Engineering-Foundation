@@ -3,6 +3,8 @@ export type ExternalProviderStatus =
   | "CONFIGURED"
   | "NOT_CONFIGURED"
   | "UNAVAILABLE"
+  | "AUTH_ERROR"
+  | "PERMISSION_DENIED"
   | "ERROR";
 
 export interface ExternalProviderInfo {

@@ -15,13 +15,13 @@ import {
 } from "../lib/admin-data/index";
 import { StatusBadge } from "../components/ui/StatusBadge";
 
-export default function OverviewPage() {
+export default async function OverviewPage() {
   const calcSummary = getCalculatorSummary();
   const rulesOverview = getAdminRulesOverview();
   const qaOverview = getAdminQAOverview();
   const seoOverview = getAdminSEOOverview();
   const systemOverview = getAdminSystemOverview();
-  const trafficOverview = getAdminTrafficOverview("7d");
+  const trafficOverview = await getAdminTrafficOverview("7d");
   const gscOverview = getAdminGoogleSearchOverview();
   const ghOverview = getAdminGitHubHealthOverview();
   const calendarOverview = getAdminGovernanceCalendar();
