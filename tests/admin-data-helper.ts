@@ -1,5 +1,6 @@
 import { existsSync, readFileSync, readdirSync } from "node:fs";
 import { join, resolve } from "node:path";
+import { createSign } from "node:crypto";
 import { calculatorRegistry } from "../packages/calculator-registry/src/index.js";
 import { getUKRuleset } from "../packages/rules-uk/src/index.js";
 import type { CalculatorDefinition } from "../packages/calculator-registry/src/types.js";
@@ -674,15 +675,98 @@ export function mapCloudflareGraphQLResponse(rawData: any, period: TrafficTimePe
   };
 }
 
+export function formatPEMPrivateKey(rawKey: string): string {
+  let key = rawKey.trim();
+  if ((key.startsWith('"') && key.endsWith('"')) || (key.startsWith("'") && key.endsWith("'"))) {
+    key = key.slice(1, -1);
+  }
+  key = key.replace(/\\n/g, "\n");
+  key = key.replace(/\r/g, "");
+  return key;
+}
+
+export function createGoogleServiceAccountJwt(
+  clientEmail: string,
+  privateKeyPem: string,
+  scope: string = "https://www.googleapis.com/auth/webmasters.readonly"
+): string {
+  const now = Math.floor(Date.now() / 1000);
+  const header = { alg: "RS256", typ: "JWT" };
+  const payload = {
+    iss: clientEmail,
+    scope,
+    aud: "https://oauth2.googleapis.com/token",
+    exp: now + 3600,
+    iat: now,
+  };
+
+  const encodedHeader = Buffer.from(JSON.stringify(header)).toString("base64url");
+  const encodedPayload = Buffer.from(JSON.stringify(payload)).toString("base64url");
+  const unsignedToken = `${encodedHeader}.${encodedPayload}`;
+
+  const signer = createSign("RSA-SHA256");
+  signer.update(unsignedToken);
+  const signature = signer.sign(privateKeyPem, "base64url");
+
+  return `${unsignedToken}.${signature}`;
+}
+
+export function calculateGscDateRange(period: string = "30d") {
+  const now = new Date();
+  const lagDays = 3;
+  const end = new Date(now);
+  end.setDate(end.getDate() - lagDays);
+
+  const start = new Date(end);
+  if (period === "24h") {
+    start.setDate(end.getDate());
+  } else if (period === "7d") {
+    start.setDate(end.getDate() - 6);
+  } else {
+    start.setDate(end.getDate() - 27);
+  }
+
+  const formatDate = (d: Date) => d.toISOString().split("T")[0];
+  const startDateStr = formatDate(start);
+  const endDateStr = formatDate(end);
+
+  const dataLatencyNote =
+    "Finalized Search Console data (2-3 day latency; real-time search data is not supported by Google Search Console API).";
+
+  const label =
+    period === "24h"
+      ? `Latest Finalized Day (${endDateStr})`
+      : period === "7d"
+      ? `Last 7 Finalized Days (${startDateStr} to ${endDateStr})`
+      : `Last 28 Finalized Days (${startDateStr} to ${endDateStr})`;
+
+  return {
+    startDate: startDateStr,
+    endDate: endDateStr,
+    label,
+    dataLatencyNote,
+  };
+}
+
 export function buildEmptyGoogleSearchOverview(
   propertyUrl = "https://ukcalc.jomovate.com/",
-  status = "NOT_CONFIGURED"
+  status = "NOT_CONFIGURED",
+  statusLabel = "Google Search Console — Not Configured",
+  errorCode: string | null = null,
+  errorMessage: string | null = null,
+  period = "30d"
 ) {
+  const dateRange = calculateGscDateRange(period);
   return {
     provider: "Google Search Console" as const,
     propertyUrl,
+    period,
     status,
+    statusLabel,
     isConfigured: false,
+    isConnected: false,
+    errorCode: errorCode || (status !== "CONFIGURED" ? status : null),
+    errorMessage,
     totalClicks: null,
     totalImpressions: null,
     averageCtr: null,
@@ -691,22 +775,30 @@ export function buildEmptyGoogleSearchOverview(
     topPages: [],
     countries: [],
     devices: [],
+    dateRange,
+    lastPeriod: dateRange.label,
+    lastUpdated: "Not available",
   };
 }
 
 export function mapGoogleSearchAnalyticsResponse(
-  rawData: any,
-  propertyUrl = "https://ukcalc.jomovate.com/"
+  queryData: any,
+  pageData: any = null,
+  propertyUrl = "https://ukcalc.jomovate.com/",
+  period = "30d"
 ) {
-  const rows = rawData?.rows || [];
+  const queryRows = Array.isArray(queryData) ? queryData : (queryData?.rows || []);
+  const pageRows = Array.isArray(pageData) ? pageData : (pageData?.rows || []);
+
   let totalClicks = 0;
   let totalImpressions = 0;
   let sumCtr = 0;
   let sumPos = 0;
 
   const topQueries: Array<{ query: string; clicks: number; impressions: number; ctr: string; position: number }> = [];
+  const topPages: Array<{ page: string; clicks: number; impressions: number; ctr: string; position: number }> = [];
 
-  for (const row of rows) {
+  for (const row of queryRows) {
     const clicks = typeof row.clicks === "number" ? row.clicks : 0;
     const impressions = typeof row.impressions === "number" ? row.impressions : 0;
     const ctr = typeof row.ctr === "number" ? `${(row.ctr * 100).toFixed(1)}%` : "0.0%";
@@ -721,20 +813,63 @@ export function mapGoogleSearchAnalyticsResponse(
     topQueries.push({ query: key, clicks, impressions, ctr, position });
   }
 
-  const count = rows.length || 1;
+  for (const row of pageRows) {
+    const clicks = typeof row.clicks === "number" ? row.clicks : 0;
+    const impressions = typeof row.impressions === "number" ? row.impressions : 0;
+    const ctr = typeof row.ctr === "number" ? `${(row.ctr * 100).toFixed(1)}%` : "0.0%";
+    const position = typeof row.position === "number" ? Math.round(row.position * 10) / 10 : 0;
+
+    const key = Array.isArray(row.keys) ? row.keys[0] : row.keys || "Unknown";
+    topPages.push({ page: key, clicks, impressions, ctr, position });
+  }
+
+  const count = queryRows.length || 1;
   const avgCtrPct = totalImpressions > 0 ? `${((totalClicks / totalImpressions) * 100).toFixed(1)}%` : `${((sumCtr / count) * 100).toFixed(1)}%`;
   const avgPos = Math.round((sumPos / count) * 10) / 10;
+  const isZeroData = queryRows.length === 0 && pageRows.length === 0;
+
+  const dateRange = calculateGscDateRange(period);
 
   return {
     provider: "Google Search Console" as const,
     propertyUrl,
+    period,
     status: "CONNECTED",
+    statusLabel: isZeroData ? "Google Search Console Connected (Zero Data Recorded)" : "Google Search Console Connected",
     isConfigured: true,
-    totalClicks,
-    totalImpressions,
-    averageCtr: avgCtrPct,
-    averagePosition: avgPos.toFixed(1),
+    isConnected: true,
+    errorCode: null,
+    errorMessage: null,
+    totalClicks: isZeroData ? 0 : totalClicks,
+    totalImpressions: isZeroData ? 0 : totalImpressions,
+    averageCtr: isZeroData ? "0.0%" : avgCtrPct,
+    averagePosition: isZeroData ? "0.0" : avgPos.toFixed(1),
     topQueries,
+    topPages,
+    dateRange,
+    lastPeriod: dateRange.label,
+  };
+}
+
+export function getSafeGoogleSearchStatus(overview: any) {
+  return {
+    provider: overview.provider,
+    propertyUrl: overview.propertyUrl,
+    period: overview.period,
+    status: overview.status,
+    statusLabel: overview.statusLabel,
+    isConfigured: overview.isConfigured,
+    isConnected: overview.isConnected,
+    errorCode: overview.errorCode,
+    errorMessage: overview.errorMessage,
+    totalClicks: overview.totalClicks,
+    totalImpressions: overview.totalImpressions,
+    averageCtr: overview.averageCtr,
+    averagePosition: overview.averagePosition,
+    topQueries: overview.topQueries,
+    topPages: overview.topPages,
+    dateRange: overview.dateRange,
+    lastPeriod: overview.lastPeriod,
   };
 }
 

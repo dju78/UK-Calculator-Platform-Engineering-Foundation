@@ -2,12 +2,17 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import { readFileSync, existsSync, readdirSync } from "node:fs";
 import { join } from "node:path";
+import { generateKeyPairSync, createVerify } from "node:crypto";
 import {
   buildEmptyTrafficOverview,
   mapCloudflareGraphQLResponse,
   TrafficTimePeriod,
   buildEmptyGoogleSearchOverview,
   mapGoogleSearchAnalyticsResponse,
+  createGoogleServiceAccountJwt,
+  calculateGscDateRange,
+  formatPEMPrivateKey,
+  getSafeGoogleSearchStatus,
   buildEmptyGitHubHealthOverview,
   buildRecordedGitHubHealthOverview,
   mapGitHubRunsResponse,
@@ -133,6 +138,7 @@ test("Admin Console Phase 2 Integrations & Growth Suite", async (t: any) => {
   await t.test("Google Search Console: handles unconfigured credentials with null metric semantics", () => {
     const emptyGsc = buildEmptyGoogleSearchOverview("https://ukcalc.jomovate.com/", "NOT_CONFIGURED");
     assert.strictEqual(emptyGsc.status, "NOT_CONFIGURED");
+    assert.strictEqual(emptyGsc.isConfigured, false);
     assert.strictEqual(emptyGsc.totalClicks, null, "Clicks must be null when not connected");
     assert.strictEqual(emptyGsc.totalImpressions, null, "Impressions must be null when not connected");
     assert.strictEqual(emptyGsc.averageCtr, null);
@@ -140,22 +146,130 @@ test("Admin Console Phase 2 Integrations & Growth Suite", async (t: any) => {
     assert.strictEqual(emptyGsc.topQueries.length, 0);
   });
 
-  await t.test("Google Search Console: maps search analytics rows and calculates average CTR and position", () => {
-    const mockGscRows = {
-      rows: [
-        { keys: ["uk tax calculator"], clicks: 250, impressions: 5000, ctr: 0.05, position: 2.1 },
-        { keys: ["mortgage calculator uk"], clicks: 150, impressions: 3000, ctr: 0.05, position: 3.4 },
-        { keys: ["stamp duty calculator"], clicks: 100, impressions: 2000, ctr: 0.05, position: 1.8 },
-      ],
-    };
+  await t.test("Google Search Console: distinguishes error and unconfigured states with explicit error codes", () => {
+    const authErr = buildEmptyGoogleSearchOverview(
+      "https://ukcalc.jomovate.com/",
+      "AUTH_ERROR",
+      "Google Authentication Failed",
+      "AUTH_ERROR",
+      "Invalid private key format"
+    );
+    assert.strictEqual(authErr.status, "AUTH_ERROR");
+    assert.strictEqual(authErr.errorCode, "AUTH_ERROR");
+    assert.strictEqual(authErr.errorMessage, "Invalid private key format");
 
-    const mapped = mapGoogleSearchAnalyticsResponse(mockGscRows, "https://ukcalc.jomovate.com/");
+    const permErr = buildEmptyGoogleSearchOverview(
+      "https://ukcalc.jomovate.com/",
+      "PERMISSION_DENIED",
+      "Search Console Permission Denied",
+      "PERMISSION_DENIED",
+      "Service account email does not have Read permission"
+    );
+    assert.strictEqual(permErr.status, "PERMISSION_DENIED");
+    assert.strictEqual(permErr.errorCode, "PERMISSION_DENIED");
+
+    const rateErr = buildEmptyGoogleSearchOverview(
+      "https://ukcalc.jomovate.com/",
+      "RATE_LIMITED",
+      "Google API Rate Limit Exceeded",
+      "RATE_LIMITED",
+      "Quota exceeded"
+    );
+    assert.strictEqual(rateErr.status, "RATE_LIMITED");
+    assert.strictEqual(rateErr.errorCode, "RATE_LIMITED");
+  });
+
+  await t.test("Google Search Console: calculates 2-3 day data latency and date windows for 24h, 7d, 30d", () => {
+    const r24h = calculateGscDateRange("24h");
+    assert.strictEqual(r24h.startDate, r24h.endDate, "24h range should target single latest finalized day");
+    assert.ok(r24h.dataLatencyNote.includes("2-3 day"));
+
+    const r7d = calculateGscDateRange("7d");
+    assert.ok(r7d.label.includes("Last 7 Finalized Days"));
+
+    const r30d = calculateGscDateRange("30d");
+    assert.ok(r30d.label.includes("Last 28 Finalized Days"));
+  });
+
+  await t.test("Google Search Console: generates valid RS256 JWT assertion and cleans PEM formatting", () => {
+    const { privateKey, publicKey } = generateKeyPairSync("rsa", {
+      modulusLength: 2048,
+      publicKeyEncoding: { type: "spki", format: "pem" },
+      privateKeyEncoding: { type: "pkcs8", format: "pem" },
+    });
+
+    // Test PEM formatting with escaped newlines
+    const rawEscaped = privateKey.replace(/\n/g, "\\n");
+    const cleaned = formatPEMPrivateKey(rawEscaped);
+    assert.ok(cleaned.includes("\n"), "Cleaned PEM must contain actual newlines");
+    assert.ok(cleaned.startsWith("-----BEGIN PRIVATE KEY-----"));
+
+    // Generate JWT
+    const jwt = createGoogleServiceAccountJwt("ukcalc-service@project.iam.gserviceaccount.com", cleaned);
+    const [headerB64, payloadB64, signature] = jwt.split(".");
+    assert.ok(headerB64 && payloadB64 && signature, "JWT must have 3 dot-separated parts");
+
+    const payload = JSON.parse(Buffer.from(payloadB64, "base64url").toString());
+    assert.strictEqual(payload.iss, "ukcalc-service@project.iam.gserviceaccount.com");
+    assert.strictEqual(payload.aud, "https://oauth2.googleapis.com/token");
+    assert.strictEqual(payload.scope, "https://www.googleapis.com/auth/webmasters.readonly");
+
+    // Verify signature with public key
+    const verifier = createVerify("RSA-SHA256");
+    verifier.update(`${headerB64}.${payloadB64}`);
+    const isValid = verifier.verify(publicKey, signature, "base64url");
+    assert.strictEqual(isValid, true, "JWT RS256 signature must be mathematically valid");
+  });
+
+  await t.test("Google Search Console: maps search analytics rows for both queries and landing pages", () => {
+    const mockQueryRows = [
+      { keys: ["uk tax calculator"], clicks: 250, impressions: 5000, ctr: 0.05, position: 2.1 },
+      { keys: ["mortgage calculator uk"], clicks: 150, impressions: 3000, ctr: 0.05, position: 3.4 },
+      { keys: ["stamp duty calculator"], clicks: 100, impressions: 2000, ctr: 0.05, position: 1.8 },
+    ];
+    const mockPageRows = [
+      { keys: ["https://ukcalc.jomovate.com/calculators/income-tax-calculator"], clicks: 250, impressions: 5000, ctr: 0.05, position: 2.1 },
+      { keys: ["https://ukcalc.jomovate.com/calculators/mortgage-calculator"], clicks: 150, impressions: 3000, ctr: 0.05, position: 3.4 },
+    ];
+
+    const mapped = mapGoogleSearchAnalyticsResponse(mockQueryRows, mockPageRows, "https://ukcalc.jomovate.com/", "30d");
     assert.strictEqual(mapped.status, "CONNECTED");
     assert.strictEqual(mapped.totalClicks, 500);
     assert.strictEqual(mapped.totalImpressions, 10000);
     assert.strictEqual(mapped.averageCtr, "5.0%");
     assert.strictEqual(mapped.topQueries.length, 3);
     assert.strictEqual(mapped.topQueries[0].query, "uk tax calculator");
+    assert.strictEqual(mapped.topPages.length, 2);
+    assert.strictEqual(mapped.topPages[0].page, "https://ukcalc.jomovate.com/calculators/income-tax-calculator");
+
+    // Test zero data
+    const zeroMapped = mapGoogleSearchAnalyticsResponse([], [], "https://ukcalc.jomovate.com/", "30d");
+    assert.strictEqual(zeroMapped.status, "CONNECTED");
+    assert.strictEqual(zeroMapped.totalClicks, 0);
+    assert.strictEqual(zeroMapped.totalImpressions, 0);
+    assert.strictEqual(zeroMapped.averageCtr, "0.0%");
+    assert.strictEqual(zeroMapped.averagePosition, "0.0");
+    assert.strictEqual(zeroMapped.topQueries.length, 0);
+    assert.strictEqual(zeroMapped.topPages.length, 0);
+  });
+
+  await t.test("Google Search Console: safe status response never leaks secrets or private keys", () => {
+    const mockOverview = buildEmptyGoogleSearchOverview(
+      "https://ukcalc.jomovate.com/",
+      "CONNECTED",
+      "Connected",
+      null,
+      null,
+      "30d"
+    );
+    const safeStatus = getSafeGoogleSearchStatus(mockOverview);
+    const jsonStr = JSON.stringify(safeStatus);
+
+    assert.strictEqual(jsonStr.includes("privateKey"), false);
+    assert.strictEqual(jsonStr.includes("PRIVATE KEY"), false);
+    assert.strictEqual(jsonStr.includes("clientSecret"), false);
+    assert.strictEqual(jsonStr.includes("Bearer"), false);
+    assert.strictEqual(jsonStr.includes("accessToken"), false);
   });
 
   await t.test("GitHub Engineering Health: handles duration formatting accurately", () => {
@@ -265,6 +379,11 @@ test("Admin Console Phase 2 Integrations & Growth Suite", async (t: any) => {
             content.includes("NEXT_PUBLIC_CLOUDFLARE_ACCOUNT_ID"),
             false,
             `Forbidden NEXT_PUBLIC_CLOUDFLARE_ACCOUNT_ID found in ${fullPath}`
+          );
+          assert.strictEqual(
+            content.includes("NEXT_PUBLIC_GOOGLE_"),
+            false,
+            `Forbidden NEXT_PUBLIC_GOOGLE_ found in ${fullPath}`
           );
         }
       }
