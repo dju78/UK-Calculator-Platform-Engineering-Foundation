@@ -79,6 +79,30 @@ export default async function CategoryPage(props: { params: Promise<{ category: 
 
   return (
     <div className="flex flex-col gap-8 md:gap-10 max-w-6xl w-full mx-auto">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "CollectionPage",
+            name: `${categoryLabel} Calculators`,
+            description: details.summary,
+            url: absoluteUrl(categoryPath(categoryLabel)),
+            inLanguage: "en-GB",
+            mainEntity: {
+              "@type": "ItemList",
+              numberOfItems: calculators.length,
+              itemListElement: calculators.map((calc, index) => ({
+                "@type": "ListItem",
+                position: index + 1,
+                name: calc.name,
+                url: absoluteUrl(`/calculators/${calc.slug}`),
+              })),
+            },
+          }),
+        }}
+      />
+
       <Breadcrumbs items={[{ label: categoryLabel }]} />
 
       <div className="flex flex-col gap-4 rounded-2xl border border-slate-200/80 bg-white p-6 md:p-8 shadow-2xs">
