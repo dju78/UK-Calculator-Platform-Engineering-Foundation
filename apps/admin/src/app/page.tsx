@@ -22,7 +22,7 @@ export default async function OverviewPage() {
   const seoOverview = getAdminSEOOverview();
   const systemOverview = getAdminSystemOverview();
   const trafficOverview = await getAdminTrafficOverview("7d");
-  const gscOverview = getAdminGoogleSearchOverview();
+  const gscOverview = await getAdminGoogleSearchOverview("30d");
   const ghOverview = await getAdminGitHubHealthOverview();
   const calendarOverview = getAdminGovernanceCalendar();
 
@@ -113,8 +113,12 @@ export default async function OverviewPage() {
             <MetricCard
               label="Google Search Clicks"
               value={gscOverview.totalClicks !== null ? gscOverview.totalClicks.toLocaleString() : "Not available"}
-              subtext={gscOverview.status === "CONNECTED" ? "Last 28 days organic" : "GSC not connected"}
-              statusBadge={gscOverview.status === "CONNECTED" ? "Verified" : "Not available"}
+              subtext={gscOverview.status === "CONNECTED" ? "Last 28 days organic" : gscOverview.statusLabel}
+              statusBadge={
+                gscOverview.status === "CONNECTED"
+                  ? "Connected"
+                  : (gscOverview.isConfigured ? "Configured" : "Not available")
+              }
               source="Google Search Console"
             />
             <MetricCard

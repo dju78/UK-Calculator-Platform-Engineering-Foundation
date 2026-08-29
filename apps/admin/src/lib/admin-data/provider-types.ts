@@ -5,6 +5,9 @@ export type ExternalProviderStatus =
   | "UNAVAILABLE"
   | "AUTH_ERROR"
   | "PERMISSION_DENIED"
+  | "RATE_LIMITED"
+  | "QUERY_ERROR"
+  | "ZERO_DATA"
   | "ERROR";
 
 export interface ExternalProviderInfo {
