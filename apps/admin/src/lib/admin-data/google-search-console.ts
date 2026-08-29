@@ -31,6 +31,27 @@ export interface SearchDeviceMetric {
   impressions: number;
 }
 
+export interface QueryPagePairMetric {
+  query: string;
+  page: string;
+  clicks: number;
+  impressions: number;
+  ctr: string;
+  position: number;
+}
+
+export interface SearchAnalyticsQueryOptions {
+  dimensions?: ("query" | "page" | "country" | "device" | "date")[];
+  startDate?: string;
+  endDate?: string;
+  countryFilter?: string; // e.g. "gbr"
+  deviceFilter?: "DESKTOP" | "MOBILE" | "TABLET";
+  pageFilter?: string;
+  queryFilter?: string;
+  rowLimit?: number; // 10..25000
+  startRow?: number; // pagination
+}
+
 export interface AdminGoogleSearchOverview {
   provider: "Google Search Console";
   propertyUrl: string;
@@ -252,6 +273,191 @@ export async function queryGoogleSearchAnalytics(
   }
 }
 
+export function calculateImpressionWeightedPosition(
+  items: { position?: number; impressions?: number }[] = []
+): number {
+  if (!items || items.length === 0) return 0;
+  let totalWeighted = 0;
+  let totalImpressions = 0;
+  let sumPos = 0;
+
+  for (const item of items) {
+    const pos = typeof item.position === "number" ? item.position : 0;
+    const imp = typeof item.impressions === "number" ? item.impressions : 0;
+    totalWeighted += pos * imp;
+    totalImpressions += imp;
+    sumPos += pos;
+  }
+
+  if (totalImpressions === 0) {
+    return Math.round((sumPos / items.length) * 10) / 10;
+  }
+
+  return Math.round((totalWeighted / totalImpressions) * 10) / 10;
+}
+
+export async function queryGoogleSearchAnalyticsAdvanced(
+  accessToken: string,
+  siteUrl: string,
+  options: SearchAnalyticsQueryOptions = {}
+): Promise<{
+  rows?: any[];
+  queryPagePairs?: QueryPagePairMetric[];
+  countries?: SearchCountryMetric[];
+  devices?: SearchDeviceMetric[];
+  weightedPosition?: number;
+  totalClicks?: number;
+  totalImpressions?: number;
+  averageCtr?: string;
+  error?: string;
+  statusCode?: number;
+}> {
+  try {
+    const encodedSiteUrl = encodeURIComponent(siteUrl);
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 10000);
+
+    const body: Record<string, any> = {
+      startDate: options.startDate,
+      endDate: options.endDate,
+      dimensions: options.dimensions || ["query"],
+      rowLimit: Math.min(options.rowLimit || 25, 25000),
+      startRow: options.startRow || 0,
+    };
+
+    const filters: any[] = [];
+
+    if (options.countryFilter) {
+      filters.push({
+        dimension: "country",
+        operator: "equals",
+        expression: options.countryFilter.toLowerCase(),
+      });
+    }
+
+    if (options.deviceFilter) {
+      filters.push({
+        dimension: "device",
+        operator: "equals",
+        expression: options.deviceFilter.toUpperCase(),
+      });
+    }
+
+    if (options.pageFilter) {
+      filters.push({
+        dimension: "page",
+        operator: "contains",
+        expression: options.pageFilter,
+      });
+    }
+
+    if (options.queryFilter) {
+      filters.push({
+        dimension: "query",
+        operator: "contains",
+        expression: options.queryFilter.toLowerCase(),
+      });
+    }
+
+    if (filters.length > 0) {
+      body.dimensionFilterGroups = [{ filters }];
+    }
+
+    const res = await fetch(
+      `https://www.googleapis.com/webmasters/v3/sites/${encodedSiteUrl}/searchAnalytics/query`,
+      {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+          "Content-Type": "application/json",
+          "User-Agent": "UKCalc-Admin-Console/0.2.0",
+        },
+        body: JSON.stringify(body),
+        signal: controller.signal,
+        next: { revalidate: 300 },
+      }
+    );
+
+    clearTimeout(timeoutId);
+
+    if (!res.ok) {
+      const errorJson = await res.json().catch(() => ({}));
+      const msg = errorJson.error?.message || errorJson.error_description || `HTTP ${res.status}`;
+      return { error: msg, statusCode: res.status };
+    }
+
+    const data = await res.json();
+    const rows = data.rows || [];
+
+    const dims = options.dimensions || ["query"];
+    const isQueryPage = dims.includes("query") && dims.includes("page");
+
+    let totalClicks = 0;
+    let totalImpressions = 0;
+    const queryPagePairs: QueryPagePairMetric[] = [];
+    const countries: SearchCountryMetric[] = [];
+    const devices: SearchDeviceMetric[] = [];
+
+    for (const r of rows) {
+      const clicks = typeof r.clicks === "number" ? r.clicks : 0;
+      const impressions = typeof r.impressions === "number" ? r.impressions : 0;
+      const ctr = typeof r.ctr === "number" ? `${(r.ctr * 100).toFixed(1)}%` : "0.0%";
+      const position = typeof r.position === "number" ? Math.round(r.position * 10) / 10 : 0;
+
+      totalClicks += clicks;
+      totalImpressions += impressions;
+
+      if (isQueryPage) {
+        const queryIdx = dims.indexOf("query");
+        const pageIdx = dims.indexOf("page");
+        const q = Array.isArray(r.keys) ? r.keys[queryIdx] || "Unknown" : "Unknown";
+        const p = Array.isArray(r.keys) ? r.keys[pageIdx] || "Unknown" : "Unknown";
+        queryPagePairs.push({
+          query: q,
+          page: p,
+          clicks,
+          impressions,
+          ctr,
+          position,
+        });
+      } else if (dims.length === 1 && dims[0] === "country") {
+        const c = Array.isArray(r.keys) ? r.keys[0] || "Unknown" : r.keys || "Unknown";
+        countries.push({
+          country: c.toUpperCase() === "GBR" ? "United Kingdom (GBR)" : c.toUpperCase(),
+          clicks,
+          impressions,
+        });
+      } else if (dims.length === 1 && dims[0] === "device") {
+        const d = Array.isArray(r.keys) ? r.keys[0] || "Unknown" : r.keys || "Unknown";
+        devices.push({
+          device: d.toUpperCase(),
+          clicks,
+          impressions,
+        });
+      }
+    }
+
+    const weightedPosition = calculateImpressionWeightedPosition(rows);
+    const averageCtr = totalImpressions > 0 ? `${((totalClicks / totalImpressions) * 100).toFixed(1)}%` : "0.0%";
+
+    return {
+      rows,
+      queryPagePairs: isQueryPage ? queryPagePairs : undefined,
+      countries: dims.includes("country") ? countries : undefined,
+      devices: dims.includes("device") ? devices : undefined,
+      weightedPosition,
+      totalClicks,
+      totalImpressions,
+      averageCtr,
+    };
+  } catch (err: any) {
+    return {
+      error: err.name === "AbortError" ? "GSC query timed out" : err.message || "Network error",
+      statusCode: 504,
+    };
+  }
+}
+
 export function mapGoogleSearchAnalyticsResponse(
   queryRows: any[] = [],
   pageRows: any[] = [],
@@ -264,7 +470,6 @@ export function mapGoogleSearchAnalyticsResponse(
   let totalClicks = 0;
   let totalImpressions = 0;
   let sumCtr = 0;
-  let sumPos = 0;
 
   const topQueries: SearchQueryMetric[] = [];
   const topPages: SearchPageMetric[] = [];
@@ -278,7 +483,6 @@ export function mapGoogleSearchAnalyticsResponse(
     totalClicks += clicks;
     totalImpressions += impressions;
     sumCtr += typeof row.ctr === "number" ? row.ctr : 0;
-    sumPos += position;
 
     const key = Array.isArray(row.keys) ? row.keys[0] : row.keys || "Unknown";
     topQueries.push({
@@ -311,7 +515,10 @@ export function mapGoogleSearchAnalyticsResponse(
     totalImpressions > 0
       ? `${((totalClicks / totalImpressions) * 100).toFixed(1)}%`
       : `${((sumCtr / count) * 100).toFixed(1)}%`;
-  const avgPos = Math.round((sumPos / count) * 10) / 10;
+  
+  // Truthful impression-weighted average position
+  const activeRows = queryRows.length > 0 ? queryRows : pageRows;
+  const avgPos = calculateImpressionWeightedPosition(activeRows);
 
   const isZeroData = queryRows.length === 0 && pageRows.length === 0;
 

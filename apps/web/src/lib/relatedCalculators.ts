@@ -1,11 +1,6 @@
 import { liveCalculators } from "@/lib/calculators";
 import { getCategoryDetails } from "@/lib/site";
 
-/**
- * Phase 2 Editorial Hook:
- * When Phase 2 merges curated relationships, they can be registered here
- * without requiring rewriting the Phase 3 IElevel infrastructure.
- */
 export const CURATED_RELATED: Record<string, string[]> = {
   // High-value canonical tie-edges preheated for core UK finance and utility flows
   "TAX-001": ["TAX-002", "TAX-003", "TAX-004", "TAX-005", "ISA-007"],
@@ -28,7 +23,7 @@ export const CURATED_RELATED: Record<string, string[]> = {
 };
 
 function findLiveCalculator(idOrSlug: string) {
-  return liveCalculators.find((c: any) => c.id === idOrSlug || c.slug === idOrSlug);
+  return (liveCalculators as any[]).find((c: any) => c.id === idOrSlug || c.slug === idOrSlug);
 }
 
 /**

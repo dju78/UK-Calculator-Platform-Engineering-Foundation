@@ -19,6 +19,7 @@ import {
   formatDuration,
   evaluateGovernanceReviewStatus,
   getAdminGovernanceCalendar,
+  calculateImpressionWeightedPosition,
   getMonorepoRootDir,
 } from "./admin-data-helper.js";
 
@@ -391,6 +392,128 @@ test("Admin Console Phase 2 Integrations & Growth Suite", async (t: any) => {
     checkDir(adminSrc);
   });
 
+  await t.test("Google Search Console: calculates truthful impression-weighted average position", () => {
+    // Case 1: High impression at position 2, low impression at position 90
+    const weighted1 = calculateImpressionWeightedPosition([
+      { position: 2.0, impressions: 10000 },
+      { position: 90.0, impressions: 2 },
+    ]);
+    assert.strictEqual(weighted1, 2.0, "Impression-weighted position must reflect dominant traffic weight");
+
+    // Case 2: Multi-row distribution
+    const weighted2 = calculateImpressionWeightedPosition([
+      { position: 1.0, impressions: 100 },
+      { position: 5.0, impressions: 300 },
+      { position: 10.0, impressions: 600 },
+    ]);
+    // (1*100 + 5*300 + 10*600) / 1000 = (100 + 1500 + 6000) / 1000 = 7600 / 1000 = 7.6
+    assert.strictEqual(weighted2, 7.6, "Position must equal (100 + 1500 + 6000) / 1000 = 7.6");
+
+    // Case 3: Zero impressions fallback
+    const weightedZero = calculateImpressionWeightedPosition([
+      { position: 3.0, impressions: 0 },
+      { position: 7.0, impressions: 0 },
+    ]);
+    assert.strictEqual(weightedZero, 5.0, "Zero impressions fallback must compute arithmetic average");
+
+    // Case 4: Empty input
+    assert.strictEqual(calculateImpressionWeightedPosition([]), 0);
+  });
+
+  await t.test("Search Navigation Integrity: SEARCH_ALIASES semantic audit and all 59 aliases resolve to live valid calculators", async () => {
+    const { SEARCH_ALIASES, getCalculatorIdsForQuery } = await import("../apps/web/src/lib/searchAliases.js");
+    const { calculatorRegistry } = await import("../packages/calculator-registry/src/index.js");
+
+    const registryIds = new Set(calculatorRegistry.map((c) => c.id));
+    assert.ok(SEARCH_ALIASES.length >= 50, "Must have at least 50 configured search alias groups");
+
+    for (const entry of SEARCH_ALIASES) {
+      assert.ok(entry.keywords.length > 0, "Alias entry must have keywords");
+      if (entry.calculatorIds) {
+        for (const targetId of entry.calculatorIds) {
+          assert.ok(
+            registryIds.has(targetId),
+            `Alias '${entry.keywords[0]}' references non-existent calculator ID '${targetId}'`
+          );
+        }
+      }
+    }
+
+    // Explicit audit of corrected mappings identified in Phase 4 audit
+    const studentLoanMatches = getCalculatorIdsForQuery("student loan");
+    assert.ok(
+      studentLoanMatches.has("TAX-020"),
+      "student loan must map to Student Loan Repayment Calculator (TAX-020)"
+    );
+    assert.strictEqual(
+      studentLoanMatches.has("TAX-005"),
+      false,
+      "student loan must NOT map to Salary Sacrifice (TAX-005)"
+    );
+
+    const cagrMatches = getCalculatorIdsForQuery("cagr");
+    assert.ok(
+      cagrMatches.has("INV-009"),
+      "cagr must map to CAGR Calculator (INV-009)"
+    );
+    assert.strictEqual(
+      cagrMatches.has("INV-007"),
+      false,
+      "cagr must NOT map to Present Value (INV-007)"
+    );
+
+    const irrMatches = getCalculatorIdsForQuery("irr");
+    assert.ok(
+      irrMatches.has("INV-011"),
+      "irr must map to IRR Calculator (INV-011)"
+    );
+    assert.strictEqual(
+      irrMatches.has("INV-009"),
+      false,
+      "irr must NOT map to CAGR (INV-009)"
+    );
+
+    const feeDragMatches = getCalculatorIdsForQuery("fee drag");
+    assert.ok(
+      feeDragMatches.has("INV-014"),
+      "fee drag must map to Investment Fees Calculator (INV-014)"
+    );
+    assert.strictEqual(
+      feeDragMatches.has("INV-011"),
+      false,
+      "fee drag must NOT map to IRR (INV-011)"
+    );
+
+    const pregnancyMatches = getCalculatorIdsForQuery("pregnancy");
+    const dueDateMatches = getCalculatorIdsForQuery("due date");
+    assert.ok(
+      pregnancyMatches.has("HLT-019") && dueDateMatches.has("HLT-020"),
+      "pregnancy and due date must map to Pregnancy & Due Date calculators (HLT-019, HLT-020)"
+    );
+    assert.strictEqual(
+      pregnancyMatches.has("HLT-006"),
+      false,
+      "pregnancy must NOT map to body composition / BMI"
+    );
+
+    const lisaMatches = getCalculatorIdsForQuery("lifetime isa");
+    assert.ok(
+      lisaMatches.has("ISA-004"),
+      "LISA and Lifetime ISA must map to Lifetime ISA Calculator (ISA-004)"
+    );
+
+    const fuelMatches = getCalculatorIdsForQuery("fuel cost");
+    assert.ok(
+      fuelMatches.has("AUT-006"),
+      "fuel cost must map to Fuel Cost Calculator (AUT-006)"
+    );
+    assert.strictEqual(
+      fuelMatches.has("AUT-001"),
+      false,
+      "fuel cost must NOT map to Car Loan (AUT-001)"
+    );
+  });
+
   await t.test("System Domain Architecture: does not contain hardcoded stale Pending DNS strings and uses evidence-based configured labels", () => {
     const rootDir = getMonorepoRootDir();
     const systemPageFile = join(rootDir, "apps/admin/src/app/system/page.tsx");
@@ -404,4 +527,5 @@ test("Admin Console Phase 2 Integrations & Growth Suite", async (t: any) => {
     );
   });
 });
+
 

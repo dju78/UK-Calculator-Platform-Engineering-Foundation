@@ -13,7 +13,7 @@ export interface SearchAliasEntry {
 }
 
 export const SEARCH_ALIASES: SearchAliasEntry[] = [
-  // Tax & Salary
+  // UK Tax & Salary
   {
     keywords: ["paye", "tax", "income tax", "wage", "take home", "takehome", "net pay", "salary calculator"],
     calculatorIds: ["TAX-001", "TAX-002", "TAX-003"]
@@ -24,15 +24,23 @@ export const SEARCH_ALIASES: SearchAliasEntry[] = [
   },
   {
     keywords: ["student loan", "plan 1", "plan 2", "plan 4", "plan 5", "postgraduate loan"],
-    calculatorIds: ["TAX-005", "TAX-001", "TAX-003"]
+    calculatorIds: ["TAX-020", "TAX-001", "TAX-003"]
   },
   {
     keywords: ["scottish tax", "scotland tax", "scottish rate", "starter rate", "intermediate rate", "advanced rate", "top rate"],
-    calculatorIds: ["TAX-001", "TAX-003", "TAX-008"]
+    calculatorIds: ["TAX-001", "TAX-003"]
+  },
+  {
+    keywords: ["salary sacrifice", "pension sacrifice", "smart pension", "sacrifice scheme"],
+    calculatorIds: ["TAX-005", "TAX-003"]
+  },
+  {
+    keywords: ["bonus tax", "overtime pay", "overtime tax", "extra hours pay"],
+    calculatorIds: ["TAX-008", "TAX-009"]
   },
   {
     keywords: ["vat", "value added tax", "sales tax", "standard rate vat", "20% vat"],
-    calculatorIds: ["TAX-015", "TAX-016"]
+    calculatorIds: ["TAX-015"]
   },
   {
     keywords: ["hicbc", "child benefit", "high income child benefit charge", "child benefit tax"],
@@ -40,11 +48,23 @@ export const SEARCH_ALIASES: SearchAliasEntry[] = [
   },
   {
     keywords: ["dividend", "dividends", "dividend tax", "gia", "general investment account tax"],
-    calculatorIds: ["TAX-013"]
+    calculatorIds: ["TAX-011", "TAX-013"]
   },
   {
     keywords: ["capital gains", "cgt", "annual exempt amount", "chattels", "crypto tax"],
-    calculatorIds: ["TAX-013", "PRO-028"]
+    calculatorIds: ["TAX-012", "TAX-013", "PRO-028"]
+  },
+  {
+    keywords: ["inheritance tax", "iht", "nil rate band", "residence nil rate band", "death duty", "probate tax"],
+    calculatorIds: ["TAX-014"]
+  },
+  {
+    keywords: ["self-employment tax", "sole trader tax", "freelance tax", "class 2 ni", "class 4 ni"],
+    calculatorIds: ["TAX-016", "TAX-017"]
+  },
+  {
+    keywords: ["corporation tax", "company tax", "limited company tax", "marginal relief"],
+    calculatorIds: ["TAX-018"]
   },
 
   // Mortgages & Property
@@ -62,7 +82,7 @@ export const SEARCH_ALIASES: SearchAliasEntry[] = [
   },
   {
     keywords: ["mortgage", "mortgage repayment", "home loan", "monthly mortgage payment"],
-    calculatorIds: ["PRO-001", "PRO-002", "PRO-003"]
+    calculatorIds: ["PRO-001", "PRO-002", "PRO-003", "PRO-004"]
   },
   {
     keywords: ["fixed vs tracker", "tracker mortgage", "fixed rate mortgage", "mortgage comparison"],
@@ -95,8 +115,12 @@ export const SEARCH_ALIASES: SearchAliasEntry[] = [
     calculatorIds: ["INV-002", "INV-001"]
   },
   {
-    keywords: ["cagr", "compound annual growth rate", "annualised return"],
+    keywords: ["present value", "pv", "discounted cash flow", "future cash value"],
     calculatorIds: ["INV-007"]
+  },
+  {
+    keywords: ["cagr", "compound annual growth rate", "annualised return"],
+    calculatorIds: ["INV-009"]
   },
   {
     keywords: ["roi", "return on investment", "profit percentage"],
@@ -104,11 +128,11 @@ export const SEARCH_ALIASES: SearchAliasEntry[] = [
   },
   {
     keywords: ["irr", "internal rate of return", "npv", "cash flow yield"],
-    calculatorIds: ["INV-009"]
+    calculatorIds: ["INV-011", "INV-012"]
   },
   {
     keywords: ["fee drag", "fund fees", "platform fee", "ter", "total expense ratio", "ongoing charges"],
-    calculatorIds: ["INV-011"]
+    calculatorIds: ["INV-014"]
   },
   {
     keywords: ["portfolio drawdown", "drawdown calculator", "retirement decumulation", "pot exhaustion"],
@@ -134,11 +158,23 @@ export const SEARCH_ALIASES: SearchAliasEntry[] = [
   },
   {
     keywords: ["lisa", "lifetime isa", "25% bonus", "first home bonus"],
-    calculatorIds: ["ISA-003"]
+    calculatorIds: ["ISA-004"]
+  },
+  {
+    keywords: ["jisa", "junior isa", "child savings", "children isa"],
+    calculatorIds: ["ISA-005"]
   },
   {
     keywords: ["pension", "workplace pension", "pension projection", "sipp", "pension pot"],
     calculatorIds: ["PEN-001", "PEN-002", "PEN-003"]
+  },
+  {
+    keywords: ["state pension", "state pension age", "triple lock", "dap", "national insurance years"],
+    calculatorIds: ["PEN-010"]
+  },
+  {
+    keywords: ["pension tax relief", "higher rate relief", "annual allowance", "tapered annual allowance"],
+    calculatorIds: ["PEN-005"]
   },
   {
     keywords: ["fire", "financial independence", "retire early", "lean fire", "fat fire", "coast fire"],
@@ -149,8 +185,12 @@ export const SEARCH_ALIASES: SearchAliasEntry[] = [
     calculatorIds: ["ISA-007"]
   },
   {
-    keywords: ["pcls", "25% tax free", "pension lump sum"],
-    calculatorIds: ["PEN-006"]
+    keywords: ["pcls", "25% tax free", "pension lump sum", "pension drawdown"],
+    calculatorIds: ["PEN-008", "PEN-006"]
+  },
+  {
+    keywords: ["annuity", "drawdown vs annuity", "guaranteed income for life", "annuity rate"],
+    calculatorIds: ["PEN-009", "PEN-008"]
   },
 
   // Debt & Personal Finance
@@ -171,7 +211,7 @@ export const SEARCH_ALIASES: SearchAliasEntry[] = [
     calculatorIds: ["FIN-013"]
   },
 
-  // Health
+  // Health & Fitness
   {
     keywords: ["bmi", "body mass index", "healthy weight", "underweight", "overweight", "obesity"],
     calculatorIds: ["HLT-001"]
@@ -182,7 +222,11 @@ export const SEARCH_ALIASES: SearchAliasEntry[] = [
   },
   {
     keywords: ["due date", "pregnancy", "estimated due date", "edd", "conception date", "weeks pregnant"],
-    calculatorIds: ["HLT-006", "HLT-007"]
+    calculatorIds: ["HLT-019", "HLT-020"]
+  },
+  {
+    keywords: ["ovulation", "fertile window", "luteal phase", "conception window", "period cycle"],
+    calculatorIds: ["HLT-022", "HLT-023"]
   },
 
   // Business & Everyday
@@ -204,7 +248,11 @@ export const SEARCH_ALIASES: SearchAliasEntry[] = [
   },
   {
     keywords: ["fuel cost", "petrol cost", "diesel cost", "mpg", "mileage cost", "journey cost"],
-    calculatorIds: ["AUT-001", "AUT-006"]
+    calculatorIds: ["AUT-006", "AUT-007", "CON-008"]
+  },
+  {
+    keywords: ["car loan", "pcp", "hire purchase", "balloon payment", "car finance"],
+    calculatorIds: ["AUT-001", "AUT-002", "AUT-003"]
   },
   {
     keywords: ["age", "date of birth", "exact age", "how old am i", "days old"],
