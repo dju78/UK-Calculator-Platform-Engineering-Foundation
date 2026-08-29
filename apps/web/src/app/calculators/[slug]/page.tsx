@@ -128,7 +128,7 @@ export default async function CalculatorPage(props: { params: Promise<{ slug: st
         }}
       />
 
-      {/* FAQPage Structured Data (when FAQs are visibly rendered) */}
+      {/* Semantic Schema.org FAQPage Structured Data (truthfully mirrors visible on-page FAQs) */}
       {guide?.faqs && guide.faqs.length > 0 && (
         <script
           type="application/ld+json"
