@@ -168,7 +168,15 @@ export function sanitizePayload<E extends AnalyticsEventName>(
     }
 
     // Explicitly exempt structural routing/schema keys from broad sensitive-data regex blocks
-    const structuralKeys = new Set(["page_type", "page_slug", "calculator_slug", "calculator_category", "category"]);
+    const structuralKeys = new Set([
+      "page_type",
+      "page_slug",
+      "calculator_slug",
+      "calculator_category",
+      "category",
+      "source_slug",
+      "target_slug"
+    ]);
     
     // 2. Must not match any forbidden pattern (extra defence in depth)
     if (!structuralKeys.has(key) && isFieldForbidden(key)) {

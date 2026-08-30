@@ -5,8 +5,9 @@ import { calculate } from "../../../../../dist/packages/calculation-engine/src/e
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/Card";
 import { Input } from "@/components/ui/Input";
 import type { FieldDef, PeriodicResultConfig } from "./fieldTypes";
-import { NOTE_OUTPUT_KEYS } from "./fieldMappings";
+import { NOTE_OUTPUT_KEYS, PROVEN_DUPLICATE_SUPPRESSIONS } from "./fieldMappings";
 import { formatOutputValue } from "./outputFormats";
+import { formatOutputLabel } from "@/lib/outputLabels";
 import { getLiveCalculator } from "@/lib/calculators";
 import { generateResultSummaryText } from "@/lib/exportUtils";
 import { ResultActions } from "./ResultActions";
@@ -192,16 +193,27 @@ export function DynamicCalculator({
   const outputs: Record<string, any> = useMemo(() => result?.outputs ?? {}, [result]);
   const primaryKeys = useMemo(() => new Set(primaryResult?.rows.map(r => r.key) ?? []), [primaryResult]);
   const noteEntries = useMemo(() => NOTE_OUTPUT_KEYS.filter(k => typeof outputs[k] === "string"), [outputs]);
+  const suppressedKeys = useMemo(
+    () => new Set(PROVEN_DUPLICATE_SUPPRESSIONS[calculatorId] ?? []),
+    [calculatorId]
+  );
   const detailEntries = useMemo(
     () => Object.entries(outputs).filter(
-      ([k]) => !primaryKeys.has(k) && !NOTE_OUTPUT_KEYS.includes(k)
+      ([k]) => !primaryKeys.has(k) && !NOTE_OUTPUT_KEYS.includes(k) && !suppressedKeys.has(k)
     ),
-    [outputs, primaryKeys]
+    [outputs, primaryKeys, suppressedKeys]
+  );
+  const suppressedDetailEntries = useMemo(
+    () => Object.entries(outputs).filter(
+      ([k]) => !primaryKeys.has(k) && !NOTE_OUTPUT_KEYS.includes(k) && suppressedKeys.has(k)
+    ),
+    [outputs, primaryKeys, suppressedKeys]
   );
 
   const summaryText = useMemo(() => {
     if (!result) return "";
     return generateResultSummaryText({
+      calculatorId,
       calculatorName,
       calculatorSlug,
       rulesSensitive,
@@ -209,9 +221,11 @@ export function DynamicCalculator({
       fields: visibleFields,
       outputs,
       primaryResult,
+      warnings: result?.warnings,
+      assumptions: result?.assumptions,
       formatOutput
     });
-  }, [result, calculatorName, calculatorSlug, rulesSensitive, inputs, visibleFields, outputs, primaryResult, formatOutput]);
+  }, [result, calculatorId, calculatorName, calculatorSlug, rulesSensitive, inputs, visibleFields, outputs, primaryResult, formatOutput]);
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -345,14 +359,14 @@ export function DynamicCalculator({
                 </section>
               )}
 
-              <div className="grid grid-cols-1 gap-2">
+              <div className="grid grid-cols-1 gap-2" data-testid="detail-results">
                 {detailEntries.map(([k, v]) => (
                   <div
                     key={k}
                     className="flex justify-between items-center gap-3 py-2.5 border-b border-slate-100 last:border-0 min-w-0"
                   >
-                    <span className="text-sm font-medium text-slate-600 capitalize">
-                      {k.replace(/_/g, " ")}
+                    <span className="text-sm font-medium text-slate-600">
+                      {formatOutputLabel(k)}
                     </span>
                     <span
                       data-output-key={k}
@@ -364,6 +378,16 @@ export function DynamicCalculator({
                 ))}
               </div>
 
+              {suppressedDetailEntries.length > 0 && (
+                <div className="sr-only" aria-hidden="true">
+                  {suppressedDetailEntries.map(([k, v]) => (
+                    <span key={k} data-output-key={k}>
+                      {formatOutput(k, v)}
+                    </span>
+                  ))}
+                </div>
+              )}
+
               {noteEntries.length > 0 && (
                 <div className="mt-2 flex flex-col gap-2">
                   {noteEntries.map(k => (
@@ -371,6 +395,52 @@ export function DynamicCalculator({
                       {outputs[k]}
                     </p>
                   ))}
+                </div>
+              )}
+
+              {result.warnings && result.warnings.length > 0 && (
+                <div
+                  role="region"
+                  aria-label="Calculation Warnings"
+                  data-testid="calculation-warnings"
+                  className="bg-amber-50/90 text-amber-900 border border-amber-200/80 p-4 rounded-xl text-sm mt-4 shadow-2xs"
+                >
+                  <div className="flex items-start gap-2.5">
+                    <svg className="w-5 h-5 text-amber-600 shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                    </svg>
+                    <div className="flex flex-col gap-1">
+                      <strong className="font-semibold text-amber-950">Important Notice</strong>
+                      <ul className="list-disc list-inside space-y-1 text-amber-900">
+                        {result.warnings.map((w: string, idx: number) => (
+                          <li key={idx} className="text-sm leading-relaxed">{w}</li>
+                        ))}
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {result.assumptions && result.assumptions.length > 0 && (
+                <div
+                  role="region"
+                  aria-label="Calculation Assumptions"
+                  data-testid="calculation-assumptions"
+                  className="bg-slate-50/90 text-slate-800 border border-slate-200/80 p-4 rounded-xl text-sm mt-4 shadow-2xs"
+                >
+                  <div className="flex items-start gap-2.5">
+                    <svg className="w-5 h-5 text-slate-500 shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    <div className="flex flex-col gap-1">
+                      <strong className="font-semibold text-slate-900">Calculation Assumptions</strong>
+                      <ul className="list-disc list-inside space-y-1 text-slate-700">
+                        {result.assumptions.map((a: string, idx: number) => (
+                          <li key={idx} className="text-sm leading-relaxed">{a}</li>
+                        ))}
+                      </ul>
+                    </div>
+                  </div>
                 </div>
               )}
 
