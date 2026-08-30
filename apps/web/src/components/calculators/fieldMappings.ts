@@ -501,7 +501,99 @@ export const calculatorResultConfig: Record<string, CalculatorConfig["primaryRes
       { label: "Monthly", key: "tax_monthly" },
       { label: "Weekly", key: "tax_weekly" }
     ]
+  },
+  "PRO-001": {
+    title: "Mortgage Repayment",
+    rows: [
+      { label: "Monthly Payment", key: "monthly_payment" },
+      { label: "Total Interest", key: "total_interest" }
+    ]
+  },
+  "PRO-023": {
+    title: "Stamp Duty (SDLT)",
+    rows: [
+      { label: "SDLT Due", key: "sdlt" },
+      { label: "Effective Tax Rate", key: "effective_rate" }
+    ]
+  },
+  "INV-002": {
+    title: "Compound Growth",
+    rows: [
+      { label: "Future Value", key: "future_value" },
+      { label: "Interest Earned", key: "interest_earned" }
+    ]
+  },
+  "TAX-015": {
+    title: "VAT Summary",
+    rows: [
+      { label: "VAT Amount", key: "vat" },
+      { label: "Gross Total", key: "gross" }
+    ]
+  },
+  "AUT-006": {
+    title: "Fuel Cost",
+    rows: [
+      { label: "Total Fuel Cost", key: "cost_gbp" },
+      { label: "Litres Required", key: "litres" }
+    ]
+  },
+  "HLT-001": {
+    title: "BMI Assessment",
+    rows: [
+      { label: "BMI Score", key: "bmi" },
+      { label: "Classification", key: "category" }
+    ]
+  },
+  "PEN-001": {
+    title: "Pension Projection",
+    rows: [
+      { label: "Projected Pot", key: "projected_pot" },
+      { label: "Annual Contributions", key: "annual_contributions" }
+    ]
+  },
+  "FIN-001": {
+    title: "Loan Repayment",
+    rows: [
+      { label: "Monthly Payment", key: "monthly_payment" },
+      { label: "Total Interest", key: "total_interest" }
+    ]
+  },
+  "INV-001": {
+    title: "Savings Projection",
+    rows: [
+      { label: "Projected Value", key: "projected_value" }
+    ]
+  },
+  "PRO-010": {
+    title: "Loan-to-Value",
+    rows: [
+      { label: "LTV Ratio", key: "ltv" },
+      { label: "Deposit / Equity", key: "equity" }
+    ]
+  },
+  "BUS-001": {
+    title: "Margin Summary",
+    rows: [
+      { label: "Gross Profit", key: "profit" },
+      { label: "Gross Margin", key: "margin" }
+    ]
   }
+};
+
+/**
+ * Proven duplicate output keys to suppress from the detail breakdown.
+ * These are exact aliases where the engine emits both an abbreviated and full key.
+ */
+export const PROVEN_DUPLICATE_SUPPRESSIONS: Record<string, string[]> = {
+  "INV-002": ["fv"],
+  "TAX-001": ["tax"],
+  "TAX-004": ["ni"],
+  "TAX-020": ["annual_repayment"],
+  "HLT-002": ["bmr_mifflin_st_jeor"],
+  "HLT-006": ["boer_estimate"],
+  "HLT-017": ["mosteller"],
+  "MAT-011": ["order_of_magnitude"],
+  "MAT-012": ["axis_of_symmetry"]
 };
 
 /** Output keys that are explanatory prose, rendered as notes not value rows. */

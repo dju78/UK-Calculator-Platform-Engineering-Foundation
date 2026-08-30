@@ -11,9 +11,11 @@
 
 import { SITE_URL } from "./site";
 import type { FieldDef, PeriodicResultConfig } from "../components/calculators/fieldTypes";
-import { NOTE_OUTPUT_KEYS } from "../components/calculators/fieldMappings";
+import { NOTE_OUTPUT_KEYS, PROVEN_DUPLICATE_SUPPRESSIONS } from "../components/calculators/fieldMappings";
+import { formatOutputLabel } from "./outputLabels";
 
 export interface FormatResultOptions {
+  calculatorId?: string;
   calculatorName: string;
   calculatorSlug: string;
   rulesSensitive?: boolean;
@@ -21,16 +23,17 @@ export interface FormatResultOptions {
   fields: FieldDef[];
   outputs: Record<string, any>;
   primaryResult?: PeriodicResultConfig;
+  warnings?: string[];
+  assumptions?: string[];
   formatOutput: (key: string, value: unknown) => string;
 }
 
 /**
  * Format a human-readable title from a field or output key.
+ * Backwards-compatible wrapper delegating to formatOutputLabel.
  */
 export function titleizeKey(key: string): string {
-  return key
-    .replace(/_/g, " ")
-    .replace(/\b\w/g, c => c.toUpperCase());
+  return formatOutputLabel(key);
 }
 
 /**
@@ -39,7 +42,7 @@ export function titleizeKey(key: string): string {
 export function formatInputValue(field: FieldDef, value: any): string {
   if (value === undefined || value === null || value === "") return "—";
   if (field.type === "select" && field.options) {
-    const opt = field.options.find(o => String(o.value) === String(value));
+    const opt = field.options.find((o: { label: string; value: string }) => String(o.value) === String(value));
     if (opt) return opt.label;
   }
   if (typeof value === "boolean") {
@@ -53,6 +56,7 @@ export function formatInputValue(field: FieldDef, value: any): string {
  */
 export function generateResultSummaryText(options: FormatResultOptions): string {
   const {
+    calculatorId,
     calculatorName,
     calculatorSlug,
     rulesSensitive,
@@ -60,6 +64,8 @@ export function generateResultSummaryText(options: FormatResultOptions): string 
     fields,
     outputs,
     primaryResult,
+    warnings,
+    assumptions,
     formatOutput
   } = options;
 
@@ -93,8 +99,8 @@ export function generateResultSummaryText(options: FormatResultOptions): string 
   lines.push("Results");
 
   // If primary periodic results exist, format them first
-  const primaryKeys = new Set(primaryResult?.rows.map(r => r.key) ?? []);
-  if (primaryResult && primaryResult.rows.some(r => outputs[r.key] !== undefined)) {
+  const primaryKeys = new Set(primaryResult?.rows.map((r: { label: string; key: string }) => r.key) ?? []);
+  if (primaryResult && primaryResult.rows.some((r: { label: string; key: string }) => outputs[r.key] !== undefined)) {
     for (const row of primaryResult.rows) {
       if (outputs[row.key] !== undefined) {
         lines.push(`${row.label}: ${formatOutput(row.key, outputs[row.key])}`);
@@ -102,19 +108,40 @@ export function generateResultSummaryText(options: FormatResultOptions): string 
     }
   }
 
-  // Detail entries (excluding primary keys and notes)
+  // Suppress duplicate aliases if defined for this calculator
+  const suppressedKeys = new Set(calculatorId ? (PROVEN_DUPLICATE_SUPPRESSIONS[calculatorId] ?? []) : []);
+
+  // Detail entries (excluding primary keys, notes, and suppressed duplicates)
   const detailEntries = Object.entries(outputs).filter(
-    ([k]) => !primaryKeys.has(k) && !NOTE_OUTPUT_KEYS.includes(k)
+    ([k]) => !primaryKeys.has(k) && !NOTE_OUTPUT_KEYS.includes(k) && !suppressedKeys.has(k)
   );
 
   for (const [k, v] of detailEntries) {
-    lines.push(`${titleizeKey(k)}: ${formatOutput(k, v)}`);
+    lines.push(`${formatOutputLabel(k)}: ${formatOutput(k, v)}`);
   }
 
   // Add notes if any exist
-  const noteEntries = NOTE_OUTPUT_KEYS.filter(k => typeof outputs[k] === "string" && outputs[k].trim().length > 0);
+  const noteEntries = NOTE_OUTPUT_KEYS.filter((k: string) => typeof outputs[k] === "string" && outputs[k].trim().length > 0);
   for (const k of noteEntries) {
     lines.push(`Note: ${outputs[k]}`);
+  }
+
+  // Add Warnings if any exist
+  if (warnings && warnings.length > 0) {
+    lines.push("");
+    lines.push("Important Warnings:");
+    for (const w of warnings) {
+      lines.push(`- ${w}`);
+    }
+  }
+
+  // Add Assumptions if any exist
+  if (assumptions && assumptions.length > 0) {
+    lines.push("");
+    lines.push("Assumptions:");
+    for (const a of assumptions) {
+      lines.push(`- ${a}`);
+    }
   }
 
   lines.push("");
