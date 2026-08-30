@@ -31,7 +31,7 @@ export function AppShell({
       <Header />
       <div className="container mx-auto flex-1 items-start md:grid md:grid-cols-[260px_minmax(0,1fr)]">
         <Sidebar categories={categories} />
-        <main className="flex w-full flex-col overflow-hidden px-4 py-8 md:px-8 lg:px-10">
+        <main className="flex w-full flex-col overflow-hidden px-4 py-4 md:py-8 md:px-8 lg:px-10">
           {children}
         </main>
       </div>

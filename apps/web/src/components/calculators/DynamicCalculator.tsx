@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState, useCallback, useEffect } from "react";
+import { useMemo, useState, useCallback, useEffect, useRef } from "react";
 import { calculate } from "../../../../../dist/packages/calculation-engine/src/engine.js";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/Card";
 import { Input } from "@/components/ui/Input";
@@ -47,6 +47,8 @@ export function DynamicCalculator({
   });
   const [result, setResult] = useState<any>(null);
   const [error, setError] = useState<string | null>(null);
+  const [isDirty, setIsDirty] = useState(false);
+  const resultsRef = useRef<HTMLDivElement>(null);
 
   const visibleFields = useMemo(
     () => fields.filter(f => isVisible(f, inputs)),
@@ -59,7 +61,10 @@ export function DynamicCalculator({
    * user picked deliberately is left alone.
    */
   const updateField = (name: string, value: string) => {
+    if (inputs[name] === value) return;
     const next: Inputs = { ...inputs, [name]: value };
+    setResult(null);
+    setError(null);
     for (const f of fields) {
       const rule = f.defaultByField;
       if (!rule || rule.field !== name) continue;
@@ -69,6 +74,7 @@ export function DynamicCalculator({
       if (mapped !== undefined) next[f.name] = mapped;
     }
     setInputs(next);
+    setIsDirty(true);
   };
 
   // All presentation decisions live in the central registry.
@@ -91,6 +97,7 @@ export function DynamicCalculator({
 
   const handleCalculate = async (e: React.FormEvent) => {
     e.preventDefault();
+    setIsDirty(false);
     try {
       setError(null);
       const transformed: Record<string, any> = {};
@@ -149,6 +156,17 @@ export function DynamicCalculator({
           has_assumptions: Boolean(res.assumptions && res.assumptions.length > 0),
           has_warnings: Boolean(res.warnings && res.warnings.length > 0),
         });
+
+        // P0 Post-Calculate Mobile Feedback: bring results into viewport securely without stealing focus.
+        setTimeout(() => {
+          if (resultsRef.current) {
+            const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+            resultsRef.current.scrollIntoView({
+              behavior: prefersReduced ? "auto" : "smooth",
+              block: "start"
+            });
+          }
+        }, 100);
       }
     } catch (err: any) {
       setResult(null);
@@ -268,7 +286,7 @@ export function DynamicCalculator({
               Calculate
             </button>
           </form>
-          {error && (
+          {error && !isDirty && (
             <div role="alert" className="mt-4 p-3 bg-red-50 text-red-700 rounded-lg text-sm border border-red-200">
               {error}
             </div>
@@ -283,8 +301,8 @@ export function DynamicCalculator({
         <CardContent>
           {/* Results replace each other in place, so announce them politely
               rather than leaving screen-reader users to discover the change. */}
-          <div aria-live="polite" aria-atomic="false">
-          {!result ? (
+          <div aria-live="polite" aria-atomic="false" id="results-container" ref={resultsRef}>
+          {!result || isDirty ? (
             <p className="text-slate-600 italic">Enter values and calculate to see results.</p>
           ) : (
             <div className="flex flex-col gap-4">

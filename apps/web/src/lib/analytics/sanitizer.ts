@@ -1,4 +1,10 @@
-import { AnalyticsEventName, EventPayloadMap } from "./types";
+// Two build systems consume this file and they disagree about extensions: the
+// root `tsc` build is NodeNext and requires an explicit ".js", while the Next
+// bundler resolves extensionless specifiers only. A TYPE-ONLY import satisfies
+// both, because it is erased before either resolver sees it - which is what
+// lets tests/growth-phase6.test.ts assert against this module directly instead
+// of against a copied mirror of its logic.
+import type { AnalyticsEventName, EventPayloadMap } from "./types.js";
 
 /**
  * Strict blocklist of forbidden keys and patterns.
@@ -161,8 +167,11 @@ export function sanitizePayload<E extends AnalyticsEventName>(
       continue;
     }
 
+    // Explicitly exempt structural routing/schema keys from broad sensitive-data regex blocks
+    const structuralKeys = new Set(["page_type", "page_slug", "calculator_slug", "calculator_category", "category"]);
+    
     // 2. Must not match any forbidden pattern (extra defence in depth)
-    if (isFieldForbidden(key)) {
+    if (!structuralKeys.has(key) && isFieldForbidden(key)) {
       continue;
     }
 
