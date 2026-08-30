@@ -5,6 +5,8 @@ import { allGuides } from "../packages/calculator-content/src/index.js";
 import {
   PRIORITY_SEO_METADATA,
   getCalculatorSEOMetadata,
+} from "../apps/web/src/lib/calculator-seo-metadata.js";
+import {
   validateCuratedRelationships,
 } from "./admin-data-helper.js";
 
@@ -37,6 +39,48 @@ test("SEO Content Quality, Search Intent & Organic Ranking Suite", async (t: any
     const stdMeta = getCalculatorSEOMetadata(standardCalc);
     assert.ok(stdMeta.title.includes(standardCalc.name));
     assert.ok(stdMeta.description.length > 30);
+  });
+
+  await t.test("Full Platform Metadata Uniqueness: all 253 calculators resolve unique titles, descriptions, and canonical paths via production code", () => {
+    const titles = new Set<string>();
+    const descriptions = new Set<string>();
+    const canonicals = new Set<string>();
+
+    assert.strictEqual(calculatorRegistry.length, 253, "Must test all 253 calculators");
+
+    for (const calc of calculatorRegistry) {
+      const meta = getCalculatorSEOMetadata(calc);
+      const canonicalPath = `/calculators/${calc.slug}`;
+
+      // Title validations
+      assert.ok(meta.title && meta.title.length >= 10, `Title missing or too short for ${calc.id}`);
+      assert.ok(meta.title.includes("UK Calculator Platform"), `Title for ${calc.id} must include site branding`);
+      assert.strictEqual(titles.has(meta.title), false, `Duplicate title detected for ${calc.id}: ${meta.title}`);
+      titles.add(meta.title);
+
+      // Description validations
+      assert.ok(meta.description && meta.description.length >= 40, `Description missing or too short for ${calc.id}`);
+      assert.strictEqual(descriptions.has(meta.description), false, `Duplicate description detected for ${calc.id}: ${meta.description}`);
+      descriptions.add(meta.description);
+
+      // Canonical validations
+      assert.ok(calc.slug && calc.slug.length > 2, `Slug missing for ${calc.id}`);
+      assert.strictEqual(canonicals.has(canonicalPath), false, `Duplicate canonical path for ${calc.id}: ${canonicalPath}`);
+      canonicals.add(canonicalPath);
+
+      // Priority vs fallback behavior verification
+      if (PRIORITY_SEO_METADATA[calc.id]) {
+        assert.ok(meta.primaryKeyword, `Priority calculator ${calc.id} must return primary keyword`);
+        assert.ok(meta.secondaryKeywords && meta.secondaryKeywords.length >= 2, `Priority calculator ${calc.id} must return secondary keywords`);
+        assert.ok(meta.searchIntent, `Priority calculator ${calc.id} must return search intent`);
+      } else if (calc.rulesSensitive) {
+        assert.ok(meta.description.includes("2026/27"), `Rules-sensitive fallback for ${calc.id} must cite 2026/27 tax year`);
+      }
+    }
+
+    assert.strictEqual(titles.size, 253, "All 253 calculators must have unique titles");
+    assert.strictEqual(descriptions.size, 253, "All 253 calculators must have unique meta descriptions");
+    assert.strictEqual(canonicals.size, 253, "All 253 calculators must have unique canonical paths");
   });
 
   await t.test("Content Depth & Guides: all 40 authored guides contain comprehensive E-E-A-T and methodology sections", () => {

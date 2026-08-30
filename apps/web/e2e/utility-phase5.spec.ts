@@ -93,6 +93,35 @@ test.describe("Phase 5 Utility: Search Aliases & Browser Navigation", () => {
     await expect(page.getByRole("heading", { name: "FIRE Calculator" })).toBeVisible();
   });
 
+  test("resolves corrected Phase 4 semantic search aliases directly to the intended calculators", async ({ page }) => {
+    await page.goto("/");
+    const searchInput = page.getByLabel("Search calculators");
+
+    // 1. student loan -> Student Loan Repayment Calculator
+    await searchInput.fill("student loan");
+    await expect(page.getByRole("heading", { name: "Student Loan Repayment Calculator", exact: true })).toBeVisible();
+
+    // 2. cagr -> CAGR Calculator
+    await searchInput.fill("cagr");
+    await expect(page.getByRole("heading", { name: "CAGR Calculator", exact: true })).toBeVisible();
+
+    // 3. irr -> IRR Calculator
+    await searchInput.fill("irr");
+    await expect(page.getByRole("heading", { name: "IRR Calculator", exact: true })).toBeVisible();
+
+    // 4. pregnancy due date -> Pregnancy Due Date Calculator
+    await searchInput.fill("pregnancy due date");
+    await expect(page.getByRole("heading", { name: "Pregnancy Due Date Calculator", exact: true })).toBeVisible();
+
+    // 5. lifetime isa -> Lifetime ISA Calculator
+    await searchInput.fill("lifetime isa");
+    await expect(page.getByRole("heading", { name: "Lifetime ISA Calculator", exact: true })).toBeVisible();
+
+    // 6. fuel cost -> Fuel Cost Calculator
+    await searchInput.fill("fuel cost");
+    await expect(page.getByRole("heading", { name: "Fuel Cost Calculator", exact: true })).toBeVisible();
+  });
+
   test("supports Favourites and Recently Used filter tabs in CalculatorBrowser", async ({ page }) => {
     // Seed favourites and recents in localStorage
     await page.goto("/");

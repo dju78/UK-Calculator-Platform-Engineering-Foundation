@@ -1,4 +1,5 @@
-import { calculatorDescription, SITE_NAME } from "./site";
+export const SITE_NAME = "UK Calculator Platform";
+export const TAX_YEAR = "2026/27";
 
 export interface PrioritySEOMetadata {
   title: string;
@@ -6,6 +7,19 @@ export interface PrioritySEOMetadata {
   primaryKeyword: string;
   secondaryKeywords: string[];
   searchIntent: string;
+}
+
+export function generateCalculatorDescription(calc: {
+  name: string;
+  category: string;
+  subcategory?: string;
+  rulesSensitive?: boolean;
+}): string {
+  const topic = calc.subcategory ? `${calc.subcategory.toLowerCase()} ` : "";
+  const base = `Free ${calc.name.replace(/ Calculator$/i, "")} calculator for the UK. Work out ${topic}figures in the ${calc.category.toLowerCase()} category`;
+  return calc.rulesSensitive
+    ? `${base}, using ${TAX_YEAR} UK rules. Estimates only - not financial or tax advice.`
+    : `${base}. Estimates only - not financial or tax advice.`;
 }
 
 /**
@@ -151,6 +165,31 @@ export function getCalculatorSEOMetadata(calc: {
 
   return {
     title: `${calc.name} | ${SITE_NAME}`,
-    description: calculatorDescription(calc),
+    description: generateCalculatorDescription(calc),
   };
 }
+
+/**
+ * Editorial Curated Related Calculators Mapping.
+ * High-value canonical internal linking edges for core UK finance and utility journeys.
+ */
+export const CURATED_RELATED: Record<string, string[]> = {
+  "TAX-001": ["TAX-002", "TAX-003", "TAX-004", "TAX-005", "ISA-007"],
+  "TAX-002": ["TAX-001", "TAX-003", "TAX-004", "PEN-003"],
+  "TAX-003": ["TAX-001", "TAX-002", "TAX-004", "TAX-020"],
+  "TAX-004": ["TAX-001", "BUS-001", "BUS-003", "TAX-005"],
+  "PRO-001": ["PRO-002", "PRO-003", "PRO-004", "PRO-008", "PRO-023"],
+  "PRO-008": ["PRO-001", "PRO-002", "PRO-004", "FIN-001"],
+  "PRO-023": ["PRO-001", "PRO-026", "PRO-027", "PRO-028"],
+  "PRO-028": ["PRO-023", "TAX-013", "PRO-001", "TAX-001"],
+  "PEN-001": ["PEN-002", "PEN-003", "PEN-007", "ISA-007"],
+  "PEN-011": ["INV-025", "INV-026", "INV-029", "PEN-001"],
+  "ISA-001": ["ISA-002", "ISA-007", "INV-001", "INV-002"],
+  "INV-001": ["INV-002", "ISA-001", "PEN-001", "INV-025"],
+  "INV-029": ["INV-025", "INV-026", "PEN-011", "INV-002"],
+  "FIN-001": ["FIN-002", "FIN-003", "PRO-001", "AUT-001"],
+  "AUT-001": ["AUT-002", "AUT-003", "CON-001", "FIN-001"],
+  "HLT-001": ["HLT-002", "HLT-003", "HLT-004", "CON-001"],
+  "HLT-020": ["HLT-019", "HLT-022", "HLT-023", "DAT-001"],
+};
+

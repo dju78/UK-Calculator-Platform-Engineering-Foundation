@@ -20,12 +20,16 @@
     "packages/**/*.ts",
     "tests/**/*.ts",
     "scripts/**/*.ts",
+    "apps/web/src/lib/calculator-seo-metadata.ts",
+    "apps/web/src/lib/searchAliases.ts",
     "types/**/*.d.ts"
   ],
   "exclude": [
     "dist",
     "node_modules",
-    "apps/web",
+    "apps/web/src/app",
+    "apps/web/src/components",
+    "apps/web/e2e",
     "apps/admin"
   ]
 }
