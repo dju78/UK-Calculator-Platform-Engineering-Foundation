@@ -1,4 +1,4 @@
-import { describe, it } from "node:test";
+﻿import { describe, it } from "node:test";
 import assert from "node:assert/strict";
 import fs from "node:fs";
 import path from "node:path";
@@ -6,149 +6,7 @@ import { fileURLToPath } from "node:url";
 
 const rootDir = process.cwd();
 
-// --- Pure Implementation logic for Phase 6 (mirroring apps/web/src/lib/analytics & embed) ---
-
-const FORBIDDEN_KEYS_PATTERNS = [
-  /salary/i,
-  /income/i,
-  /earnings/i,
-  /wage/i,
-  /tax/i,
-  /ni_rate/i,
-  /national_insurance/i,
-  /student_loan/i,
-  /pension/i,
-  /mortgage/i,
-  /loan/i,
-  /borrowing/i,
-  /debt/i,
-  /deposit/i,
-  /property_price/i,
-  /house_price/i,
-  /savings/i,
-  /interest/i,
-  /investment/i,
-  /portfolio/i,
-  /cagr/i,
-  /roi/i,
-  /irr/i,
-  /net_worth/i,
-  /cash_flow/i,
-  /balance/i,
-  /bmi/i,
-  /weight/i,
-  /height/i,
-  /blood/i,
-  /pressure/i,
-  /conception/i,
-  /ovulation/i,
-  /pregnancy/i,
-  /due_date/i,
-  /edd/i,
-  /age/i,
-  /dob/i,
-  /birth/i,
-  /name/i,
-  /email/i,
-  /phone/i,
-  /address/i,
-  /postcode/i,
-  /reg/i,
-  /vrm/i,
-  /vin/i,
-  /password/i,
-  /token/i,
-  /secret/i,
-  /inputs/i,
-  /outputs/i,
-  /results/i,
-  /raw_query/i,
-  /query_string/i,
-  /search_term/i,
-  /stack/i,
-];
-
-const ALLOWED_EVENTS = new Set([
-  "page_view",
-  "calculator_view",
-  "calculation_completed",
-  "calculator_favourited",
-  "calculator_unfavourited",
-  "calculator_print",
-  "calculator_copy_result",
-  "calculator_share_link",
-  "calculator_search",
-  "calculator_search_no_results",
-  "category_view",
-  "related_calculator_opened",
-  "governance_page_view",
-  "embed_loaded",
-  "for_organisations_view",
-  "commercial_disclosure_view",
-]);
-
-const ALLOWED_EVENT_FIELDS: Record<string, Set<string>> = {
-  page_view: new Set(["path", "title", "page_type"]),
-  calculator_view: new Set(["calculator_slug", "calculator_category"]),
-  calculation_completed: new Set(["calculator_slug", "calculator_category", "has_assumptions", "has_warnings"]),
-  calculator_favourited: new Set(["calculator_slug", "calculator_category"]),
-  calculator_unfavourited: new Set(["calculator_slug", "calculator_category"]),
-  calculator_print: new Set(["calculator_slug", "calculator_category"]),
-  calculator_copy_result: new Set(["calculator_slug", "calculator_category"]),
-  calculator_share_link: new Set(["calculator_slug", "calculator_category"]),
-  calculator_search: new Set(["result_count", "category_filter", "alias_matched_id"]),
-  calculator_search_no_results: new Set(["query_length", "category_filter"]),
-  category_view: new Set(["category", "calculator_count"]),
-  related_calculator_opened: new Set(["source_slug", "target_slug"]),
-  governance_page_view: new Set(["page_slug"]),
-  embed_loaded: new Set(["calculator_slug"]),
-  for_organisations_view: new Set([]),
-  commercial_disclosure_view: new Set([]),
-};
-
-function isFieldForbidden(key: string): boolean {
-  return FORBIDDEN_KEYS_PATTERNS.some((pattern) => pattern.test(key));
-}
-
-function isEventAllowed(event: string): boolean {
-  return ALLOWED_EVENTS.has(event);
-}
-
-function sanitizePath(rawPath: string): string {
-  if (!rawPath || typeof rawPath !== "string") return "/";
-  const clean = rawPath.split("?")[0].split("#")[0].trim();
-  return clean || "/";
-}
-
-function sanitizePayload(
-  event: string,
-  payload?: Record<string, unknown>
-): Record<string, unknown> {
-  if (!isEventAllowed(event)) return {};
-  const allowedKeys = ALLOWED_EVENT_FIELDS[event];
-  if (!payload || typeof payload !== "object") return {};
-
-  const clean: Record<string, unknown> = {};
-
-  for (const [key, value] of Object.entries(payload)) {
-    if (!allowedKeys.has(key)) continue;
-    if (isFieldForbidden(key)) continue;
-
-    if (typeof value === "string") {
-      if (key === "path") {
-        clean[key] = sanitizePath(value);
-      } else {
-        clean[key] = value.split("?")[0].slice(0, 100).trim();
-      }
-    } else if (typeof value === "number") {
-      if (Number.isFinite(value)) clean[key] = value;
-    } else if (typeof value === "boolean") {
-      clean[key] = value;
-    }
-  }
-
-  return clean;
-}
+import { FORBIDDEN_KEYS_PATTERNS, ALLOWED_EVENTS, ALLOWED_EVENT_FIELDS, isFieldForbidden, isEventAllowed, sanitizePath, sanitizePayload } from "../apps/web/src/lib/analytics/sanitizer.js";
 
 const ANALYTICS_CONSENT_KEY = "ukcalc_analytics_consent";
 
@@ -302,6 +160,33 @@ describe("Professionalisation Phase 6: Privacy-Safe Analytics & Sanitizer", () =
     assert.strictEqual("outputs" in clean, false);
     assert.strictEqual("custom_sneaky_field" in clean, false);
   });
+
+    it("3b. Structural fields with 'age' in their name survive sanitization while user age is blocked", () => {
+      // Simulate page view where page_type and page_slug contain "age" 
+      const dirtyPayload = {
+        path: "/calculators/age-calculator",
+        title: "Age Calculator",
+        page_type: "mortgage_calculator",
+        page_slug: "age-calculator",
+        age: 35, // user input age
+        user_age: 35,
+        salary: 50000,
+        email: "test@example.com"
+      };
+
+      const clean1 = sanitizePayload("page_view", dirtyPayload);
+      assert.strictEqual(clean1.page_type, "mortgage_calculator");
+      assert.strictEqual("age" in clean1, false);
+
+      const clean2 = sanitizePayload("governance_page_view", dirtyPayload);
+      assert.strictEqual(clean2.page_slug, "age-calculator");
+      assert.strictEqual("age" in clean2, false);
+      
+      // Prohibited sensitive keys must NOT be present
+      assert.strictEqual("user_age" in clean1, false);
+      assert.strictEqual("salary" in clean1, false);
+      assert.strictEqual("email" in clean1, false);
+    });
 
   it("4. Path sanitizer strips query parameters and URL hashes", () => {
     assert.strictEqual(

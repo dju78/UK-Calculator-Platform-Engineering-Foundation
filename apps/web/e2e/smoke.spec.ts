@@ -14,7 +14,7 @@ test.describe('Homepage', () => {
     await expect(page.getByPlaceholder('Search calculators...')).toBeVisible();
     
     // Verify calculator cards render
-    const cards = page.locator('.grid > a');
+    const cards = page.locator('.grid a');
     await expect(cards.first()).toBeVisible();
 
     const accessibilityScanResults = await new AxeBuilder({ page }).analyze();

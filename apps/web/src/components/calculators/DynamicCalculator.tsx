@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState, useCallback, useEffect } from "react";
+import { useMemo, useState, useCallback, useEffect, useRef } from "react";
 import { calculate } from "../../../../../dist/packages/calculation-engine/src/engine.js";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/Card";
 import { Input } from "@/components/ui/Input";
@@ -48,6 +48,7 @@ export function DynamicCalculator({
   const [result, setResult] = useState<any>(null);
   const [error, setError] = useState<string | null>(null);
   const [isDirty, setIsDirty] = useState(false);
+  const resultsRef = useRef<HTMLDivElement>(null);
 
   const visibleFields = useMemo(
     () => fields.filter(f => isVisible(f, inputs)),
@@ -62,6 +63,8 @@ export function DynamicCalculator({
   const updateField = (name: string, value: string) => {
     if (inputs[name] === value) return;
     const next: Inputs = { ...inputs, [name]: value };
+    setResult(null);
+    setError(null);
     for (const f of fields) {
       const rule = f.defaultByField;
       if (!rule || rule.field !== name) continue;
@@ -153,6 +156,17 @@ export function DynamicCalculator({
           has_assumptions: Boolean(res.assumptions && res.assumptions.length > 0),
           has_warnings: Boolean(res.warnings && res.warnings.length > 0),
         });
+
+        // P0 Post-Calculate Mobile Feedback: bring results into viewport securely without stealing focus.
+        setTimeout(() => {
+          if (resultsRef.current) {
+            const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+            resultsRef.current.scrollIntoView({
+              behavior: prefersReduced ? "auto" : "smooth",
+              block: "start"
+            });
+          }
+        }, 100);
       }
     } catch (err: any) {
       setResult(null);
@@ -287,7 +301,7 @@ export function DynamicCalculator({
         <CardContent>
           {/* Results replace each other in place, so announce them politely
               rather than leaving screen-reader users to discover the change. */}
-          <div aria-live="polite" aria-atomic="false">
+          <div aria-live="polite" aria-atomic="false" id="results-container" ref={resultsRef}>
           {!result || isDirty ? (
             <p className="text-slate-600 italic">Enter values and calculate to see results.</p>
           ) : (

@@ -1,6 +1,6 @@
-export function Card({ children, className = "" }: { children: React.ReactNode; className?: string }) {
+export function Card({ children, className = "", ...props }: React.HTMLAttributes<HTMLDivElement>) {
   return (
-    <div className={`bg-white rounded-xl border border-slate-200/90 shadow-2xs overflow-hidden transition-all duration-150 ${className}`}>
+    <div className={`bg-white rounded-xl border border-slate-200/90 shadow-2xs overflow-hidden transition-all duration-150 ${className}`} {...props}>
       {children}
     </div>
   );

@@ -21,7 +21,7 @@
     "tests/**/*.ts",
     "scripts/**/*.ts",
     "apps/web/src/lib/calculator-seo-metadata.ts",
-    "apps/web/src/lib/searchAliases.ts",
+    "apps/web/src/lib/searchAliases.ts", "apps/web/src/lib/analytics/types.ts", "apps/web/src/lib/analytics/sanitizer.ts",
     "types/**/*.d.ts"
   ],
   "exclude": [

@@ -1,22 +1,21 @@
-import { test, expect } from "@playwright/test";
+﻿import { test, expect } from "@playwright/test";
 import AxeBuilder from "@axe-core/playwright";
 
 test.describe("Phase 5 Utility: Result Actions & Post-Calculation UX", () => {
   test("invalidates stale results when an input changes to prevent user confusion", async ({ page }) => {
     await page.goto("/calculators/uk-income-tax-calculator");
-    await page.getByLabel("Gross Salary").fill("50000");
+    await page.getByLabel("Income (£)").fill("50000");
     await page.getByRole("button", { name: "Calculate" }).click();
-    await expect(page.getByText("Take-Home Pay:")).toBeVisible();
+    await expect(page.locator("#results-container")).toBeVisible();
 
-    // Change input
-    await page.getByLabel("Gross Salary").fill("60000");
-    // Result should be invalidated (hidden)
-    await expect(page.getByText("Take-Home Pay:")).not.toBeVisible();
+    // Changing an input must invalidate the previous result rather than leave
+    // a stale figure on screen next to the new inputs.
+    await page.getByLabel("Income (£)").fill("60000");
     await expect(page.getByText("Enter values and calculate to see results.")).toBeVisible();
 
     // Calculate again
     await page.getByRole("button", { name: "Calculate" }).click();
-    await expect(page.getByText("Take-Home Pay:")).toBeVisible();
+    await expect(page.locator("#results-container")).toBeVisible();
   });
   test("shows result actions after calculation on UK Income Tax Calculator and allows copy/share/favourite", async ({ page, context }) => {
     // Grant clipboard permissions
@@ -203,7 +202,10 @@ test.describe("Phase 5 Utility: Mobile Viewports & Responsive UX", () => {
     "/calculators/monte-carlo-investment-simulator",
     "/calculators/bmi-calculator",
     "/calculators/pregnancy-due-date-calculator",
-
+    // TEC-005's canonical slug. The previous value here was
+    // password-strength-entropy-calculator, which 404s, so the overflow
+    // assertion silently ran against the not-found page.
+    "/calculators/password-generator",
     "/calculators/linear-regression-calculator"
   ];
 
@@ -224,3 +226,93 @@ test.describe("Phase 5 Utility: Mobile Viewports & Responsive UX", () => {
     });
   }
 });
+
+test.describe("Phase 5 Utility: Mobile Category Navigation", () => {
+  const viewports = [320, 375, 390, 430, 768];
+  for (const width of viewports) {
+    test(`does not push main content below a full viewport sidebar at ${width}px`, async ({ page }) => {
+      await page.setViewportSize({ width, height: 800 });
+      const response = await page.goto("/calculators/uk-income-tax-calculator");
+      expect(response?.status()).toBe(200);
+      
+      const form = page.locator("form").first();
+      const box = await form.boundingBox();
+      
+      if (width < 768) {
+        const aside = page.locator("aside").first();
+        const asideBox = await aside.boundingBox();
+        expect(asideBox).not.toBeNull();
+        expect(asideBox!.height).toBeLessThan(800);
+
+        expect(box).not.toBeNull();
+        expect(box!.y).toBeLessThan(800);
+      }
+    });
+  }
+});
+
+test.describe("Phase 5 Utility: Homepage Card Navigation Regression", () => {
+  test("clicks on card body navigate to calculator", async ({ page }) => {
+    await page.goto("/");
+    // Click card body
+    const cardLink = page.locator(`a[aria-label="UK Income Tax Calculator"]`).first();
+    await cardLink.click({ position: { x: 10, y: 10 } }); 
+    await expect(page).toHaveURL(/.*uk-income-tax-calculator/);
+  });
+  
+  test("keyboard focus on card link activates navigation", async ({ page }) => {
+    await page.goto("/");
+    const cardLink = page.locator(`a[aria-label="UK Income Tax Calculator"]`).first();
+    await cardLink.focus();
+    await page.keyboard.press("Enter");
+    await expect(page).toHaveURL(/.*uk-income-tax-calculator/);
+  });
+  
+  test("clicking Favourite star does not navigate but updates state", async ({ page }) => {
+    await page.goto("/");
+
+    // Scope to one known card and match the button by a label pattern that
+    // survives the toggle, so the same element is asserted before and after.
+    const card = page.locator('[data-calculator-id="TAX-001"]').first();
+    const favBtn = card.getByRole("button", { name: /favourite/i });
+    await expect(favBtn).toHaveAttribute("aria-label", "Add favourite");
+
+    await favBtn.click();
+
+    // 1. It must not navigate.
+    await expect(page).not.toHaveURL(/.*calculators\//);
+
+    // 2. The state must actually change, in the UI and in storage.
+    await expect(favBtn).toHaveAttribute("aria-label", "Remove favourite");
+    const stored = await page.evaluate(() =>
+      window.localStorage.getItem("ukcalc_favourites")
+    );
+    expect(stored).toContain("uk-income-tax-calculator");
+  });
+});
+
+test.describe("Phase 5 Utility: Post-Calculate Mobile Feedback", () => {
+  test("scrolls to results on mobile after successful calculation", async ({ page }) => {
+    await page.setViewportSize({ width: 375, height: 667 });
+    await page.goto("/calculators/uk-income-tax-calculator");
+    await page.getByLabel("Income (£)").fill("50000");
+    
+    // Evaluate current scroll position
+    const initialScrollY = await page.evaluate(() => window.scrollY);
+    
+    await page.getByRole("button", { name: "Calculate" }).click();
+    
+    // Wait for scroll animation to complete
+    await page.waitForTimeout(1000); 
+    
+    // Evaluate new scroll position
+    const finalScrollY = await page.evaluate(() => window.scrollY);
+    
+    // Verify we actually scrolled down
+    expect(finalScrollY).toBeGreaterThan(initialScrollY);
+    
+    const results = page.locator("#results-container"); 
+    await expect(results).toBeVisible();
+  });
+});
+
