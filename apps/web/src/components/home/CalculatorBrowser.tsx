@@ -252,17 +252,18 @@ export function CalculatorBrowser() {
             {featuredCalculators.map((calc) => {
               const favourited = favouriteSlugs.includes(calc.slug.toLowerCase());
               return (
-                <Link key={calc.id} href={`/calculators/${calc.slug}`} className="group relative block focus:outline-none focus-visible:ring-2 focus-visible:ring-slate-900 rounded-xl">
-                  <Card className="h-full border-slate-200/90 group-hover:border-slate-300 group-hover:shadow-sm transition-all duration-150 cursor-pointer flex flex-col bg-white" data-calculator-id={calc.id}>
-                    <CardHeader className="px-6 py-4.5 pb-2 flex flex-row items-start justify-between gap-2">
-                      <CardTitle className="text-base font-semibold text-slate-900 group-hover:text-slate-950 transition-colors">
+                <div key={calc.id} className="group relative block rounded-xl focus-within:ring-2 focus-within:ring-slate-900">
+                  <Link href={`/calculators/${calc.slug}`} className="absolute inset-0 z-0 focus:outline-none rounded-xl" aria-label={calc.name} />
+                  <Card className="h-full border-slate-200/90 group-hover:border-slate-300 group-hover:shadow-sm transition-all duration-150 flex flex-col bg-white" data-calculator-id={calc.id}>
+                    <CardHeader className="px-6 py-4.5 pb-2 flex flex-row items-start justify-between gap-2 pointer-events-none">
+                      <CardTitle className="text-base font-semibold text-slate-900 group-hover:text-slate-950 transition-colors z-10 relative pointer-events-auto">
                         {calc.name}
                       </CardTitle>
                       <button
                         type="button"
                         onClick={(e) => handleCardFavouriteToggle(e, calc.slug)}
                         aria-label={favourited ? "Remove favourite" : "Add favourite"}
-                        className="p-1 text-slate-400 hover:text-amber-500 focus:outline-none focus-visible:ring-2 focus-visible:ring-slate-900 rounded cursor-pointer"
+                        className="p-1 text-slate-400 hover:text-amber-500 focus:outline-none focus-visible:ring-2 focus-visible:ring-slate-900 rounded cursor-pointer z-10 relative pointer-events-auto"
                       >
                         <svg
                           className={`w-4 h-4 ${favourited ? "text-amber-500 fill-amber-400" : "fill-none"}`}
@@ -291,7 +292,7 @@ export function CalculatorBrowser() {
                       </div>
                     </CardContent>
                   </Card>
-                </Link>
+                </div>
               );
             })}
           </div>
@@ -319,17 +320,17 @@ export function CalculatorBrowser() {
           {filtered.map(calc => {
             const favourited = favouriteSlugs.includes(calc.slug.toLowerCase());
             return (
-              <Link key={calc.id} href={`/calculators/${calc.slug}`} className="group relative block focus:outline-none focus-visible:ring-2 focus-visible:ring-slate-900 rounded-xl">
-                <Card className="h-full border-slate-200/90 group-hover:border-slate-300 group-hover:shadow-sm transition-all duration-150 cursor-pointer flex flex-col bg-white" data-calculator-id={calc.id}>
-                  <CardHeader className="px-6 py-4.5 pb-2 flex flex-row items-start justify-between gap-2">
-                    <CardTitle className="text-base font-semibold text-slate-900 group-hover:text-slate-950 transition-colors">
+              <div key={calc.id} className="group relative block rounded-xl focus-within:ring-2 focus-within:ring-slate-900"><Link href={`/calculators/${calc.slug}`} className="absolute inset-0 z-0 focus:outline-none rounded-xl" aria-label={calc.name} />
+                <Card className="h-full border-slate-200/90 group-hover:border-slate-300 group-hover:shadow-sm transition-all duration-150 flex flex-col bg-white" data-calculator-id={calc.id}>
+                  <CardHeader className="px-6 py-4.5 pb-2 flex flex-row items-start justify-between gap-2 pointer-events-none">
+                    <CardTitle className="text-base font-semibold text-slate-900 group-hover:text-slate-950 transition-colors z-10 relative pointer-events-auto">
                       {calc.name}
                     </CardTitle>
                     <button
                       type="button"
                       onClick={(e) => handleCardFavouriteToggle(e, calc.slug)}
                       aria-label={favourited ? "Remove favourite" : "Add favourite"}
-                      className="p-1 text-slate-400 hover:text-amber-500 focus:outline-none focus-visible:ring-2 focus-visible:ring-slate-900 rounded cursor-pointer"
+                      className="p-1 text-slate-400 hover:text-amber-500 focus:outline-none focus-visible:ring-2 focus-visible:ring-slate-900 rounded cursor-pointer z-10 relative pointer-events-auto"
                     >
                       <svg
                         className={`w-4 h-4 ${favourited ? "text-amber-500 fill-amber-400" : "fill-none"}`}
@@ -358,7 +359,7 @@ export function CalculatorBrowser() {
                     </div>
                   </CardContent>
                 </Card>
-              </Link>
+              </div>
             );
           })}
 

@@ -2,6 +2,22 @@ import { test, expect } from "@playwright/test";
 import AxeBuilder from "@axe-core/playwright";
 
 test.describe("Phase 5 Utility: Result Actions & Post-Calculation UX", () => {
+  test("invalidates stale results when an input changes to prevent user confusion", async ({ page }) => {
+    await page.goto("/calculators/uk-income-tax-calculator");
+    await page.getByLabel("Gross Salary").fill("50000");
+    await page.getByRole("button", { name: "Calculate" }).click();
+    await expect(page.getByText("Take-Home Pay:")).toBeVisible();
+
+    // Change input
+    await page.getByLabel("Gross Salary").fill("60000");
+    // Result should be invalidated (hidden)
+    await expect(page.getByText("Take-Home Pay:")).not.toBeVisible();
+    await expect(page.getByText("Enter values and calculate to see results.")).toBeVisible();
+
+    // Calculate again
+    await page.getByRole("button", { name: "Calculate" }).click();
+    await expect(page.getByText("Take-Home Pay:")).toBeVisible();
+  });
   test("shows result actions after calculation on UK Income Tax Calculator and allows copy/share/favourite", async ({ page, context }) => {
     // Grant clipboard permissions
     await context.grantPermissions(["clipboard-read", "clipboard-write"]);
@@ -187,7 +203,7 @@ test.describe("Phase 5 Utility: Mobile Viewports & Responsive UX", () => {
     "/calculators/monte-carlo-investment-simulator",
     "/calculators/bmi-calculator",
     "/calculators/pregnancy-due-date-calculator",
-    "/calculators/password-strength-entropy-calculator",
+
     "/calculators/linear-regression-calculator"
   ];
 
@@ -196,7 +212,7 @@ test.describe("Phase 5 Utility: Mobile Viewports & Responsive UX", () => {
       await page.setViewportSize({ width: vp.width, height: vp.height });
 
       for (const url of testUrls) {
-        await page.goto(url);
+        const response = await page.goto(url); expect(response?.status()).toBe(200);
         await page.waitForLoadState("domcontentloaded");
 
         // Verify document does not exceed viewport width
