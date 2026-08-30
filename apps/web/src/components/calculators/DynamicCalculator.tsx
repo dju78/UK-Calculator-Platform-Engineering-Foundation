@@ -47,6 +47,7 @@ export function DynamicCalculator({
   });
   const [result, setResult] = useState<any>(null);
   const [error, setError] = useState<string | null>(null);
+  const [isDirty, setIsDirty] = useState(false);
 
   const visibleFields = useMemo(
     () => fields.filter(f => isVisible(f, inputs)),
@@ -59,6 +60,7 @@ export function DynamicCalculator({
    * user picked deliberately is left alone.
    */
   const updateField = (name: string, value: string) => {
+    if (inputs[name] === value) return;
     const next: Inputs = { ...inputs, [name]: value };
     for (const f of fields) {
       const rule = f.defaultByField;
@@ -69,6 +71,7 @@ export function DynamicCalculator({
       if (mapped !== undefined) next[f.name] = mapped;
     }
     setInputs(next);
+    setIsDirty(true);
   };
 
   // All presentation decisions live in the central registry.
@@ -91,6 +94,7 @@ export function DynamicCalculator({
 
   const handleCalculate = async (e: React.FormEvent) => {
     e.preventDefault();
+    setIsDirty(false);
     try {
       setError(null);
       const transformed: Record<string, any> = {};
@@ -268,7 +272,7 @@ export function DynamicCalculator({
               Calculate
             </button>
           </form>
-          {error && (
+          {error && !isDirty && (
             <div role="alert" className="mt-4 p-3 bg-red-50 text-red-700 rounded-lg text-sm border border-red-200">
               {error}
             </div>
@@ -284,7 +288,7 @@ export function DynamicCalculator({
           {/* Results replace each other in place, so announce them politely
               rather than leaving screen-reader users to discover the change. */}
           <div aria-live="polite" aria-atomic="false">
-          {!result ? (
+          {!result || isDirty ? (
             <p className="text-slate-600 italic">Enter values and calculate to see results.</p>
           ) : (
             <div className="flex flex-col gap-4">
