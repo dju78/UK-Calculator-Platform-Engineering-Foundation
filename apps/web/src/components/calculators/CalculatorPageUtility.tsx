@@ -40,7 +40,7 @@ export function CalculatorPageUtility({
             <p className="text-sm font-bold tracking-tight text-slate-900 uppercase">
               {SITE_NAME}
             </p>
-            <h1 className="text-2xl font-bold text-slate-900 mt-1">{name}</h1>
+            <div className="print-only-heading hidden print:block mb-6 border-b border-slate-300 pb-4"><h2 className="text-2xl font-bold text-slate-900 mt-1">{name}</h2></div>
             {rulesSensitive && (
               <p className="text-xs text-slate-700 font-medium mt-1">
                 UK Statutory Basis: 2026/27 Tax Year
