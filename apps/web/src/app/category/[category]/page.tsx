@@ -13,8 +13,20 @@ import {
   getCategoryDetails,
 } from "@/lib/site";
 
-function calculatorsIn(category: string) {
-  return liveCalculatorsInCategory(category);
+function calculatorsIn(categoryParam: string) {
+  const decoded = decodeURIComponent(categoryParam).toLowerCase();
+  const direct = liveCalculatorsInCategory(decoded);
+  if (direct.length > 0) return direct;
+
+  // Support kebab-case aliases (e.g. "mortgages-and-property" -> "Mortgages & Property")
+  return liveCalculators.filter((c) => {
+    const kebab = c.category
+      .toLowerCase()
+      .replace(/&/g, "and")
+      .replace(/[^a-z0-9]+/g, "-")
+      .replace(/(^-|-$)/g, "");
+    return kebab === decoded;
+  });
 }
 
 export async function generateMetadata(
