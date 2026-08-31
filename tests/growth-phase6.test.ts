@@ -329,21 +329,27 @@ describe("Professionalisation Phase 6: Codebase & Architecture File Audits", () 
     const footerContent = fs.readFileSync(path.join(rootDir, "apps/web/src/components/layout/Footer.tsx"), "utf8");
     assert.ok(footerContent.includes("UK Calculator Platform"));
     assert.ok(footerContent.includes("A Jomovate Digital Product"));
-    assert.ok(footerContent.includes("Operated by Jomovate"));
+    assert.ok(footerContent.includes("Developed by Daramola Digital Labs."));
+    assert.strictEqual(footerContent.includes("Operated by Jomovate"), false);
   });
 
   it("18. Root layout outputs Schema.org @graph connecting Organization (Jomovate) and WebSite", () => {
     const layoutContent = fs.readFileSync(path.join(rootDir, "apps/web/src/app/layout.tsx"), "utf8");
     assert.ok(layoutContent.includes('"@type": "Organization"') || layoutContent.includes('"Organization"'));
     assert.ok(layoutContent.includes('name: "Jomovate"'));
+    assert.ok(layoutContent.includes('url: "https://jomovate.com"'));
     assert.ok(layoutContent.includes('"@type": "WebSite"') || layoutContent.includes('"WebSite"'));
     assert.ok(layoutContent.includes('publisher:'));
   });
 
-  it("19. Calculator page does not output deprecated or restricted FAQPage JSON-LD schema", () => {
+  it("19. Calculator page links WebApplication schema to @graph entities without anonymous duplication", () => {
     const calcPageContent = fs.readFileSync(path.join(rootDir, "apps/web/src/app/calculators/[slug]/page.tsx"), "utf8");
     assert.strictEqual(calcPageContent.includes('"@type": "FAQPage"'), false);
     assert.ok(calcPageContent.includes('"@type": "WebApplication"'));
+    assert.ok(calcPageContent.includes('#webapplication'));
+    assert.ok(calcPageContent.includes('isPartOf:'));
+    assert.ok(calcPageContent.includes('provider:'));
+    assert.ok(calcPageContent.includes('brand:'));
     assert.ok(calcPageContent.includes('"@type": "BreadcrumbList"'));
   });
 

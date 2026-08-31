@@ -47,7 +47,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                   "@type": "Organization",
                   "@id": `${SITE_URL}/#organization`,
                   name: "Jomovate",
-                  url: SITE_URL,
+                  url: "https://jomovate.com",
                   logo: {
                     "@type": "ImageObject",
                     url: `${SITE_URL}/apple-icon`,

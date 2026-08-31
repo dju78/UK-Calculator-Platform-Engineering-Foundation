@@ -41,7 +41,10 @@ export function Footer() {
               <p className="text-xs font-medium text-slate-500">A Jomovate Digital Product</p>
             </div>
             <p className="text-xs text-slate-500">
-              &copy; {new Date().getFullYear()} UK Calculator Platform. Operated by Jomovate. All rights reserved.
+              &copy; {new Date().getFullYear()} UK Calculator Platform. All rights reserved.
+            </p>
+            <p className="text-xs text-slate-500 mt-1">
+              Developed by Daramola Digital Labs.
             </p>
             <p className="mt-2 text-slate-600 leading-relaxed text-xs">
               The calculators and information provided on this platform are for illustrative purposes only and do not constitute professional financial, tax, or legal advice.
