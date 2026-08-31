@@ -36,10 +36,14 @@ export function Footer() {
             </ul>
           </div>
           <div className="md:col-span-2 text-sm text-slate-700">
-            <p>
-              &copy; {new Date().getFullYear()} UK Calculator Platform. All rights reserved.
+            <div className="mb-2">
+              <p className="font-semibold text-slate-900">UK Calculator Platform</p>
+              <p className="text-xs font-medium text-slate-500">A Jomovate Digital Product</p>
+            </div>
+            <p className="text-xs text-slate-500">
+              &copy; {new Date().getFullYear()} UK Calculator Platform. Operated by Jomovate. All rights reserved.
             </p>
-            <p className="mt-2 text-slate-600 leading-relaxed">
+            <p className="mt-2 text-slate-600 leading-relaxed text-xs">
               The calculators and information provided on this platform are for illustrative purposes only and do not constitute professional financial, tax, or legal advice.
             </p>
           </div>

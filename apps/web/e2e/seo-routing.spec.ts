@@ -102,9 +102,11 @@ test.describe('Per-page metadata', () => {
 
   test('calculator pages carry valid, factual structured data', async ({ request }) => {
     const html = await (await request.get('/calculators/loan-calculator')).text();
-    const block = html.match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/)?.[1];
-    expect(block).toBeTruthy();
-    const data = JSON.parse(block!);
+    const matches = Array.from(html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g));
+    expect(matches.length).toBeGreaterThan(0);
+    const blocks = matches.map((m) => JSON.parse(m[1]));
+    const data = blocks.find((b) => b['@type'] === 'WebApplication');
+    expect(data).toBeTruthy();
     expect(data['@context']).toBe('https://schema.org');
     expect(data['@type']).toBe('WebApplication');
     expect(data.url).toContain('/calculators/loan-calculator');

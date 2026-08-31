@@ -36,6 +36,40 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 
   return (
     <html lang="en">
+      <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@graph": [
+                {
+                  "@type": "Organization",
+                  "@id": `${SITE_URL}/#organization`,
+                  name: "Jomovate",
+                  url: SITE_URL,
+                  logo: {
+                    "@type": "ImageObject",
+                    url: `${SITE_URL}/apple-icon`,
+                  },
+                },
+                {
+                  "@type": "WebSite",
+                  "@id": `${SITE_URL}/#website`,
+                  url: SITE_URL,
+                  name: SITE_NAME,
+                  description:
+                    "Free UK calculators for tax, salary, mortgages, pensions, savings and everyday sums.",
+                  inLanguage: "en-GB",
+                  publisher: {
+                    "@id": `${SITE_URL}/#organization`,
+                  },
+                },
+              ],
+            }),
+          }}
+        />
+      </head>
       <body>
         <AppShell categories={categories}>
           {children}
