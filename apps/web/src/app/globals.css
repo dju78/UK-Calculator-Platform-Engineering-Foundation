@@ -62,12 +62,23 @@ body {
     display: block !important;
   }
 
+  /* Force high contrast borders and clear dividers for printouts */
+  .border,
+  .border-b,
+  .border-t,
+  .border-slate-200,
+  .border-slate-300 {
+    border-color: #0f172a !important;
+  }
+
   /* Avoid page breaks inside cards, tables, and disclaimer banners */
   section,
   table,
   tr,
   .rounded-lg,
-  [role="alert"] {
+  .rounded-2xl,
+  [role="alert"],
+  [role="region"] {
     break-inside: avoid;
     page-break-inside: avoid;
   }
@@ -78,3 +89,4 @@ body {
     print-color-adjust: exact !important;
   }
 }
+
