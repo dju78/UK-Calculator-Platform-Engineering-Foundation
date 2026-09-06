@@ -9,3 +9,4 @@ export * from "./traffic-analytics";
 export * from "./google-search-console";
 export * from "./github-health";
 export * from "./governance-calendar";
+export * from "./gsc-indexing-snapshot";
