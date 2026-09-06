@@ -102,15 +102,38 @@ test.describe('Per-page metadata', () => {
 
   test('calculator pages carry valid, factual structured data', async ({ request }) => {
     const html = await (await request.get('/calculators/loan-calculator')).text();
-    const block = html.match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/)?.[1];
-    expect(block).toBeTruthy();
-    const data = JSON.parse(block!);
+    const matches = Array.from(html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g));
+    expect(matches.length).toBeGreaterThan(0);
+    const blocks = matches.map((m) => JSON.parse(m[1]));
+    
+    // 1. WebApplication entity with stable @id and graph linkage
+    const data = blocks.find((b) => b['@type'] === 'WebApplication');
+    expect(data).toBeTruthy();
     expect(data['@context']).toBe('https://schema.org');
     expect(data['@type']).toBe('WebApplication');
+    expect(data['@id']).toContain('/calculators/loan-calculator#webapplication');
     expect(data.url).toContain('/calculators/loan-calculator');
+    expect(data.isPartOf?.['@id']).toContain('/#website');
+    expect(data.provider?.['@id']).toContain('/#organization');
+    expect(data.brand?.['@id']).toContain('/#organization');
     // No invented ratings, prices or reviews.
     expect(data.aggregateRating).toBeUndefined();
     expect(data.review).toBeUndefined();
+
+    // 2. No duplicate anonymous Organization objects
+    const anonymousOrg = blocks.find((b) => b['@type'] === 'Organization');
+    expect(anonymousOrg).toBeUndefined();
+
+    // 3. FAQPage is absent from JSON-LD across calculator routes
+    const faqBlock = blocks.find((b) => b['@type'] === 'FAQPage');
+    expect(faqBlock).toBeUndefined();
+
+    // 4. Visible FAQ content remains present in HTML where supplied (e.g. UK Income Tax Calculator)
+    const taxHtml = await (await request.get('/calculators/uk-income-tax-calculator')).text();
+    expect(taxHtml).toContain('Common questions');
+    const taxMatches = Array.from(taxHtml.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g));
+    const taxBlocks = taxMatches.map((m) => JSON.parse(m[1]));
+    expect(taxBlocks.find((b) => b['@type'] === 'FAQPage')).toBeUndefined();
   });
 });
 

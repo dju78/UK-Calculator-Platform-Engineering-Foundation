@@ -1,4 +1,4 @@
-﻿import { describe, it } from "node:test";
+import { describe, it } from "node:test";
 import assert from "node:assert/strict";
 import fs from "node:fs";
 import path from "node:path";
@@ -323,5 +323,49 @@ describe("Professionalisation Phase 6: Codebase & Architecture File Audits", () 
     assert.strictEqual(resActions.includes("trackCopyResult"), true);
     assert.strictEqual(resActions.includes("trackShareLink"), true);
     assert.strictEqual(resActions.includes("trackPrint"), true);
+  });
+
+  it("17. Footer establishes consistent brand hierarchy: UK Calculator Platform — A Jomovate Digital Product", () => {
+    const footerContent = fs.readFileSync(path.join(rootDir, "apps/web/src/components/layout/Footer.tsx"), "utf8");
+    assert.ok(footerContent.includes("UK Calculator Platform"));
+    assert.ok(footerContent.includes("A Jomovate Digital Product"));
+    assert.ok(footerContent.includes("Developed by Daramola Digital Labs."));
+    assert.strictEqual(footerContent.includes("Operated by Jomovate"), false);
+  });
+
+  it("18. Root layout outputs Schema.org @graph connecting Organization (Jomovate) and WebSite", () => {
+    const layoutContent = fs.readFileSync(path.join(rootDir, "apps/web/src/app/layout.tsx"), "utf8");
+    assert.ok(layoutContent.includes('"@type": "Organization"') || layoutContent.includes('"Organization"'));
+    assert.ok(layoutContent.includes('name: "Jomovate"'));
+    assert.ok(layoutContent.includes('url: "https://jomovate.com"'));
+    assert.ok(layoutContent.includes('"@type": "WebSite"') || layoutContent.includes('"WebSite"'));
+    assert.ok(layoutContent.includes('publisher:'));
+  });
+
+  it("19. Calculator page links WebApplication schema to @graph entities without anonymous duplication", () => {
+    const calcPageContent = fs.readFileSync(path.join(rootDir, "apps/web/src/app/calculators/[slug]/page.tsx"), "utf8");
+    assert.strictEqual(calcPageContent.includes('"@type": "FAQPage"'), false);
+    assert.ok(calcPageContent.includes('"@type": "WebApplication"'));
+    assert.ok(calcPageContent.includes('#webapplication'));
+    assert.ok(calcPageContent.includes('isPartOf:'));
+    assert.ok(calcPageContent.includes('provider:'));
+    assert.ok(calcPageContent.includes('brand:'));
+    assert.ok(calcPageContent.includes('"@type": "BreadcrumbList"'));
+  });
+
+  it("20. CURATED_RELATED builds contextual clusters based on user journeys", () => {
+    const content = fs.readFileSync(path.join(rootDir, "apps/web/src/lib/relatedCalculators.ts"), "utf8");
+
+    // Take-Home Pay journey
+    assert.ok(content.includes('"TAX-003": ["TAX-001", "TAX-004", "PEN-001", "TAX-020"'));
+
+    // Mortgage journey
+    assert.ok(content.includes('"PRO-001": ["PRO-004", "PRO-023", "PRO-010", "PRO-002", "PRO-003"'));
+
+    // Property investment journey
+    assert.ok(content.includes('"PRO-018": ["PRO-016", "PRO-019", "PRO-028", "PRO-023"'));
+
+    // FIRE / Retirement journey
+    assert.ok(content.includes('"PEN-011": ["INV-025", "INV-026", "INV-029", "PEN-001"'));
   });
 });

@@ -85,6 +85,7 @@ export default async function CalculatorPage(props: { params: Promise<{ slug: st
           __html: JSON.stringify({
             "@context": "https://schema.org",
             "@type": "WebApplication",
+            "@id": `${absoluteUrl(calculatorPath(calc.slug))}#webapplication`,
             name: calc.name,
             url: absoluteUrl(calculatorPath(calc.slug)),
             description: seo.description,
@@ -92,7 +93,9 @@ export default async function CalculatorPage(props: { params: Promise<{ slug: st
             operatingSystem: "Any",
             isAccessibleForFree: true,
             inLanguage: "en-GB",
-            provider: { "@type": "Organization", name: "Jomovate" },
+            isPartOf: { "@id": `${SITE_URL}/#website` },
+            provider: { "@id": `${SITE_URL}/#organization` },
+            brand: { "@id": `${SITE_URL}/#organization` },
           }),
         }}
       />
@@ -127,27 +130,6 @@ export default async function CalculatorPage(props: { params: Promise<{ slug: st
           }),
         }}
       />
-
-      {/* Semantic Schema.org FAQPage Structured Data (truthfully mirrors visible on-page FAQs) */}
-      {guide?.faqs && guide.faqs.length > 0 && (
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              "@context": "https://schema.org",
-              "@type": "FAQPage",
-              mainEntity: guide.faqs.map((faq) => ({
-                "@type": "Question",
-                name: faq.question,
-                acceptedAnswer: {
-                  "@type": "Answer",
-                  text: faq.answer,
-                },
-              })),
-            }),
-          }}
-        />
-      )}
 
       <Breadcrumbs
         items={[
