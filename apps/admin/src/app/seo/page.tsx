@@ -342,6 +342,147 @@ export default async function SEOPage({
           </div>
         </div>
 
+        {/* Google Search Console — Page Indexing & Coverage (Snapshot) */}
+        <div className="bg-white rounded-lg border border-slate-200 shadow-xs p-5 space-y-4">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-100 pb-3">
+            <div>
+              <div className="flex items-center gap-2">
+                <h2 className="text-sm font-bold text-slate-900">Google Search Console — Page Indexing & Coverage</h2>
+                <StatusBadge status="In Progress" />
+              </div>
+              <p className="text-xs text-slate-500 mt-0.5">
+                Official Google Search Console indexing report snapshot (Dataset: {seo.gscIndexingSnapshot.datasetDate} • Validation Initiated: {seo.gscIndexingSnapshot.validation.startedDate}).
+              </p>
+            </div>
+            <div className="text-xs font-mono text-slate-600 bg-slate-50 px-2.5 py-1 rounded border border-slate-200">
+              Source: <span className="font-semibold text-slate-900">Search Console snapshot</span>
+            </div>
+          </div>
+
+          {/* Data Provenance & Freshness Notice */}
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 bg-blue-50/70 px-3.5 py-2.5 rounded border border-blue-200 text-xs">
+            <div className="text-blue-950 font-medium leading-relaxed">
+              <span className="font-bold">Data Provenance:</span> Observed from Google Search Console property report. Figures represent Google-reported indexing status, strictly separated from internal technical SEO verification.
+            </div>
+            <div className="text-[11px] font-mono text-blue-900 bg-white px-2 py-0.5 rounded border border-blue-200 whitespace-nowrap">
+              Updated: {seo.gscIndexingSnapshot.datasetDate}
+            </div>
+          </div>
+
+          {/* Snapshot Summary Metrics */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+            <MetricCard
+              label="Indexed Pages"
+              value={seo.gscIndexingSnapshot.indexedCount.toLocaleString()}
+              subtext="Confirmed in Google Search index"
+              statusBadge="Verified"
+              source="Search Console snapshot"
+            />
+            <MetricCard
+              label="Not Indexed"
+              value={seo.gscIndexingSnapshot.notIndexedCount.toLocaleString()}
+              subtext="Queued / Excluded by Google"
+              statusBadge="Warning"
+              source="Search Console snapshot"
+            />
+            <MetricCard
+              label="Discovered Queue"
+              value={seo.gscIndexingSnapshot.exclusionReasons[0]?.count.toLocaleString() || "260"}
+              subtext="Discovered – currently not indexed"
+              source="Search Console snapshot"
+            />
+            <MetricCard
+              label="Validation Status"
+              value="In Progress"
+              subtext={`${seo.gscIndexingSnapshot.validation.failuresCount} failures shown (Started ${seo.gscIndexingSnapshot.validation.startedDate})`}
+              statusBadge="In Progress"
+              source="Search Console snapshot"
+            />
+          </div>
+
+          {/* Exclusion Reasons Breakdown Table */}
+          <div className="border border-slate-200 rounded overflow-hidden">
+            <div className="bg-slate-50 px-3.5 py-2 border-b border-slate-200 text-xs font-bold text-slate-800 uppercase tracking-wider flex items-center justify-between">
+              <span>Google Search Console Exclusion Breakdown</span>
+              <span className="text-[11px] font-mono text-slate-500 font-normal">
+                {seo.gscIndexingSnapshot.notIndexedCount} total excluded URLs
+              </span>
+            </div>
+            <div className="overflow-x-auto table-scrollbar">
+              <table className="min-w-full divide-y divide-slate-200 text-left text-xs">
+                <thead className="bg-slate-50/50 text-slate-600 font-semibold text-[11px]">
+                  <tr>
+                    <th scope="col" className="px-3 py-2">Exclusion Reason</th>
+                    <th scope="col" className="px-3 py-2 text-right">Impacted URLs</th>
+                    <th scope="col" className="px-3 py-2 text-center">Last Crawled</th>
+                    <th scope="col" className="px-3 py-2 text-center">Status</th>
+                    <th scope="col" className="px-3 py-2">Description / Guidance</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-slate-100 bg-white">
+                  {seo.gscIndexingSnapshot.exclusionReasons.map((item, idx) => (
+                    <tr key={idx} className="hover:bg-slate-50">
+                      <td className="px-3 py-2.5 font-semibold text-slate-900">{item.reason}</td>
+                      <td className="px-3 py-2.5 text-right font-mono font-bold text-slate-900">
+                        {item.count.toLocaleString()}
+                      </td>
+                      <td className="px-3 py-2.5 text-center font-mono text-slate-500">
+                        {item.lastCrawled || "N/A"}
+                      </td>
+                      <td className="px-3 py-2.5 text-center">
+                        <span className={`inline-block px-2 py-0.5 rounded text-[11px] font-medium ${
+                          item.status === "VALIDATION_IN_PROGRESS"
+                            ? "bg-amber-50 text-amber-800 border border-amber-200"
+                            : "bg-slate-100 text-slate-700 border border-slate-200"
+                        }`}>
+                          {item.statusLabel}
+                        </span>
+                      </td>
+                      <td className="px-3 py-2.5 text-slate-600 text-xs leading-relaxed max-w-md">
+                        {item.description}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          {/* Practical Indexing Analysis & Operational Guidance */}
+          <div className="p-4 rounded-lg bg-slate-50 border border-slate-200 space-y-3 text-xs">
+            <div className="font-bold text-slate-900 text-sm flex items-center gap-1.5">
+              <span>🔍 Indexing Analysis: &ldquo;Discovered – currently not indexed&rdquo;</span>
+            </div>
+            <p className="text-slate-700 leading-relaxed">
+              {seo.gscIndexingSnapshot.analysis.discoveredNotIndexedExplanation}
+            </p>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-3 pt-1">
+              <div className="p-3 bg-white rounded border border-slate-200 space-y-1.5">
+                <div className="font-bold text-slate-900 text-[11px] uppercase tracking-wider text-emerald-800">
+                  ✓ Recommended Operational Actions
+                </div>
+                <ul className="space-y-1 text-slate-700 list-disc list-inside text-[11px] leading-relaxed">
+                  {seo.gscIndexingSnapshot.analysis.recommendedActions.map((act, i) => (
+                    <li key={i}>{act}</li>
+                  ))}
+                </ul>
+              </div>
+
+              <div className="p-3 bg-white rounded border border-slate-200 space-y-1.5">
+                <div className="font-bold text-slate-900 text-[11px] uppercase tracking-wider text-amber-800">
+                  ⚠ Safeguards & Operational Cautions
+                </div>
+                <ul className="space-y-1 text-slate-700 list-disc list-inside text-[11px] leading-relaxed">
+                  {seo.gscIndexingSnapshot.analysis.cautions.map((cau, i) => (
+                    <li key={i}>{cau}</li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
         {/* IndexNow Integration Panel */}
         <div className="bg-white rounded-lg border border-slate-200 shadow-xs p-5 space-y-4">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-100 pb-3">

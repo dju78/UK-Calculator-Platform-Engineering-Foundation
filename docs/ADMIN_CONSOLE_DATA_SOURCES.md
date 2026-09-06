@@ -41,14 +41,21 @@ This document details the telemetry, metadata, and data sources powering the UK 
 - **Metrics**: Latest workflow status (Success, Failure, In Progress), commit SHA, branch, duration, recent 10 runs.
 - **Freshness / Cache**: Cached for 60 seconds (`revalidate: 60`).
 
+### E. Google Search Console Page Indexing Snapshot (Observed Report)
+- **Purpose**: Official snapshot of Google Search indexation and crawl queue status (`https://ukcalc.jomovate.com/`).
+- **Data Provenance**: Sourced from official Google Search Console property report (Dataset date: 28 August 2026; Validation initiated: 6 September 2026).
+- **Metrics**: Indexed page count (27), Not indexed count (266), Exclusion category breakdown (260 "Discovered – currently not indexed", ~6 unconfirmed), Validation status (0 failures).
+- **Distinction**: Represents Google-observed indexation facts, strictly separated from internal repository technical SEO verification (284 sitemap routes).
+- **Freshness**: Periodic verified snapshot with explicit dataset date and validation timestamp.
+
 ---
 
-## 3. Telemetry Distinction: Total Traffic vs. Google Search
+## 3. Telemetry Distinction: Total Traffic vs. Google Search vs. Indexing Snapshot
 
-| Attribute | Cloudflare Web Analytics | Google Search Console |
-| :--- | :--- | :--- |
-| **Measurement Point** | Edge network / Browser beacon | Google Search Engine Result Pages (SERPs) |
-| **Traffic Types Included** | Direct, Organic Search, Referrals, Social | Google Organic Search only |
-| **Primary Units** | Visits & Total Page Views | Search Clicks & Search Impressions |
-| **Query Breakdown** | Not applicable (Referrer source only) | Keyword query strings and SERP ranking positions |
-| **Privacy Scope** | Aggregate visit counts without tracking cookies | Aggregated anonymized search terms |
+| Attribute | Cloudflare Web Analytics | Google Search Console API | GSC Page Indexing Snapshot |
+| :--- | :--- | :--- | :--- |
+| **Measurement Point** | Edge network / Browser beacon | Google SERPs | Google Web Search Index Database |
+| **Data Types Included** | Direct, Organic Search, Referrals, Social | Search queries, clicks, impressions | Indexed vs Excluded URL counts & crawl status |
+| **Primary Units** | Visits & Total Page Views | Search Clicks & Impressions | Indexed Pages (27) & Excluded Pages (266) |
+| **Data Provenance** | Real-time edge traffic telemetry | Google API (2-3 day latency) | Verified Search Console report snapshot |
+| **Privacy Scope** | Privacy-first aggregate visit counts | Aggregated anonymized search terms | Domain-level indexation coverage metadata |

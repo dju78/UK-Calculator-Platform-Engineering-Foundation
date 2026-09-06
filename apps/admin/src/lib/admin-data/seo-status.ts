@@ -2,6 +2,7 @@ import { existsSync, readFileSync, readdirSync } from "node:fs";
 import { join, basename, resolve } from "node:path";
 import type { CalculatorDefinition } from "@foundation/calculator-registry/src/types";
 import { calculatorRegistry } from "./calculator-registry";
+import { GscIndexingSnapshot, getGscIndexingSnapshot } from "./gsc-indexing-snapshot";
 
 function getMonorepoRootDir(): string {
   let cur = process.cwd();
@@ -55,6 +56,7 @@ export interface AdminSEOOverview {
   };
   metadataCoverage: AdminSEOCoverageAudit;
   indexNow: IndexNowIntegrationStatus;
+  gscIndexingSnapshot: GscIndexingSnapshot;
   apiIntegrations: Array<{
     service: string;
     status: "PLANNED_PHASE2" | "CONNECTED" | "NOT_CONFIGURED";
@@ -299,6 +301,7 @@ export function getAdminSEOOverview(): AdminSEOOverview {
     },
     metadataCoverage,
     indexNow,
+    gscIndexingSnapshot: getGscIndexingSnapshot(),
     apiIntegrations: [
       {
         service: "Google Search Console API",
