@@ -38,12 +38,12 @@ export function Footer() {
           <div className="md:col-span-2 text-sm text-slate-700">
             <div className="mb-2">
               <p className="font-semibold text-slate-900">UK Calculator Platform</p>
-              <p className="text-xs font-medium text-slate-500">A Jomovate Digital Product</p>
+              <p className="text-xs font-medium text-slate-600">A Jomovate Digital Product</p>
             </div>
-            <p className="text-xs text-slate-500">
+            <p className="text-xs text-slate-600">
               &copy; {new Date().getFullYear()} UK Calculator Platform. All rights reserved.
             </p>
-            <p className="text-xs text-slate-500 mt-1">
+            <p className="text-xs text-slate-600 mt-1">
               Developed by Daramola Digital Labs.
             </p>
             <p className="mt-2 text-slate-600 leading-relaxed text-xs">

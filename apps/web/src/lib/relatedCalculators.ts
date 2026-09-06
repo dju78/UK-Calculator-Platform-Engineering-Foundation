@@ -1,4 +1,4 @@
-import { liveCalculators } from "@/lib/calculators";
+import { CalculatorDefinition, liveCalculators } from "@/lib/calculators";
 import { getCategoryDetails } from "@/lib/site";
 
 export const CURATED_RELATED: Record<string, string[]> = {
@@ -61,8 +61,8 @@ export const CURATED_RELATED: Record<string, string[]> = {
   "HLT-020": ["HLT-019", "HLT-022", "HLT-023", "DAT-001"],
 };
 
-function findLiveCalculator(idOrSlug: string) {
-  return (liveCalculators as any[]).find((c: any) => c.id === idOrSlug || c.slug === idOrSlug);
+function findLiveCalculator(idOrSlug: string): CalculatorDefinition | undefined {
+  return liveCalculators.find((c) => c.id === idOrSlug || c.slug === idOrSlug);
 }
 
 /**
@@ -99,10 +99,10 @@ export function getRelatedCalculators(
     ...(CURATED_RELATED[currentCalc.slug] || [])
   ];
 
-  const curatedCalcs: typeof liveCalculators = [];
+  const curatedCalcs: CalculatorDefinition[] = [];
   for (const key of curatedKeys) {
     const found = findLiveCalculator(key);
-    if (found && found.id !== currentCalc.id && !curatedCalcs.some((c: any) => c.id === found.id)) {
+    if (found && found.id !== currentCalc.id && !curatedCalcs.some((c) => c.id === found.id)) {
       curatedCalcs.push(found);
     }
   }
@@ -112,7 +112,7 @@ export function getRelatedCalculators(
   }
 
   const results = [...curatedCalcs];
-  const seenIds = new Set([currentCalc.id, ...curatedCalcs.map((c: any) => c.id)]);
+  const seenIds = new Set([currentCalc.id, ...curatedCalcs.map((c) => c.id)]);
 
   // 1. Same Subcategory
   if (currentCalc.subcategory) {
